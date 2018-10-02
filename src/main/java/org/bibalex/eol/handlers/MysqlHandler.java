@@ -591,13 +591,16 @@ public class MysqlHandler {
         return UUID.randomUUID();
     }
 
-    public ArrayList<MysqlRank> getRanks(Date startDate){
+    public ArrayList<MysqlRank> getRanks(Date startDate, Date endDate){
 
         StoredProcedureQuery getRanks = entityManager
                 .createStoredProcedureQuery("getRanks")
                 .registerStoredProcedureParameter(
-                        "created_at_p", Date.class, ParameterMode.IN);
-        getRanks.setParameter("created_at_p", startDate);
+                        "start_date", Date.class, ParameterMode.IN)
+                .registerStoredProcedureParameter(
+                        "end_date", Date.class, ParameterMode.IN);
+        getRanks.setParameter("start_date", startDate);
+        getRanks.setParameter("end_date", endDate);
 
         List<Object[]> res = getRanks.getResultList();
         Iterator it = res.iterator();
@@ -612,13 +615,16 @@ public class MysqlHandler {
 
     }
 
-    public ArrayList<MysqlNode> getNodes(Date startDate) {
+    public ArrayList<MysqlNode> getNodes(Date startDate, Date endDate) {
 
         StoredProcedureQuery getNodes = entityManager
                 .createStoredProcedureQuery("getNodes")
                 .registerStoredProcedureParameter(
-                        "created_at_p", Date.class, ParameterMode.IN);
-        getNodes.setParameter("created_at_p", startDate);
+                        "start_date", Date.class, ParameterMode.IN)
+                .registerStoredProcedureParameter(
+                        "end_date", Date.class, ParameterMode.IN);
+        getNodes.setParameter("start_date", startDate);
+        getNodes.setParameter("end_date", endDate);
 
         List<Object[]> res = getNodes.getResultList();
         Iterator it = res.iterator();
@@ -632,13 +638,16 @@ public class MysqlHandler {
         return nodes;
     }
 
-    public ArrayList<MysqlPage> getPages(Date startDate){
+    public ArrayList<MysqlPage> getPages(Date startDate, Date endDate){
 
         StoredProcedureQuery getPages = entityManager
                 .createStoredProcedureQuery("getPages")
                 .registerStoredProcedureParameter(
-                        "created_at_p", Date.class, ParameterMode.IN);
-        getPages.setParameter("created_at_p", startDate);
+                        "start_date", Date.class, ParameterMode.IN)
+                .registerStoredProcedureParameter(
+                        "end_date", Date.class, ParameterMode.IN);
+        getPages.setParameter("start_date", startDate);
+        getPages.setParameter("end_date", endDate);
 
         List<Object[]> res = getPages.getResultList();
         Iterator it = res.iterator();
@@ -652,13 +661,16 @@ public class MysqlHandler {
         return pages;
     }
 
-    public ArrayList<MysqlPagesNode> getPagesNodes(Date startDate){
+    public ArrayList<MysqlPagesNode> getPagesNodes(Date startDate, Date endDate){
 
         StoredProcedureQuery getPagesNodes = entityManager
                 .createStoredProcedureQuery("getPagesNodes")
                 .registerStoredProcedureParameter(
-                        "created_at_p", Date.class, ParameterMode.IN);
-        getPagesNodes.setParameter("created_at_p", startDate);
+                        "start_date", Date.class, ParameterMode.IN)
+                .registerStoredProcedureParameter(
+                        "end_date", Date.class, ParameterMode.IN);
+        getPagesNodes.setParameter("start_date", startDate);
+        getPagesNodes.setParameter("end_date", endDate);
 
         List<Object[]> res = getPagesNodes.getResultList();
         Iterator it = res.iterator();
@@ -672,13 +684,16 @@ public class MysqlHandler {
         return pages_nodes;
     }
 
-    public ArrayList<MysqlScientificName> getScientificNames(Date startDate){
+    public ArrayList<MysqlScientificName> getScientificNames(Date startDate, Date endDate){
 
         StoredProcedureQuery getScientificNames = entityManager
                 .createStoredProcedureQuery("getScientificNames")
                 .registerStoredProcedureParameter(
-                        "created_at_p", Date.class, ParameterMode.IN);
-        getScientificNames.setParameter("created_at_p", startDate);
+                        "start_date", Date.class, ParameterMode.IN)
+                .registerStoredProcedureParameter(
+                        "end_date", Date.class, ParameterMode.IN);
+        getScientificNames.setParameter("start_date", startDate);
+        getScientificNames.setParameter("end_date", endDate);
 
         List<Object[]> res = getScientificNames.getResultList();
         Iterator it = res.iterator();
@@ -692,13 +707,16 @@ public class MysqlHandler {
         return scientific_names;
     }
 
-    public ArrayList<MysqlLanguage> getLanguages (Date startDate){
+    public ArrayList<MysqlLanguage> getLanguages (Date startDate, Date endDate){
 
         StoredProcedureQuery getLanguages = entityManager
                 .createStoredProcedureQuery("getLanguages")
                 .registerStoredProcedureParameter(
-                        "created_at_p", Date.class, ParameterMode.IN);
-        getLanguages.setParameter("created_at_p", startDate);
+                        "start_date", Date.class, ParameterMode.IN)
+                .registerStoredProcedureParameter(
+                        "end_date", Date.class, ParameterMode.IN);
+        getLanguages.setParameter("start_date", startDate);
+        getLanguages.setParameter("end_date", endDate);
 
         List<Object[]> res = getLanguages.getResultList();
         Iterator it = res.iterator();
@@ -712,13 +730,16 @@ public class MysqlHandler {
         return languages;
     }
 
-    public ArrayList<MysqlVernacular> getVernaculars(Date startDate){
+    public ArrayList<MysqlVernacular> getVernaculars(Date startDate, Date endDate){
 
         StoredProcedureQuery getVernaculars = entityManager
                 .createStoredProcedureQuery("getVernaculars")
                 .registerStoredProcedureParameter(
-                        "created_at_p", Date.class, ParameterMode.IN);
-        getVernaculars.setParameter("created_at_p", startDate);
+                        "start_date", Date.class, ParameterMode.IN)
+                .registerStoredProcedureParameter(
+                        "end_date", Date.class, ParameterMode.IN);
+        getVernaculars.setParameter("start_date", startDate);
+        getVernaculars.setParameter("end_date", endDate);
 
         List<Object[]> res = getVernaculars.getResultList();
         Iterator it = res.iterator();
@@ -732,13 +753,16 @@ public class MysqlHandler {
         return vernaculars;
     }
 
-    public ArrayList<MysqlLicense> getLicenses(Date startDate){
+    public ArrayList<MysqlLicense> getLicenses(Date startDate, Date endDate){
 
         StoredProcedureQuery getLicenses = entityManager
                 .createStoredProcedureQuery("getLicenses")
                 .registerStoredProcedureParameter(
-                        "created_at_p", Date.class, ParameterMode.IN);
-        getLicenses.setParameter("created_at_p", startDate);
+                        "start_date", Date.class, ParameterMode.IN)
+                .registerStoredProcedureParameter(
+                        "end_date", Date.class, ParameterMode.IN);
+        getLicenses.setParameter("start_date", startDate);
+        getLicenses.setParameter("end_date", endDate);
 
         List<Object[]> res = getLicenses.getResultList();
         Iterator it = res.iterator();
@@ -752,13 +776,16 @@ public class MysqlHandler {
         return licenses;
     }
 
-    public ArrayList<MysqlLocation> getLocations(Date startDate){
+    public ArrayList<MysqlLocation> getLocations(Date startDate, Date endDate){
 
         StoredProcedureQuery getLocations = entityManager
                 .createStoredProcedureQuery("getLocations")
                 .registerStoredProcedureParameter(
-                        "created_at_p", Date.class, ParameterMode.IN);
-        getLocations.setParameter("created_at_p", startDate);
+                        "start_date", Date.class, ParameterMode.IN)
+                .registerStoredProcedureParameter(
+                        "end_date", Date.class, ParameterMode.IN);
+        getLocations.setParameter("start_date", startDate);
+        getLocations.setParameter("end_date", endDate);
 
         List<Object[]> res = getLocations.getResultList();
         Iterator it = res.iterator();
@@ -772,13 +799,16 @@ public class MysqlHandler {
         return locations;
     }
 
-    public ArrayList<MysqlMedium> getMedia(Date startDate){
+    public ArrayList<MysqlMedium> getMedia(Date startDate, Date endDate){
 
         StoredProcedureQuery getMedia = entityManager
                 .createStoredProcedureQuery("getMedia")
                 .registerStoredProcedureParameter(
-                        "created_at_p", Date.class, ParameterMode.IN);
-        getMedia.setParameter("created_at_p", startDate);
+                        "start_date", Date.class, ParameterMode.IN)
+                .registerStoredProcedureParameter(
+                        "end_date", Date.class, ParameterMode.IN);
+        getMedia.setParameter("start_date", startDate);
+        getMedia.setParameter("end_date", endDate);
 
         List<Object[]> res = getMedia.getResultList();
         Iterator it = res.iterator();
@@ -794,13 +824,16 @@ public class MysqlHandler {
         return media;
     }
 
-    public ArrayList<MysqlPageContent> getPageContents(Date startDate){
+    public ArrayList<MysqlPageContent> getPageContents(Date startDate, Date endDate){
 
         StoredProcedureQuery getPageContents = entityManager
                 .createStoredProcedureQuery("getPageContents")
                 .registerStoredProcedureParameter(
-                        "created_at_p", Date.class, ParameterMode.IN);
-        getPageContents.setParameter("created_at_p", startDate);
+                        "start_date", Date.class, ParameterMode.IN)
+                .registerStoredProcedureParameter(
+                        "end_date", Date.class, ParameterMode.IN);
+        getPageContents.setParameter("start_date", startDate);
+        getPageContents.setParameter("end_date", endDate);
 
         List<Object[]> res = getPageContents.getResultList();
         Iterator it = res.iterator();
@@ -815,13 +848,16 @@ public class MysqlHandler {
         return page_contents;
     }
 
-    public ArrayList<MysqlAgent> getAgents(Date startDate){
+    public ArrayList<MysqlAgent> getAgents(Date startDate, Date endDate){
 
         StoredProcedureQuery getAgents = entityManager
                 .createStoredProcedureQuery("getAgents")
                 .registerStoredProcedureParameter(
-                        "created_at_p", Date.class, ParameterMode.IN);
-        getAgents.setParameter("created_at_p", startDate);
+                        "start_date", Date.class, ParameterMode.IN)
+                .registerStoredProcedureParameter(
+                        "end_date", Date.class, ParameterMode.IN);
+        getAgents.setParameter("start_date", startDate);
+        getAgents.setParameter("end_date", endDate);
 
         List<Object[]> res = getAgents.getResultList();
         Iterator it = res.iterator();
@@ -835,13 +871,16 @@ public class MysqlHandler {
         return agents;
     }
 
-    public ArrayList<MysqlReferent> getReferents(Date startDate){
+    public ArrayList<MysqlReferent> getReferents(Date startDate, Date endDate){
 
         StoredProcedureQuery getReferents = entityManager
                 .createStoredProcedureQuery("getReferents")
                 .registerStoredProcedureParameter(
-                        "created_at_p", Date.class, ParameterMode.IN);
-        getReferents.setParameter("created_at_p", startDate);
+                        "start_date", Date.class, ParameterMode.IN)
+                .registerStoredProcedureParameter(
+                        "end_date", Date.class, ParameterMode.IN);
+        getReferents.setParameter("start_date", startDate);
+        getReferents.setParameter("end_date", endDate);
 
         List<Object[]> res = getReferents.getResultList();
         Iterator it = res.iterator();
@@ -856,13 +895,16 @@ public class MysqlHandler {
         return referents;
     }
 
-    public ArrayList<MysqlReference> getReferences(Date startDate){
+    public ArrayList<MysqlReference> getReferences(Date startDate, Date endDate){
 
         StoredProcedureQuery getReferences = entityManager
                 .createStoredProcedureQuery("getReferences")
                 .registerStoredProcedureParameter(
-                        "created_at_p", Date.class, ParameterMode.IN);
-        getReferences.setParameter("created_at_p", startDate);
+                        "start_date", Date.class, ParameterMode.IN)
+                .registerStoredProcedureParameter(
+                        "end_date", Date.class, ParameterMode.IN);
+        getReferences.setParameter("start_date", startDate);
+        getReferences.setParameter("end_date", endDate);
 
         List<Object[]> res = getReferences.getResultList();
         Iterator it = res.iterator();
@@ -876,4 +918,22 @@ public class MysqlHandler {
         return references;
     }
 
+    public Date getEndTime() {
+        StoredProcedureQuery getEndTime = entityManager
+                .createStoredProcedureQuery("getEndTime")
+                .registerStoredProcedureParameter(
+                        "end_time", Date.class, ParameterMode.OUT);
+
+        getEndTime.execute();
+        return (Date) getEndTime.getOutputParameterValue("end_time");
+    }
+
+    public void updateHarvestTime() {
+        StoredProcedureQuery updateHarvestTime = entityManager
+                .createStoredProcedureQuery("updateHarvestTime")
+                .registerStoredProcedureParameter(
+                        "harvest_time", Date.class, ParameterMode.IN);
+        updateHarvestTime.setParameter("harvest_time", new Date());
+        updateHarvestTime.execute();
+    }
 }

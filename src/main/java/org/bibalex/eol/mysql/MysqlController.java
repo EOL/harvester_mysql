@@ -29,23 +29,31 @@ public class MysqlController {
         return mysqlService.addEntry(nodeRecord);
     }
 
-    @RequestMapping(value ="/getLatestUpdates/{startDate}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<MysqlData> getLatestUpdates(@PathVariable("startDate") String startDate){
-        long yourmilliseconds = Long.valueOf(startDate);
+    @RequestMapping(value ="/getLatestUpdates/{startDate}/{endDate}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<MysqlData> getLatestUpdates(@PathVariable("startDate") String startDate, @PathVariable("endDate") String endDate){
+        long startMilliSeconds = Long.valueOf(startDate);
+        long endMilliSeconds = Long.valueOf(endDate);
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        Date resultdate = new Date(yourmilliseconds);
-        Date start =null;
+        Date resultStartDate = new Date(startMilliSeconds);
+        Date resultEndDate = new Date(endMilliSeconds);
+        Date start =null, end=null;
         try {
-            start = sdf.parse(sdf.format(resultdate));
+            start = sdf.parse(sdf.format(resultStartDate));
+            end = sdf.parse(sdf.format(resultEndDate));
+            System.out.println(end);
         } catch (java.text.ParseException e) {
             e.printStackTrace();
         }
 
-        MysqlData mysqlData = mysqlService.getLatestUpdates(start);
+        MysqlData mysqlData = mysqlService.getLatestUpdates(start, end);
         List<MysqlData> data = new ArrayList<>();
         data.add(mysqlData);
 
         return new ResponseEntity<MysqlData>(mysqlData, HttpStatus.OK);
+    }
 
+    @RequestMapping(value ="/getEndTime", method = RequestMethod.GET)
+    public Date getEndTime(){
+        return mysqlService.getEndTime();
     }
 }

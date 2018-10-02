@@ -40,6 +40,7 @@ public class MysqlService {
                     mysqlHandler.insertMediaToMysql(nodeRecord);
 
             }
+            mysqlHandler.updateHarvestTime();
             return true;
         }catch(Exception e){
             e.printStackTrace();
@@ -47,25 +48,31 @@ public class MysqlService {
         }
     }
 
-    public MysqlData getLatestUpdates(Date startDate) {
+    public MysqlData getLatestUpdates(Date startDate, Date endDate) {
         MysqlHandler mysqlHandler = new MysqlHandler(entityManager);
 
         MysqlData mysqlData = new MysqlData();
-        mysqlData.setRanks(mysqlHandler.getRanks(startDate));
-        mysqlData.setNodes(mysqlHandler.getNodes(startDate));
-        mysqlData.setPages(mysqlHandler.getPages(startDate));
-        mysqlData.setPages_nodes(mysqlHandler.getPagesNodes(startDate));
-        mysqlData.setScientific_names(mysqlHandler.getScientificNames(startDate));
-        mysqlData.setLanguages(mysqlHandler.getLanguages(startDate));
-        mysqlData.setVernaculars(mysqlHandler.getVernaculars(startDate));
-        mysqlData.setLicenses(mysqlHandler.getLicenses(startDate));
-        mysqlData.setLocations(mysqlHandler.getLocations(startDate));
-        mysqlData.setMedia(mysqlHandler.getMedia(startDate));
-        mysqlData.setPage_contents(mysqlHandler.getPageContents(startDate));
-        mysqlData.setAttributions(mysqlHandler.getAgents(startDate));
-        mysqlData.setReferents(mysqlHandler.getReferents(startDate));
-        mysqlData.setReferences(mysqlHandler.getReferences(startDate));
+        mysqlData.setRanks(mysqlHandler.getRanks(startDate, endDate));
+        mysqlData.setNodes(mysqlHandler.getNodes(startDate, endDate));
+        mysqlData.setPages(mysqlHandler.getPages(startDate, endDate));
+        mysqlData.setPages_nodes(mysqlHandler.getPagesNodes(startDate, endDate));
+        mysqlData.setScientific_names(mysqlHandler.getScientificNames(startDate, endDate));
+        mysqlData.setLanguages(mysqlHandler.getLanguages(startDate, endDate));
+        mysqlData.setVernaculars(mysqlHandler.getVernaculars(startDate, endDate));
+        mysqlData.setLicenses(mysqlHandler.getLicenses(startDate, endDate));
+        mysqlData.setLocations(mysqlHandler.getLocations(startDate, endDate));
+        mysqlData.setMedia(mysqlHandler.getMedia(startDate, endDate));
+        mysqlData.setPage_contents(mysqlHandler.getPageContents(startDate, endDate));
+        mysqlData.setAttributions(mysqlHandler.getAgents(startDate, endDate));
+        mysqlData.setReferents(mysqlHandler.getReferents(startDate, endDate));
+        mysqlData.setReferences(mysqlHandler.getReferences(startDate, endDate));
 
         return mysqlData;
+    }
+
+    public Date getEndTime(){
+        MysqlHandler mysqlHandler = new MysqlHandler(entityManager);
+        Date endTime = mysqlHandler.getEndTime();
+        return endTime;
     }
 }
