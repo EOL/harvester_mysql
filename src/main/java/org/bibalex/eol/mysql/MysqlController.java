@@ -29,6 +29,11 @@ public class MysqlController {
         return mysqlService.addEntry(nodeRecord);
     }
 
+    @RequestMapping(value= "/loadFilesToMysql", method = RequestMethod.POST)
+    public boolean loadFilesToMysql(){
+        return mysqlService.loadFilesToMysql();
+    }
+
     @RequestMapping(value ="/getLatestUpdates/{startDate}/{endDate}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<MysqlData> getLatestUpdates(@PathVariable("startDate") String startDate, @PathVariable("endDate") String endDate){
         long startMilliSeconds = Long.valueOf(startDate);
