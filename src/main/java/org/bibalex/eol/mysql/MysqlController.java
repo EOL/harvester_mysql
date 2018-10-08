@@ -24,9 +24,9 @@ public class MysqlController {
     @Autowired
     private MysqlService mysqlService;
 
-    @RequestMapping(value= "/addEntry", method = RequestMethod.POST, consumes = "application/json")
-    public boolean addEntry(@RequestBody NodeRecord nodeRecord){
-        return mysqlService.addEntry(nodeRecord);
+    @RequestMapping(value= "/addEntries", method = RequestMethod.POST, consumes = "application/json")
+    public boolean addEntries(@RequestBody NodeRecord [] nodeRecords){
+        return mysqlService.addEntries(nodeRecords);
     }
 
     @RequestMapping(value= "/loadFilesToMysql", method = RequestMethod.POST)

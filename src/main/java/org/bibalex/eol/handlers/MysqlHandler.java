@@ -19,12 +19,12 @@ public class MysqlHandler {
 
     private EntityManager entityManager;
 
-    public MysqlHandler(EntityManager entityManager){
-        this.entityManager=entityManager;
+    public MysqlHandler(EntityManager entityManager) {
+        this.entityManager = entityManager;
     }
 
 
-    public ArrayList<MysqlRank> getRanks(Date startDate, Date endDate){
+    public ArrayList<MysqlRank> getRanks(Date startDate, Date endDate) {
 
         StoredProcedureQuery getRanks = entityManager
                 .createStoredProcedureQuery("getRanks")
@@ -62,16 +62,16 @@ public class MysqlHandler {
         List<Object[]> res = getNodes.getResultList();
         Iterator it = res.iterator();
         ArrayList<MysqlNode> nodes = new ArrayList<>();
-        while(it.hasNext()) {
+        while (it.hasNext()) {
             Object[] line = (Object[]) it.next();
-            MysqlNode node= new MysqlNode((BigInteger)line[0], (Integer) line[1], (String)line[2], (String)line[3], (Integer)line[4], (String)line[5], (Integer)line[6], (BigInteger)line[7]);
+            MysqlNode node = new MysqlNode((BigInteger) line[0], (Integer) line[1], (String) line[2], (String) line[3], (Integer) line[4], (String) line[5], (Integer) line[6], (BigInteger) line[7]);
             nodes.add(node);
         }
 
         return nodes;
     }
 
-    public ArrayList<MysqlPage> getPages(Date startDate, Date endDate){
+    public ArrayList<MysqlPage> getPages(Date startDate, Date endDate) {
 
         StoredProcedureQuery getPages = entityManager
                 .createStoredProcedureQuery("getPages")
@@ -85,16 +85,16 @@ public class MysqlHandler {
         List<Object[]> res = getPages.getResultList();
         Iterator it = res.iterator();
         ArrayList<MysqlPage> pages = new ArrayList<>();
-        while(it.hasNext()) {
+        while (it.hasNext()) {
             Object[] line = (Object[]) it.next();
-            MysqlPage page= new MysqlPage((Integer) line[0], (Integer)line[1], (BigInteger)line[2]);
+            MysqlPage page = new MysqlPage((Integer) line[0], (Integer) line[1], (BigInteger) line[2]);
             pages.add(page);
         }
 
         return pages;
     }
 
-    public ArrayList<MysqlPagesNode> getPagesNodes(Date startDate, Date endDate){
+    public ArrayList<MysqlPagesNode> getPagesNodes(Date startDate, Date endDate) {
 
         StoredProcedureQuery getPagesNodes = entityManager
                 .createStoredProcedureQuery("getPagesNodes")
@@ -108,16 +108,16 @@ public class MysqlHandler {
         List<Object[]> res = getPagesNodes.getResultList();
         Iterator it = res.iterator();
         ArrayList<MysqlPagesNode> pages_nodes = new ArrayList<>();
-        while(it.hasNext()) {
+        while (it.hasNext()) {
             Object[] line = (Object[]) it.next();
-            MysqlPagesNode pages_node= new MysqlPagesNode((BigInteger) line[0], (BigInteger)line[1], (BigInteger)line[2], (Boolean)line[3]);
+            MysqlPagesNode pages_node = new MysqlPagesNode((BigInteger) line[0], (BigInteger) line[1], (BigInteger) line[2], (Boolean) line[3]);
             pages_nodes.add(pages_node);
         }
 
         return pages_nodes;
     }
 
-    public ArrayList<MysqlScientificName> getScientificNames(Date startDate, Date endDate){
+    public ArrayList<MysqlScientificName> getScientificNames(Date startDate, Date endDate) {
 
         StoredProcedureQuery getScientificNames = entityManager
                 .createStoredProcedureQuery("getScientificNames")
@@ -131,16 +131,16 @@ public class MysqlHandler {
         List<Object[]> res = getScientificNames.getResultList();
         Iterator it = res.iterator();
         ArrayList<MysqlScientificName> scientific_names = new ArrayList<>();
-        while(it.hasNext()) {
+        while (it.hasNext()) {
             Object[] line = (Object[]) it.next();
-            MysqlScientificName scientific_name= new MysqlScientificName((BigInteger) line[0], (Integer)line[1], (String)line[2], (String)line[3], (String) line[4], (Integer) line[5], (Boolean)line[6], (BigInteger)line[7], (BigInteger)line[8], (BigInteger)line[9]);
+            MysqlScientificName scientific_name = new MysqlScientificName((BigInteger) line[0], (Integer) line[1], (String) line[2], (String) line[3], (String) line[4], (Integer) line[5], (Boolean) line[6], (BigInteger) line[7], (BigInteger) line[8], (BigInteger) line[9]);
             scientific_names.add(scientific_name);
         }
 
         return scientific_names;
     }
 
-    public ArrayList<MysqlLanguage> getLanguages (Date startDate, Date endDate){
+    public ArrayList<MysqlLanguage> getLanguages(Date startDate, Date endDate) {
 
         StoredProcedureQuery getLanguages = entityManager
                 .createStoredProcedureQuery("getLanguages")
@@ -154,16 +154,16 @@ public class MysqlHandler {
         List<Object[]> res = getLanguages.getResultList();
         Iterator it = res.iterator();
         ArrayList<MysqlLanguage> languages = new ArrayList<>();
-        while(it.hasNext()) {
+        while (it.hasNext()) {
             Object[] line = (Object[]) it.next();
-            MysqlLanguage language= new MysqlLanguage((BigInteger) line[0], (String) line[1], (String) line[2]);
+            MysqlLanguage language = new MysqlLanguage((BigInteger) line[0], (String) line[1], (String) line[2]);
             languages.add(language);
         }
 
         return languages;
     }
 
-    public ArrayList<MysqlVernacular> getVernaculars(Date startDate, Date endDate){
+    public ArrayList<MysqlVernacular> getVernaculars(Date startDate, Date endDate) {
 
         StoredProcedureQuery getVernaculars = entityManager
                 .createStoredProcedureQuery("getVernaculars")
@@ -177,16 +177,16 @@ public class MysqlHandler {
         List<Object[]> res = getVernaculars.getResultList();
         Iterator it = res.iterator();
         ArrayList<MysqlVernacular> vernaculars = new ArrayList<>();
-        while(it.hasNext()) {
+        while (it.hasNext()) {
             Object[] line = (Object[]) it.next();
-            MysqlVernacular vernacular= new MysqlVernacular((BigInteger) line[0], (String) line[1], (Integer)line[2], (Boolean) line[3], (Integer) line[4], (BigInteger)line[5], (BigInteger)line[6], (BigInteger)line[7]);
+            MysqlVernacular vernacular = new MysqlVernacular((BigInteger) line[0], (String) line[1], (Integer) line[2], (Boolean) line[3], (Integer) line[4], (BigInteger) line[5], (BigInteger) line[6], (BigInteger) line[7]);
             vernaculars.add(vernacular);
         }
 
         return vernaculars;
     }
 
-    public ArrayList<MysqlLicense> getLicenses(Date startDate, Date endDate){
+    public ArrayList<MysqlLicense> getLicenses(Date startDate, Date endDate) {
 
         StoredProcedureQuery getLicenses = entityManager
                 .createStoredProcedureQuery("getLicenses")
@@ -200,16 +200,16 @@ public class MysqlHandler {
         List<Object[]> res = getLicenses.getResultList();
         Iterator it = res.iterator();
         ArrayList<MysqlLicense> licenses = new ArrayList<>();
-        while(it.hasNext()) {
+        while (it.hasNext()) {
             Object[] line = (Object[]) it.next();
-            MysqlLicense license= new MysqlLicense((BigInteger) line[0], (String) line[1], (String) line[2]);
+            MysqlLicense license = new MysqlLicense((BigInteger) line[0], (String) line[1], (String) line[2]);
             licenses.add(license);
         }
 
         return licenses;
     }
 
-    public ArrayList<MysqlLocation> getLocations(Date startDate, Date endDate){
+    public ArrayList<MysqlLocation> getLocations(Date startDate, Date endDate) {
 
         StoredProcedureQuery getLocations = entityManager
                 .createStoredProcedureQuery("getLocations")
@@ -223,16 +223,16 @@ public class MysqlHandler {
         List<Object[]> res = getLocations.getResultList();
         Iterator it = res.iterator();
         ArrayList<MysqlLocation> locations = new ArrayList<>();
-        while(it.hasNext()) {
+        while (it.hasNext()) {
             Object[] line = (Object[]) it.next();
-            MysqlLocation location= new MysqlLocation((BigInteger) line[0], (Integer) line[1], (String) line[2], (float) line[3], (float) line[4], (float) line[5], (String) line[6]);
+            MysqlLocation location = new MysqlLocation((BigInteger) line[0], (Integer) line[1], (String) line[2], (float) line[3], (float) line[4], (float) line[5], (String) line[6]);
             locations.add(location);
         }
 
         return locations;
     }
 
-    public ArrayList<MysqlMedium> getMedia(Date startDate, Date endDate){
+    public ArrayList<MysqlMedium> getMedia(Date startDate, Date endDate) {
 
         StoredProcedureQuery getMedia = entityManager
                 .createStoredProcedureQuery("getMedia")
@@ -246,18 +246,18 @@ public class MysqlHandler {
         List<Object[]> res = getMedia.getResultList();
         Iterator it = res.iterator();
         ArrayList<MysqlMedium> media = new ArrayList<>();
-        while(it.hasNext()) {
+        while (it.hasNext()) {
             Object[] line = (Object[]) it.next();
-            MysqlMedium location= new MysqlMedium((BigInteger) line[0], (Integer) line[1], (String) line[2], (String) line[3], (Integer) line[4], (String) line[5], (String) line[6], (String) line[7], (String) line[8],
-            (Integer)line[9], (Integer)line[10], (String)line[11], (String)line[12], (String)line[13], (BigInteger)line[14],
-                    (BigInteger)line[15], (BigInteger)line[16], (BigInteger)line[17]);
+            MysqlMedium location = new MysqlMedium((BigInteger) line[0], (Integer) line[1], (String) line[2], (String) line[3], (Integer) line[4], (String) line[5], (String) line[6], (String) line[7], (String) line[8],
+                    (Integer) line[9], (Integer) line[10], (String) line[11], (String) line[12], (String) line[13], (BigInteger) line[14],
+                    (BigInteger) line[15], (BigInteger) line[16], (BigInteger) line[17]);
             media.add(location);
         }
 
         return media;
     }
 
-    public ArrayList<MysqlPageContent> getPageContents(Date startDate, Date endDate){
+    public ArrayList<MysqlPageContent> getPageContents(Date startDate, Date endDate) {
 
         StoredProcedureQuery getPageContents = entityManager
                 .createStoredProcedureQuery("getPageContents")
@@ -271,17 +271,17 @@ public class MysqlHandler {
         List<Object[]> res = getPageContents.getResultList();
         Iterator it = res.iterator();
         ArrayList<MysqlPageContent> page_contents = new ArrayList<>();
-        while(it.hasNext()) {
+        while (it.hasNext()) {
             Object[] line = (Object[]) it.next();
-            MysqlPageContent page_content= new MysqlPageContent((BigInteger) line[0], (Integer) line[1], (String) line[2], (Integer) line[3], (Integer) line[4], (Boolean) line[5], (Boolean) line[6],
-                    (Boolean) line[7], (Boolean)line[8], (BigInteger)line[9], (Integer)line[10]);
+            MysqlPageContent page_content = new MysqlPageContent((BigInteger) line[0], (Integer) line[1], (String) line[2], (Integer) line[3], (Integer) line[4], (Boolean) line[5], (Boolean) line[6],
+                    (Boolean) line[7], (Boolean) line[8], (BigInteger) line[9], (Integer) line[10]);
             page_contents.add(page_content);
         }
 
         return page_contents;
     }
 
-    public ArrayList<MysqlAgent> getAgents(Date startDate, Date endDate){
+    public ArrayList<MysqlAgent> getAgents(Date startDate, Date endDate) {
 
         StoredProcedureQuery getAgents = entityManager
                 .createStoredProcedureQuery("getAgents")
@@ -295,16 +295,16 @@ public class MysqlHandler {
         List<Object[]> res = getAgents.getResultList();
         Iterator it = res.iterator();
         ArrayList<MysqlAgent> agents = new ArrayList<>();
-        while(it.hasNext()) {
+        while (it.hasNext()) {
             Object[] line = (Object[]) it.next();
-            MysqlAgent agent= new MysqlAgent((BigInteger) line[0], (Integer) line[1], (String) line[2], (String) line[3], (String) line[4], (String) line[5], (Integer) line[6], (String) line[7], (String) line[8]);
+            MysqlAgent agent = new MysqlAgent((BigInteger) line[0], (Integer) line[1], (String) line[2], (String) line[3], (String) line[4], (String) line[5], (Integer) line[6], (String) line[7], (String) line[8]);
             agents.add(agent);
         }
 
         return agents;
     }
 
-    public ArrayList<MysqlReferent> getReferents(Date startDate, Date endDate){
+    public ArrayList<MysqlReferent> getReferents(Date startDate, Date endDate) {
 
         StoredProcedureQuery getReferents = entityManager
                 .createStoredProcedureQuery("getReferents")
@@ -318,17 +318,17 @@ public class MysqlHandler {
         List<Object[]> res = getReferents.getResultList();
         Iterator it = res.iterator();
         ArrayList<MysqlReferent> referents = new ArrayList<>();
-        while(it.hasNext()) {
+        while (it.hasNext()) {
             Object[] line = (Object[]) it.next();
-            MysqlReferent referent= new MysqlReferent((BigInteger) line[0], (String) line[1], (String) line[2], (Integer) line[3], (Integer) line[4], (Integer) line[5], (String) line[6], (String) line[7], (String) line[8],
-                    (String) line[9], (String) line[10], (Date)line[11], (String)line[12], (String)line[13], (Integer)line[14], (String) line[15]);
+            MysqlReferent referent = new MysqlReferent((BigInteger) line[0], (String) line[1], (String) line[2], (Integer) line[3], (Integer) line[4], (Integer) line[5], (String) line[6], (String) line[7], (String) line[8],
+                    (String) line[9], (String) line[10], (Date) line[11], (String) line[12], (String) line[13], (Integer) line[14], (String) line[15]);
             referents.add(referent);
         }
 
         return referents;
     }
 
-    public ArrayList<MysqlReference> getReferences(Date startDate, Date endDate){
+    public ArrayList<MysqlReference> getReferences(Date startDate, Date endDate) {
 
         StoredProcedureQuery getReferences = entityManager
                 .createStoredProcedureQuery("getReferences")
@@ -342,9 +342,9 @@ public class MysqlHandler {
         List<Object[]> res = getReferences.getResultList();
         Iterator it = res.iterator();
         ArrayList<MysqlReference> references = new ArrayList<>();
-        while(it.hasNext()) {
+        while (it.hasNext()) {
             Object[] line = (Object[]) it.next();
-            MysqlReference reference= new MysqlReference((BigInteger) line[0], (Integer) line[1], (String) line[2], (Integer) line[3], (Integer) line[4]);
+            MysqlReference reference = new MysqlReference((BigInteger) line[0], (Integer) line[1], (String) line[2], (Integer) line[3], (Integer) line[4]);
             references.add(reference);
         }
 
@@ -371,235 +371,288 @@ public class MysqlHandler {
     }
 
     public void loadRanks() {
-        entityManager.joinTransaction();
-        Query query = entityManager.createNativeQuery("LOAD DATA INFILE '" + PropertiesHandler.getProperty("mysqlFiles")+"ranks.txt" +
-                "' ignore into table ranks FIELDS TERMINATED BY '\t' LINES TERMINATED BY '\n'" +
-                "(name,created_at,updated_at);");
-        query.executeUpdate();
-        PrintWriter writer = null;
+        System.out.println("load ranks");
         try {
-            writer = new PrintWriter(PropertiesHandler.getProperty("mysqlFiles")+"ranks.txt");
+            entityManager.joinTransaction();
+            Query query = entityManager.createNativeQuery("LOAD DATA INFILE '" + PropertiesHandler.getProperty("mysqlFiles") + "ranks.txt" +
+                    "' ignore into table ranks FIELDS TERMINATED BY '\t' LINES TERMINATED BY '\n'" +
+                    "(name,created_at,updated_at);");
+            query.executeUpdate();
+            PrintWriter writer = null;
+            writer = new PrintWriter(PropertiesHandler.getProperty("mysqlFiles") + "ranks.txt");
             writer.print("");
             writer.close();
         } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
     }
 
     public void loadNodes() {
-        entityManager.joinTransaction();
-        Query query = entityManager.createNativeQuery("LOAD DATA INFILE '" + PropertiesHandler.getProperty("mysqlFiles")+"nodes.txt" +
-                "'ignore into table nodes FIELDS TERMINATED BY '\t' LINES TERMINATED BY '\n'" +
-                "(resource_id,scientific_name,canonical_form,generated_node_id,resource_pk,created_at,updated_at,@column10)" +
-                "set rank_id = (SELECT id FROM ranks WHERE name = @column10);");
-        query.executeUpdate();
-        PrintWriter writer = null;
+        System.out.println("load nodes");
         try {
-            writer = new PrintWriter(PropertiesHandler.getProperty("mysqlFiles")+"nodes.txt");
+            entityManager.joinTransaction();
+            Query query = entityManager.createNativeQuery("LOAD DATA INFILE '" + PropertiesHandler.getProperty("mysqlFiles") + "nodes.txt" +
+                    "'ignore into table nodes FIELDS TERMINATED BY '\t' LINES TERMINATED BY '\n'" +
+                    "(resource_id,scientific_name,canonical_form,generated_node_id,resource_pk,created_at,updated_at,@column10)" +
+                    "set rank_id = (SELECT id FROM ranks WHERE name = @column10);");
+            query.executeUpdate();
+            PrintWriter writer = null;
+            writer = new PrintWriter(PropertiesHandler.getProperty("mysqlFiles") + "nodes.txt");
             writer.print("");
             writer.close();
         } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     public void loadPages() {
-        entityManager.joinTransaction();
-        Query query = entityManager.createNativeQuery("LOAD DATA INFILE '" + PropertiesHandler.getProperty("mysqlFiles")+"pages.txt" +
-                "'ignore into table pages FIELDS TERMINATED BY '\t' LINES TERMINATED BY '\n'" +
-                "(id,created_at,updated_at,@column4)\n" +
-                "set node_id = (SELECT id FROM nodes WHERE generated_node_id = @column4);");
-        query.executeUpdate();
-        PrintWriter writer = null;
+        System.out.println("load pages");
+
         try {
-            writer = new PrintWriter(PropertiesHandler.getProperty("mysqlFiles")+"pages.txt");
+            entityManager.joinTransaction();
+            Query query = entityManager.createNativeQuery("LOAD DATA INFILE '" + PropertiesHandler.getProperty("mysqlFiles") + "pages.txt" +
+                    "'ignore into table pages FIELDS TERMINATED BY '\t' LINES TERMINATED BY '\n'" +
+                    "(id,created_at,updated_at,@column4)\n" +
+                    "set node_id = (SELECT id FROM nodes WHERE generated_node_id = @column4);");
+            query.executeUpdate();
+            PrintWriter writer = null;
+            writer = new PrintWriter(PropertiesHandler.getProperty("mysqlFiles") + "pages.txt");
             writer.print("");
             writer.close();
         } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     public void loadPagesNodes() {
-        entityManager.joinTransaction();
-        Query query = entityManager.createNativeQuery("LOAD DATA INFILE '" + PropertiesHandler.getProperty("mysqlFiles")+"pages_nodes.txt" +
-                "'ignore into table pages_nodes FIELDS TERMINATED BY '\t' LINES TERMINATED BY '\n'" +
-                "(page_id,is_native,created_at,updated_at,@column5)\n" +
-                "set node_id = (SELECT id FROM nodes WHERE generated_node_id = @column5);");
-        query.executeUpdate();
-        PrintWriter writer = null;
+        System.out.println("load pages nodes");
+
         try {
-            writer = new PrintWriter(PropertiesHandler.getProperty("mysqlFiles")+"pages_nodes.txt");
+            entityManager.joinTransaction();
+            Query query = entityManager.createNativeQuery("LOAD DATA INFILE '" + PropertiesHandler.getProperty("mysqlFiles") + "pages_nodes.txt" +
+                    "'ignore into table pages_nodes FIELDS TERMINATED BY '\t' LINES TERMINATED BY '\n'" +
+                    "(page_id,is_native,created_at,updated_at,@column5)\n" +
+                    "set node_id = (SELECT id FROM nodes WHERE generated_node_id = @column5);");
+            query.executeUpdate();
+            PrintWriter writer = null;
+            writer = new PrintWriter(PropertiesHandler.getProperty("mysqlFiles") + "pages_nodes.txt");
             writer.print("");
             writer.close();
         } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     public void loadScientificNames() {
-        entityManager.joinTransaction();
-        Query query = entityManager.createNativeQuery("LOAD DATA INFILE '" + PropertiesHandler.getProperty("mysqlFiles")+"scientific_names.txt" +
-                "'ignore into table scientific_names FIELDS TERMINATED BY '\t' LINES TERMINATED BY '\n'" +
-                "(resource_id,canonical_form,italicized,node_resource_pk,generated_node_id,page_id,taxonomic_status_id,created_at,updated_at,@column10)" +
-                "set node_id = (SELECT id FROM nodes WHERE generated_node_id = @column10);");
-        query.executeUpdate();
-        PrintWriter writer = null;
+        System.out.println("load scientific names");
+
         try {
-            writer = new PrintWriter(PropertiesHandler.getProperty("mysqlFiles")+"scientific_names.txt");
+            entityManager.joinTransaction();
+            Query query = entityManager.createNativeQuery("LOAD DATA INFILE '" + PropertiesHandler.getProperty("mysqlFiles") + "scientific_names.txt" +
+                    "'ignore into table scientific_names FIELDS TERMINATED BY '\t' LINES TERMINATED BY '\n'" +
+                    "(resource_id,canonical_form,italicized,node_resource_pk,generated_node_id,page_id,taxonomic_status_id,created_at,updated_at,@column10)" +
+                    "set node_id = (SELECT id FROM nodes WHERE generated_node_id = @column10);");
+            query.executeUpdate();
+            PrintWriter writer = null;
+            writer = new PrintWriter(PropertiesHandler.getProperty("mysqlFiles") + "scientific_names.txt");
             writer.print("");
             writer.close();
         } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     public void loadLanguages() {
-        entityManager.joinTransaction();
-        Query query = entityManager.createNativeQuery("LOAD DATA INFILE '" + PropertiesHandler.getProperty("mysqlFiles")+"languages.txt" + "' ignore into table languages FIELDS TERMINATED BY '\t' LINES TERMINATED BY '\n'" +
-                "(code,`group`,created_at,updated_at);");
-        query.executeUpdate();
-        PrintWriter writer = null;
+        System.out.println("load languages");
+
         try {
-            writer = new PrintWriter(PropertiesHandler.getProperty("mysqlFiles")+"languages.txt");
+            entityManager.joinTransaction();
+            Query query = entityManager.createNativeQuery("LOAD DATA INFILE '" + PropertiesHandler.getProperty("mysqlFiles") + "languages.txt" + "' ignore into table languages FIELDS TERMINATED BY '\t' LINES TERMINATED BY '\n'" +
+                    "(code,`group`,created_at,updated_at);");
+            query.executeUpdate();
+            PrintWriter writer = null;
+            writer = new PrintWriter(PropertiesHandler.getProperty("mysqlFiles") + "languages.txt");
             writer.print("");
             writer.close();
         } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     public void loadVernaculars() {
-        entityManager.joinTransaction();
-        Query query = entityManager.createNativeQuery("LOAD DATA INFILE '" + PropertiesHandler.getProperty("mysqlFiles")+"vernaculars.txt" +
-                "' ignore into table vernaculars FIELDS TERMINATED BY '\t' LINES TERMINATED BY '\n'" +
-                "(string,resource_id,is_prefered_by_resource,generated_node_id,page_id,created_at,updated_at,@column8,@column9)"+
-                "set node_id = (SELECT id FROM nodes WHERE generated_node_id = @column9)," +
-                " language_id = (SELECT id FROM languages WHERE code = @column8);");
-        query.executeUpdate();
-        PrintWriter writer = null;
+        System.out.println("load vernaculars");
+
         try {
-            writer = new PrintWriter(PropertiesHandler.getProperty("mysqlFiles")+"vernaculars.txt");
+            entityManager.joinTransaction();
+            Query query = entityManager.createNativeQuery("LOAD DATA INFILE '" + PropertiesHandler.getProperty("mysqlFiles") + "vernaculars.txt" +
+                    "' ignore into table vernaculars FIELDS TERMINATED BY '\t' LINES TERMINATED BY '\n'" +
+                    "(string,resource_id,is_prefered_by_resource,generated_node_id,page_id,created_at,updated_at,@column8,@column9)" +
+                    "set node_id = (SELECT id FROM nodes WHERE generated_node_id = @column9)," +
+                    " language_id = (SELECT id FROM languages WHERE code = @column8);");
+            query.executeUpdate();
+            PrintWriter writer = null;
+            writer = new PrintWriter(PropertiesHandler.getProperty("mysqlFiles") + "vernaculars.txt");
             writer.print("");
             writer.close();
         } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     public void loadLicenses() {
-        entityManager.joinTransaction();
-        Query query = entityManager.createNativeQuery("LOAD DATA INFILE '" + PropertiesHandler.getProperty("mysqlFiles")+"licenses.txt" + "' ignore into table licenses FIELDS TERMINATED BY '\t' LINES TERMINATED BY '\n'" +
-                "(source_url,name,created_at,updated_at);");
-        query.executeUpdate();
-        PrintWriter writer = null;
+        System.out.println("load licenses");
+
         try {
-            writer = new PrintWriter(PropertiesHandler.getProperty("mysqlFiles")+"licenses.txt");
+            entityManager.joinTransaction();
+            Query query = entityManager.createNativeQuery("LOAD DATA INFILE '" + PropertiesHandler.getProperty("mysqlFiles") + "licenses.txt" + "' ignore into table licenses FIELDS TERMINATED BY '\t' LINES TERMINATED BY '\n'" +
+                    "(source_url,name,created_at,updated_at);");
+            query.executeUpdate();
+            PrintWriter writer = null;
+            writer = new PrintWriter(PropertiesHandler.getProperty("mysqlFiles") + "licenses.txt");
             writer.print("");
             writer.close();
         } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     public void loadLocations() {
-        entityManager.joinTransaction();
-        Query query = entityManager.createNativeQuery("LOAD DATA INFILE '" + PropertiesHandler.getProperty("mysqlFiles")+"locations.txt" +
-                "' ignore into table locations FIELDS TERMINATED BY '\t' LINES TERMINATED BY '\n'" +
-                "(resource_id,location,longitude,latitude,altitude,spatial_location,created_at,updated_at)");
-        query.executeUpdate();
-        PrintWriter writer = null;
+        System.out.println("load locations");
+
         try {
-            writer = new PrintWriter(PropertiesHandler.getProperty("mysqlFiles")+"locations.txt");
+            entityManager.joinTransaction();
+            Query query = entityManager.createNativeQuery("LOAD DATA INFILE '" + PropertiesHandler.getProperty("mysqlFiles") + "locations.txt" +
+                    "' ignore into table locations FIELDS TERMINATED BY '\t' LINES TERMINATED BY '\n'" +
+                    "(resource_id,location,longitude,latitude,altitude,spatial_location,created_at,updated_at)");
+            query.executeUpdate();
+            PrintWriter writer = null;
+            writer = new PrintWriter(PropertiesHandler.getProperty("mysqlFiles") + "locations.txt");
             writer.print("");
             writer.close();
         } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     public void loadMedia() {
-        entityManager.joinTransaction();
-        Query query = entityManager.createNativeQuery("LOAD DATA INFILE '" + PropertiesHandler.getProperty("mysqlFiles")+"media.txt" +
-                "' ignore into table media FIELDS TERMINATED BY '\t' LINES TERMINATED BY '\n'" +
-                "(format,description,owner,resource_id,guid,resource_pk,source_page_url,base_url,created_at,updated_at,@column8,@column9)"+
-                "set license_id = (SELECT id FROM licenses WHERE source_url = @column9)," +
-                " language_id = (SELECT id FROM languages WHERE code = @column8);");
-        query.executeUpdate();
-        PrintWriter writer = null;
+        System.out.println("load media");
+
         try {
-            writer = new PrintWriter(PropertiesHandler.getProperty("mysqlFiles")+"media.txt");
+            entityManager.joinTransaction();
+            Query query = entityManager.createNativeQuery("LOAD DATA INFILE '" + PropertiesHandler.getProperty("mysqlFiles") + "media.txt" +
+                    "' ignore into table media FIELDS TERMINATED BY '\t' LINES TERMINATED BY '\n'" +
+                    "(format,description,owner,resource_id,guid,resource_pk,source_page_url,base_url,created_at,updated_at,@column8,@column9)" +
+                    "set license_id = (SELECT id FROM licenses WHERE source_url = @column9)," +
+                    " language_id = (SELECT id FROM languages WHERE code = @column8);");
+            query.executeUpdate();
+            PrintWriter writer = null;
+            writer = new PrintWriter(PropertiesHandler.getProperty("mysqlFiles") + "media.txt");
             writer.print("");
             writer.close();
         } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     public void loadPageContents() {
-        entityManager.joinTransaction();
-        Query query = entityManager.createNativeQuery("LOAD DATA INFILE '" + PropertiesHandler.getProperty("mysqlFiles")+"page_contents.txt" +
-                "' ignore into table page_contents FIELDS TERMINATED BY '\t' LINES TERMINATED BY '\n'" +
-                "(resource_id,page_id,source_page_id,content_type,created_at,updated_at,@column7)"+
-                "set content_id = (SELECT id FROM media WHERE guid = @column7)");
-        query.executeUpdate();
-        PrintWriter writer = null;
+        System.out.println("load page contents");
+
         try {
-            writer = new PrintWriter(PropertiesHandler.getProperty("mysqlFiles")+"page_contents.txt");
+            entityManager.joinTransaction();
+            Query query = entityManager.createNativeQuery("LOAD DATA INFILE '" + PropertiesHandler.getProperty("mysqlFiles") + "page_contents.txt" +
+                    "' ignore into table page_contents FIELDS TERMINATED BY '\t' LINES TERMINATED BY '\n'" +
+                    "(resource_id,page_id,source_page_id,content_type,created_at,updated_at,@column7)" +
+                    "set content_id = (SELECT id FROM media WHERE guid = @column7)");
+            query.executeUpdate();
+            PrintWriter writer = null;
+            writer = new PrintWriter(PropertiesHandler.getProperty("mysqlFiles") + "page_contents.txt");
             writer.print("");
             writer.close();
         } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     public void loadAgents() {
-        entityManager.joinTransaction();
-        Query query = entityManager.createNativeQuery("LOAD DATA INFILE '" + PropertiesHandler.getProperty("mysqlFiles")+"agents.txt" +
-                "' ignore into table attributions FIELDS TERMINATED BY '\t' LINES TERMINATED BY '\n'" +
-                "(resource_id,content_type,role_name,url,resource_pk,value,content_resource_fk,created_at,updated_at,@column10)"+
-                "set content_id = (SELECT id FROM media WHERE guid = @column10);");
-        query.executeUpdate();
-        PrintWriter writer = null;
+        System.out.println("load agents");
+
         try {
-            writer = new PrintWriter(PropertiesHandler.getProperty("mysqlFiles")+"agents.txt");
+            entityManager.joinTransaction();
+            Query query = entityManager.createNativeQuery("LOAD DATA INFILE '" + PropertiesHandler.getProperty("mysqlFiles") + "agents.txt" +
+                    "' ignore into table attributions FIELDS TERMINATED BY '\t' LINES TERMINATED BY '\n'" +
+                    "(resource_id,content_type,role_name,url,resource_pk,value,content_resource_fk,created_at,updated_at,@column10)" +
+                    "set content_id = (SELECT id FROM media WHERE guid = @column10);");
+            query.executeUpdate();
+            PrintWriter writer = null;
+            writer = new PrintWriter(PropertiesHandler.getProperty("mysqlFiles") + "agents.txt");
             writer.print("");
             writer.close();
         } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     public void loadReferents() {
-        entityManager.joinTransaction();
-        Query query = entityManager.createNativeQuery("LOAD DATA INFILE '" + PropertiesHandler.getProperty("mysqlFiles")+"referents.txt" + "' ignore into table referents FIELDS TERMINATED BY '\t' LINES TERMINATED BY '\n'" +
-                "(resource_id,body,created_at,updated_at);");
-        query.executeUpdate();
-        PrintWriter writer = null;
+        System.out.println("load referents");
+
         try {
-            writer = new PrintWriter(PropertiesHandler.getProperty("mysqlFiles")+"referents.txt");
+            entityManager.joinTransaction();
+            Query query = entityManager.createNativeQuery("LOAD DATA INFILE '" + PropertiesHandler.getProperty("mysqlFiles") + "referents.txt" + "' ignore into table referents FIELDS TERMINATED BY '\t' LINES TERMINATED BY '\n'" +
+                    "(resource_id,body,created_at,updated_at);");
+            query.executeUpdate();
+            PrintWriter writer = null;
+            writer = new PrintWriter(PropertiesHandler.getProperty("mysqlFiles") + "referents.txt");
             writer.print("");
             writer.close();
         } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     public void loadReferences() {
-        entityManager.joinTransaction();
-        Query query = entityManager.createNativeQuery("LOAD DATA INFILE '" + PropertiesHandler.getProperty("mysqlFiles")+"references.txt" +
-                "' ignore into table `references` FIELDS TERMINATED BY '\t' LINES TERMINATED BY '\n'" +
-                "(resource_id,parent_type,created_at,updated_at,@column5,@column6,@column7)"+
-                "set parent_id = (SELECT id FROM media WHERE guid = @column5)," +
-                " referent_id = (select id from referents where body=@column6 and resource_id=@column7);");
-        query.executeUpdate();
-        PrintWriter writer = null;
+        System.out.println("load references");
         try {
-            writer = new PrintWriter(PropertiesHandler.getProperty("mysqlFiles")+"references.txt");
+            entityManager.joinTransaction();
+            Query query = entityManager.createNativeQuery("LOAD DATA INFILE '" + PropertiesHandler.getProperty("mysqlFiles") + "references.txt" +
+                    "' ignore into table `references` FIELDS TERMINATED BY '\t' LINES TERMINATED BY '\n'" +
+                    "(resource_id,parent_type,created_at,updated_at,@column5,@column6,@column7)" +
+                    "set parent_id = (SELECT id FROM media WHERE guid = @column5)," +
+                    " referent_id = (select id from referents where body=@column6 and resource_id=@column7);");
+            query.executeUpdate();
+            PrintWriter writer = null;
+            writer = new PrintWriter(PropertiesHandler.getProperty("mysqlFiles") + "references.txt");
             writer.print("");
             writer.close();
         } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

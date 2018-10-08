@@ -19,11 +19,24 @@ public class MysqlService {
     @PersistenceContext
     private EntityManager entityManager;
 
+    @Transactional
+    public boolean addEntries(NodeRecord[] nodeRecords) {
+        boolean done =true;
+        for(int i=0; i< nodeRecords.length;i++){
+            boolean addRecord =addEntry(nodeRecords[i]);
+            done = done&&addRecord;
+        }
+        MysqlHandler mysqlHandler = new MysqlHandler(entityManager);
+        loadFilesToMysql();
+        mysqlHandler.updateHarvestTime();
+
+        return done;
+    }
+
     public boolean addEntry(NodeRecord nodeRecord) {
         try{
             PropertiesHandler.initializeProperties();
             FileHandler fileHandler = new FileHandler(entityManager, nodeRecord.getResourceId());
-            MysqlHandler mysqlHandler = new MysqlHandler(entityManager);
             fileHandler.writeRankToFile(nodeRecord);
             fileHandler.writeNodeToMysql(nodeRecord);
             if(nodeRecord.getTaxon().getPageEolId()!= "0" || nodeRecord.getTaxon().getPageEolId() != null){
@@ -38,7 +51,7 @@ public class MysqlService {
                     fileHandler.writeMediaToFile(nodeRecord);
 
             }
-            mysqlHandler.updateHarvestTime();
+
             return true;
         }catch(Exception e){
             e.printStackTrace();
@@ -74,7 +87,6 @@ public class MysqlService {
         return endTime;
     }
 
-    @Transactional
     public boolean loadFilesToMysql() {
         try {
             PropertiesHandler.initializeProperties();
@@ -99,4 +111,5 @@ public class MysqlService {
 
         return true;
     }
+
 }
