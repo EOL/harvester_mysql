@@ -13,22 +13,38 @@ public class FileHandler {
 
     private EntityManager entityManager;
     private int resourceID;
+    private FileWriter ranks, nodes, pages, pages_nodes, scientific_names, languages, vernaculars, locations, licenses, media, agents,
+    page_contents, references, referents;
 
     public FileHandler(EntityManager entityManager, int resourceID){
         this.entityManager=entityManager;
         this.resourceID=resourceID;
+        try {
+            ranks = new FileWriter(PropertiesHandler.getProperty("mysqlFiles")+"ranks.txt",true);
+            nodes = new FileWriter(PropertiesHandler.getProperty("mysqlFiles")+"nodes.txt",true);
+            pages = new FileWriter(PropertiesHandler.getProperty("mysqlFiles")+"pages.txt", true);
+            pages_nodes = new FileWriter(PropertiesHandler.getProperty("mysqlFiles")+"pages_nodes.txt", true);
+            scientific_names=new FileWriter(PropertiesHandler.getProperty("mysqlFiles")+"scientific_names.txt",true);
+            languages =new FileWriter(PropertiesHandler.getProperty("mysqlFiles")+"languages.txt",true);
+            vernaculars = new FileWriter(PropertiesHandler.getProperty("mysqlFiles")+"vernaculars.txt",true);
+            locations = new FileWriter(PropertiesHandler.getProperty("mysqlFiles")+"locations.txt",true);
+            licenses = new FileWriter(PropertiesHandler.getProperty("mysqlFiles")+"licenses.txt",true);
+            media = new FileWriter(PropertiesHandler.getProperty("mysqlFiles")+"media.txt",true);
+            agents = new FileWriter(PropertiesHandler.getProperty("mysqlFiles")+"agents.txt",true);
+            page_contents = new FileWriter(PropertiesHandler.getProperty("mysqlFiles")+"page_contents.txt",true);
+            referents = new FileWriter(PropertiesHandler.getProperty("mysqlFiles")+"referents.txt",true);
+            references = new FileWriter(PropertiesHandler.getProperty("mysqlFiles")+"references.txt",true);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void writeRankToFile(NodeRecord tableRecord){
         System.out.println("insert new rank");
-
         try
         {
             String date= DateHelper.getDate();
-            String filename= PropertiesHandler.getProperty("mysqlFiles")+"ranks.txt";
-            FileWriter fw = new FileWriter(filename,true); //the true will append the new data
-            fw.write(tableRecord.getTaxon().getTaxonRank()+"\t"+date+"\t"+date+"\n");//appends the string to the file
-            fw.close();
+            ranks.write(tableRecord.getTaxon().getTaxonRank()+"\t"+date+"\t"+date+"\n");//appends the string to the file
         }
         catch(IOException ioe)
         {
@@ -41,19 +57,14 @@ public class FileHandler {
         System.out.println("insert new node");
         GlobalNamesHandler globalNamesHandler = new GlobalNamesHandler();
         Taxon taxon = tableRecord.getTaxon();
-
         try
         {
             String date= DateHelper.getDate();
-            String filename= PropertiesHandler.getProperty("mysqlFiles")+"nodes.txt";
-            FileWriter fw = new FileWriter(filename,true); //the true will append the new data
-            fw.write(resourceID+"\t"+taxon.getScientificName()+"\t"+globalNamesHandler.getCanonicalForm(taxon.getScientificName())+
+            nodes.write(resourceID+"\t"+taxon.getScientificName()+"\t"+globalNamesHandler.getCanonicalForm(taxon.getScientificName())+
                     "\t"+Integer.valueOf(tableRecord.getGeneratedNodeId())+"\t"+taxon.getIdentifier()+"\t"+ date+"\t"+ date+
                     "\t"+tableRecord.getTaxon().getTaxonRank()+"\n");//appends the string to the file
-            fw.close();
         }
-        catch(IOException ioe)
-        {
+        catch(IOException ioe) {
             System.err.println("IOException: " + ioe.getMessage());
         }
 
@@ -65,11 +76,8 @@ public class FileHandler {
         try
         {
             String date= DateHelper.getDate();
-            String filename= PropertiesHandler.getProperty("mysqlFiles")+"pages.txt";
-            FileWriter fw = new FileWriter(filename,true);
-            fw.write(Integer.valueOf(tableRecord.getTaxon().getPageEolId())+"\t"+date+"\t"+date+"\t"+
+            pages.write(Integer.valueOf(tableRecord.getTaxon().getPageEolId())+"\t"+date+"\t"+date+"\t"+
                     Integer.valueOf(tableRecord.getGeneratedNodeId())+"\n");
-            fw.close();
         }
         catch(IOException ioe)
         {
@@ -83,11 +91,8 @@ public class FileHandler {
         try
         {
             String date= DateHelper.getDate();
-            String filename= PropertiesHandler.getProperty("mysqlFiles")+"pages_nodes.txt";
-            FileWriter fw = new FileWriter(filename,true);
             boolean is_native = resourceID == Integer.valueOf(PropertiesHandler.getProperty("DWHId"))? true:false;
-            fw.write(page_id+"\t"+is_native+"\t"+date+"\t"+date+"\t"+ generated_node_id+"\n");
-            fw.close();
+            pages_nodes.write(page_id+"\t"+is_native+"\t"+date+"\t"+date+"\t"+ generated_node_id+"\n");
         }
         catch(IOException ioe)
         {
@@ -103,11 +108,8 @@ public class FileHandler {
         try
         {
             String date= DateHelper.getDate();
-            String filename= PropertiesHandler.getProperty("mysqlFiles")+"scientific_names.txt";
-            FileWriter fw = new FileWriter(filename,true);
-            fw.write(resourceID+"\t"+globalNamesHandler.getCanonicalForm(taxon.getScientificName())+"\t"+globalNamesHandler.getCanonicalForm(taxon.getScientificName())+"\t"+taxon.getIdentifier()
+            scientific_names.write(resourceID+"\t"+globalNamesHandler.getCanonicalForm(taxon.getScientificName())+"\t"+globalNamesHandler.getCanonicalForm(taxon.getScientificName())+"\t"+taxon.getIdentifier()
                     +"\t"+generated_node_id+"\t"+Integer.valueOf(tableRecord.getTaxon().getPageEolId())+"\t"+1+"\t"+date+"\t"+date+"\t"+generated_node_id+"\n");
-            fw.close();
         }
         catch(IOException ioe)
         {
@@ -130,11 +132,8 @@ public class FileHandler {
         try
         {
             String date= DateHelper.getDate();
-            String filename= PropertiesHandler.getProperty("mysqlFiles")+"vernaculars.txt";
-            FileWriter fw = new FileWriter(filename,true);
             boolean is_preferred = vernacular.getIsPreferred()=="1"? true:false;
-            fw.write(vernacular.getName()+"\t"+resourceID+"\t"+is_preferred+"\t"+generated_node_id+"\t"+page_id+"\t"+date+"\t"+date+"\t"+vernacular.getLanguage()+"\t"+generated_node_id+"\n");
-            fw.close();
+            vernaculars.write(vernacular.getName()+"\t"+resourceID+"\t"+is_preferred+"\t"+generated_node_id+"\t"+page_id+"\t"+date+"\t"+date+"\t"+vernacular.getLanguage()+"\t"+generated_node_id+"\n");
         }
         catch(IOException ioe)
         {
@@ -165,12 +164,9 @@ public class FileHandler {
         try
         {
             String date= DateHelper.getDate();
-            String filename= PropertiesHandler.getProperty("mysqlFiles")+"media.txt";
-            FileWriter fw = new FileWriter(filename,true);
-            fw.write(medium.getFormat()+"\t"+medium.getDescription()+"\t"+medium.getOwner()+"\t"+resourceID+"\t"+guid
+            media.write(medium.getFormat()+"\t"+medium.getDescription()+"\t"+medium.getOwner()+"\t"+resourceID+"\t"+guid
                     +"\t"+medium.getMediaId()+"\t"+medium.getFurtherInformationURI()+"\t"+
                     PropertiesHandler.getProperty("storageLayerIp")+medium.getStorageLayerPath()+"\t"+date+"\t"+date+"\t"+medium.getLanguage()+"\t"+medium.getLicense()+"\n");
-            fw.close();
         }
         catch(IOException ioe)
         {
@@ -185,10 +181,7 @@ public class FileHandler {
         try
         {
             String date= DateHelper.getDate();
-            String filename= PropertiesHandler.getProperty("mysqlFiles")+"page_contents.txt";
-            FileWriter fw = new FileWriter(filename,true);
-            fw.write(resourceID+"\t"+page_id+"\t"+page_id+"\tMedium\t"+date+"\t"+date+"\t"+guid+"\n");
-            fw.close();
+            page_contents.write(resourceID+"\t"+page_id+"\t"+page_id+"\tMedium\t"+date+"\t"+date+"\t"+guid+"\n");
         }
         catch(IOException ioe)
         {
@@ -196,19 +189,16 @@ public class FileHandler {
         }
     }
 
-    private void writeAgentsToFile(ArrayList<Agent> agents, String content_resource_fk, String guid){
+    private void writeAgentsToFile(ArrayList<Agent> agentsArr, String content_resource_fk, String guid){
 
-        for(Agent agent : agents){
+        for(Agent agent : agentsArr){
             System.out.println("insert new agent");
             String role_name = agent.getRole() == null ? "roletest" : agent.getRole();
 
             try
             {
                 String date= DateHelper.getDate();
-                String filename= PropertiesHandler.getProperty("mysqlFiles")+"agents.txt";
-                FileWriter fw = new FileWriter(filename,true);
-                fw.write(resourceID+"\tMedium\t"+role_name +"\t"+agent.getHomepage()+"\t"+agent.getAgentId()+"\t"+agent.getFullName()+"\t"+content_resource_fk+"\t"+date+"\t"+date+"\t"+guid+"\n");
-                fw.close();
+                agents.write(resourceID+"\tMedium\t"+role_name +"\t"+agent.getHomepage()+"\t"+agent.getAgentId()+"\t"+agent.getFullName()+"\t"+content_resource_fk+"\t"+date+"\t"+date+"\t"+guid+"\n");
             }
             catch(IOException ioe)
             {
@@ -225,10 +215,7 @@ public class FileHandler {
         try
         {
             String date= DateHelper.getDate();
-            String filename= PropertiesHandler.getProperty("mysqlFiles")+"languages.txt";
-            FileWriter fw = new FileWriter(filename,true);
-            fw.write(code+"\t"+code+"\t"+date+"\t"+date+"\n");
-            fw.close();
+            languages.write(code+"\t"+code+"\t"+date+"\t"+date+"\n");
         }
         catch(IOException ioe)
         {
@@ -244,10 +231,7 @@ public class FileHandler {
         try
         {
             String date= DateHelper.getDate();
-            String filename= PropertiesHandler.getProperty("mysqlFiles")+"licenses.txt";
-            FileWriter fw = new FileWriter(filename,true);
-            fw.write(source_url+"\tlicense\t"+date+"\t"+date+"\n");
-            fw.close();
+            licenses.write(source_url+"\tlicense\t"+date+"\t"+date+"\n");
         }
         catch(IOException ioe)
         {
@@ -262,11 +246,8 @@ public class FileHandler {
         try
         {
             String date= DateHelper.getDate();
-            String filename= PropertiesHandler.getProperty("mysqlFiles")+"locations.txt";
-            FileWriter fw = new FileWriter(filename,true);
-            fw.write(resourceID+"\t"+medium.getLocationCreated()+"\t"+medium.getLongitude()+"\t"+medium.getLatitude()+"\t"+medium.getAltitude()
+            locations.write(resourceID+"\t"+medium.getLocationCreated()+"\t"+medium.getLongitude()+"\t"+medium.getLatitude()+"\t"+medium.getAltitude()
                     +"\t"+medium.getGenericLocation()+"\t"+date+"\t"+date+"\n");
-            fw.close();
         }
         catch(IOException ioe)
         {
@@ -295,10 +276,7 @@ public class FileHandler {
         try
         {
             String date= DateHelper.getDate();
-            String filename= PropertiesHandler.getProperty("mysqlFiles")+"referents.txt";
-            FileWriter fw = new FileWriter(filename,true);
-            fw.write(resourceID+"\t"+body+"\t"+date+"\t"+date+"\n");
-            fw.close();
+            referents.write(resourceID+"\t"+body+"\t"+date+"\t"+date+"\n");
         }
         catch(IOException ioe)
         {
@@ -312,10 +290,7 @@ public class FileHandler {
         try
         {
             String date= DateHelper.getDate();
-            String filename= PropertiesHandler.getProperty("mysqlFiles")+"references.txt";
-            FileWriter fw = new FileWriter(filename,true);
-            fw.write(resourceID+"\tMedium\t"+date+"\t"+date+"\t"+guid+"\t"+body+"\t"+resourceID+"\n");
-            fw.close();
+            references.write(resourceID+"\tMedium\t"+date+"\t"+date+"\t"+guid+"\t"+body+"\t"+resourceID+"\n");
         }
         catch(IOException ioe)
         {
@@ -326,6 +301,27 @@ public class FileHandler {
     private UUID generateMediaGUID()
     {
         return UUID.randomUUID();
+    }
+
+    public void close(){
+        try {
+            ranks.close();
+            nodes.close();
+            pages.close();
+            pages_nodes.close();
+            scientific_names.close();
+            languages.close();
+            vernaculars.close();
+            licenses.close();
+            locations.close();
+            media.close();
+            page_contents.close();
+            agents.close();
+            referents.close();
+            references.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 }

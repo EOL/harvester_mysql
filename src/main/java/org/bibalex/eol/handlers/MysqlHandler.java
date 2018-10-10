@@ -372,13 +372,14 @@ public class MysqlHandler {
 
     public void loadRanks() {
         System.out.println("load ranks");
+
+        PrintWriter writer = null;
         try {
             entityManager.joinTransaction();
             Query query = entityManager.createNativeQuery("LOAD DATA INFILE '" + PropertiesHandler.getProperty("mysqlFiles") + "ranks.txt" +
                     "' ignore into table ranks FIELDS TERMINATED BY '\t' LINES TERMINATED BY '\n'" +
                     "(name,created_at,updated_at);");
             query.executeUpdate();
-            PrintWriter writer = null;
             writer = new PrintWriter(PropertiesHandler.getProperty("mysqlFiles") + "ranks.txt");
             writer.print("");
             writer.close();
@@ -386,12 +387,17 @@ public class MysqlHandler {
             e.printStackTrace();
         } catch (Exception e) {
             e.printStackTrace();
+        }finally {
+            if( writer != null )
+                writer.close();
         }
 
     }
 
     public void loadNodes() {
         System.out.println("load nodes");
+        PrintWriter writer = null;
+
         try {
             entityManager.joinTransaction();
             Query query = entityManager.createNativeQuery("LOAD DATA INFILE '" + PropertiesHandler.getProperty("mysqlFiles") + "nodes.txt" +
@@ -399,19 +405,21 @@ public class MysqlHandler {
                     "(resource_id,scientific_name,canonical_form,generated_node_id,resource_pk,created_at,updated_at,@column10)" +
                     "set rank_id = (SELECT id FROM ranks WHERE name = @column10);");
             query.executeUpdate();
-            PrintWriter writer = null;
             writer = new PrintWriter(PropertiesHandler.getProperty("mysqlFiles") + "nodes.txt");
             writer.print("");
-            writer.close();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (Exception e) {
             e.printStackTrace();
+        }finally {
+            if( writer != null )
+                writer.close();
         }
     }
 
     public void loadPages() {
         System.out.println("load pages");
+        PrintWriter writer = null;
 
         try {
             entityManager.joinTransaction();
@@ -420,19 +428,21 @@ public class MysqlHandler {
                     "(id,created_at,updated_at,@column4)\n" +
                     "set node_id = (SELECT id FROM nodes WHERE generated_node_id = @column4);");
             query.executeUpdate();
-            PrintWriter writer = null;
             writer = new PrintWriter(PropertiesHandler.getProperty("mysqlFiles") + "pages.txt");
             writer.print("");
-            writer.close();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (Exception e) {
             e.printStackTrace();
+        }finally {
+            if( writer != null )
+                writer.close();
         }
     }
 
     public void loadPagesNodes() {
         System.out.println("load pages nodes");
+        PrintWriter writer = null;
 
         try {
             entityManager.joinTransaction();
@@ -441,19 +451,21 @@ public class MysqlHandler {
                     "(page_id,is_native,created_at,updated_at,@column5)\n" +
                     "set node_id = (SELECT id FROM nodes WHERE generated_node_id = @column5);");
             query.executeUpdate();
-            PrintWriter writer = null;
             writer = new PrintWriter(PropertiesHandler.getProperty("mysqlFiles") + "pages_nodes.txt");
             writer.print("");
-            writer.close();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (Exception e) {
             e.printStackTrace();
+        }finally {
+            if( writer != null )
+                writer.close();
         }
     }
 
     public void loadScientificNames() {
         System.out.println("load scientific names");
+        PrintWriter writer = null;
 
         try {
             entityManager.joinTransaction();
@@ -462,38 +474,42 @@ public class MysqlHandler {
                     "(resource_id,canonical_form,italicized,node_resource_pk,generated_node_id,page_id,taxonomic_status_id,created_at,updated_at,@column10)" +
                     "set node_id = (SELECT id FROM nodes WHERE generated_node_id = @column10);");
             query.executeUpdate();
-            PrintWriter writer = null;
             writer = new PrintWriter(PropertiesHandler.getProperty("mysqlFiles") + "scientific_names.txt");
             writer.print("");
-            writer.close();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (Exception e) {
             e.printStackTrace();
+        }finally {
+            if( writer != null )
+                writer.close();
         }
     }
 
     public void loadLanguages() {
         System.out.println("load languages");
+        PrintWriter writer = null;
 
         try {
             entityManager.joinTransaction();
             Query query = entityManager.createNativeQuery("LOAD DATA INFILE '" + PropertiesHandler.getProperty("mysqlFiles") + "languages.txt" + "' ignore into table languages FIELDS TERMINATED BY '\t' LINES TERMINATED BY '\n'" +
                     "(code,`group`,created_at,updated_at);");
             query.executeUpdate();
-            PrintWriter writer = null;
             writer = new PrintWriter(PropertiesHandler.getProperty("mysqlFiles") + "languages.txt");
             writer.print("");
-            writer.close();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (Exception e) {
             e.printStackTrace();
+        }finally {
+            if( writer != null )
+                writer.close();
         }
     }
 
     public void loadVernaculars() {
         System.out.println("load vernaculars");
+        PrintWriter writer = null;
 
         try {
             entityManager.joinTransaction();
@@ -503,38 +519,42 @@ public class MysqlHandler {
                     "set node_id = (SELECT id FROM nodes WHERE generated_node_id = @column9)," +
                     " language_id = (SELECT id FROM languages WHERE code = @column8);");
             query.executeUpdate();
-            PrintWriter writer = null;
             writer = new PrintWriter(PropertiesHandler.getProperty("mysqlFiles") + "vernaculars.txt");
             writer.print("");
-            writer.close();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (Exception e) {
             e.printStackTrace();
+        }finally {
+            if( writer != null )
+                writer.close();
         }
     }
 
     public void loadLicenses() {
         System.out.println("load licenses");
+        PrintWriter writer = null;
 
         try {
             entityManager.joinTransaction();
             Query query = entityManager.createNativeQuery("LOAD DATA INFILE '" + PropertiesHandler.getProperty("mysqlFiles") + "licenses.txt" + "' ignore into table licenses FIELDS TERMINATED BY '\t' LINES TERMINATED BY '\n'" +
                     "(source_url,name,created_at,updated_at);");
             query.executeUpdate();
-            PrintWriter writer = null;
             writer = new PrintWriter(PropertiesHandler.getProperty("mysqlFiles") + "licenses.txt");
             writer.print("");
-            writer.close();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (Exception e) {
             e.printStackTrace();
+        }finally {
+            if( writer != null )
+                writer.close();
         }
     }
 
     public void loadLocations() {
         System.out.println("load locations");
+        PrintWriter writer = null;
 
         try {
             entityManager.joinTransaction();
@@ -542,19 +562,21 @@ public class MysqlHandler {
                     "' ignore into table locations FIELDS TERMINATED BY '\t' LINES TERMINATED BY '\n'" +
                     "(resource_id,location,longitude,latitude,altitude,spatial_location,created_at,updated_at)");
             query.executeUpdate();
-            PrintWriter writer = null;
             writer = new PrintWriter(PropertiesHandler.getProperty("mysqlFiles") + "locations.txt");
             writer.print("");
-            writer.close();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (Exception e) {
             e.printStackTrace();
+        } finally {
+            if( writer != null )
+                writer.close();
         }
     }
 
     public void loadMedia() {
         System.out.println("load media");
+        PrintWriter writer = null;
 
         try {
             entityManager.joinTransaction();
@@ -564,19 +586,21 @@ public class MysqlHandler {
                     "set license_id = (SELECT id FROM licenses WHERE source_url = @column9)," +
                     " language_id = (SELECT id FROM languages WHERE code = @column8);");
             query.executeUpdate();
-            PrintWriter writer = null;
             writer = new PrintWriter(PropertiesHandler.getProperty("mysqlFiles") + "media.txt");
             writer.print("");
-            writer.close();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (Exception e) {
             e.printStackTrace();
+        } finally {
+            if( writer != null )
+                writer.close();
         }
     }
 
     public void loadPageContents() {
         System.out.println("load page contents");
+        PrintWriter writer = null;
 
         try {
             entityManager.joinTransaction();
@@ -585,19 +609,21 @@ public class MysqlHandler {
                     "(resource_id,page_id,source_page_id,content_type,created_at,updated_at,@column7)" +
                     "set content_id = (SELECT id FROM media WHERE guid = @column7)");
             query.executeUpdate();
-            PrintWriter writer = null;
             writer = new PrintWriter(PropertiesHandler.getProperty("mysqlFiles") + "page_contents.txt");
             writer.print("");
-            writer.close();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (Exception e) {
             e.printStackTrace();
+        } finally {
+            if( writer != null )
+                writer.close();
         }
     }
 
     public void loadAgents() {
         System.out.println("load agents");
+        PrintWriter writer = null;
 
         try {
             entityManager.joinTransaction();
@@ -606,38 +632,43 @@ public class MysqlHandler {
                     "(resource_id,content_type,role_name,url,resource_pk,value,content_resource_fk,created_at,updated_at,@column10)" +
                     "set content_id = (SELECT id FROM media WHERE guid = @column10);");
             query.executeUpdate();
-            PrintWriter writer = null;
             writer = new PrintWriter(PropertiesHandler.getProperty("mysqlFiles") + "agents.txt");
             writer.print("");
-            writer.close();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (Exception e) {
             e.printStackTrace();
+        } finally {
+            if( writer != null )
+                writer.close();
         }
     }
 
     public void loadReferents() {
         System.out.println("load referents");
+        PrintWriter writer = null;
 
         try {
             entityManager.joinTransaction();
             Query query = entityManager.createNativeQuery("LOAD DATA INFILE '" + PropertiesHandler.getProperty("mysqlFiles") + "referents.txt" + "' ignore into table referents FIELDS TERMINATED BY '\t' LINES TERMINATED BY '\n'" +
                     "(resource_id,body,created_at,updated_at);");
             query.executeUpdate();
-            PrintWriter writer = null;
             writer = new PrintWriter(PropertiesHandler.getProperty("mysqlFiles") + "referents.txt");
             writer.print("");
-            writer.close();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (Exception e) {
             e.printStackTrace();
+        }finally {
+            if( writer != null )
+                writer.close();
         }
     }
 
     public void loadReferences() {
         System.out.println("load references");
+        PrintWriter writer = null;
+
         try {
             entityManager.joinTransaction();
             Query query = entityManager.createNativeQuery("LOAD DATA INFILE '" + PropertiesHandler.getProperty("mysqlFiles") + "references.txt" +
@@ -646,14 +677,15 @@ public class MysqlHandler {
                     "set parent_id = (SELECT id FROM media WHERE guid = @column5)," +
                     " referent_id = (select id from referents where body=@column6 and resource_id=@column7);");
             query.executeUpdate();
-            PrintWriter writer = null;
             writer = new PrintWriter(PropertiesHandler.getProperty("mysqlFiles") + "references.txt");
             writer.print("");
-            writer.close();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (Exception e) {
             e.printStackTrace();
+        }finally {
+            if( writer != null )
+                writer.close();
         }
     }
 }

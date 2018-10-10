@@ -21,11 +21,18 @@ public class MysqlService {
 
     @Transactional
     public boolean addEntries(NodeRecord[] nodeRecords) {
+        try {
+            PropertiesHandler.initializeProperties();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         boolean done =true;
+        FileHandler fileHandler = new FileHandler(entityManager, nodeRecords[0].getResourceId());
         for(int i=0; i< nodeRecords.length;i++){
-            boolean addRecord =addEntry(nodeRecords[i]);
+            boolean addRecord =addEntry(nodeRecords[i], fileHandler);
             done = done&&addRecord;
         }
+        fileHandler.close();
         MysqlHandler mysqlHandler = new MysqlHandler(entityManager);
         loadFilesToMysql();
         mysqlHandler.updateHarvestTime();
@@ -33,25 +40,21 @@ public class MysqlService {
         return done;
     }
 
-    public boolean addEntry(NodeRecord nodeRecord) {
+    public boolean addEntry(NodeRecord nodeRecord, FileHandler fileHandler) {
         try{
-            PropertiesHandler.initializeProperties();
-            FileHandler fileHandler = new FileHandler(entityManager, nodeRecord.getResourceId());
             fileHandler.writeRankToFile(nodeRecord);
             fileHandler.writeNodeToMysql(nodeRecord);
-            if(nodeRecord.getTaxon().getPageEolId()!= "0" || nodeRecord.getTaxon().getPageEolId() != null){
-//
+            if(nodeRecord.getTaxon().getPageEolId() != null && nodeRecord.getTaxon().getPageEolId()!= "0" ){
+
                 fileHandler.writePageToFile(nodeRecord);
                 fileHandler.writePagesNodesToFile(Integer.valueOf(nodeRecord.getGeneratedNodeId()), Integer.valueOf(nodeRecord.getTaxon().getPageEolId()));
                 fileHandler.writeScientificNameToFile(nodeRecord, Integer.valueOf(nodeRecord.getGeneratedNodeId()));
-//
+
                 if(nodeRecord.getVernaculars()!= null)
                     fileHandler.writeVernacularsToFile(nodeRecord, Integer.valueOf(nodeRecord.getGeneratedNodeId()));
                 if(nodeRecord.getMedia() != null)
                     fileHandler.writeMediaToFile(nodeRecord);
-
             }
-
             return true;
         }catch(Exception e){
             e.printStackTrace();
