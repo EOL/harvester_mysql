@@ -308,11 +308,11 @@ public class MysqlHandler {
         insertMedium.setParameter("resource_id_p", resourceID);
         insertMedium.setParameter("guid_p", String.valueOf(generateMediaGUID()));
         insertMedium.setParameter("resource_pk_p", medium.getMediaId());
-        insertMedium.setParameter("source_page_url_p", PropertiesHandler.getProperty("storageLayerIp")+medium.getFurtherInformationURI());
+        insertMedium.setParameter("source_page_url_p", medium.getFurtherInformationURI());
         insertMedium.setParameter("language_id_p", language_id);
         insertMedium.setParameter("license_id_p", license_id);
         insertMedium.setParameter("location_id_p", location_id);
-        insertMedium.setParameter("base_url_p", medium.getStorageLayerPath());
+        insertMedium.setParameter("base_url_p", PropertiesHandler.getProperty("storageLayerIp")+medium.getStorageLayerPath());
         insertMedium.setParameter("created_at_p", new Date());
         insertMedium.setParameter("updated_at_p", new Date());
 

@@ -4,167 +4,8 @@
     <list default="true" id="e78a199d-5e43-46d9-b037-e53c675c2370" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/bibalex/eol/handlers/MysqlHandler.java" afterPath="$PROJECT_DIR$/src/main/java/org/bibalex/eol/handlers/MysqlHandler.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/bibalex/eol/mysql/MysqlController.java" afterPath="$PROJECT_DIR$/src/main/java/org/bibalex/eol/mysql/MysqlController.java" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/bibalex/eol/mysql/MysqlService.java" afterPath="$PROJECT_DIR$/src/main/java/org/bibalex/eol/mysql/MysqlService.java" />
-      <change beforePath="$PROJECT_DIR$/target/classes/application.properties" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/classes/configs.properties" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/bibalex/eol/handlers/GlobalNamesHandler.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/bibalex/eol/handlers/MysqlHandler.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/bibalex/eol/handlers/PropertiesHandler.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/bibalex/eol/models/Agent.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/bibalex/eol/models/AncestorNode.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/bibalex/eol/models/Association.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/bibalex/eol/models/HbaseResult.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/bibalex/eol/models/MeasurementOrFact.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/bibalex/eol/models/Media.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/bibalex/eol/models/Node.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/bibalex/eol/models/NodeRecord.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/bibalex/eol/models/Occurrence.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/bibalex/eol/models/Reference.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/bibalex/eol/models/Taxon.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/bibalex/eol/models/VernacularName.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/bibalex/eol/mysql/MainMysql.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/bibalex/eol/mysql/MysqlController.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/bibalex/eol/mysql/MysqlService.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/bibalex/eol/mysqlModels/MysqlAgent.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/bibalex/eol/mysqlModels/MysqlData.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/bibalex/eol/mysqlModels/MysqlLanguage.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/bibalex/eol/mysqlModels/MysqlLicense.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/bibalex/eol/mysqlModels/MysqlLocation.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/bibalex/eol/mysqlModels/MysqlMedium.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/bibalex/eol/mysqlModels/MysqlNode.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/bibalex/eol/mysqlModels/MysqlPage.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/bibalex/eol/mysqlModels/MysqlPageContent.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/bibalex/eol/mysqlModels/MysqlPagesNode.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/bibalex/eol/mysqlModels/MysqlRank.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/bibalex/eol/mysqlModels/MysqlReference.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/bibalex/eol/mysqlModels/MysqlReferent.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/bibalex/eol/mysqlModels/MysqlScientificName.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/bibalex/eol/mysqlModels/MysqlVernacular.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/maven-archiver/pom.properties" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/mysqlDatabase-1.0-SNAPSHOT.war" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/mysqlDatabase-1.0-SNAPSHOT.war.original" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/mysqlDatabase-1.0-SNAPSHOT/WEB-INF/classes/application.properties" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/mysqlDatabase-1.0-SNAPSHOT/WEB-INF/classes/configs.properties" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/mysqlDatabase-1.0-SNAPSHOT/WEB-INF/classes/org/bibalex/eol/handlers/GlobalNamesHandler.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/mysqlDatabase-1.0-SNAPSHOT/WEB-INF/classes/org/bibalex/eol/handlers/MysqlHandler.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/mysqlDatabase-1.0-SNAPSHOT/WEB-INF/classes/org/bibalex/eol/handlers/PropertiesHandler.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/mysqlDatabase-1.0-SNAPSHOT/WEB-INF/classes/org/bibalex/eol/models/Agent.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/mysqlDatabase-1.0-SNAPSHOT/WEB-INF/classes/org/bibalex/eol/models/AncestorNode.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/mysqlDatabase-1.0-SNAPSHOT/WEB-INF/classes/org/bibalex/eol/models/Association.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/mysqlDatabase-1.0-SNAPSHOT/WEB-INF/classes/org/bibalex/eol/models/HbaseResult.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/mysqlDatabase-1.0-SNAPSHOT/WEB-INF/classes/org/bibalex/eol/models/MeasurementOrFact.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/mysqlDatabase-1.0-SNAPSHOT/WEB-INF/classes/org/bibalex/eol/models/Media.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/mysqlDatabase-1.0-SNAPSHOT/WEB-INF/classes/org/bibalex/eol/models/Node.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/mysqlDatabase-1.0-SNAPSHOT/WEB-INF/classes/org/bibalex/eol/models/NodeRecord.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/mysqlDatabase-1.0-SNAPSHOT/WEB-INF/classes/org/bibalex/eol/models/Occurrence.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/mysqlDatabase-1.0-SNAPSHOT/WEB-INF/classes/org/bibalex/eol/models/Reference.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/mysqlDatabase-1.0-SNAPSHOT/WEB-INF/classes/org/bibalex/eol/models/Taxon.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/mysqlDatabase-1.0-SNAPSHOT/WEB-INF/classes/org/bibalex/eol/models/VernacularName.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/mysqlDatabase-1.0-SNAPSHOT/WEB-INF/classes/org/bibalex/eol/mysql/MainMysql.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/mysqlDatabase-1.0-SNAPSHOT/WEB-INF/classes/org/bibalex/eol/mysql/MysqlController.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/mysqlDatabase-1.0-SNAPSHOT/WEB-INF/classes/org/bibalex/eol/mysql/MysqlService.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/mysqlDatabase-1.0-SNAPSHOT/WEB-INF/classes/org/bibalex/eol/mysqlModels/MysqlAgent.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/mysqlDatabase-1.0-SNAPSHOT/WEB-INF/classes/org/bibalex/eol/mysqlModels/MysqlData.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/mysqlDatabase-1.0-SNAPSHOT/WEB-INF/classes/org/bibalex/eol/mysqlModels/MysqlLanguage.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/mysqlDatabase-1.0-SNAPSHOT/WEB-INF/classes/org/bibalex/eol/mysqlModels/MysqlLicense.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/mysqlDatabase-1.0-SNAPSHOT/WEB-INF/classes/org/bibalex/eol/mysqlModels/MysqlLocation.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/mysqlDatabase-1.0-SNAPSHOT/WEB-INF/classes/org/bibalex/eol/mysqlModels/MysqlMedium.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/mysqlDatabase-1.0-SNAPSHOT/WEB-INF/classes/org/bibalex/eol/mysqlModels/MysqlNode.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/mysqlDatabase-1.0-SNAPSHOT/WEB-INF/classes/org/bibalex/eol/mysqlModels/MysqlPage.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/mysqlDatabase-1.0-SNAPSHOT/WEB-INF/classes/org/bibalex/eol/mysqlModels/MysqlPageContent.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/mysqlDatabase-1.0-SNAPSHOT/WEB-INF/classes/org/bibalex/eol/mysqlModels/MysqlPagesNode.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/mysqlDatabase-1.0-SNAPSHOT/WEB-INF/classes/org/bibalex/eol/mysqlModels/MysqlRank.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/mysqlDatabase-1.0-SNAPSHOT/WEB-INF/classes/org/bibalex/eol/mysqlModels/MysqlReference.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/mysqlDatabase-1.0-SNAPSHOT/WEB-INF/classes/org/bibalex/eol/mysqlModels/MysqlReferent.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/mysqlDatabase-1.0-SNAPSHOT/WEB-INF/classes/org/bibalex/eol/mysqlModels/MysqlScientificName.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/mysqlDatabase-1.0-SNAPSHOT/WEB-INF/classes/org/bibalex/eol/mysqlModels/MysqlVernacular.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/mysqlDatabase-1.0-SNAPSHOT/WEB-INF/lib/antlr-2.7.7.jar" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/mysqlDatabase-1.0-SNAPSHOT/WEB-INF/lib/aspectjweaver-1.8.10.jar" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/mysqlDatabase-1.0-SNAPSHOT/WEB-INF/lib/classmate-1.3.4.jar" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/mysqlDatabase-1.0-SNAPSHOT/WEB-INF/lib/commons-lang3-3.4.jar" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/mysqlDatabase-1.0-SNAPSHOT/WEB-INF/lib/dom4j-1.6.1.jar" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/mysqlDatabase-1.0-SNAPSHOT/WEB-INF/lib/evo-inflector-1.2.2.jar" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/mysqlDatabase-1.0-SNAPSHOT/WEB-INF/lib/gnparser_2.11-0.3.3.jar" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/mysqlDatabase-1.0-SNAPSHOT/WEB-INF/lib/gson-2.8.5.jar" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/mysqlDatabase-1.0-SNAPSHOT/WEB-INF/lib/hamcrest-core-1.3.jar" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/mysqlDatabase-1.0-SNAPSHOT/WEB-INF/lib/hibernate-commons-annotations-5.0.1.Final.jar" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/mysqlDatabase-1.0-SNAPSHOT/WEB-INF/lib/hibernate-core-5.0.12.Final.jar" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/mysqlDatabase-1.0-SNAPSHOT/WEB-INF/lib/hibernate-entitymanager-5.0.12.Final.jar" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/mysqlDatabase-1.0-SNAPSHOT/WEB-INF/lib/hibernate-jpa-2.1-api-1.0.0.Final.jar" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/mysqlDatabase-1.0-SNAPSHOT/WEB-INF/lib/hibernate-validator-5.3.5.Final.jar" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/mysqlDatabase-1.0-SNAPSHOT/WEB-INF/lib/jackson-annotations-2.8.0.jar" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/mysqlDatabase-1.0-SNAPSHOT/WEB-INF/lib/jackson-core-2.8.10.jar" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/mysqlDatabase-1.0-SNAPSHOT/WEB-INF/lib/jackson-databind-2.8.10.jar" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/mysqlDatabase-1.0-SNAPSHOT/WEB-INF/lib/jandex-2.0.0.Final.jar" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/mysqlDatabase-1.0-SNAPSHOT/WEB-INF/lib/java-uuid-generator-3.1.4.jar" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/mysqlDatabase-1.0-SNAPSHOT/WEB-INF/lib/javassist-3.21.0-GA.jar" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/mysqlDatabase-1.0-SNAPSHOT/WEB-INF/lib/javax.transaction-api-1.2.jar" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/mysqlDatabase-1.0-SNAPSHOT/WEB-INF/lib/jboss-logging-3.3.1.Final.jar" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/mysqlDatabase-1.0-SNAPSHOT/WEB-INF/lib/jcl-over-slf4j-1.7.25.jar" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/mysqlDatabase-1.0-SNAPSHOT/WEB-INF/lib/json-simple-1.1.1.jar" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/mysqlDatabase-1.0-SNAPSHOT/WEB-INF/lib/json4s-ast_2.11-3.2.11.jar" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/mysqlDatabase-1.0-SNAPSHOT/WEB-INF/lib/json4s-core_2.11-3.2.11.jar" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/mysqlDatabase-1.0-SNAPSHOT/WEB-INF/lib/json4s-jackson_2.11-3.2.11.jar" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/mysqlDatabase-1.0-SNAPSHOT/WEB-INF/lib/jul-to-slf4j-1.7.25.jar" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/mysqlDatabase-1.0-SNAPSHOT/WEB-INF/lib/junit-4.12.jar" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/mysqlDatabase-1.0-SNAPSHOT/WEB-INF/lib/log4j-api-2.7.jar" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/mysqlDatabase-1.0-SNAPSHOT/WEB-INF/lib/log4j-core-2.6.2.jar" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/mysqlDatabase-1.0-SNAPSHOT/WEB-INF/lib/log4j-over-slf4j-1.7.25.jar" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/mysqlDatabase-1.0-SNAPSHOT/WEB-INF/lib/logback-classic-1.1.11.jar" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/mysqlDatabase-1.0-SNAPSHOT/WEB-INF/lib/logback-core-1.1.11.jar" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/mysqlDatabase-1.0-SNAPSHOT/WEB-INF/lib/macro-compat_2.11-1.1.1.jar" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/mysqlDatabase-1.0-SNAPSHOT/WEB-INF/lib/mysql-connector-java-5.1.44.jar" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/mysqlDatabase-1.0-SNAPSHOT/WEB-INF/lib/paranamer-2.6.jar" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/mysqlDatabase-1.0-SNAPSHOT/WEB-INF/lib/parboiled_2.11-2.1.2.2.jar" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/mysqlDatabase-1.0-SNAPSHOT/WEB-INF/lib/scala-compiler-2.11.0.jar" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/mysqlDatabase-1.0-SNAPSHOT/WEB-INF/lib/scala-library-2.11.8.jar" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/mysqlDatabase-1.0-SNAPSHOT/WEB-INF/lib/scala-parser-combinators_2.11-1.0.4.jar" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/mysqlDatabase-1.0-SNAPSHOT/WEB-INF/lib/scala-reflect-2.11.0.jar" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/mysqlDatabase-1.0-SNAPSHOT/WEB-INF/lib/scala-xml_2.11-1.0.5.jar" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/mysqlDatabase-1.0-SNAPSHOT/WEB-INF/lib/scalap-2.11.0.jar" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/mysqlDatabase-1.0-SNAPSHOT/WEB-INF/lib/scalaz-core_2.11-7.1.10.jar" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/mysqlDatabase-1.0-SNAPSHOT/WEB-INF/lib/shapeless_2.11-2.3.2.jar" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/mysqlDatabase-1.0-SNAPSHOT/WEB-INF/lib/slf4j-api-1.7.25.jar" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/mysqlDatabase-1.0-SNAPSHOT/WEB-INF/lib/snakeyaml-1.17.jar" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/mysqlDatabase-1.0-SNAPSHOT/WEB-INF/lib/spring-aop-4.3.11.RELEASE.jar" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/mysqlDatabase-1.0-SNAPSHOT/WEB-INF/lib/spring-aspects-4.3.11.RELEASE.jar" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/mysqlDatabase-1.0-SNAPSHOT/WEB-INF/lib/spring-beans-4.3.11.RELEASE.jar" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/mysqlDatabase-1.0-SNAPSHOT/WEB-INF/lib/spring-boot-1.5.7.RELEASE.jar" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/mysqlDatabase-1.0-SNAPSHOT/WEB-INF/lib/spring-boot-actuator-1.5.7.RELEASE.jar" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/mysqlDatabase-1.0-SNAPSHOT/WEB-INF/lib/spring-boot-autoconfigure-1.5.7.RELEASE.jar" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/mysqlDatabase-1.0-SNAPSHOT/WEB-INF/lib/spring-boot-starter-1.5.7.RELEASE.jar" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/mysqlDatabase-1.0-SNAPSHOT/WEB-INF/lib/spring-boot-starter-actuator-1.5.7.RELEASE.jar" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/mysqlDatabase-1.0-SNAPSHOT/WEB-INF/lib/spring-boot-starter-aop-1.5.7.RELEASE.jar" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/mysqlDatabase-1.0-SNAPSHOT/WEB-INF/lib/spring-boot-starter-data-jpa-1.5.7.RELEASE.jar" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/mysqlDatabase-1.0-SNAPSHOT/WEB-INF/lib/spring-boot-starter-data-rest-1.5.7.RELEASE.jar" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/mysqlDatabase-1.0-SNAPSHOT/WEB-INF/lib/spring-boot-starter-jdbc-1.5.7.RELEASE.jar" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/mysqlDatabase-1.0-SNAPSHOT/WEB-INF/lib/spring-boot-starter-logging-1.5.7.RELEASE.jar" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/mysqlDatabase-1.0-SNAPSHOT/WEB-INF/lib/spring-boot-starter-tomcat-1.5.7.RELEASE.jar" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/mysqlDatabase-1.0-SNAPSHOT/WEB-INF/lib/spring-boot-starter-web-1.5.7.RELEASE.jar" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/mysqlDatabase-1.0-SNAPSHOT/WEB-INF/lib/spring-context-4.3.11.RELEASE.jar" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/mysqlDatabase-1.0-SNAPSHOT/WEB-INF/lib/spring-core-4.3.11.RELEASE.jar" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/mysqlDatabase-1.0-SNAPSHOT/WEB-INF/lib/spring-data-commons-1.13.7.RELEASE.jar" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/mysqlDatabase-1.0-SNAPSHOT/WEB-INF/lib/spring-data-jpa-1.11.7.RELEASE.jar" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/mysqlDatabase-1.0-SNAPSHOT/WEB-INF/lib/spring-data-rest-core-2.6.7.RELEASE.jar" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/mysqlDatabase-1.0-SNAPSHOT/WEB-INF/lib/spring-data-rest-webmvc-2.6.7.RELEASE.jar" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/mysqlDatabase-1.0-SNAPSHOT/WEB-INF/lib/spring-expression-4.3.11.RELEASE.jar" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/mysqlDatabase-1.0-SNAPSHOT/WEB-INF/lib/spring-hateoas-0.23.0.RELEASE.jar" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/mysqlDatabase-1.0-SNAPSHOT/WEB-INF/lib/spring-jdbc-4.3.11.RELEASE.jar" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/mysqlDatabase-1.0-SNAPSHOT/WEB-INF/lib/spring-orm-4.3.11.RELEASE.jar" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/mysqlDatabase-1.0-SNAPSHOT/WEB-INF/lib/spring-plugin-core-1.2.0.RELEASE.jar" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/mysqlDatabase-1.0-SNAPSHOT/WEB-INF/lib/spring-tx-4.3.11.RELEASE.jar" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/mysqlDatabase-1.0-SNAPSHOT/WEB-INF/lib/spring-web-4.3.8.RELEASE.jar" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/mysqlDatabase-1.0-SNAPSHOT/WEB-INF/lib/spring-webmvc-4.3.11.RELEASE.jar" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/mysqlDatabase-1.0-SNAPSHOT/WEB-INF/lib/tomcat-embed-core-8.5.20.jar" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/mysqlDatabase-1.0-SNAPSHOT/WEB-INF/lib/tomcat-embed-el-8.5.20.jar" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/mysqlDatabase-1.0-SNAPSHOT/WEB-INF/lib/tomcat-embed-websocket-8.5.20.jar" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/mysqlDatabase-1.0-SNAPSHOT/WEB-INF/lib/tomcat-jdbc-8.5.20.jar" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/mysqlDatabase-1.0-SNAPSHOT/WEB-INF/lib/tomcat-juli-8.5.20.jar" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/mysqlDatabase-1.0-SNAPSHOT/WEB-INF/lib/validation-api-1.1.0.Final.jar" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/configs.properties" afterPath="$PROJECT_DIR$/src/main/resources/configs.properties" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -180,12 +21,27 @@
       <file leaf-file-name="MysqlHandler.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/org/bibalex/eol/handlers/MysqlHandler.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="64">
-              <caret line="557" column="17" lean-forward="false" selection-start-line="557" selection-start-column="17" selection-end-line="557" selection-end-column="17" />
+            <state relative-caret-position="3770">
+              <caret line="314" column="96" lean-forward="false" selection-start-line="314" selection-start-column="96" selection-end-line="314" selection-end-column="96" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#964#965#0" expanded="true" />
                 <element signature="e#1012#1013#0" expanded="true" />
+                <element signature="e#29905#29906#0" expanded="true" />
+                <element signature="e#29945#29946#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MysqlController.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/org/bibalex/eol/mysql/MysqlController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="198">
+              <caret line="26" column="39" lean-forward="false" selection-start-line="26" selection-start-column="29" selection-end-line="26" selection-end-column="36" />
+              <folding>
+                <element signature="e#903#904#0" expanded="true" />
+                <element signature="e#959#960#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -201,34 +57,31 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="pom.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/pom.xml">
+      <file leaf-file-name="MysqlService.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/org/bibalex/eol/mysql/MysqlService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="18">
-              <caret line="22" column="37" lean-forward="false" selection-start-line="22" selection-start-column="32" selection-end-line="22" selection-end-column="37" />
+            <state relative-caret-position="288">
+              <caret line="30" column="59" lean-forward="false" selection-start-line="30" selection-start-column="59" selection-end-line="30" selection-end-column="59" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MysqlController.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/org/bibalex/eol/mysql/MysqlController.java">
+      <file leaf-file-name="PropertiesHandler.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/org/bibalex/eol/handlers/PropertiesHandler.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="214">
-              <caret line="28" column="31" lean-forward="false" selection-start-line="28" selection-start-column="31" selection-end-line="28" selection-end-column="31" />
-              <folding>
-                <element signature="e#2174#2175#0" expanded="true" />
-                <element signature="e#2222#2223#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="216">
+              <caret line="14" column="88" lean-forward="false" selection-start-line="14" selection-start-column="69" selection-end-line="14" selection-end-column="88" />
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MysqlService.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/org/bibalex/eol/mysql/MysqlService.java">
+      <file leaf-file-name="configs.properties" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/resources/configs.properties">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="88">
-              <caret line="30" column="0" lean-forward="false" selection-start-line="30" selection-start-column="0" selection-end-line="31" selection-end-column="0" />
+            <state relative-caret-position="18">
+              <caret line="1" column="11" lean-forward="false" selection-start-line="1" selection-start-column="11" selection-end-line="1" selection-end-column="11" />
               <folding />
             </state>
           </provider>
@@ -268,6 +121,7 @@
       <find>getRank</find>
       <find>getRan</find>
       <find>insertAg</find>
+      <find>insertMedium</find>
     </findStrings>
     <replaceStrings>
       <replace>MysqlHandler</replace>
@@ -322,12 +176,12 @@
         <option value="$PROJECT_DIR$/src/main/java/org/bibalex/eol/models/Reference.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/bibalex/eol/models/Taxon.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/bibalex/eol/models/VernacularName.java" />
-        <option value="$PROJECT_DIR$/src/main/resources/configs.properties" />
         <option value="$PROJECT_DIR$/src/main/java/org/bibalex/eol/handlers/GlobalNamesHandler.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/bibalex/eol/mysql/MysqlController.java" />
-        <option value="$PROJECT_DIR$/src/main/java/org/bibalex/eol/handlers/MysqlHandler.java" />
-        <option value="$PROJECT_DIR$/src/main/java/org/bibalex/eol/mysql/MysqlService.java" />
         <option value="$PROJECT_DIR$/src/main/resources/application.properties" />
+        <option value="$PROJECT_DIR$/src/main/java/org/bibalex/eol/handlers/MysqlHandler.java" />
+        <option value="$PROJECT_DIR$/src/main/resources/configs.properties" />
+        <option value="$PROJECT_DIR$/src/main/java/org/bibalex/eol/mysql/MysqlService.java" />
       </list>
     </option>
   </component>
@@ -365,8 +219,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="AndroidView" />
       <pane id="Scratches" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -447,8 +301,8 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
       <pane id="PackagesPane" />
+      <pane id="AndroidView" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -626,30 +480,49 @@
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32930845" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32994652" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3289183" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.33112583" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3289183" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.33333334" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25614974" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.26256683" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24973261" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39845476" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39845476" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32994652" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="6" side_tool="false" content_ui="combo" />
+      <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24973261" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39845476" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32930845" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3289183" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.33112583" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25614974" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
     </layout>
   </component>
   <component name="VcsContentAnnotationSettings">
@@ -690,6 +563,8 @@
             <element signature="imports" expanded="true" />
             <element signature="e#964#965#0" expanded="true" />
             <element signature="e#1012#1013#0" expanded="true" />
+            <element signature="e#29905#29906#0" expanded="true" />
+            <element signature="e#29945#29946#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -699,8 +574,8 @@
         <state relative-caret-position="198">
           <caret line="26" column="37" lean-forward="false" selection-start-line="26" selection-start-column="29" selection-end-line="26" selection-end-column="37" />
           <folding>
-            <element signature="e#2174#2175#0" expanded="true" />
-            <element signature="e#2222#2223#0" expanded="true" />
+            <element signature="e#903#904#0" expanded="true" />
+            <element signature="e#959#960#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1507,22 +1382,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/configs.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="35" lean-forward="false" selection-start-line="0" selection-start-column="35" selection-end-line="0" selection-end-column="35" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/bibalex/eol/handlers/PropertiesHandler.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="144">
-          <caret line="10" column="13" lean-forward="false" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/org/bibalex/eol/handlers/GlobalNamesHandler.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="622">
@@ -1539,6 +1398,17 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/bibalex/eol/mysql/MysqlController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="198">
+          <caret line="26" column="39" lean-forward="false" selection-start-line="26" selection-start-column="29" selection-end-line="26" selection-end-column="36" />
+          <folding>
+            <element signature="e#903#904#0" expanded="true" />
+            <element signature="e#959#960#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/application.properties">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="90">
@@ -1549,32 +1419,39 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/org/bibalex/eol/handlers/MysqlHandler.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="64">
-          <caret line="557" column="17" lean-forward="false" selection-start-line="557" selection-start-column="17" selection-end-line="557" selection-end-column="17" />
+        <state relative-caret-position="3770">
+          <caret line="314" column="96" lean-forward="false" selection-start-line="314" selection-start-column="96" selection-end-line="314" selection-end-column="96" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#964#965#0" expanded="true" />
             <element signature="e#1012#1013#0" expanded="true" />
+            <element signature="e#29905#29906#0" expanded="true" />
+            <element signature="e#29945#29946#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/configs.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="18">
+          <caret line="1" column="11" lean-forward="false" selection-start-line="1" selection-start-column="11" selection-end-line="1" selection-end-column="11" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/bibalex/eol/handlers/PropertiesHandler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="216">
+          <caret line="14" column="88" lean-forward="false" selection-start-line="14" selection-start-column="69" selection-end-line="14" selection-end-column="88" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/org/bibalex/eol/mysql/MysqlService.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="88">
-          <caret line="30" column="0" lean-forward="false" selection-start-line="30" selection-start-column="0" selection-end-line="31" selection-end-column="0" />
+        <state relative-caret-position="288">
+          <caret line="30" column="59" lean-forward="false" selection-start-line="30" selection-start-column="59" selection-end-line="30" selection-end-column="59" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/bibalex/eol/mysql/MysqlController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="214">
-          <caret line="28" column="31" lean-forward="false" selection-start-line="28" selection-start-column="31" selection-end-line="28" selection-end-column="31" />
-          <folding>
-            <element signature="e#2174#2175#0" expanded="true" />
-            <element signature="e#2222#2223#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>

@@ -28,7 +28,7 @@ public class MysqlService {
             MysqlHandler mysqlHandler = new MysqlHandler(entityManager, nodeRecord.getResourceId());
             int rank_id = mysqlHandler.insertRankToMysql(nodeRecord);
             int node_id = mysqlHandler.insertNodeToMysql(nodeRecord, rank_id);
-            if(nodeRecord.getTaxon().getPageEolId()!= "0" || nodeRecord.getTaxon().getPageEolId() != null){
+            if(nodeRecord.getTaxon().getPageEolId() != null|| nodeRecord.getTaxon().getPageEolId()!= "0"){
 
                 mysqlHandler.insertPageToMysql(nodeRecord, node_id);
                 mysqlHandler.insertPagesNodesToMysql(node_id, Integer.valueOf(nodeRecord.getTaxon().getPageEolId()));
