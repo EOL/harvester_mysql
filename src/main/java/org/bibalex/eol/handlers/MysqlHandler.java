@@ -425,7 +425,7 @@ public class MysqlHandler {
             entityManager.joinTransaction();
             Query query = entityManager.createNativeQuery("LOAD DATA INFILE '" + PropertiesHandler.getProperty("mysqlFiles") + "pages.txt" +
                     "'ignore into table pages FIELDS TERMINATED BY '\t' LINES TERMINATED BY '\n'" +
-                    "(id,created_at,updated_at,@column4)\n" +
+                    "(id,created_at,updated_at,@column4)" +
                     "set node_id = (SELECT id FROM nodes WHERE generated_node_id = @column4);");
             query.executeUpdate();
             writer = new PrintWriter(PropertiesHandler.getProperty("mysqlFiles") + "pages.txt");
@@ -448,7 +448,7 @@ public class MysqlHandler {
             entityManager.joinTransaction();
             Query query = entityManager.createNativeQuery("LOAD DATA INFILE '" + PropertiesHandler.getProperty("mysqlFiles") + "pages_nodes.txt" +
                     "'ignore into table pages_nodes FIELDS TERMINATED BY '\t' LINES TERMINATED BY '\n'" +
-                    "(page_id,is_native,created_at,updated_at,@column5)\n" +
+                    "(page_id,is_native,created_at,updated_at,@column5)" +
                     "set node_id = (SELECT id FROM nodes WHERE generated_node_id = @column5);");
             query.executeUpdate();
             writer = new PrintWriter(PropertiesHandler.getProperty("mysqlFiles") + "pages_nodes.txt");
