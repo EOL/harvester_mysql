@@ -376,18 +376,30 @@ public class MysqlHandler {
         PrintWriter writer = null;
         try {
             entityManager.joinTransaction();
+
+            Query transaction_query = entityManager.createNativeQuery("START TRANSACTION;");
+            transaction_query.executeUpdate();
             Query query = entityManager.createNativeQuery("LOAD DATA INFILE '" + PropertiesHandler.getProperty("mysqlFiles") + "ranks.txt" +
                     "' ignore into table ranks FIELDS TERMINATED BY '\t' LINES TERMINATED BY '\n'" +
                     "(name,created_at,updated_at);");
             query.executeUpdate();
+
+            Query commit_query =entityManager.createNativeQuery("commit;");
+            commit_query.executeUpdate();
+
             writer = new PrintWriter(PropertiesHandler.getProperty("mysqlFiles") + "ranks.txt");
             writer.print("");
             writer.close();
-        } catch (FileNotFoundException e) {
+        }
+
+        catch (FileNotFoundException e) {
             e.printStackTrace();
-        } catch (Exception e) {
+        }
+
+        catch (Exception e) {
             e.printStackTrace();
-        }finally {
+        }
+        finally {
             if( writer != null )
                 writer.close();
         }
@@ -400,18 +412,30 @@ public class MysqlHandler {
 
         try {
             entityManager.joinTransaction();
+            Query transaction_query = entityManager.createNativeQuery("START TRANSACTION;");
+            transaction_query.executeUpdate();
+
             Query query = entityManager.createNativeQuery("LOAD DATA INFILE '" + PropertiesHandler.getProperty("mysqlFiles") + "nodes.txt" +
                     "'ignore into table nodes FIELDS TERMINATED BY '\t' LINES TERMINATED BY '\n'" +
                     "(resource_id,scientific_name,canonical_form,generated_node_id,resource_pk,created_at,updated_at,@column10)" +
                     "set rank_id = (SELECT id FROM ranks WHERE name = @column10);");
             query.executeUpdate();
+
+            Query commit_query =entityManager.createNativeQuery("commit;");
+            commit_query.executeUpdate();
+
             writer = new PrintWriter(PropertiesHandler.getProperty("mysqlFiles") + "nodes.txt");
             writer.print("");
-        } catch (FileNotFoundException e) {
+        }
+
+        catch (FileNotFoundException e) {
             e.printStackTrace();
-        } catch (Exception e) {
+        }
+
+        catch (Exception e) {
             e.printStackTrace();
-        }finally {
+        }
+        finally {
             if( writer != null )
                 writer.close();
         }
@@ -423,18 +447,29 @@ public class MysqlHandler {
 
         try {
             entityManager.joinTransaction();
+            Query transaction_query = entityManager.createNativeQuery("START TRANSACTION;");
+            transaction_query.executeUpdate();
             Query query = entityManager.createNativeQuery("LOAD DATA INFILE '" + PropertiesHandler.getProperty("mysqlFiles") + "pages.txt" +
                     "'ignore into table pages FIELDS TERMINATED BY '\t' LINES TERMINATED BY '\n'" +
-                    "(id,created_at,updated_at,@column4)" +
-                    "set node_id = (SELECT id FROM nodes WHERE generated_node_id = @column4);");
+                    "(id,created_at,updated_at,node_id);" );
             query.executeUpdate();
+
+            Query commit_query =entityManager.createNativeQuery("commit;");
+            commit_query.executeUpdate();
+
+            Query update_query = entityManager.createNativeQuery("update pages set updated=true, node_id = (select id from nodes where generated_node_id=pages.node_id) where updated=false;");
+            update_query.executeUpdate();
+
             writer = new PrintWriter(PropertiesHandler.getProperty("mysqlFiles") + "pages.txt");
             writer.print("");
-        } catch (FileNotFoundException e) {
+        }
+        catch (FileNotFoundException e) {
             e.printStackTrace();
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             e.printStackTrace();
-        }finally {
+        }
+        finally {
             if( writer != null )
                 writer.close();
         }
@@ -446,18 +481,31 @@ public class MysqlHandler {
 
         try {
             entityManager.joinTransaction();
+
+            Query transaction_query = entityManager.createNativeQuery("START TRANSACTION;");
+            transaction_query.executeUpdate();
+
             Query query = entityManager.createNativeQuery("LOAD DATA INFILE '" + PropertiesHandler.getProperty("mysqlFiles") + "pages_nodes.txt" +
                     "'ignore into table pages_nodes FIELDS TERMINATED BY '\t' LINES TERMINATED BY '\n'" +
-                    "(page_id,is_native,created_at,updated_at,@column5)" +
-                    "set node_id = (SELECT id FROM nodes WHERE generated_node_id = @column5);");
+                    "(page_id,is_native,created_at,updated_at,node_id);" );
             query.executeUpdate();
+
+            Query commit_query =entityManager.createNativeQuery("commit;");
+            commit_query.executeUpdate();
+
+            Query update_query = entityManager.createNativeQuery("update pages_nodes set updated=true, node_id = (select id from nodes where generated_node_id=pages_nodes.node_id) where updated=false;");
+            update_query.executeUpdate();
+
             writer = new PrintWriter(PropertiesHandler.getProperty("mysqlFiles") + "pages_nodes.txt");
             writer.print("");
-        } catch (FileNotFoundException e) {
+        }
+        catch (FileNotFoundException e) {
             e.printStackTrace();
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             e.printStackTrace();
-        }finally {
+        }
+        finally {
             if( writer != null )
                 writer.close();
         }
@@ -469,18 +517,31 @@ public class MysqlHandler {
 
         try {
             entityManager.joinTransaction();
+
+            Query transaction_query = entityManager.createNativeQuery("START TRANSACTION;");
+            transaction_query.executeUpdate();
+
             Query query = entityManager.createNativeQuery("LOAD DATA INFILE '" + PropertiesHandler.getProperty("mysqlFiles") + "scientific_names.txt" +
                     "'ignore into table scientific_names FIELDS TERMINATED BY '\t' LINES TERMINATED BY '\n'" +
-                    "(resource_id,canonical_form,italicized,node_resource_pk,generated_node_id,page_id,taxonomic_status_id,created_at,updated_at,@column10)" +
-                    "set node_id = (SELECT id FROM nodes WHERE generated_node_id = @column10);");
+                    "(resource_id,canonical_form,italicized,node_resource_pk,generated_node_id,page_id,taxonomic_status_id,created_at,updated_at,node_id);");
             query.executeUpdate();
+
+            Query commit_query =entityManager.createNativeQuery("commit;");
+            commit_query.executeUpdate();
+
+            Query update_query = entityManager.createNativeQuery("update scientific_names set updated=true, node_id = (select id from nodes where generated_node_id=scientific_names.node_id) where updated=false;");
+            update_query.executeUpdate();
+
             writer = new PrintWriter(PropertiesHandler.getProperty("mysqlFiles") + "scientific_names.txt");
             writer.print("");
-        } catch (FileNotFoundException e) {
+        }
+        catch (FileNotFoundException e) {
             e.printStackTrace();
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             e.printStackTrace();
-        }finally {
+        }
+        finally {
             if( writer != null )
                 writer.close();
         }
@@ -492,16 +553,27 @@ public class MysqlHandler {
 
         try {
             entityManager.joinTransaction();
+
+            Query transaction_query = entityManager.createNativeQuery("START TRANSACTION;");
+            transaction_query.executeUpdate();
+
             Query query = entityManager.createNativeQuery("LOAD DATA INFILE '" + PropertiesHandler.getProperty("mysqlFiles") + "languages.txt" + "' ignore into table languages FIELDS TERMINATED BY '\t' LINES TERMINATED BY '\n'" +
                     "(code,`group`,created_at,updated_at);");
             query.executeUpdate();
+
+            Query commit_query =entityManager.createNativeQuery("commit;");
+            commit_query.executeUpdate();
+
             writer = new PrintWriter(PropertiesHandler.getProperty("mysqlFiles") + "languages.txt");
             writer.print("");
-        } catch (FileNotFoundException e) {
+        }
+        catch (FileNotFoundException e) {
             e.printStackTrace();
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             e.printStackTrace();
-        }finally {
+        }
+        finally {
             if( writer != null )
                 writer.close();
         }
@@ -513,19 +585,32 @@ public class MysqlHandler {
 
         try {
             entityManager.joinTransaction();
+
+            Query transaction_query = entityManager.createNativeQuery("START TRANSACTION;");
+            transaction_query.executeUpdate();
+
             Query query = entityManager.createNativeQuery("LOAD DATA INFILE '" + PropertiesHandler.getProperty("mysqlFiles") + "vernaculars.txt" +
                     "' ignore into table vernaculars FIELDS TERMINATED BY '\t' LINES TERMINATED BY '\n'" +
-                    "(string,resource_id,is_prefered_by_resource,generated_node_id,page_id,created_at,updated_at,@column8,@column9)" +
-                    "set node_id = (SELECT id FROM nodes WHERE generated_node_id = @column9)," +
-                    " language_id = (SELECT id FROM languages WHERE code = @column8);");
+                    "(string,resource_id,is_prefered_by_resource,generated_node_id,page_id,created_at,updated_at,@column8,node_id)" +
+                    "set language_id = (SELECT id FROM languages WHERE code = @column8);");
             query.executeUpdate();
+
+            Query commit_query =entityManager.createNativeQuery("commit;");
+            commit_query.executeUpdate();
+
+            Query update_query = entityManager.createNativeQuery("update vernaculars set updated=true, node_id = (select id from nodes where generated_node_id=vernaculars.node_id) where updated=false;");
+            update_query.executeUpdate();
+
             writer = new PrintWriter(PropertiesHandler.getProperty("mysqlFiles") + "vernaculars.txt");
             writer.print("");
-        } catch (FileNotFoundException e) {
+        }
+        catch (FileNotFoundException e) {
             e.printStackTrace();
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             e.printStackTrace();
-        }finally {
+        }
+        finally {
             if( writer != null )
                 writer.close();
         }
@@ -537,16 +622,27 @@ public class MysqlHandler {
 
         try {
             entityManager.joinTransaction();
+
+            Query transaction_query = entityManager.createNativeQuery("START TRANSACTION;");
+            transaction_query.executeUpdate();
+
             Query query = entityManager.createNativeQuery("LOAD DATA INFILE '" + PropertiesHandler.getProperty("mysqlFiles") + "licenses.txt" + "' ignore into table licenses FIELDS TERMINATED BY '\t' LINES TERMINATED BY '\n'" +
                     "(source_url,name,created_at,updated_at);");
             query.executeUpdate();
+
+            Query commit_query =entityManager.createNativeQuery("commit;");
+            commit_query.executeUpdate();
+
             writer = new PrintWriter(PropertiesHandler.getProperty("mysqlFiles") + "licenses.txt");
             writer.print("");
-        } catch (FileNotFoundException e) {
+        }
+        catch (FileNotFoundException e) {
             e.printStackTrace();
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             e.printStackTrace();
-        }finally {
+        }
+        finally {
             if( writer != null )
                 writer.close();
         }
@@ -558,17 +654,28 @@ public class MysqlHandler {
 
         try {
             entityManager.joinTransaction();
+
+            Query transaction_query = entityManager.createNativeQuery("START TRANSACTION;");
+            transaction_query.executeUpdate();
+
             Query query = entityManager.createNativeQuery("LOAD DATA INFILE '" + PropertiesHandler.getProperty("mysqlFiles") + "locations.txt" +
                     "' ignore into table locations FIELDS TERMINATED BY '\t' LINES TERMINATED BY '\n'" +
                     "(resource_id,location,longitude,latitude,altitude,spatial_location,created_at,updated_at)");
             query.executeUpdate();
+
+            Query commit_query =entityManager.createNativeQuery("commit;");
+            commit_query.executeUpdate();
+
             writer = new PrintWriter(PropertiesHandler.getProperty("mysqlFiles") + "locations.txt");
             writer.print("");
-        } catch (FileNotFoundException e) {
+        }
+        catch (FileNotFoundException e) {
             e.printStackTrace();
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             e.printStackTrace();
-        } finally {
+        }
+        finally {
             if( writer != null )
                 writer.close();
         }
@@ -580,19 +687,30 @@ public class MysqlHandler {
 
         try {
             entityManager.joinTransaction();
+
+            Query transaction_query = entityManager.createNativeQuery("START TRANSACTION;");
+            transaction_query.executeUpdate();
+
             Query query = entityManager.createNativeQuery("LOAD DATA INFILE '" + PropertiesHandler.getProperty("mysqlFiles") + "media.txt" +
                     "' ignore into table media FIELDS TERMINATED BY '\t' LINES TERMINATED BY '\n'" +
                     "(format,description,owner,resource_id,guid,resource_pk,source_page_url,base_url,created_at,updated_at,@column8,@column9)" +
                     "set license_id = (SELECT id FROM licenses WHERE source_url = @column9)," +
                     " language_id = (SELECT id FROM languages WHERE code = @column8);");
             query.executeUpdate();
+
+            Query commit_query =entityManager.createNativeQuery("commit;");
+            commit_query.executeUpdate();
+
             writer = new PrintWriter(PropertiesHandler.getProperty("mysqlFiles") + "media.txt");
             writer.print("");
-        } catch (FileNotFoundException e) {
+        }
+        catch (FileNotFoundException e) {
             e.printStackTrace();
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             e.printStackTrace();
-        } finally {
+        }
+        finally {
             if( writer != null )
                 writer.close();
         }
@@ -604,18 +722,31 @@ public class MysqlHandler {
 
         try {
             entityManager.joinTransaction();
+
+            Query transaction_query = entityManager.createNativeQuery("START TRANSACTION;");
+            transaction_query.executeUpdate();
+
             Query query = entityManager.createNativeQuery("LOAD DATA INFILE '" + PropertiesHandler.getProperty("mysqlFiles") + "page_contents.txt" +
                     "' ignore into table page_contents FIELDS TERMINATED BY '\t' LINES TERMINATED BY '\n'" +
-                    "(resource_id,page_id,source_page_id,content_type,created_at,updated_at,@column7)" +
-                    "set content_id = (SELECT id FROM media WHERE guid = @column7)");
+                    "(resource_id,page_id,source_page_id,content_type,created_at,updated_at,guid);");
             query.executeUpdate();
+
+            Query commit_query =entityManager.createNativeQuery("commit;");
+            commit_query.executeUpdate();
+
+            Query update_query = entityManager.createNativeQuery("update page_contents set content_id = (select id from media where guid=page_contents.guid);");
+            update_query.executeUpdate();
+
             writer = new PrintWriter(PropertiesHandler.getProperty("mysqlFiles") + "page_contents.txt");
             writer.print("");
-        } catch (FileNotFoundException e) {
+        }
+        catch (FileNotFoundException e) {
             e.printStackTrace();
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             e.printStackTrace();
-        } finally {
+        }
+        finally {
             if( writer != null )
                 writer.close();
         }
@@ -627,18 +758,31 @@ public class MysqlHandler {
 
         try {
             entityManager.joinTransaction();
+
+            Query transaction_query = entityManager.createNativeQuery("START TRANSACTION;");
+            transaction_query.executeUpdate();
+
             Query query = entityManager.createNativeQuery("LOAD DATA INFILE '" + PropertiesHandler.getProperty("mysqlFiles") + "agents.txt" +
                     "' ignore into table attributions FIELDS TERMINATED BY '\t' LINES TERMINATED BY '\n'" +
-                    "(resource_id,content_type,role_name,url,resource_pk,value,content_resource_fk,created_at,updated_at,@column10)" +
-                    "set content_id = (SELECT id FROM media WHERE guid = @column10);");
+                    "(resource_id,content_type,role_name,url,resource_pk,value,content_resource_fk,created_at,updated_at,guid);");
             query.executeUpdate();
+
+            Query commit_query =entityManager.createNativeQuery("commit;");
+            commit_query.executeUpdate();
+
+            Query update_query = entityManager.createNativeQuery("update attributions set content_id = (select id from media where guid=attributions.guid);");
+            update_query.executeUpdate();
+
             writer = new PrintWriter(PropertiesHandler.getProperty("mysqlFiles") + "agents.txt");
             writer.print("");
-        } catch (FileNotFoundException e) {
+        }
+        catch (FileNotFoundException e) {
             e.printStackTrace();
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             e.printStackTrace();
-        } finally {
+        }
+        finally {
             if( writer != null )
                 writer.close();
         }
@@ -650,16 +794,27 @@ public class MysqlHandler {
 
         try {
             entityManager.joinTransaction();
+
+            Query transaction_query = entityManager.createNativeQuery("START TRANSACTION;");
+            transaction_query.executeUpdate();
+
             Query query = entityManager.createNativeQuery("LOAD DATA INFILE '" + PropertiesHandler.getProperty("mysqlFiles") + "referents.txt" + "' ignore into table referents FIELDS TERMINATED BY '\t' LINES TERMINATED BY '\n'" +
                     "(resource_id,body,created_at,updated_at);");
             query.executeUpdate();
+
+            Query commit_query =entityManager.createNativeQuery("commit;");
+            commit_query.executeUpdate();
+
             writer = new PrintWriter(PropertiesHandler.getProperty("mysqlFiles") + "referents.txt");
             writer.print("");
-        } catch (FileNotFoundException e) {
+        }
+        catch (FileNotFoundException e) {
             e.printStackTrace();
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             e.printStackTrace();
-        }finally {
+        }
+        finally {
             if( writer != null )
                 writer.close();
         }
@@ -673,17 +828,26 @@ public class MysqlHandler {
             entityManager.joinTransaction();
             Query query = entityManager.createNativeQuery("LOAD DATA INFILE '" + PropertiesHandler.getProperty("mysqlFiles") + "references.txt" +
                     "' ignore into table `references` FIELDS TERMINATED BY '\t' LINES TERMINATED BY '\n'" +
-                    "(resource_id,parent_type,created_at,updated_at,@column5,@column6,@column7)" +
-                    "set parent_id = (SELECT id FROM media WHERE guid = @column5)," +
-                    " referent_id = (select id from referents where body=@column6 and resource_id=@column7);");
+                    "(resource_id,parent_type,created_at,updated_at,guid,@column6,@column7)" +
+                    " set referent_id = (select id from referents where body=@column6 and resource_id=@column7);");
             query.executeUpdate();
+
+            Query commit_query =entityManager.createNativeQuery("commit;");
+            commit_query.executeUpdate();
+
+            Query update_query = entityManager.createNativeQuery("update `references` set parent_id = (select id from media where guid=`references`.guid);");
+            update_query.executeUpdate();
+
             writer = new PrintWriter(PropertiesHandler.getProperty("mysqlFiles") + "references.txt");
             writer.print("");
-        } catch (FileNotFoundException e) {
+        }
+        catch (FileNotFoundException e) {
             e.printStackTrace();
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             e.printStackTrace();
-        }finally {
+        }
+        finally {
             if( writer != null )
                 writer.close();
         }

@@ -41,6 +41,8 @@ public class FileHandler {
 
     public void writeRankToFile(NodeRecord tableRecord){
         System.out.println("insert new rank");
+        System.out.println(tableRecord.getTaxon().getTaxonRank());
+
         try
         {
             String date= DateHelper.getDate();
@@ -320,6 +322,7 @@ public class FileHandler {
             referents.close();
             references.close();
         } catch (IOException e) {
+            System.out.println("erorrrrrrrrrrrrrrrrrrrrrrr");
             e.printStackTrace();
         }
     }
