@@ -32,6 +32,7 @@ public class MysqlService {
             boolean addRecord =addEntry(nodeRecords[i], fileHandler);
             done = done&&addRecord;
         }
+        fileHandler.printCounts();
         fileHandler.close();
         MysqlHandler mysqlHandler = new MysqlHandler(entityManager);
         loadFilesToMysql();

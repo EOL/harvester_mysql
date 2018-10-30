@@ -16,6 +16,9 @@ public class FileHandler {
     private FileWriter ranks, nodes, pages, pages_nodes, scientific_names, languages, vernaculars, locations, licenses, media, agents,
     page_contents, references, referents;
 
+    private int ranks_count=0,nodes_count=0,pages_count=0, pages_nodes_count=0, scientific_names_count=0, media_count=0, page_contents_count=0,
+    vernaculars_count=0;
+
     public FileHandler(EntityManager entityManager, int resourceID){
         this.entityManager=entityManager;
         this.resourceID=resourceID;
@@ -40,13 +43,14 @@ public class FileHandler {
     }
 
     public void writeRankToFile(NodeRecord tableRecord){
-        System.out.println("insert new rank");
-        System.out.println(tableRecord.getTaxon().getTaxonRank());
+//        System.out.println("insert new rank");
+//        System.out.println(tableRecord.getTaxon().getTaxonRank());
 
         try
         {
             String date= DateHelper.getDate();
             ranks.write(tableRecord.getTaxon().getTaxonRank()+"\t"+date+"\t"+date+"\n");//appends the string to the file
+            ranks_count++;
         }
         catch(IOException ioe)
         {
@@ -56,7 +60,7 @@ public class FileHandler {
     }
 
     public void writeNodeToMysql(NodeRecord tableRecord){
-        System.out.println("insert new node");
+//        System.out.println("insert new node");
         GlobalNamesHandler globalNamesHandler = new GlobalNamesHandler();
         Taxon taxon = tableRecord.getTaxon();
         try
@@ -65,6 +69,8 @@ public class FileHandler {
             nodes.write(resourceID+"\t"+taxon.getScientificName()+"\t"+globalNamesHandler.getCanonicalForm(taxon.getScientificName())+
                     "\t"+Integer.valueOf(tableRecord.getGeneratedNodeId())+"\t"+taxon.getIdentifier()+"\t"+ date+"\t"+ date+
                     "\t"+tableRecord.getTaxon().getTaxonRank()+"\n");//appends the string to the file
+            nodes_count++;
+
         }
         catch(IOException ioe) {
             System.err.println("IOException: " + ioe.getMessage());
@@ -73,13 +79,15 @@ public class FileHandler {
     }
 
     public void writePageToFile(NodeRecord tableRecord){
-        System.out.println("insert new page");
+//        System.out.println("insert new page");
 
         try
         {
             String date= DateHelper.getDate();
             pages.write(Integer.valueOf(tableRecord.getTaxon().getPageEolId())+"\t"+date+"\t"+date+"\t"+
                     Integer.valueOf(tableRecord.getGeneratedNodeId())+"\n");
+            pages_count++;
+
         }
         catch(IOException ioe)
         {
@@ -88,13 +96,14 @@ public class FileHandler {
     }
 
     public void writePagesNodesToFile(int generated_node_id, int page_id) {
-        System.out.println("insert new page_node");
+//        System.out.println("insert new page_node");
 
         try
         {
             String date= DateHelper.getDate();
             boolean is_native = resourceID == Integer.valueOf(PropertiesHandler.getProperty("DWHId"))? true:false;
             pages_nodes.write(page_id+"\t"+is_native+"\t"+date+"\t"+date+"\t"+ generated_node_id+"\n");
+            pages_nodes_count++;
         }
         catch(IOException ioe)
         {
@@ -103,7 +112,7 @@ public class FileHandler {
     }
 
     public void writeScientificNameToFile(NodeRecord tableRecord, int generated_node_id) {
-        System.out.println("insert new scientific name");
+//        System.out.println("insert new scientific name");
         Taxon taxon = tableRecord.getTaxon();
         GlobalNamesHandler globalNamesHandler = new GlobalNamesHandler();
 
@@ -112,6 +121,7 @@ public class FileHandler {
             String date= DateHelper.getDate();
             scientific_names.write(resourceID+"\t"+globalNamesHandler.getCanonicalForm(taxon.getScientificName())+"\t"+globalNamesHandler.getCanonicalForm(taxon.getScientificName())+"\t"+taxon.getIdentifier()
                     +"\t"+generated_node_id+"\t"+Integer.valueOf(tableRecord.getTaxon().getPageEolId())+"\t"+1+"\t"+date+"\t"+date+"\t"+generated_node_id+"\n");
+            scientific_names_count++;
         }
         catch(IOException ioe)
         {
@@ -129,13 +139,14 @@ public class FileHandler {
 
     private void writeVernacularsToFile(VernacularName vernacular, int page_id, int generated_node_id){
 
-        System.out.println("insert new vernacular");
+//        System.out.println("insert new vernacular");
 
         try
         {
             String date= DateHelper.getDate();
             boolean is_preferred = vernacular.getIsPreferred()=="1"? true:false;
             vernaculars.write(vernacular.getName()+"\t"+resourceID+"\t"+is_preferred+"\t"+generated_node_id+"\t"+page_id+"\t"+date+"\t"+date+"\t"+vernacular.getLanguage()+"\t"+generated_node_id+"\n");
+            vernaculars_count++;
         }
         catch(IOException ioe)
         {
@@ -161,7 +172,7 @@ public class FileHandler {
     }
 
     private void writeMediumToFile(Media medium, String guid){
-        System.out.println("insert new medium");
+//        System.out.println("insert new medium");
 
         try
         {
@@ -169,6 +180,7 @@ public class FileHandler {
             media.write(medium.getFormat()+"\t"+medium.getDescription()+"\t"+medium.getOwner()+"\t"+resourceID+"\t"+guid
                     +"\t"+medium.getMediaId()+"\t"+medium.getFurtherInformationURI()+"\t"+
                     PropertiesHandler.getProperty("storageLayerIp")+medium.getStorageLayerPath()+"\t"+date+"\t"+date+"\t"+medium.getLanguage()+"\t"+medium.getLicense()+"\n");
+            media_count++;
         }
         catch(IOException ioe)
         {
@@ -178,12 +190,13 @@ public class FileHandler {
 
     private void writePageContentToFile(int page_id, String guid){
 
-        System.out.println("insert new page_content");
+//        System.out.println("insert new page_content");
 
         try
         {
             String date= DateHelper.getDate();
             page_contents.write(resourceID+"\t"+page_id+"\t"+page_id+"\tMedium\t"+date+"\t"+date+"\t"+guid+"\n");
+            page_contents_count++;
         }
         catch(IOException ioe)
         {
@@ -210,7 +223,7 @@ public class FileHandler {
     }
 
     private void writeLanguageToFile(String code){
-        System.out.println("insert new language");
+//        System.out.println("insert new language");
         if(code == null)
             code="eng";
 
@@ -226,7 +239,7 @@ public class FileHandler {
     }
 
     private void writeLicenseToFile(String source_url){
-        System.out.println("insert new license");
+//        System.out.println("insert new license");
         if(source_url == null)
             source_url="test";
 
@@ -273,7 +286,7 @@ public class FileHandler {
     }
 
     private void writeReferentToFile(String body) {
-        System.out.println("insert new referent");
+//        System.out.println("insert new referent");
 
         try
         {
@@ -287,7 +300,7 @@ public class FileHandler {
     }
 
     private void writeReferenceToFile(String guid, String body) {
-        System.out.println("insert new reference");
+//        System.out.println("insert new reference");
 
         try
         {
@@ -327,4 +340,15 @@ public class FileHandler {
         }
     }
 
+    public void printCounts() {
+        System.out.println("ranks: "+ranks_count);
+        System.out.println("nodes: "+nodes_count);
+        System.out.println("pages: "+pages_count);
+        System.out.println("pages_nodes: "+pages_nodes_count);
+        System.out.println("scientific_names: "+scientific_names_count);
+        System.out.println("media: "+media_count);
+        System.out.println("page_contents: "+page_contents_count);
+        System.out.println("vernaculars: "+vernaculars_count);
+
+    }
 }
