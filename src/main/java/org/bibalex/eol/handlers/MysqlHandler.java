@@ -257,6 +257,31 @@ public class MysqlHandler {
         return media;
     }
 
+    public ArrayList<MysqlArticle> getArticles(Date startDate, Date endDate) {
+
+        StoredProcedureQuery getArticles = entityManager
+                .createStoredProcedureQuery("getArticles")
+                .registerStoredProcedureParameter(
+                        "start_date", Date.class, ParameterMode.IN)
+                .registerStoredProcedureParameter(
+                        "end_date", Date.class, ParameterMode.IN);
+        getArticles.setParameter("start_date", startDate);
+        getArticles.setParameter("end_date", endDate);
+
+        List<Object[]> res = getArticles.getResultList();
+        Iterator it = res.iterator();
+        ArrayList<MysqlArticle> articles = new ArrayList<>();
+        while (it.hasNext()) {
+            Object[] line = (Object[]) it.next();
+            MysqlArticle location = new MysqlArticle((BigInteger) line[0], (String) line[1], (Integer) line[2], (String) line[3],
+                    (String) line[4], (Integer) line[5], (String) line[6], (String) line[7], (String) line[8],
+                    (BigInteger) line[9], (BigInteger) line[10], (BigInteger) line[11], (BigInteger) line[12], (String) line[13]);
+            articles.add(location);
+        }
+
+        return articles;
+    }
+
     public ArrayList<MysqlPageContent> getPageContents(Date startDate, Date endDate) {
 
         StoredProcedureQuery getPageContents = entityManager
@@ -386,7 +411,7 @@ public class MysqlHandler {
 
             Query commit_query =entityManager.createNativeQuery("commit;");
             commit_query.executeUpdate();
-
+//makes file empty
             writer = new PrintWriter(PropertiesHandler.getProperty("mysqlFiles") + "ranks.txt");
             writer.print("");
             writer.close();
@@ -693,7 +718,7 @@ public class MysqlHandler {
 
             Query query = entityManager.createNativeQuery("LOAD DATA INFILE '" + PropertiesHandler.getProperty("mysqlFiles") + "media.txt" +
                     "' ignore into table media FIELDS TERMINATED BY '\t' LINES TERMINATED BY '\n'" +
-                    "(format,description,owner,resource_id,guid,resource_pk,source_page_url,base_url,created_at,updated_at,@column8,@column9)" +
+                    "(format,description,owner,resource_id,guid,resource_pk,source_page_url,base_url,name,created_at,updated_at,@column8,@column9)" +
                     "set license_id = (SELECT id FROM licenses WHERE source_url = @column9)," +
                     " language_id = (SELECT id FROM languages WHERE code = @column8);");
             query.executeUpdate();
@@ -702,6 +727,41 @@ public class MysqlHandler {
             commit_query.executeUpdate();
 
             writer = new PrintWriter(PropertiesHandler.getProperty("mysqlFiles") + "media.txt");
+            writer.print("");
+        }
+        catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+        finally {
+            if( writer != null )
+                writer.close();
+        }
+    }
+
+    public void loadArticles() {
+        System.out.println("load articles");
+        PrintWriter writer = null;
+
+        try {
+            entityManager.joinTransaction();
+
+            Query transaction_query = entityManager.createNativeQuery("START TRANSACTION;");
+            transaction_query.executeUpdate();
+
+            Query query = entityManager.createNativeQuery("LOAD DATA INFILE '" + PropertiesHandler.getProperty("mysqlFiles") + "articles.txt" +
+                    "' ignore into table articles FIELDS TERMINATED BY '\t' LINES TERMINATED BY '\n'" +
+                    "(owner,resource_id,guid,resource_pk,name,created_at,updated_at,@column8,@column9,body)" +
+                    "set license_id = (SELECT id FROM licenses WHERE source_url = @column9)," +
+                    " language_id = (SELECT id FROM languages WHERE code = @column8);");
+            query.executeUpdate();
+
+            Query commit_query =entityManager.createNativeQuery("commit;");
+            commit_query.executeUpdate();
+
+            writer = new PrintWriter(PropertiesHandler.getProperty("mysqlFiles") + "articles.txt");
             writer.print("");
         }
         catch (FileNotFoundException e) {
@@ -770,11 +830,15 @@ public class MysqlHandler {
             Query commit_query =entityManager.createNativeQuery("commit;");
             commit_query.executeUpdate();
 
-            Query update_query = entityManager.createNativeQuery("update attributions set content_id = (select id from media where guid=attributions.guid);");
+
+            Query update_query = entityManager.createNativeQuery("update attributions set content_id = (select id from media where guid=attributions.guid) where content_id IS NULL;");
             update_query.executeUpdate();
 
+            Query update_query1 = entityManager.createNativeQuery("update attributions set content_id = (select id from articles where guid=attributions.guid) where content_id IS NULL;");
+            update_query1.executeUpdate();
+
             writer = new PrintWriter(PropertiesHandler.getProperty("mysqlFiles") + "agents.txt");
-            writer.print("");
+           writer.print("");
         }
         catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -835,8 +899,11 @@ public class MysqlHandler {
             Query commit_query =entityManager.createNativeQuery("commit;");
             commit_query.executeUpdate();
 
-            Query update_query = entityManager.createNativeQuery("update `references` set parent_id = (select id from media where guid=`references`.guid);");
+            Query update_query = entityManager.createNativeQuery("update `references` set parent_id = (select id from media where guid=`references`.guid) where parent_id IS NULL;");
             update_query.executeUpdate();
+
+            Query update_query1 = entityManager.createNativeQuery("update `references` set parent_id = (select id from articles where guid=`references`.guid) where parent_id IS NULL;");
+            update_query1.executeUpdate();
 
             writer = new PrintWriter(PropertiesHandler.getProperty("mysqlFiles") + "references.txt");
             writer.print("");

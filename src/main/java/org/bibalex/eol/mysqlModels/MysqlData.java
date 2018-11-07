@@ -14,6 +14,7 @@ public class MysqlData implements Serializable{
     ArrayList<MysqlLicense> licenses;
     ArrayList<MysqlLocation> locations;
     ArrayList<MysqlMedium> media;
+    ArrayList<MysqlArticle> articles;
     ArrayList<MysqlPageContent> page_contents;
     ArrayList<MysqlAgent> attributions;
     ArrayList<MysqlReferent> referents;
@@ -92,6 +93,14 @@ public class MysqlData implements Serializable{
 
     public void setMedia(ArrayList<MysqlMedium> media) {
         this.media = media;
+    }
+
+    public ArrayList<MysqlArticle> getArticles() {
+        return articles;
+    }
+
+    public void setArticles(ArrayList<MysqlArticle> articles) {
+        this.articles = articles;
     }
 
     public ArrayList<MysqlPageContent> getPage_contents() {

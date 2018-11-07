@@ -77,6 +77,7 @@ public class MysqlService {
         mysqlData.setLicenses(mysqlHandler.getLicenses(startDate, endDate));
         mysqlData.setLocations(mysqlHandler.getLocations(startDate, endDate));
         mysqlData.setMedia(mysqlHandler.getMedia(startDate, endDate));
+        mysqlData.setArticles(mysqlHandler.getArticles(startDate, endDate));
         mysqlData.setPage_contents(mysqlHandler.getPageContents(startDate, endDate));
         mysqlData.setAttributions(mysqlHandler.getAgents(startDate, endDate));
         mysqlData.setReferents(mysqlHandler.getReferents(startDate, endDate));
@@ -105,6 +106,7 @@ public class MysqlService {
             mysqlHandler.loadLicenses();
             mysqlHandler.loadLocations();
             mysqlHandler.loadMedia();
+            mysqlHandler.loadArticles();
             mysqlHandler.loadPageContents();
             mysqlHandler.loadAgents();
             mysqlHandler.loadReferents();

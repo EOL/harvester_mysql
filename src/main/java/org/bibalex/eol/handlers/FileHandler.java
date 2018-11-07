@@ -14,10 +14,10 @@ public class FileHandler {
     private EntityManager entityManager;
     private int resourceID;
     private FileWriter ranks, nodes, pages, pages_nodes, scientific_names, languages, vernaculars, locations, licenses, media, agents,
-    page_contents, references, referents;
+    page_contents, references, referents, articles;
 
     private int ranks_count=0,nodes_count=0,pages_count=0, pages_nodes_count=0, scientific_names_count=0, media_count=0, page_contents_count=0,
-    vernaculars_count=0;
+    vernaculars_count=0,article_count=0;
 
     public FileHandler(EntityManager entityManager, int resourceID){
         this.entityManager=entityManager;
@@ -33,6 +33,7 @@ public class FileHandler {
             locations = new FileWriter(PropertiesHandler.getProperty("mysqlFiles")+"locations.txt",true);
             licenses = new FileWriter(PropertiesHandler.getProperty("mysqlFiles")+"licenses.txt",true);
             media = new FileWriter(PropertiesHandler.getProperty("mysqlFiles")+"media.txt",true);
+            articles = new FileWriter(PropertiesHandler.getProperty("mysqlFiles")+"articles.txt",true);
             agents = new FileWriter(PropertiesHandler.getProperty("mysqlFiles")+"agents.txt",true);
             page_contents = new FileWriter(PropertiesHandler.getProperty("mysqlFiles")+"page_contents.txt",true);
             referents = new FileWriter(PropertiesHandler.getProperty("mysqlFiles")+"referents.txt",true);
@@ -44,7 +45,7 @@ public class FileHandler {
 
     public void writeRankToFile(NodeRecord tableRecord){
 //        System.out.println("insert new rank");
-//        System.out.println(tableRecord.getTaxon().getTaxonRank());
+//        System.out.println("ranks "+tableRecord.getTaxon().getTaxonRank());
 
         try
         {
@@ -154,20 +155,28 @@ public class FileHandler {
         }
     }
 
-    public void writeMediaToFile(NodeRecord tableRecord){
+    public void  writeMediaToFile(NodeRecord tableRecord){
         ArrayList<Media> media = tableRecord.getMedia();
+        String content_type ="";
         for(Media medium : media){
             writeLanguageToFile(medium.getLanguage());
             writeLicenseToFile(medium.getLicense());
             if (medium.getLocationCreated() != null)
                 writeLocationToFile(medium);
             String guid = String.valueOf(generateMediaGUID());
-            writeMediumToFile(medium, guid);
-            writePageContentToFile(Integer.valueOf(tableRecord.getTaxon().getPageEolId()), guid);
+            if(medium.getFormat().equalsIgnoreCase("text/html")){
+                writeArticleToFile(medium, guid);
+                content_type = "Article";
+            }
+            else {
+                writeMediumToFile(medium, guid);
+                content_type = "Medium";
+            }
+            writePageContentToFile(Integer.valueOf(tableRecord.getTaxon().getPageEolId()), guid, content_type);
             if(medium.getAgents()!= null)
-                writeAgentsToFile(medium.getAgents(), medium.getMediaId(), guid);
+                writeAgentsToFile(medium.getAgents(), medium.getMediaId(), guid,content_type);
             if(tableRecord.getReferences() != null && medium.getReferenceId() != null)
-                writeReferencesToFile(tableRecord.getReferences(), medium.getReferenceId(), guid);
+                writeReferencesToFile(tableRecord.getReferences(), medium.getReferenceId(), guid,content_type);
         }
     }
 
@@ -179,7 +188,7 @@ public class FileHandler {
             String date= DateHelper.getDate();
             media.write(medium.getFormat()+"\t"+medium.getDescription()+"\t"+medium.getOwner()+"\t"+resourceID+"\t"+guid
                     +"\t"+medium.getMediaId()+"\t"+medium.getFurtherInformationURI()+"\t"+
-                    PropertiesHandler.getProperty("storageLayerIp")+medium.getStorageLayerPath()+"\t"+date+"\t"+date+"\t"+medium.getLanguage()+"\t"+medium.getLicense()+"\n");
+                    PropertiesHandler.getProperty("storageLayerIp")+medium.getStorageLayerPath()+"\t"+medium.getTitle()+"\t"+date+"\t"+date+"\t"+medium.getLanguage()+"\t"+medium.getLicense()+"\n");
             media_count++;
         }
         catch(IOException ioe)
@@ -187,15 +196,30 @@ public class FileHandler {
             System.err.println("IOException: " + ioe.getMessage());
         }
     }
+    private void writeArticleToFile(Media medium, String guid){
+//        System.out.println("insert new article");
 
-    private void writePageContentToFile(int page_id, String guid){
+        try
+        {
+            String date= DateHelper.getDate();
+            articles.write(medium.getOwner()+"\t"+resourceID+"\t"+guid
+                    +"\t"+medium.getMediaId()+"\t"+medium.getTitle()+"\t"+
+                    date+"\t"+date+"\t"+medium.getLanguage()+"\t"+medium.getLicense()+"\t"+medium.getDescription()+"\n");
+            article_count++;
+        }
+        catch(IOException ioe)
+        {
+            System.err.println("IOException: " + ioe.getMessage());
+        }
+    }
+    private void writePageContentToFile(int page_id, String guid, String content_type){
 
 //        System.out.println("insert new page_content");
 
         try
         {
             String date= DateHelper.getDate();
-            page_contents.write(resourceID+"\t"+page_id+"\t"+page_id+"\tMedium\t"+date+"\t"+date+"\t"+guid+"\n");
+            page_contents.write(resourceID+"\t"+page_id+"\t"+page_id+"\t"+content_type+"\t"+date+"\t"+date+"\t"+guid+"\n");
             page_contents_count++;
         }
         catch(IOException ioe)
@@ -204,7 +228,7 @@ public class FileHandler {
         }
     }
 
-    private void writeAgentsToFile(ArrayList<Agent> agentsArr, String content_resource_fk, String guid){
+    private void writeAgentsToFile(ArrayList<Agent> agentsArr, String content_resource_fk, String guid,String content_type){
 
         for(Agent agent : agentsArr){
             System.out.println("insert new agent");
@@ -213,7 +237,7 @@ public class FileHandler {
             try
             {
                 String date= DateHelper.getDate();
-                agents.write(resourceID+"\tMedium\t"+role_name +"\t"+agent.getHomepage()+"\t"+agent.getAgentId()+"\t"+agent.getFullName()+"\t"+content_resource_fk+"\t"+date+"\t"+date+"\t"+guid+"\n");
+                agents.write(resourceID+"\t"+content_type+"\t"+role_name +"\t"+agent.getHomepage()+"\t"+agent.getAgentId()+"\t"+agent.getFullName()+"\t"+content_resource_fk+"\t"+date+"\t"+date+"\t"+guid+"\n");
             }
             catch(IOException ioe)
             {
@@ -270,7 +294,7 @@ public class FileHandler {
         }
     }
 
-    private void writeReferencesToFile(ArrayList<Reference> references, String reference_id, String guid) {
+    private void writeReferencesToFile(ArrayList<Reference> references, String reference_id, String guid,String content_type) {
         String [] media_references = reference_id.split(";");
         for(int i=0; i< media_references.length; i++){
             for(Reference reference : references){
@@ -279,7 +303,7 @@ public class FileHandler {
                             reference.getPageEnd()+" "+reference.getVolume()+" "+reference.getEditorsList()+" "+reference.getPublisher()+" "+
                             reference.getAuthorsList()+" "+reference.getEditorsList()+" "+reference.getDateCreated()+" "+reference.getDoi();
                     writeReferentToFile(body);
-                    writeReferenceToFile(guid, body);
+                    writeReferenceToFile(guid, body,content_type);
                 }
             }
         }
@@ -299,13 +323,13 @@ public class FileHandler {
         }
     }
 
-    private void writeReferenceToFile(String guid, String body) {
+    private void writeReferenceToFile(String guid, String body, String content_type) {
 //        System.out.println("insert new reference");
 
         try
         {
             String date= DateHelper.getDate();
-            references.write(resourceID+"\tMedium\t"+date+"\t"+date+"\t"+guid+"\t"+body+"\t"+resourceID+"\n");
+            references.write(resourceID+"\t"+content_type+"\t"+date+"\t"+date+"\t"+guid+"\t"+body+"\t"+resourceID+"\n");
         }
         catch(IOException ioe)
         {
@@ -330,6 +354,7 @@ public class FileHandler {
             licenses.close();
             locations.close();
             media.close();
+            articles.close();
             page_contents.close();
             agents.close();
             referents.close();
@@ -347,6 +372,7 @@ public class FileHandler {
         System.out.println("pages_nodes: "+pages_nodes_count);
         System.out.println("scientific_names: "+scientific_names_count);
         System.out.println("media: "+media_count);
+        System.out.println("article: "+article_count);
         System.out.println("page_contents: "+page_contents_count);
         System.out.println("vernaculars: "+vernaculars_count);
 
