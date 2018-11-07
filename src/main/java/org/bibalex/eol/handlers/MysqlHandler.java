@@ -794,8 +794,11 @@ public class MysqlHandler {
             Query commit_query =entityManager.createNativeQuery("commit;");
             commit_query.executeUpdate();
 
-            Query update_query = entityManager.createNativeQuery("update page_contents set content_id = (select id from media where guid=page_contents.guid);");
+            Query update_query = entityManager.createNativeQuery("update page_contents set content_id = (select id from media where guid=page_contents.guid) where content_id IS NULL;");
             update_query.executeUpdate();
+
+            Query update_query1 = entityManager.createNativeQuery("update page_contents set content_id = (select id from articles where guid=page_contents.guid) where content_id IS NULL;");
+            update_query1.executeUpdate();
 
             writer = new PrintWriter(PropertiesHandler.getProperty("mysqlFiles") + "page_contents.txt");
             writer.print("");
