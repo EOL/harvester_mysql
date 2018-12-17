@@ -19,7 +19,10 @@ public class MysqlData implements Serializable{
     ArrayList<MysqlAgent> attributions;
     ArrayList<MysqlReferent> referents;
     ArrayList<MysqlReference> references;
-
+    ArrayList<MysqlTrait> traits;
+//    String occurrences;
+//    String associations;
+//    String measurementOrFacts;
     public MysqlData (){
 
     }
@@ -143,4 +146,38 @@ public class MysqlData implements Serializable{
     public ArrayList<MysqlNode> getNodes() {
         return nodes;
     }
+
+    public ArrayList<MysqlTrait> getTraits() {
+        return traits;
+    }
+
+    public void setTraits(ArrayList<MysqlTrait> traits) {
+        this.traits = traits;
+    }
+
+
+//    public void setOccurrences(String occurrences) {
+//        this.occurrences = occurrences;
+//    }
+//
+//    public void setAssociations(String associations) {
+//        this.associations = associations;
+//    }
+//
+//    public void setMeasurementOrFacts(String measurementOrFacts) {
+//        this.measurementOrFacts = measurementOrFacts;
+//    }
+//
+//    public String getOccurrences() {
+//        return occurrences;
+//    }
+//
+//    public String getAssociations() {
+//        return associations;
+//    }
+//
+//    public String getMeasurementOrFacts() {
+//        return measurementOrFacts;
+//    }
+
 }

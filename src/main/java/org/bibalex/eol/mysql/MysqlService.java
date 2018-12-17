@@ -4,6 +4,7 @@ import org.bibalex.eol.handlers.FileHandler;
 import org.bibalex.eol.handlers.MysqlHandler;
 import org.bibalex.eol.handlers.PropertiesHandler;
 import org.bibalex.eol.models.NodeRecord;
+import org.bibalex.eol.models.Occurrence;
 import org.bibalex.eol.mysqlModels.MysqlData;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -11,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
 
 @Service
@@ -50,11 +52,13 @@ public class MysqlService {
                 fileHandler.writePageToFile(nodeRecord);
                 fileHandler.writePagesNodesToFile(Integer.valueOf(nodeRecord.getGeneratedNodeId()), Integer.valueOf(nodeRecord.getTaxon().getPageEolId()));
                 fileHandler.writeScientificNameToFile(nodeRecord, Integer.valueOf(nodeRecord.getGeneratedNodeId()));
+                fileHandler.writeTraitsToFile(nodeRecord, Integer.valueOf(nodeRecord.getGeneratedNodeId()));
 
                 if(nodeRecord.getVernaculars()!= null)
                     fileHandler.writeVernacularsToFile(nodeRecord, Integer.valueOf(nodeRecord.getGeneratedNodeId()));
                 if(nodeRecord.getMedia() != null)
                     fileHandler.writeMediaToFile(nodeRecord);
+
             }
             return true;
         }catch(Exception e){
@@ -82,6 +86,7 @@ public class MysqlService {
         mysqlData.setAttributions(mysqlHandler.getAgents(startDate, endDate));
         mysqlData.setReferents(mysqlHandler.getReferents(startDate, endDate));
         mysqlData.setReferences(mysqlHandler.getReferences(startDate, endDate));
+        mysqlData.setTraits(mysqlHandler.getTraits(startDate, endDate));
 
         return mysqlData;
     }
@@ -111,6 +116,7 @@ public class MysqlService {
             mysqlHandler.loadAgents();
             mysqlHandler.loadReferents();
             mysqlHandler.loadReferences();
+            mysqlHandler.loadTraits();
         } catch (IOException e) {
             e.printStackTrace();
         }

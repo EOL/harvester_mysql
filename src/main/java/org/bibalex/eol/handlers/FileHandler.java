@@ -14,10 +14,10 @@ public class FileHandler {
     private EntityManager entityManager;
     private int resourceID;
     private FileWriter ranks, nodes, pages, pages_nodes, scientific_names, languages, vernaculars, locations, licenses, media, agents,
-    page_contents, references, referents, articles;
+    page_contents, references, referents, articles, traits;
 
     private int ranks_count=0,nodes_count=0,pages_count=0, pages_nodes_count=0, scientific_names_count=0, media_count=0, page_contents_count=0,
-    vernaculars_count=0,article_count=0;
+    vernaculars_count=0, article_count=0,traits_count=0 ;
 
     public FileHandler(EntityManager entityManager, int resourceID){
         this.entityManager=entityManager;
@@ -38,6 +38,7 @@ public class FileHandler {
             page_contents = new FileWriter(PropertiesHandler.getProperty("mysqlFiles")+"page_contents.txt",true);
             referents = new FileWriter(PropertiesHandler.getProperty("mysqlFiles")+"referents.txt",true);
             references = new FileWriter(PropertiesHandler.getProperty("mysqlFiles")+"references.txt",true);
+            traits = new FileWriter(PropertiesHandler.getProperty("mysqlFiles")+"traits.txt",true);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -155,7 +156,174 @@ public class FileHandler {
         }
     }
 
+    public void writeTraitsToFile(NodeRecord tableRecord , int generated_node_id)  {
+        if(tableRecord.getOccurrences() != null || tableRecord.getAssociations()!=null || tableRecord.getMeasurementOrFacts() != null) {
+            try {
+                String date= DateHelper.getDate();
+                System.out.println(generated_node_id);
+                traits.write(generated_node_id + "\t");
+                //            occurrences
+                if (tableRecord.getOccurrences() != null) {
+                   writeOccurrencesToFile(tableRecord);
+                }
+                traits.write("\t");
+                //            associations
+                if (tableRecord.getAssociations() != null)
+                    writeAssociationsToFile(tableRecord);
+                traits.write("\t");
+                //            measurements
+                if (tableRecord.getMeasurementOrFacts() != null)
+                    writeMeasurementOrFactsToFile(tableRecord);
+                traits.write("\t"+date+"\t"+date);
+                traits.write("\n");
+                traits_count++;
+            } catch (IOException ioe) {
+                System.err.println("IOException: " + ioe.getMessage());
+            }
+        }
+    }
+
+    private void writeOccurrencesToFile(NodeRecord tableRecord){
+        for (int i = 0; i < tableRecord.getOccurrences().size(); i++) {
+            Occurrence occ = tableRecord.getOccurrences().get(i);
+            try {
+                traits.write("{");
+                String occurrenceId = occ.getOccurrenceId() == null ? null : "\"" + occ.getOccurrenceId() + "\"";
+                String eventId = occ.getEventId() == null ? null : "\"" + occ.getEventId() + "\"";
+                String institutionCode = occ.getInstitutionCode() == null ? null : "\"" + occ.getInstitutionCode() + "\"";
+                String collectionCode = occ.getCollectionCode() == null ? null : "\"" + occ.getCollectionCode() + "\"";
+                String catalogNumber = occ.getCatalogNumber() == null ? null : "\"" + occ.getCatalogNumber() + "\"";
+                String sex = occ.getSex() == null ? null : "\"" + occ.getSex() + "\"";
+                String lifeStage = occ.getLifeStage() == null ? null : "\"" + occ.getLifeStage() + "\"";
+                String reproductiveCondition = occ.getReproductiveCondition() == null ? null : "\"" + occ.getReproductiveCondition() + "\"";
+                String behavior = occ.getBehavior() == null ? null : "\"" + occ.getBehavior() + "\"";
+                String establishmentMeans = occ.getEstablishmentMeans() == null ? null : "\"" + occ.getEstablishmentMeans() + "\"";
+                String remarks = occ.getRemarks() == null ? null :"\"" + occ.getRemarks().replace("\"","\\\\\"") + "\"";
+//                String remarks = occ.getRemarks() == null ? null : "\"" + occ.getRemarks() + "\"";
+//                remarks = remarks.replace("\"","\\\\\"");
+                String countOfIndividuals = occ.getCountOfIndividuals() == null ? null : "\"" + occ.getCountOfIndividuals() + "\"";
+                String preparations = occ.getPreparations() == null ? null : "\"" + occ.getPreparations() + "\"";
+                String fieldNotes = occ.getFieldNotes() == null ? null : "\"" + occ.getFieldNotes() + "\"";
+                String samplingProtocol = occ.getSamplingProtocol() == null ? null : "\"" + occ.getSamplingProtocol() + "\"";
+                String samplingEffort = occ.getSamplingEffort() == null ? null : "\"" + occ.getSamplingEffort() + "\"";
+                String recordedBy = occ.getRecordedBy() == null ? null : "\"" + occ.getRecordedBy() + "\"";
+                String identifiedBy = occ.getIdentifiedBy() == null ? null : "\"" + occ.getIdentifiedBy() + "\"";
+                String dateIdentified = occ.getDateIdentified() == null ? null : "\"" + occ.getDateIdentified() + "\"";
+                String eventDate = occ.getEventDate() == null ? null : "\"" + occ.getEventDate() + "\"";
+                String modifiedDate = occ.getModifiedDate() == null ? null : "\"" + occ.getModifiedDate() + "\"";
+                String locality = occ.getLocality() == null ? null : "\"" + String.valueOf(occ.getLocality()) + "\"";
+                String decimalLatitude = occ.getDecimalLatitude() == null ? null : "\"" + occ.getDecimalLatitude() + "\"";
+                String decimalLongitude = occ.getDecimalLongitude() == null ? null : "\"" + occ.getDecimalLongitude() + "\"";
+                String verbatimLatitude = occ.getVerbatimLatitude() == null ? null : "\"" + occ.getVerbatimLatitude() + "\"";
+                String verbatimLongitude = occ.getVerbatimLongitude() == null ? null : "\"" + occ.getVerbatimLongitude() + "\"";
+                String verbatimElevation = occ.getVerbatimElevation() == null ? null : "\"" + occ.getVerbatimElevation() + "\"";
+                String deltaStatus = occ.getDeltaStatus() == null ? null : "\"" + occ.getDeltaStatus() + "\"";
+
+                traits.write("\"occurrenceId\":" + occurrenceId + ",\"eventId\":" + eventId + ",\"institutionCode\":" + institutionCode +
+                        ",\"collectionCode\":" + collectionCode + ",\"catalogNumber\":" + catalogNumber + ",\"sex\":" + sex +
+                        ",\"lifeStage\":" + lifeStage + ",\"reproductiveCondition\":" + reproductiveCondition + ",\"behavior\":" + behavior +
+                        ",\"establishmentMeans\":" + establishmentMeans + ",\"remarks\":" + remarks + ",\"countOfIndividuals\":" + countOfIndividuals +
+                        ",\"preparations\":" + preparations + ",\"fieldNotes\":" + fieldNotes + ",\"samplingProtocol\":" + samplingProtocol +
+                        ",\"samplingEffort\":" + samplingEffort + ",\"recordedBy\":" + recordedBy + ",\"identifiedBy\":" + identifiedBy +
+                        ",\"dateIdentified\":" + dateIdentified + ",\"eventDate\":" + eventDate + ",\"modifiedDate\":" + modifiedDate +
+                        ",\"locality\":" + locality + ",\"decimalLatitude\":" + decimalLatitude + ",\"decimalLongitude\":" + decimalLongitude +
+                        ",\"verbatimLatitude\":" + verbatimLatitude + ",\"verbatimLongitude\":" + verbatimLongitude + ",\"verbatimElevation\":" + verbatimElevation +
+                        ",\"deltaStatus\":" + deltaStatus
+                );
+                traits.write("}");
+                if (i < tableRecord.getOccurrences().size() - 1) {
+                    traits.write(",");
+                }
+            }catch (IOException ioe) {
+                System.err.println("IOException: " + ioe.getMessage());}
+
+        }
+    }
+
+    private void writeAssociationsToFile(NodeRecord tableRecord){
+        for (int i = 0; i < tableRecord.getAssociations().size(); i++) {
+            Association asso = tableRecord.getAssociations().get(i);
+            try {
+                traits.write("{");
+                String associationId = asso.getAssociationId() == null ? null : "\"" + asso.getAssociationId( )+ "\"";
+                String occurrenceId = asso.getTargetOccurrenceId() == null ? null : "\"" + asso.getOccurrenceId() + "\"";
+                String associationType = asso.getAssociationType() == null ? null : "\"" + asso.getAssociationType() + "\"";
+                String targetOccurrenceId = asso.getTargetOccurrenceId() == null ? null : "\"" + asso.getTargetOccurrenceId() + "\"";
+                String determinedDate = asso.getDeterminedDate() == null ? null : "\"" + asso.getDeterminedDate() + "\"";
+                String determinedBy = asso.getDeterminedBy() == null ? null : "\"" + asso.getDeterminedBy() + "\"";
+                String measurementMethod = asso.getMeasurementMethod() == null ? null : "\"" +asso.getMeasurementMethod() + "\"";
+//                String remarks = asso.getRemarks() == null ? null : "\"" + asso.getRemarks() + "\"";
+                String remarks = asso.getRemarks() == null ? null :"\"" + asso.getRemarks().replace("\"","\\\\\"") + "\"";
+                String source = asso.getSource() == null ? null : "\"" + asso.getSource() + "\"";
+                String citation = asso.getCitation() == null ? null : "\"" + asso.getCitation() + "\"";
+                String contributor = asso.getContributor() == null ? null : "\"" + asso.getContributor() + "\"";
+                String referenceId = asso.getReferenceId() == null ? null : "\"" + asso.getReferenceId() + "\"";
+                String deltaStatus = asso.getDeltaStatus() == null ? null : "\"" + asso.getDeltaStatus() + "\"";
+
+
+                traits.write("\"associationId\":" + associationId + ",\"occurrenceId\":" + occurrenceId + ",\"associationType\":" + associationType +
+                        ",\"targetOccurrenceId\":" + targetOccurrenceId + ",\"determinedDate\":" + determinedDate + ",\"determinedBy\":" + determinedBy +
+                        ",\"measurementMethod\":" + measurementMethod + ",\"remarks\":" + remarks + ",\"source\":" + source +
+                        ",\"citation\":" + citation + ",\"contributor\":" + contributor + ",\"referenceId\":" + referenceId +
+                        ",\"deltaStatus\":" + deltaStatus
+                );
+                traits.write("}");
+                if (i < tableRecord.getAssociations().size() - 1) {
+                    traits.write(",");
+                }
+            }catch (IOException ioe) {
+                System.err.println("IOException: " + ioe.getMessage());}
+
+        }
+    }
+
+    private void writeMeasurementOrFactsToFile(NodeRecord tableRecord){
+        for (int i = 0; i < tableRecord.getMeasurementOrFacts().size(); i++) {
+            MeasurementOrFact measurement = tableRecord.getMeasurementOrFacts().get(i);
+            try {
+                traits.write("{");
+                String measurementId = measurement.getMeasurementId() == null ? null : "\"" +measurement.getMeasurementId() + "\"";
+                String occurrenceId = measurement.getOccurrenceId() == null ? null : "\"" + measurement.getOccurrenceId() + "\"";
+                String measurementOfTaxon = measurement.getMeasurementOfTaxon() == null ? null : "\"" + measurement.getMeasurementOfTaxon() + "\"";
+                String associationId = measurement.getAssociationId() == null ? null : "\"" + measurement.getAssociationId() + "\"";
+                String parentMeasurementId = measurement.getParentMeasurementId() == null ? null : "\"" + measurement.getParentMeasurementId() + "\"";
+                String measurementType = measurement.getMeasurementType() == null ? null : "\"" + measurement.getMeasurementType() + "\"";
+                String measurementValue = measurement.getMeasurementValue() == null ? null : "\"" +measurement.getMeasurementValue() + "\"";
+                String unit = measurement.getUnit() == null ? null : "\"" +measurement.getUnit() + "\"";
+                String accuracy = measurement.getAccuracy() == null ? null : "\"" +measurement.getAccuracy() + "\"";
+                String statisticalMethod = measurement.getStatisticalMethod() == null ? null : "\"" +measurement.getStatisticalMethod() + "\"";
+                String determinedDate = measurement.getDeterminedDate() == null ? null : "\"" +measurement.getDeterminedDate() + "\"";
+                String determinedBy = measurement.getDeterminedBy() == null ? null : "\"" +measurement.getDeterminedBy() + "\"";
+                String measurementMethod = measurement.getMeasurementMethod() == null ? null : "\"" +measurement.getMeasurementMethod() + "\"";
+                String remarks = measurement.getRemarks() == null ? null :"\"" + measurement.getRemarks().replace("\"","\\\\\"") + "\"";
+                //String remarks = measurement.getRemarks() == null ? null : "\"" + measurement.getRemarks() + "\"";
+                String source = measurement.getSource() == null ? null : "\"" + measurement.getSource() + "\"";
+                String citation = measurement.getCitation() == null ? null : "\"" + measurement.getCitation() + "\"";
+                String contributor = measurement.getContributor() == null ? null : "\"" + measurement.getContributor() + "\"";
+                String referenceId = measurement.getReferenceId() == null ? null : "\"" + measurement.getReferenceId() + "\"";
+                String deltaStatus = measurement.getDeltaStatus() == null ? null : "\"" + measurement.getDeltaStatus() + "\"";
+
+
+                traits.write("\"measurementId\":" + measurementId + ",\"occurrenceId\":" + occurrenceId + ",\"measurementOfTaxon\":" + measurementOfTaxon +
+                        ",\"associationId\":" + associationId +",\"parentMeasurementId\":" + parentMeasurementId + ",\"measurementType\":" + measurementType +
+                        ",\"statisticalMethod\":" + statisticalMethod +",\"unit\":" + unit + ",\"accuracy\":" + accuracy +
+                        ",\"measurementValue\":" + measurementValue +",\"determinedDate\":" + determinedDate + ",\"determinedBy\":" + determinedBy +
+                        ",\"measurementMethod\":" + measurementMethod + ",\"remarks\":" + remarks + ",\"source\":" + source +
+                        ",\"citation\":" + citation + ",\"contributor\":" + contributor + ",\"referenceId\":" + referenceId +
+                        ",\"deltaStatus\":" + deltaStatus
+                );
+                traits.write("}");
+                if (i < tableRecord.getMeasurementOrFacts().size() - 1) {
+                    traits.write(",");
+                }
+            }catch (IOException ioe) {
+                System.err.println("IOException: " + ioe.getMessage());}
+
+        }
+    }
+
     public void  writeMediaToFile(NodeRecord tableRecord){
+
         ArrayList<Media> media = tableRecord.getMedia();
         String content_type ="";
         for(Media medium : media){
@@ -164,10 +332,14 @@ public class FileHandler {
             if (medium.getLocationCreated() != null)
                 writeLocationToFile(medium);
             String guid = String.valueOf(generateMediaGUID());
-            if(medium.getFormat().equalsIgnoreCase("text/html")){
+            if(medium.getFormatValue().equalsIgnoreCase("text_html")){
                 writeArticleToFile(medium, guid);
                 content_type = "Article";
             }
+//            else if(medium.getSubTypeValue().equalsIgnoreCase("map")){
+//                writeMediumToFile(medium, guid);
+//                content_type = "Map";
+//            }
             else {
                 writeMediumToFile(medium, guid);
                 content_type = "Medium";
@@ -186,9 +358,10 @@ public class FileHandler {
         try
         {
             String date= DateHelper.getDate();
-            media.write(medium.getFormat()+"\t"+medium.getDescription()+"\t"+medium.getOwner()+"\t"+resourceID+"\t"+guid
+            media.write(medium.getFormatIndex()+"\t"+medium.getDescription()+"\t"+medium.getOwner()+"\t"+resourceID+"\t"+guid
                     +"\t"+medium.getMediaId()+"\t"+medium.getFurtherInformationURI()+"\t"+
-                    PropertiesHandler.getProperty("storageLayerIp")+medium.getStorageLayerPath()+"\t"+medium.getTitle()+"\t"+date+"\t"+date+"\t"+medium.getLanguage()+"\t"+medium.getLicense()+"\n");
+                    PropertiesHandler.getProperty("storageLayerIp")+medium.getStorageLayerPath()+"\t"+medium.getSubTypeIndex()
+                    +"\t"+medium.getTitle()+"\t"+date+"\t"+date+"\t"+medium.getLanguage()+"\t"+medium.getLicense()+"\n");
             media_count++;
         }
         catch(IOException ioe)
@@ -337,6 +510,8 @@ public class FileHandler {
         }
     }
 
+
+
     private UUID generateMediaGUID()
     {
         return UUID.randomUUID();
@@ -359,6 +534,7 @@ public class FileHandler {
             agents.close();
             referents.close();
             references.close();
+            traits.close();
         } catch (IOException e) {
             System.out.println("erorrrrrrrrrrrrrrrrrrrrrrr");
             e.printStackTrace();
@@ -375,6 +551,7 @@ public class FileHandler {
         System.out.println("article: "+article_count);
         System.out.println("page_contents: "+page_contents_count);
         System.out.println("vernaculars: "+vernaculars_count);
+        System.out.println("traits: "+traits_count);
 
     }
 }

@@ -19,5 +19,13 @@ public class MainMysql extends SpringBootServletInitializer{
     public static void main (String [] args){
 
         SpringApplication.run(MainMysql.class, args);
+//String remarks= "sp, \"whit\"e";
+//   String remarks ="ddddd";
+//        System.out.println(remarks);
+//        remarks = remarks.replace("\"","\\\"");
+////        remarks =   remarks.replaceAll('\"''\\');
+//        System.out.println(remarks);
+
+
     }
 }

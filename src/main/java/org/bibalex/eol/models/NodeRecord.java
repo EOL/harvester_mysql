@@ -13,6 +13,9 @@ public class NodeRecord implements Serializable {
     ArrayList<Occurrence> occurrences;
     ArrayList<Association> associations;
     ArrayList<MeasurementOrFact> measurementOrFacts;
+//    String occurrences;
+//    String associations;
+//    String measurementOrFacts;
     ArrayList<Media> media;
     String generatedNodeId;
     Taxon taxon;
@@ -34,9 +37,9 @@ public class NodeRecord implements Serializable {
         this.resourceId = resourceId;
     }
 
-    public ArrayList<Association> getAssociations() {
-        return associations;
-    }
+//    public ArrayList<Association> getAssociations() {
+//        return associations;
+//    }
 
     public Taxon getTaxon() {
         return taxon;
@@ -44,6 +47,10 @@ public class NodeRecord implements Serializable {
 
     public void setTaxon(Taxon taxon) {
         this.taxon = taxon;
+    }
+
+    public ArrayList<Association> getAssociations() {
+        return associations;
     }
 
     public void setAssociations(ArrayList<Association> associations) {
@@ -106,4 +113,24 @@ public class NodeRecord implements Serializable {
         this.vernaculars = vernaculars;
     }
 
+//    public void setOccurrences(String occurrences){
+//        this.occurrences = occurrences;
+//    }
+//    public void setAssociations(String associations){
+//        this.associations = associations;
+//    }
+//
+//    public  void setMeasurementOrFacts(String measurementOrFacts){
+//        this.measurementOrFacts = measurementOrFacts;
+//    }
+//
+//    public String getOccurrences(){return  occurrences;}
+//
+//    public String getAssociations() {
+//        return associations;
+//    }
+//
+//    public String getMeasurementOrFacts() {
+//        return measurementOrFacts;
+//    }
 }

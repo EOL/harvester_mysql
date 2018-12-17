@@ -1,13 +1,14 @@
 package org.bibalex.eol.models;
 
+
 import java.io.Serializable;
 import java.util.ArrayList;
 
 public class Media implements Serializable {
     String mediaId;
     String type;
-    String subType;
-    String format;
+    SubType subType;
+    Format format;
     String subject;
     String title;
     String description;
@@ -38,6 +39,27 @@ public class Media implements Serializable {
     String storageLayerPath;
     String storageLayerThumbnailPath;
 
+    enum Format{
+        jpg,
+        youtube,
+        flash,
+        vimeo,
+        mp3,
+        ogg,
+        wav,
+        image_jpeg,
+        text_html
+
+    }
+
+    enum SubType{
+        image,
+        video,
+        sound,
+        map,
+        js_map
+    }
+
     public String getMediaId() {
 
         return mediaId;
@@ -63,20 +85,38 @@ public class Media implements Serializable {
         this.type = type;
     }
 
-    public String getSubType() {
+    public SubType getSubType() {
         return subType;
     }
 
-    public void setSubType(String subType) {
+    public void setSubType(SubType subType) {
         this.subType = subType;
     }
 
-    public String getFormat() {
+    public Format getFormat() {
         return format;
     }
 
-    public void setFormat(String format) {
+    public void setFormat(Format format) {
         this.format = format;
+    }
+
+    public int getFormatIndex(){
+        return format == null ? 0 : format.ordinal();
+
+    }
+
+    public String getFormatValue(){
+        return String.valueOf(format);
+    }
+
+    public int getSubTypeIndex(){
+        return subType == null ? 0 : subType.ordinal();
+
+    }
+
+    public String getSubTypeValue(){
+        return String.valueOf(subType);
     }
 
     public String getSubject() {
@@ -302,4 +342,5 @@ public class Media implements Serializable {
     public void setStorageLayerThumbnailPath(String storageLayerThumbnailPath) {
         this.storageLayerThumbnailPath = storageLayerThumbnailPath;
     }
+
 }

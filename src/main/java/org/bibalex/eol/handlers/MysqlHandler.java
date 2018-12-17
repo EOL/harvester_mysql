@@ -1,7 +1,5 @@
 package org.bibalex.eol.handlers;
 
-import org.bibalex.eol.helpers.DateHelper;
-import org.bibalex.eol.models.*;
 import org.bibalex.eol.mysqlModels.*;
 
 import javax.persistence.EntityManager;
@@ -9,8 +7,6 @@ import javax.persistence.ParameterMode;
 import javax.persistence.Query;
 import javax.persistence.StoredProcedureQuery;
 import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.io.PrintWriter;
 import java.math.BigInteger;
 import java.util.*;
@@ -376,6 +372,32 @@ public class MysqlHandler {
         return references;
     }
 
+
+    public ArrayList<MysqlTrait> getTraits(Date startDate, Date endDate) {
+
+        StoredProcedureQuery getTraits = entityManager
+                .createStoredProcedureQuery("getTraits")
+                .registerStoredProcedureParameter(
+                        "start_date", Date.class, ParameterMode.IN)
+                .registerStoredProcedureParameter(
+                        "end_date", Date.class, ParameterMode.IN);
+        getTraits.setParameter("start_date", startDate);
+        getTraits.setParameter("end_date", endDate);
+
+        List<Object[]> res = getTraits.getResultList();
+        Iterator it = res.iterator();
+        ArrayList<MysqlTrait> traits = new ArrayList<>();
+        while (it.hasNext()) {
+            Object[] line = (Object[]) it.next();
+            MysqlTrait trait = new MysqlTrait((int) line[0], (String) line[1], (String) line[2], (String) line[3]);
+            traits.add(trait);
+        }
+
+        return traits;
+
+    }
+
+
     public Date getEndTime() {
         StoredProcedureQuery getEndTime = entityManager
                 .createStoredProcedureQuery("getEndTime")
@@ -718,7 +740,7 @@ public class MysqlHandler {
 
             Query query = entityManager.createNativeQuery("LOAD DATA INFILE '" + PropertiesHandler.getProperty("mysqlFiles") + "media.txt" +
                     "' ignore into table media FIELDS TERMINATED BY '\t' LINES TERMINATED BY '\n'" +
-                    "(format,description,owner,resource_id,guid,resource_pk,source_page_url,base_url,name,created_at,updated_at,@column8,@column9)" +
+                    "(format,description,owner,resource_id,guid,resource_pk,source_page_url,base_url,subclass,name,created_at,updated_at,@column8,@column9)" +
                     "set license_id = (SELECT id FROM licenses WHERE source_url = @column9)," +
                     " language_id = (SELECT id FROM languages WHERE code = @column8);");
             query.executeUpdate();
@@ -914,6 +936,40 @@ public class MysqlHandler {
         catch (FileNotFoundException e) {
             e.printStackTrace();
         }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+        finally {
+            if( writer != null )
+                writer.close();
+        }
+    }
+
+    public void loadTraits(){
+        System.out.println("load traits");
+        PrintWriter writer = null;
+        try {
+            entityManager.joinTransaction();
+
+            Query transaction_query = entityManager.createNativeQuery("START TRANSACTION;");
+            transaction_query.executeUpdate();
+            Query query = entityManager.createNativeQuery("LOAD DATA INFILE '" + PropertiesHandler.getProperty("mysqlFiles") + "traits.txt" +
+                    "' ignore into table traits FIELDS TERMINATED BY '\t' LINES TERMINATED BY '\n'" +
+                    "(generated_node_id,occurrences,associations,measurement_or_facts,created_at,updated_at);");
+            query.executeUpdate();
+
+            Query commit_query =entityManager.createNativeQuery("commit;");
+            commit_query.executeUpdate();
+//makes file empty
+            writer = new PrintWriter(PropertiesHandler.getProperty("mysqlFiles") + "traits.txt");
+            writer.print("");
+            writer.close();
+        }
+
+        catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
         catch (Exception e) {
             e.printStackTrace();
         }
