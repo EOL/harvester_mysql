@@ -1,5 +1,6 @@
 package org.bibalex.eol.mysql;
 
+import org.bibalex.eol.handlers.MysqlHandler;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -7,6 +8,8 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+
+import javax.persistence.EntityManager;
 
 @SpringBootApplication
 public class MainMysql extends SpringBootServletInitializer{
@@ -19,12 +22,7 @@ public class MainMysql extends SpringBootServletInitializer{
     public static void main (String [] args){
 
         SpringApplication.run(MainMysql.class, args);
-//String remarks= "sp, \"whit\"e";
-//   String remarks ="ddddd";
-//        System.out.println(remarks);
-//        remarks = remarks.replace("\"","\\\"");
-////        remarks =   remarks.replaceAll('\"''\\');
-//        System.out.println(remarks);
+
 
 
     }
