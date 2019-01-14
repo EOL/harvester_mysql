@@ -43,13 +43,26 @@ public class Media implements Serializable {
         jpg,
         youtube,
         flash,
-        vimeo,
+        video,
         mp3,
         ogg,
         wav,
+        audio_mpeg,
+        audio_ogg,
+        audio_x_$wav,
+        video_ogg,
+        video_mp4,
+        video_x_$ms_$wmv,
+        video_mpeg,
+        video_quicktime,
+        video_webm,
+        video_x_$flv,
         image_jpeg,
+        image_gif ,
+        image_png,
+        image_tiff,
+        image_svg$xm,
         text_html
-
     }
 
     enum SubType{
