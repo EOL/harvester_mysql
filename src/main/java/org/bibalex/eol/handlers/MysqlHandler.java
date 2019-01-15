@@ -397,7 +397,29 @@ public class MysqlHandler {
 
     }
 
+    public ArrayList<MysqlTaxon> getTaxa(Date startDate, Date endDate) {
 
+        StoredProcedureQuery getTaxa = entityManager
+                .createStoredProcedureQuery("getTaxa")
+                .registerStoredProcedureParameter(
+                        "start_date", Date.class, ParameterMode.IN)
+                .registerStoredProcedureParameter(
+                        "end_date", Date.class, ParameterMode.IN);
+        getTaxa.setParameter("start_date", startDate);
+        getTaxa.setParameter("end_date", endDate);
+
+        List<Object[]> res = getTaxa.getResultList();
+        Iterator it = res.iterator();
+        ArrayList<MysqlTaxon> taxa = new ArrayList<>();
+        while (it.hasNext()) {
+            Object[] line = (Object[]) it.next();
+            MysqlTaxon taxon = new MysqlTaxon((Integer) line[0], (Integer) line[1],(String) line[2],(String) line[3], (String) line[4], (String) line[5], (Integer) line[6]);
+            taxa.add(taxon);
+        }
+
+        return taxa;
+
+    }
     public Date getEndTime() {
         StoredProcedureQuery getEndTime = entityManager
                 .createStoredProcedureQuery("getEndTime")
@@ -978,4 +1000,38 @@ public class MysqlHandler {
                 writer.close();
         }
     }
-}
+
+    public void loadTaxa(){
+            System.out.println("load taxa");
+            PrintWriter writer = null;
+
+            try {
+                entityManager.joinTransaction();
+
+                Query transaction_query = entityManager.createNativeQuery("START TRANSACTION;");
+                transaction_query.executeUpdate();
+
+                Query query = entityManager.createNativeQuery("LOAD DATA INFILE '" + PropertiesHandler.getProperty("mysqlFiles") + "taxa.txt" +
+                        "' ignore into table taxa FIELDS TERMINATED BY '\t' LINES TERMINATED BY '\n'" +
+                        "(generated_node_id,page_eol_id,scientific_name,dataset_id,source,resource_id,occurrences,created_at,updated_at);");
+                query.executeUpdate();
+
+                Query commit_query =entityManager.createNativeQuery("commit;");
+                commit_query.executeUpdate();
+
+                writer = new PrintWriter(PropertiesHandler.getProperty("mysqlFiles") + "taxa.txt");
+                writer.print("");
+            }
+            catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+            catch (Exception e) {
+                e.printStackTrace();
+            }
+            finally {
+                if( writer != null )
+                    writer.close();
+            }
+        }
+
+    }

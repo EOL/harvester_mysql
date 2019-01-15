@@ -53,6 +53,7 @@ public class MysqlService {
                 fileHandler.writePagesNodesToFile(Integer.valueOf(nodeRecord.getGeneratedNodeId()), Integer.valueOf(nodeRecord.getTaxon().getPageEolId()));
                 fileHandler.writeScientificNameToFile(nodeRecord, Integer.valueOf(nodeRecord.getGeneratedNodeId()));
                 fileHandler.writeTraitsToFile(nodeRecord, Integer.valueOf(nodeRecord.getGeneratedNodeId()));
+                fileHandler.writeTaxonToFile(nodeRecord);
 
                 if(nodeRecord.getVernaculars()!= null)
                     fileHandler.writeVernacularsToFile(nodeRecord, Integer.valueOf(nodeRecord.getGeneratedNodeId()));
@@ -87,6 +88,7 @@ public class MysqlService {
         mysqlData.setReferents(mysqlHandler.getReferents(startDate, endDate));
         mysqlData.setReferences(mysqlHandler.getReferences(startDate, endDate));
         mysqlData.setTraits(mysqlHandler.getTraits(startDate, endDate));
+        mysqlData.setTaxa(mysqlHandler.getTaxa(startDate, endDate));
 
         return mysqlData;
     }
@@ -117,6 +119,7 @@ public class MysqlService {
             mysqlHandler.loadReferents();
             mysqlHandler.loadReferences();
             mysqlHandler.loadTraits();
+            mysqlHandler.loadTaxa();
         } catch (IOException e) {
             e.printStackTrace();
         }

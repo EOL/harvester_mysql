@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.5.58, for debian-linux-gnu (x86_64)
+-- MySQL dump 10.13  Distrib 5.7.21, for Linux (x86_64)
 --
 -- Host: localhost    Database: ba_eol_development
 -- ------------------------------------------------------
--- Server version	5.5.58-0+deb8u1
+-- Server version	5.7.21
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -19,26 +19,36 @@
 -- Table structure for table `ar_internal_metadata`
 --
 
-
+DROP TABLE IF EXISTS `ar_internal_metadata`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE IF NOT EXISTS `ar_internal_metadata` (
+CREATE TABLE `ar_internal_metadata` (
   `key` varchar(255) NOT NULL,
   `value` varchar(255) DEFAULT NULL,
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
   PRIMARY KEY (`key`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `ar_internal_metadata`
+--
+
+LOCK TABLES `ar_internal_metadata` WRITE;
+/*!40000 ALTER TABLE `ar_internal_metadata` DISABLE KEYS */;
+INSERT INTO `ar_internal_metadata` VALUES ('environment','development','2018-07-03 10:47:44','2018-07-03 10:47:44');
+/*!40000 ALTER TABLE `ar_internal_metadata` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `articles`
 --
 
-
+DROP TABLE IF EXISTS `articles`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE IF NOT EXISTS `articles` (
+CREATE TABLE `articles` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `owner` text,
   `resource_id` int(11) DEFAULT NULL,
@@ -56,7 +66,6 @@ CREATE TABLE IF NOT EXISTS `articles` (
   `location_id` bigint(20) DEFAULT NULL,
   `body` longtext,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `unique_articles` (`guid`),
   KEY `index_articles_on_bibliographic_citation_id` (`bibliographic_citation_id`),
   KEY `index_articles_on_language_id` (`language_id`),
   KEY `index_articles_on_license_id` (`license_id`),
@@ -65,32 +74,51 @@ CREATE TABLE IF NOT EXISTS `articles` (
   CONSTRAINT `fk_rails_5c439af3a6` FOREIGN KEY (`location_id`) REFERENCES `locations` (`id`),
   CONSTRAINT `fk_rails_890179d0ba` FOREIGN KEY (`language_id`) REFERENCES `languages` (`id`),
   CONSTRAINT `fk_rails_dce27d14a3` FOREIGN KEY (`bibliographic_citation_id`) REFERENCES `bibliographic_citations` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `articles`
+--
+
+LOCK TABLES `articles` WRITE;
+/*!40000 ALTER TABLE `articles` DISABLE KEYS */;
+INSERT INTO `articles` VALUES (1,'Eli Sarnat',148,'919f18fd-3dd6-4773-9581-0cfaf57a5bbf','f1b40afe-7d35-40a5-bd29-acc5f79f335f#distribution',NULL,'article_title',NULL,NULL,'2018-11-21 09:47:05','2018-11-21 09:47:05',NULL,1,1,NULL,'<p><em>Native range</em>. Neotropics from Guatemala south to Brazil.<br /> ');
+/*!40000 ALTER TABLE `articles` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `articles_collected_pages`
 --
 
-
+DROP TABLE IF EXISTS `articles_collected_pages`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE IF NOT EXISTS `articles_collected_pages` (
+CREATE TABLE `articles_collected_pages` (
   `collected_page_id` bigint(20) NOT NULL,
   `article_id` bigint(20) NOT NULL,
   `position` int(11) DEFAULT NULL,
   KEY `index_articles_collected_pages_on_collected_page_id` (`collected_page_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `articles_collected_pages`
+--
+
+LOCK TABLES `articles_collected_pages` WRITE;
+/*!40000 ALTER TABLE `articles_collected_pages` DISABLE KEYS */;
+/*!40000 ALTER TABLE `articles_collected_pages` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `attributions`
 --
 
-
+DROP TABLE IF EXISTS `attributions`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE IF NOT EXISTS `attributions` (
+CREATE TABLE `attributions` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `content_id` int(11) DEFAULT NULL,
   `content_type` varchar(255) DEFAULT NULL,
@@ -102,38 +130,55 @@ CREATE TABLE IF NOT EXISTS `attributions` (
   `content_resource_fk` varchar(255) DEFAULT NULL,
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
-  `guid` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `unique_attributions` (`value`(100),`content_id`,`content_type`),
   KEY `index_attributions_on_content_type` (`content_type`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `attributions`
+--
+
+LOCK TABLES `attributions` WRITE;
+/*!40000 ALTER TABLE `attributions` DISABLE KEYS */;
+INSERT INTO `attributions` VALUES (1,1,'Medium','Author','Reid Rumelt',NULL,502,'RumeltR','Accipiter_gentilis_TEXT','2018-11-26 09:14:26','2018-11-26 09:14:26'),(2,2,'Medium','Author','Reid Rumelt',NULL,502,'RumeltR','Accipiter_striatus_TEXT','2018-11-26 09:14:30','2018-11-26 09:14:30');
+/*!40000 ALTER TABLE `attributions` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `bibliographic_citations`
 --
 
-
+DROP TABLE IF EXISTS `bibliographic_citations`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE IF NOT EXISTS `bibliographic_citations` (
+CREATE TABLE `bibliographic_citations` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `resource_id` int(11) DEFAULT NULL,
   `body` text,
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `bibliographic_citations`
+--
+
+LOCK TABLES `bibliographic_citations` WRITE;
+/*!40000 ALTER TABLE `bibliographic_citations` DISABLE KEYS */;
+/*!40000 ALTER TABLE `bibliographic_citations` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `collected_pages`
 --
 
-
+DROP TABLE IF EXISTS `collected_pages`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE IF NOT EXISTS `collected_pages` (
+CREATE TABLE `collected_pages` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `collection_id` bigint(20) NOT NULL,
   `page_id` bigint(20) NOT NULL,
@@ -146,47 +191,75 @@ CREATE TABLE IF NOT EXISTS `collected_pages` (
   KEY `index_collected_pages_on_collection_id` (`collection_id`),
   KEY `index_collected_pages_on_page_id` (`page_id`),
   CONSTRAINT `fk_rails_46e24d72cf` FOREIGN KEY (`collection_id`) REFERENCES `collections` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=104 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `collected_pages`
+--
+
+LOCK TABLES `collected_pages` WRITE;
+/*!40000 ALTER TABLE `collected_pages` DISABLE KEYS */;
+INSERT INTO `collected_pages` VALUES (61,37,1005,1,'2018-08-04 07:31:28','2018-08-04 07:31:28',NULL),(62,38,1009,1,'2018-08-04 07:55:44','2018-08-04 07:55:44',NULL),(64,40,1005,1,'2018-08-09 09:43:17','2018-08-09 09:43:17',NULL),(65,41,1009,1,'2018-08-14 05:47:46','2018-08-14 05:47:46',NULL),(66,42,1005,1,'2018-08-16 14:09:35','2018-08-16 14:09:35',NULL),(67,42,1009,2,'2018-08-16 14:10:34','2018-08-16 14:10:34',NULL),(70,45,1009,1,'2018-08-28 12:37:52','2018-08-28 12:37:52',NULL),(71,46,1009,1,'2018-08-28 12:42:30','2018-08-28 12:42:30',NULL),(72,47,1009,1,'2018-08-28 12:45:21','2018-08-28 12:45:21',NULL),(74,49,1005,1,'2018-08-28 12:48:40','2018-08-28 12:48:40',NULL),(75,46,1005,2,'2018-08-28 12:52:24','2018-08-28 12:52:24',NULL),(77,50,1005,1,'2018-08-28 12:53:24','2018-08-28 12:53:24',NULL),(78,51,1009,1,'2018-08-28 13:14:03','2018-08-28 13:14:03',NULL),(79,50,1009,2,'2018-08-28 13:14:29','2018-08-28 13:14:29',NULL),(80,52,1005,1,'2018-08-29 08:53:30','2018-08-29 08:53:30',NULL),(81,53,1005,1,'2018-08-29 08:54:45','2018-08-29 08:54:45',NULL),(82,54,1005,1,'2018-08-29 09:09:26','2018-08-29 09:09:26',NULL),(83,55,1009,1,'2018-08-29 09:14:02','2018-08-29 09:14:02',NULL),(84,56,1005,1,'2018-08-29 09:14:47','2018-08-29 09:14:47',NULL),(85,57,1005,1,'2018-08-29 09:21:30','2018-08-29 09:21:30',NULL),(86,58,1005,1,'2018-08-29 09:24:43','2018-08-29 09:24:43',NULL),(87,59,1005,1,'2018-08-29 09:27:36','2018-08-29 09:27:36',NULL),(88,60,1005,1,'2018-08-29 09:28:29','2018-08-29 09:28:29',NULL),(89,61,1005,1,'2018-08-29 09:36:41','2018-08-29 09:36:41',NULL),(90,62,1009,1,'2018-08-29 09:37:06','2018-08-29 09:37:06',NULL),(91,63,1005,1,'2018-08-29 09:37:46','2018-08-29 09:37:46',NULL),(92,64,1005,1,'2018-08-29 09:40:53','2018-08-29 09:40:53',NULL),(93,65,1005,1,'2018-08-29 09:41:44','2018-08-29 09:41:44',NULL),(94,66,1005,1,'2018-08-29 09:50:57','2018-08-29 09:50:57',NULL),(96,67,1009,1,'2018-08-29 09:55:05','2018-08-29 09:55:34',NULL),(97,67,1005,2,'2018-08-29 09:55:52','2018-08-29 09:55:52',NULL),(98,44,1009,1,'2018-08-29 09:59:06','2018-08-29 09:59:06',NULL),(99,44,1005,2,'2018-08-29 10:00:16','2018-08-29 10:00:16',NULL),(100,68,1005,1,'2018-08-29 10:00:41','2018-08-29 10:00:41',NULL),(101,69,1005,1,'2018-08-29 10:01:30','2018-08-29 10:01:30',NULL),(102,70,1003,1,'2018-10-25 12:11:48','2018-10-25 12:11:48',NULL),(103,70,1,2,'2018-12-02 05:37:45','2018-12-02 05:37:45',NULL);
+/*!40000 ALTER TABLE `collected_pages` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `collected_pages_links`
 --
 
-
+DROP TABLE IF EXISTS `collected_pages_links`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE IF NOT EXISTS `collected_pages_links` (
+CREATE TABLE `collected_pages_links` (
   `collected_page_id` bigint(20) NOT NULL,
   `link_id` bigint(20) NOT NULL,
   `position` int(11) DEFAULT NULL,
   KEY `index_collected_pages_links_on_collected_page_id` (`collected_page_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `collected_pages_links`
+--
+
+LOCK TABLES `collected_pages_links` WRITE;
+/*!40000 ALTER TABLE `collected_pages_links` DISABLE KEYS */;
+/*!40000 ALTER TABLE `collected_pages_links` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `collected_pages_media`
 --
 
-
+DROP TABLE IF EXISTS `collected_pages_media`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE IF NOT EXISTS `collected_pages_media` (
+CREATE TABLE `collected_pages_media` (
   `collected_page_id` bigint(20) NOT NULL,
   `medium_id` bigint(20) NOT NULL,
   `position` int(11) DEFAULT NULL,
   KEY `index_collected_pages_media_on_collected_page_id` (`collected_page_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `collected_pages_media`
+--
+
+LOCK TABLES `collected_pages_media` WRITE;
+/*!40000 ALTER TABLE `collected_pages_media` DISABLE KEYS */;
+/*!40000 ALTER TABLE `collected_pages_media` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `collections`
 --
 
-
+DROP TABLE IF EXISTS `collections`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE IF NOT EXISTS `collections` (
+CREATE TABLE `collections` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
   `description` text,
@@ -197,34 +270,54 @@ CREATE TABLE IF NOT EXISTS `collections` (
   `collection_type` int(11) DEFAULT '0',
   `default_sort` int(11) DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=71 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `collections`
+--
+
+LOCK TABLES `collections` WRITE;
+/*!40000 ALTER TABLE `collections` DISABLE KEYS */;
+INSERT INTO `collections` VALUES (37,'4r7olkd, ','d7tukm','2018-08-04 07:31:28','2018-08-04 07:31:28',1,0,0,0),(38,'tejhndx','','2018-08-04 07:55:44','2018-08-04 07:55:44',1,0,0,0),(40,'My Collection','','2018-08-09 09:43:17','2018-08-09 09:43:17',1,0,0,0),(41,'My_Collection','','2018-08-14 05:47:46','2018-08-16 13:49:13',1,0,0,0),(42,'new neela','','2018-08-16 14:09:35','2018-08-16 14:10:34',2,0,0,0),(43,'new','','2018-08-28 11:50:06','2018-08-29 10:12:17',0,0,0,0),(44,'wgrbs','','2018-08-28 12:36:45','2018-08-29 10:00:16',2,0,0,0),(45,'aerg','','2018-08-28 12:37:52','2018-08-28 12:37:52',1,0,0,0),(46,'asdfghjk','','2018-08-28 12:42:30','2018-08-28 12:52:24',2,0,0,0),(47,'dfghjk','','2018-08-28 12:45:21','2018-08-28 12:45:21',1,0,0,0),(49,'neela','','2018-08-28 12:48:40','2018-08-28 12:48:40',1,0,0,0),(50,'jn\\[\\j','','2018-08-28 12:53:24','2018-08-28 13:14:29',2,0,0,0),(51,'3RGE','','2018-08-28 13:14:03','2018-08-28 13:14:03',1,0,0,0),(52,';lkd','','2018-08-29 08:53:30','2018-08-29 08:53:30',1,0,0,0),(53,'lkjhfd','','2018-08-29 08:54:45','2018-08-29 08:54:45',1,0,0,0),(54,'sdfghj','','2018-08-29 09:09:26','2018-08-29 09:09:26',1,0,0,0),(55,'kjhgf','','2018-08-29 09:14:02','2018-08-29 09:14:02',1,0,0,0),(56,'dfghjk','','2018-08-29 09:14:47','2018-08-29 09:14:47',1,0,0,0),(57,'dfghjkfr','','2018-08-29 09:21:30','2018-08-29 09:21:30',1,0,0,0),(58,'kjgkdukmj','','2018-08-29 09:24:43','2018-08-29 09:24:43',1,0,0,0),(59,'htdjhs','','2018-08-29 09:27:36','2018-08-29 09:27:36',1,0,0,0),(60,'htdjhsc','','2018-08-29 09:28:29','2018-08-29 09:28:29',1,0,0,0),(61,'dsfghj','','2018-08-29 09:36:41','2018-08-29 09:36:41',1,0,0,0),(62,'fdss','','2018-08-29 09:37:06','2018-08-29 09:37:06',1,0,0,0),(63,'dfghjer','','2018-08-29 09:37:46','2018-08-29 09:37:46',1,0,0,0),(64,'htdshtd','','2018-08-29 09:40:53','2018-08-29 09:40:53',1,0,0,0),(65,'jhggdt','','2018-08-29 09:41:44','2018-08-29 09:41:44',1,0,0,0),(66,'mirona','','2018-08-29 09:50:57','2018-08-29 09:50:57',1,0,0,0),(67,'52gwra','','2018-08-29 09:54:00','2018-08-29 09:55:52',2,0,0,0),(68,';\'lfz','','2018-08-29 10:00:41','2018-08-29 10:00:41',1,0,0,0),(69,'olkjhgfd','','2018-08-29 10:01:30','2018-08-29 10:01:30',1,0,0,0),(70,'Collection','','2018-10-25 12:11:48','2018-12-02 05:37:45',2,0,0,0);
+/*!40000 ALTER TABLE `collections` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `collections_users`
 --
 
-
+DROP TABLE IF EXISTS `collections_users`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE IF NOT EXISTS `collections_users` (
+CREATE TABLE `collections_users` (
   `collection_id` bigint(20) NOT NULL,
   `user_id` int(11) NOT NULL,
   `is_manager` tinyint(1) DEFAULT '0',
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
   KEY `index_collections_users_on_collection_id` (`collection_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `collections_users`
+--
+
+LOCK TABLES `collections_users` WRITE;
+/*!40000 ALTER TABLE `collections_users` DISABLE KEYS */;
+INSERT INTO `collections_users` VALUES (37,3,0,'2018-08-04 07:31:28','2018-08-04 07:31:28'),(38,3,0,'2018-08-04 07:55:44','2018-08-04 07:55:44'),(40,6,0,'2018-08-09 09:43:17','2018-08-09 09:43:17'),(41,2,0,'2018-08-14 05:47:46','2018-08-14 05:47:46'),(42,2,0,'2018-08-16 14:09:35','2018-08-16 14:09:35'),(43,4,0,'2018-08-28 11:50:06','2018-08-28 11:50:06'),(44,4,0,'2018-08-28 12:36:45','2018-08-28 12:36:45'),(45,4,0,'2018-08-28 12:37:52','2018-08-28 12:37:52'),(46,4,0,'2018-08-28 12:42:31','2018-08-28 12:42:31'),(47,4,0,'2018-08-28 12:45:21','2018-08-28 12:45:21'),(49,4,0,'2018-08-28 12:48:40','2018-08-28 12:48:40'),(50,4,0,'2018-08-28 12:53:24','2018-08-28 12:53:24'),(51,4,0,'2018-08-28 13:14:03','2018-08-28 13:14:03'),(52,4,0,'2018-08-29 08:53:31','2018-08-29 08:53:31'),(53,4,0,'2018-08-29 08:54:46','2018-08-29 08:54:46'),(54,4,0,'2018-08-29 09:09:26','2018-08-29 09:09:26'),(55,4,0,'2018-08-29 09:14:02','2018-08-29 09:14:02'),(56,4,0,'2018-08-29 09:14:48','2018-08-29 09:14:48'),(57,4,0,'2018-08-29 09:21:30','2018-08-29 09:21:30'),(58,4,0,'2018-08-29 09:24:44','2018-08-29 09:24:44'),(59,4,0,'2018-08-29 09:27:36','2018-08-29 09:27:36'),(60,4,0,'2018-08-29 09:28:29','2018-08-29 09:28:29'),(61,4,0,'2018-08-29 09:36:41','2018-08-29 09:36:41'),(62,4,0,'2018-08-29 09:37:07','2018-08-29 09:37:07'),(63,4,0,'2018-08-29 09:37:46','2018-08-29 09:37:46'),(64,4,0,'2018-08-29 09:40:53','2018-08-29 09:40:53'),(65,4,0,'2018-08-29 09:41:44','2018-08-29 09:41:44'),(66,4,0,'2018-08-29 09:50:57','2018-08-29 09:50:57'),(67,4,0,'2018-08-29 09:54:00','2018-08-29 09:54:00'),(68,4,0,'2018-08-29 10:00:41','2018-08-29 10:00:41'),(69,4,0,'2018-08-29 10:01:30','2018-08-29 10:01:30'),(70,1,0,'2018-10-25 12:11:49','2018-10-25 12:11:49');
+/*!40000 ALTER TABLE `collections_users` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `content_partner_users`
 --
 
-
+DROP TABLE IF EXISTS `content_partner_users`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE IF NOT EXISTS `content_partner_users` (
+CREATE TABLE `content_partner_users` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `user_id` bigint(20) DEFAULT NULL,
   `content_partner_id` int(11) DEFAULT NULL,
@@ -232,17 +325,27 @@ CREATE TABLE IF NOT EXISTS `content_partner_users` (
   `updated_at` datetime NOT NULL,
   PRIMARY KEY (`id`),
   KEY `index_content_partner_users_on_user_id` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `content_partner_users`
+--
+
+LOCK TABLES `content_partner_users` WRITE;
+/*!40000 ALTER TABLE `content_partner_users` DISABLE KEYS */;
+INSERT INTO `content_partner_users` VALUES (1,3,46,'2018-08-03 13:54:25','2018-08-03 13:54:25'),(2,4,76,'2018-08-29 11:48:20','2018-08-29 11:48:20'),(3,1,80,'2018-10-29 08:19:46','2018-10-29 08:19:46');
+/*!40000 ALTER TABLE `content_partner_users` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `content_sections`
 --
 
-
+DROP TABLE IF EXISTS `content_sections`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE IF NOT EXISTS `content_sections` (
+CREATE TABLE `content_sections` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `section_id` bigint(20) DEFAULT NULL,
   `content_id` int(11) DEFAULT NULL,
@@ -252,29 +355,26 @@ CREATE TABLE IF NOT EXISTS `content_sections` (
   PRIMARY KEY (`id`),
   KEY `index_content_sections_on_section_id` (`section_id`),
   CONSTRAINT `fk_rails_26e636aea0` FOREIGN KEY (`section_id`) REFERENCES `sections` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `harvest_time`
+-- Dumping data for table `content_sections`
 --
 
-
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE IF NOT EXISTS `harvest_time` (
-  `last_harvest_time` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
+LOCK TABLES `content_sections` WRITE;
+/*!40000 ALTER TABLE `content_sections` DISABLE KEYS */;
+/*!40000 ALTER TABLE `content_sections` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `image_info`
 --
 
-
+DROP TABLE IF EXISTS `image_info`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE IF NOT EXISTS `image_info` (
+CREATE TABLE `image_info` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `resource_id` int(11) DEFAULT NULL,
   `original_size` varchar(255) DEFAULT NULL,
@@ -288,53 +388,80 @@ CREATE TABLE IF NOT EXISTS `image_info` (
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `image_info`
+--
+
+LOCK TABLES `image_info` WRITE;
+/*!40000 ALTER TABLE `image_info` DISABLE KEYS */;
+/*!40000 ALTER TABLE `image_info` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `languages`
 --
 
-
+DROP TABLE IF EXISTS `languages`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE IF NOT EXISTS `languages` (
+CREATE TABLE `languages` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `code` varchar(255) DEFAULT NULL,
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
   `group` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `code` (`code`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `languages`
+--
+
+LOCK TABLES `languages` WRITE;
+/*!40000 ALTER TABLE `languages` DISABLE KEYS */;
+INSERT INTO `languages` VALUES (1,'en','2018-11-26 09:14:25','2018-11-26 09:14:25','en');
+/*!40000 ALTER TABLE `languages` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `licenses`
 --
 
-
+DROP TABLE IF EXISTS `licenses`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE IF NOT EXISTS `licenses` (
+CREATE TABLE `licenses` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `source_url` varchar(255) DEFAULT NULL,
   `name` varchar(255) DEFAULT NULL,
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `source_url` (`source_url`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `licenses`
+--
+
+LOCK TABLES `licenses` WRITE;
+/*!40000 ALTER TABLE `licenses` DISABLE KEYS */;
+INSERT INTO `licenses` VALUES (1,'http://creativecommons.org/licenses/by-nc-sa/3.0/','license','2018-11-26 09:14:25','2018-11-26 09:14:25');
+/*!40000 ALTER TABLE `licenses` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `links`
 --
 
-
+DROP TABLE IF EXISTS `links`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE IF NOT EXISTS `links` (
+CREATE TABLE `links` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `description` text,
   `resource_id` int(11) DEFAULT NULL,
@@ -349,17 +476,26 @@ CREATE TABLE IF NOT EXISTS `links` (
   PRIMARY KEY (`id`),
   KEY `index_links_on_languages_id` (`languages_id`),
   CONSTRAINT `fk_rails_0f796e1364` FOREIGN KEY (`languages_id`) REFERENCES `languages` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `links`
+--
+
+LOCK TABLES `links` WRITE;
+/*!40000 ALTER TABLE `links` DISABLE KEYS */;
+/*!40000 ALTER TABLE `links` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `locations`
 --
 
-
+DROP TABLE IF EXISTS `locations`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE IF NOT EXISTS `locations` (
+CREATE TABLE `locations` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `resource_id` int(11) DEFAULT NULL,
   `location` varchar(255) DEFAULT NULL,
@@ -369,19 +505,51 @@ CREATE TABLE IF NOT EXISTS `locations` (
   `spatial_location` text,
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `unique_location` (`location`,`longitude`,`latitude`,`altitude`,`spatial_location`(100))
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `locations`
+--
+
+LOCK TABLES `locations` WRITE;
+/*!40000 ALTER TABLE `locations` DISABLE KEYS */;
+/*!40000 ALTER TABLE `locations` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `maps`
+--
+
+DROP TABLE IF EXISTS `maps`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `maps` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `maps`
+--
+
+LOCK TABLES `maps` WRITE;
+/*!40000 ALTER TABLE `maps` DISABLE KEYS */;
+/*!40000 ALTER TABLE `maps` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `media`
 --
 
-
+DROP TABLE IF EXISTS `media`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE IF NOT EXISTS `media` (
+CREATE TABLE `media` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `format` int(11) DEFAULT NULL,
   `description` text,
@@ -403,23 +571,32 @@ CREATE TABLE IF NOT EXISTS `media` (
   `license_id` bigint(20) DEFAULT NULL,
   `location_id` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `unique_media` (`guid`),
   KEY `index_media_on_bibliographic_citation_id` (`bibliographic_citation_id`),
   KEY `index_media_on_language_id` (`language_id`),
   KEY `index_media_on_license_id` (`license_id`),
   KEY `index_media_on_location_id` (`location_id`),
   CONSTRAINT `fk_rails_15659d24cb` FOREIGN KEY (`bibliographic_citation_id`) REFERENCES `bibliographic_citations` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `media`
+--
+
+LOCK TABLES `media` WRITE;
+/*!40000 ALTER TABLE `media` DISABLE KEYS */;
+INSERT INTO `media` VALUES (1,0,'<p>Although closely related to the common Sharp-shinned and Cooper’s Hawks, the Northern Goshawk is encountered far less frequently. This is North America’s largest ‘bird hawk’ at 20-26 inches in length, and may be distinguished by its more familiar relatives by its larger size, grey-streaked breast, and dark cheek patch. Like most species of raptors, females are larger than males. The Northern Goshawk breeds in the Canadian sub-arctic, the northern tier of the United States, and at higher elevations in the Rocky Mountains south to central Mexico. This species may be found in its breeding range all year long, although some individuals move south into the mid-Atlantic, Ohio River valley, and Great Plains in winter. This species also inhabits northern Eurasia south the Mediterranean, Central Asia, and China. Northern Goshawks inhabit dense evergreen or mixed evergreen and deciduous forests. Like all ‘bird hawks,’ this species is equipped with the long tail and short, broad wings needed to hunt birds (on the ground, in trees, or in flight) from the air. Unlike most bird hawks, however, this species also takes Snowshoe Hare (<em>Lepus americanus</em>) in addition to avian prey. Large numbers of Northern Goshawks may wander far south of their normal range during winter in years when hare and grouse populations are low. With the aid of binoculars, Northern Goshawks may be seen perched in trees while scanning for prey. However, they are often more easily seen in the air while moving between perches or while actively hunting. As this species hunts by sight, it is only active during the day.</p><p><a href=\'http://www.iucnredlist.org/details/22695683/0\'>Threat Status: Least Concern<a></p>','Smithsonian Institution',502,'c27b348f-c8c1-4fdf-a6a0-1e9ff88fc34e','Accipiter_gentilis_TEXT','https://www.bibalex.org/en/Attachments/Highlights/Cropped/1600x400/201802271420452729_bannerenglishfinal.jpg','http://172.16.0.99/eol_workspace/resources/502/media/201802271420452729_bannerenglishfinal.jpg','2018-11-26 09:14:26','2018-11-26 09:14:26',NULL,NULL,NULL,NULL,NULL,NULL,1,1,NULL),(2,0,'<p>The Sharp-shinned Hawk is often confused with its slightly larger relative, the Cooper’s Hawk. Both species are blue-gray above and streaked rusty-red below with long tails, yellow legs, and small, hooked beaks. However, the Sharp-shinned Hawk has a squared-off tail (Cooper’s Hawks have rounded tails), and is slightly smaller at 10-14 inches long. The Sharp-shinned Hawk displays the greatest difference in size between males and females (called sexual dimorphism) of any raptor in North America, with females weighing almost twice as much as males. The Sharp-shinned Hawk is also a more local breeder than the Cooper’s Hawk. While that species breeds across the United States and southern Canada, the Sharp-shinned Hawk’s main breeding range is restricted to the Canadian sub-arctic and higher elevation areas of the Appalachians and Rockies. This species migrates south in winter, when it may be found more widely across the U.S. In its range, the Sharp-shinned Hawk is among the most adaptable raptors. While usually found in forest habitats, this species has expanded into human-altered landscapes and now frequents towns and suburbs as well. The Sharp-shinned Hawk, like all ‘bird hawks,’ is capable of hunting birds (on the ground, in trees, or in flight) from the air. This species frequently enters yards to take small songbirds from feeders. With the aid of binoculars, Sharp-shinned Hawks may be seen perched in trees while scanning for prey. However, they are often more easily seen in the air while moving between perches or while actively hunting. As this species hunts by sight, it is only active during the day.</p><p><a href=\'http://www.iucnredlist.org/details/22734130/0\'>Threat Status: Least Concern<a></p>','Smithsonian Institution',502,'debea848-e58f-4ae6-90ca-ebc2753d19fe','Accipiter_striatus_TEXT','https://www.bibalex.org/en/Attachments/Highlights/Cropped/1600x400/201802271420452729_bannerenglishfinal.jpg','http://172.16.0.99/eol_workspace/resources/502/media/201802271420452729_bannerenglishfinal.jpg','2018-11-26 09:14:30','2018-11-26 09:14:30',NULL,NULL,NULL,NULL,NULL,NULL,1,1,NULL);
+/*!40000 ALTER TABLE `media` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `node_ancestors`
 --
 
-
+DROP TABLE IF EXISTS `node_ancestors`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE IF NOT EXISTS `node_ancestors` (
+CREATE TABLE `node_ancestors` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `resource_id` int(11) NOT NULL,
   `node_id` int(11) DEFAULT NULL COMMENT 'the id of the descendant node',
@@ -435,17 +612,26 @@ CREATE TABLE IF NOT EXISTS `node_ancestors` (
   KEY `index_node_ancestors_on_node_resource_pk` (`node_resource_pk`),
   KEY `index_node_ancestors_on_ancestor_resource_pk` (`ancestor_resource_pk`),
   KEY `index_node_ancestors_on_resource_id` (`resource_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `node_ancestors`
+--
+
+LOCK TABLES `node_ancestors` WRITE;
+/*!40000 ALTER TABLE `node_ancestors` DISABLE KEYS */;
+/*!40000 ALTER TABLE `node_ancestors` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `nodes`
 --
 
-
+DROP TABLE IF EXISTS `nodes`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE IF NOT EXISTS `nodes` (
+CREATE TABLE `nodes` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `resource_id` int(11) DEFAULT NULL,
   `scientific_name` varchar(255) DEFAULT NULL,
@@ -457,20 +643,57 @@ CREATE TABLE IF NOT EXISTS `nodes` (
   `parent_id` int(11) DEFAULT NULL,
   `rank_id` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `genrated_node_id` (`generated_node_id`),
   KEY `index_nodes_on_generated_node_id` (`generated_node_id`),
   KEY `index_nodes_on_rank_id` (`rank_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5130461 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `nodes`
+--
+
+LOCK TABLES `nodes` WRITE;
+/*!40000 ALTER TABLE `nodes` DISABLE KEYS */;
+INSERT INTO `nodes` VALUES (1,502,'Diphhelia raristella Haime & Milne-Edwards','Diphhelia raristella',2994332,'missed_taxon_id','2018-11-26 09:14:25','2018-11-26 09:14:25',NULL,1),(2,502,'Brachycoenia leptophyllia Reuss, 1854','Brachycoenia leptophyllia',2994333,'missed_taxon_id','2018-11-26 09:14:29','2018-11-26 09:14:29',NULL,1),(3,502,'Elasmofungia comoserioides Alloiteau, 1957','Elasmofungia comoserioides',2994334,'missed_taxon_id','2018-11-26 09:14:31','2018-11-26 09:14:31',NULL,1),(4,502,'Actinernoidea Stephenson, 1922',NULL,2994335,'missed_taxon_id','2018-11-26 09:14:33','2018-11-26 09:14:33',NULL,2),(5,502,'Edwardsioidea Andres, 1881',NULL,2994336,'missed_taxon_id','2018-11-26 09:14:34','2018-11-26 09:14:34',NULL,2),(6,502,'Actinostoloidea Carlgren, 1932',NULL,2994337,'missed_taxon_id','2018-11-26 09:14:35','2018-11-26 09:14:35',NULL,2),(7,502,'unplaced extinct Diptera',NULL,2994338,'missed_taxon_id','2018-11-26 09:14:37','2018-11-26 09:14:37',NULL,3),(8,502,'Ascilla coriacea E. Haeckel, 1872','Ascilla coriacea',2994339,'missed_taxon_id','2018-11-26 09:14:38','2018-11-26 09:14:38',NULL,1),(9,502,'Ctenopthalmidae',NULL,2994340,'missed_taxon_id','2018-11-26 09:14:40','2018-11-26 09:14:40',NULL,4),(10,502,'unplaced extinct Amphiesmenoptera',NULL,2994341,'missed_taxon_id','2018-11-26 09:14:41','2018-11-26 09:14:41',NULL,3),(11,502,'Pseudopolycentropidae',NULL,2994342,'missed_taxon_id','2018-11-26 09:14:41','2018-11-26 09:14:41',NULL,4),(12,502,'Protomerope Tillyard, 1926','Protomerope',2994343,'missed_taxon_id','2018-11-26 09:14:42','2018-11-26 09:14:42',NULL,5),(13,502,'Cretacechorista Hong, Yan & Wang, 1989','Cretacechorista',2994344,'missed_taxon_id','2018-11-26 09:14:42','2018-11-26 09:14:42',NULL,5),(14,502,'Wightimicropsocus Azar, 2014',NULL,2994345,'missed_taxon_id','2018-11-26 09:14:43','2018-11-26 09:14:43',NULL,5),(5129469,556,'Abarenicola claparedii','Abarenicola claparedii',3505081,'Abarenicola claparedii','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129470,556,'Abarenicola pacifica','Abarenicola pacifica',3505082,'Abarenicola pacifica','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129471,556,'Abarenicola pacifica','Abarenicola pacifica',3505083,'Abarenicola pacifica','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129472,556,'Abarenicola vagabunda','Abarenicola vagabunda',3505084,'Abarenicola vagabunda','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129473,556,'Acanthaster planci','Acanthaster planci',3505085,'Acanthaster planci','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129474,556,'Acanthodoris pilosa','Acanthodoris pilosa',3505086,'Acanthodoris pilosa','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129475,556,'Acodontaster conspicuus','Acodontaster conspicuus',3505087,'Acodontaster conspicuus','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129476,556,'Acodontaster elongatus','Acodontaster elongatus',3505088,'Acodontaster elongatus','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129477,556,'Acodontaster hodgsoni','Acodontaster hodgsoni',3505089,'Acodontaster hodgsoni','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129478,556,'Acrocnida brachiata','Acrocnida brachiata',3505090,'Acrocnida brachiata','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129479,556,'Acropora humilis','Acropora humilis',3505091,'Acropora humilis','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129480,556,'Acropora millepora','Acropora millepora',3505092,'Acropora millepora','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129481,556,'Actinopyga mauritiana','Actinopyga mauritiana',3505093,'Actinopyga mauritiana','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129482,556,'Adalaria proxima','Adalaria proxima',3505094,'Adalaria proxima','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129483,556,'Adalaria proxima','Adalaria proxima',3505095,'Adalaria proxima','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129484,556,'Aeolidia papillosa','Aeolidia papillosa',3505096,'Aeolidia papillosa','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129485,556,'Aequorea victoria','Aequorea victoria',3505097,'Aequorea victoria','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129486,556,'Aglajidae','Aglajidae',3505098,'Aglajidae','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129487,556,'Aglajidae','Aglajidae',3505099,'Aglajidae','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129488,556,'Alderia modesta','Alderia modesta',3505100,'Alderia modesta','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129489,556,'Alderia willowi','Alderia willowi',3505101,'Alderia willowi','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129490,556,'Alderia willowi','Alderia willowi',3505102,'Alderia willowi','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129491,556,'Aldisa sanguinea','Aldisa sanguinea',3505103,'Aldisa sanguinea','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129492,556,'Alvania punctura','Alvania punctura',3505104,'Alvania punctura','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129493,556,'Alvinella pompejana','Alvinella pompejana',3505105,'Alvinella pompejana','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129494,556,'Amaena occidentalis','Amaena occidentalis',3505106,'Amaena occidentalis','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129495,556,'Amathis lutzi','Amathis lutzi',3505107,'Amathis lutzi','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129496,556,'Amblyosyllis speciosa','Amblyosyllis speciosa',3505108,'Amblyosyllis speciosa','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129497,556,'Ampharete goesi','Ampharete goesi',3505109,'Ampharete goesi','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129498,556,'Amphicteis floridus','Amphicteis floridus',3505110,'Amphicteis floridus','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129499,556,'Amphiglena nathae','Amphiglena nathae',3505111,'Amphiglena nathae','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129500,556,'Amphiglena terebro','Amphiglena terebro',3505112,'Amphiglena terebro','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129501,556,'Amphiodia occidentalis','Amphiodia occidentalis',3505113,'Amphiodia occidentalis','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129502,556,'Amphiodia pulchella','Amphiodia pulchella',3505114,'Amphiodia pulchella','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129503,556,'Amphiophiura bullata','Amphiophiura bullata',3505115,'Amphiophiura bullata','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129504,556,'Amphiophiura rowetti','Amphiophiura rowetti',3505116,'Amphiophiura rowetti','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129505,556,'Amphioplus abditus','Amphioplus abditus',3505117,'Amphioplus abditus','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129506,556,'Amphiura carchara','Amphiura carchara',3505118,'Amphiura carchara','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129507,556,'Amphiura chiajei','Amphiura chiajei',3505119,'Amphiura chiajei','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129508,556,'Amphiura kochii','Amphiura kochii',3505120,'Amphiura kochii','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129509,556,'Amphiura stimpsoni','Amphiura stimpsoni',3505121,'Amphiura stimpsoni','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129510,556,'Amphiura vivipara','Amphiura vivipara',3505122,'Amphiura vivipara','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129511,556,'Amphysamytha galapagensi','Amphysamytha galapagensi',3505123,'Amphysamytha galapagensi','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129512,556,'Anaitides williamsi','Anaitides williamsi',3505124,'Anaitides williamsi','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129513,556,'Anasterias mawsoni','Anasterias mawsoni',3505125,'Anasterias mawsoni','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129514,556,'Anasterias minuta','Anasterias minuta',3505126,'Anasterias minuta','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129515,556,'Anasterias rupicola','Anasterias rupicola',3505127,'Anasterias rupicola','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129516,556,'Anasterias studeri','Anasterias studeri',3505128,'Anasterias studeri','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129517,556,'Anasterias tenera','Anasterias tenera',3505129,'Anasterias tenera','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129518,556,'Ancula gibbosa','Ancula gibbosa',3505130,'Ancula gibbosa','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129519,556,'Anthophiura ingolfi','Anthophiura ingolfi',3505131,'Anthophiura ingolfi','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129520,556,'Antimargarita dulcis','Antimargarita dulcis',3505132,'Antimargarita dulcis','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129521,556,'Antionella sarsi','Antionella sarsi',3505133,'Antionella sarsi','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129522,556,'Antipathes fiordensis','Antipathes fiordensis',3505134,'Antipathes fiordensis','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129523,556,'Aplydium turbinatum','Aplydium turbinatum',3505135,'Aplydium turbinatum','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129524,556,'Aplysia  dactylomela','Aplysia dactylomela',3505136,'Aplysia  dactylomela','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129525,556,'Aplysia californica','Aplysia californica',3505137,'Aplysia californica','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129526,556,'Aplysia dactlomela','Aplysia dactlomela',3505138,'Aplysia dactlomela','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129527,556,'Aplysia dactlomela','Aplysia dactlomela',3505139,'Aplysia dactlomela','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129528,556,'Aplysia juliana','Aplysia juliana',3505140,'Aplysia juliana','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129529,556,'Aplysia juliana','Aplysia juliana',3505141,'Aplysia juliana','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129530,556,'Aplysiopsis enteromorpha','Aplysiopsis enteromorpha',3505142,'Aplysiopsis enteromorpha','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129531,556,'Aplysiopsis zebra','Aplysiopsis zebra',3505143,'Aplysiopsis zebra','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129532,556,'Archidistoma aggregatum','Archidistoma aggregatum',3505144,'Archidistoma aggregatum','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129533,556,'Archidoris odhneri','Archidoris odhneri',3505145,'Archidoris odhneri','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129534,556,'Archidoris pseudoargus','Archidoris pseudoargus',3505146,'Archidoris pseudoargus','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129535,556,'Arctinoe fragilis','Arctinoe fragilis',3505147,'Arctinoe fragilis','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129536,556,'Arctinoe pulchra','Arctinoe pulchra',3505148,'Arctinoe pulchra','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129537,556,'Arctinoe vittata','Arctinoe vittata',3505149,'Arctinoe vittata','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129538,556,'Arctonoe vittata','Arctonoe vittata',3505150,'Arctonoe vittata','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129539,556,'Arenicola branchialis','Arenicola branchialis',3505151,'Arenicola branchialis','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129540,556,'Arenicola ecaudata','Arenicola ecaudata',3505152,'Arenicola ecaudata','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129541,556,'Arenicola marina','Arenicola marina',3505153,'Arenicola marina','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129542,556,'Aricidea suecica','Aricidea suecica',3505154,'Aricidea suecica','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129543,556,'Armandia brevis','Armandia brevis',3505155,'Armandia brevis','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129544,556,'Asabellides siberica','Asabellides siberica',3505156,'Asabellides siberica','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129545,556,'Ascidia callosa','Ascidia callosa',3505157,'Ascidia callosa','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129546,556,'Ascidia mentula','Ascidia mentula',3505158,'Ascidia mentula','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129547,556,'Ascidia mentula','Ascidia mentula',3505159,'Ascidia mentula','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129548,556,'Ascobulla ulla','Ascobulla ulla',3505160,'Ascobulla ulla','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129549,556,'Asterias forbesi','Asterias forbesi',3505161,'Asterias forbesi','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129550,556,'Asterias lincki','Asterias lincki',3505162,'Asterias lincki','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129551,556,'Asterias rubens','Asterias rubens',3505163,'Asterias rubens','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129552,556,'Asterias vulgaris','Asterias vulgaris',3505164,'Asterias vulgaris','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129553,556,'Asterina batheri','Asterina batheri',3505165,'Asterina batheri','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129554,556,'Asterina burtoni','Asterina burtoni',3505166,'Asterina burtoni','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129555,556,'Asterina coronata','Asterina coronata',3505167,'Asterina coronata','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129556,556,'Asterina gibbosa','Asterina gibbosa',3505168,'Asterina gibbosa','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129557,556,'Asterina miniata','Asterina miniata',3505169,'Asterina miniata','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129558,556,'Asterina minor','Asterina minor',3505170,'Asterina minor','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129559,556,'Asterina pectinifera','Asterina pectinifera',3505171,'Asterina pectinifera','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129560,556,'Asterina phylactica','Asterina phylactica',3505172,'Asterina phylactica','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129561,556,'Asterina scobinata','Asterina scobinata',3505173,'Asterina scobinata','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129562,556,'Asterina stellifera','Asterina stellifera',3505174,'Asterina stellifera','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129563,556,'Asteropsis carinifera','Asteropsis carinifera',3505175,'Asteropsis carinifera','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129564,556,'Astreopora myriophthalma','Astreopora myriophthalma',3505176,'Astreopora myriophthalma','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129565,556,'Astrobrachion constrictu','Astrobrachion constrictu',3505177,'Astrobrachion constrictu','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129566,556,'Astroclon propugnatoris','Astroclon propugnatoris',3505178,'Astroclon propugnatoris','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129567,556,'Astropecten auranciacus','Astropecten auranciacus',3505179,'Astropecten auranciacus','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129568,556,'Astropecten gisselbrecht','Astropecten gisselbrecht',3505180,'Astropecten gisselbrecht','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129569,556,'Astropecten irregularis','Astropecten irregularis',3505181,'Astropecten irregularis','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129570,556,'Astropecten latespinosus','Astropecten latespinosus',3505182,'Astropecten latespinosus','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129571,556,'Astropecten polyacanthus','Astropecten polyacanthus',3505183,'Astropecten polyacanthus','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129572,556,'Astropecten scoparius','Astropecten scoparius',3505184,'Astropecten scoparius','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129573,556,'Aurospio dibranchiata','Aurospio dibranchiata',3505185,'Aurospio dibranchiata','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129574,556,'Aurospiro dibranchiata','Aurospiro dibranchiata',3505186,'Aurospiro dibranchiata','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129575,556,'Austraeolis ornata','Austraeolis ornata',3505187,'Austraeolis ornata','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129576,556,'Austrodoris kergueIenens','Austrodoris',3505188,'Austrodoris kergueIenens','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129577,556,'Autolytus fasciatus','Autolytus fasciatus',3505189,'Autolytus fasciatus','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129578,556,'Autolytus prolifer','Autolytus prolifer',3505190,'Autolytus prolifer','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129579,556,'Axiothella mucosa','Axiothella mucosa',3505191,'Axiothella mucosa','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129580,556,'Axiothella rubrocincta','Axiothella rubrocincta',3505192,'Axiothella rubrocincta','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129581,556,'Babylonia areolata','Babylonia areolata',3505193,'Babylonia areolata','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129582,556,'Balcis alba','Balcis alba',3505194,'Balcis alba','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129583,556,'Bathybiaster loripes','Bathybiaster loripes',3505195,'Bathybiaster loripes','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129584,556,'Bathybiaster loripes','Bathybiaster loripes',3505196,'Bathybiaster loripes','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129585,556,'Bathybiaster vexillifer','Bathybiaster vexillifer',3505197,'Bathybiaster vexillifer','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129586,556,'Bembicium melanostoma','Bembicium melanostoma',3505198,'Bembicium melanostoma','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129587,556,'Bembicium nanum','Bembicium nanum',3505199,'Bembicium nanum','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129588,556,'Bembicium vittatum','Bembicium vittatum',3505200,'Bembicium vittatum','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129589,556,'Benthopecten armatus','Benthopecten armatus',3505201,'Benthopecten armatus','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129590,556,'Benthopecten simplex','Benthopecten simplex',3505202,'Benthopecten simplex','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129591,556,'Benthoscolex cubanus','Benthoscolex cubanus',3505203,'Benthoscolex cubanus','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129592,556,'Berthelina limax','Berthelina limax',3505204,'Berthelina limax','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129593,556,'Berthelinia ','Berthelinia',3505205,'Berthelinia ','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129594,556,'Berthelinia caribbea','Berthelinia caribbea',3505206,'Berthelinia caribbea','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129595,556,'Berthelinia ganapati','Berthelinia ganapati',3505207,'Berthelinia ganapati','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129596,556,'Berthelinia limax','Berthelinia limax',3505208,'Berthelinia limax','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129597,556,'Berthella californica','Berthella californica',3505209,'Berthella californica','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129598,556,'Boccardia polybranchia','Boccardia polybranchia',3505210,'Boccardia polybranchia','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129599,556,'Boltenia echinata','Boltenia echinata',3505211,'Boltenia echinata','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129600,556,'Boltenia hirsuta','Boltenia hirsuta',3505212,'Boltenia hirsuta','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129601,556,'Bosellia','Bosellia',3505213,'Bosellia','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129602,556,'Bosellia mimetica','Bosellia mimetica',3505214,'Bosellia mimetica','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129603,556,'Botrylloides leachii','Botrylloides leachii',3505215,'Botrylloides leachii','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129604,556,'Botryllus gigas','Botryllus gigas',3505216,'Botryllus gigas','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129605,556,'Brachiomma luctuosum','Brachiomma luctuosum',3505217,'Brachiomma luctuosum','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129606,556,'Branchiomma nigromaculat','Branchiomma nigromaculat',3505218,'Branchiomma nigromaculat','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129607,556,'Branchiomma vesicolosum','Branchiomma vesicolosum',3505219,'Branchiomma vesicolosum','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129608,556,'Branchypolynoe seepensis','Branchypolynoe seepensis',3505220,'Branchypolynoe seepensis','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129609,556,'Brevibranchum maculatum','Brevibranchum maculatum',3505221,'Brevibranchum maculatum','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129610,556,'Brisinga endecacnemos','Brisinga endecacnemos',3505222,'Brisinga endecacnemos','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129611,556,'Brisingella coronata','Brisingella coronata',3505223,'Brisingella coronata','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129612,556,'Bulla gouldiana','Bulla gouldiana',3505224,'Bulla gouldiana','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129613,556,'Bullina lineata','Bullina lineata',3505225,'Bullina lineata','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129614,556,'Cadlina luteomarginata','Cadlina luteomarginata',3505226,'Cadlina luteomarginata','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129615,556,'Cadlina marginata','Cadlina marginata',3505227,'Cadlina marginata','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129616,556,'Caliphylla mediteranea','Caliphylla mediteranea',3505228,'Caliphylla mediteranea','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129617,556,'Calliopaea oophaga','Calliopaea oophaga',3505229,'Calliopaea oophaga','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129618,556,'Calliostoma zizyphinum','Calliostoma zizyphinum',3505230,'Calliostoma zizyphinum','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129619,556,'Calyptraea chinensis','Calyptraea chinensis',3505231,'Calyptraea chinensis','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129620,556,'Calyptraea conica','Calyptraea conica',3505232,'Calyptraea conica','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129621,556,'Calyptraea extinctorum','Calyptraea extinctorum',3505233,'Calyptraea extinctorum','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129622,556,'Calyptraea mamillaris','Calyptraea mamillaris',3505234,'Calyptraea mamillaris','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129623,556,'Calyptraea pellucida','Calyptraea pellucida',3505235,'Calyptraea pellucida','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129624,556,'Cantharidus callichroa','Cantharidus callichroa',3505236,'Cantharidus callichroa','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129625,556,'Cantharidus exasperatus','Cantharidus exasperatus',3505237,'Cantharidus exasperatus','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129626,556,'Casella atromarginata','Casella atromarginata',3505238,'Casella atromarginata','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129627,556,'Catriona aurantia','Catriona aurantia',3505239,'Catriona aurantia','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129628,556,'Catriona columbiana','Catriona columbiana',3505240,'Catriona columbiana','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129629,556,'Ceratonereis limnetica','Ceratonereis limnetica',3505241,'Ceratonereis limnetica','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129630,556,'Cerithium auricoma','Cerithium auricoma',3505242,'Cerithium auricoma','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129631,556,'Cerithium eburneum','Cerithium eburneum',3505243,'Cerithium eburneum','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129632,556,'Cerithium floridanum','Cerithium floridanum',3505244,'Cerithium floridanum','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129633,556,'Cerithium litteratum','Cerithium litteratum',3505245,'Cerithium litteratum','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129634,556,'Cerithium muscarum','Cerithium muscarum',3505246,'Cerithium muscarum','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129635,556,'Cerithium nodulosum','Cerithium nodulosum',3505247,'Cerithium nodulosum','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129636,556,'Cerithium variabile','Cerithium variabile',3505248,'Cerithium variabile','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129637,556,'Certonardoa semiregulari','Certonardoa semiregulari',3505249,'Certonardoa semiregulari','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129638,556,'Cheiraster sepitus','Cheiraster sepitus',3505250,'Cheiraster sepitus','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129639,556,'Chelidonura fulvipunctat','Chelidonura fulvipunctat',3505251,'Chelidonura fulvipunctat','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129640,556,'Chelidonura hirundinina','Chelidonura hirundinina',3505252,'Chelidonura hirundinina','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129641,556,'Chelidonura hirundinina','Chelidonura hirundinina',3505253,'Chelidonura hirundinina','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129642,556,'Chelidonura hirundinina','Chelidonura hirundinina',3505254,'Chelidonura hirundinina','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129643,556,'Chelidonura inornata','Chelidonura inornata',3505255,'Chelidonura inornata','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129644,556,'Chelidonura inornata','Chelidonura inornata',3505256,'Chelidonura inornata','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129645,556,'Chelidonura inornata','Chelidonura inornata',3505257,'Chelidonura inornata','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129646,556,'Chelidonura pallida','Chelidonura pallida',3505258,'Chelidonura pallida','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129647,556,'Chelidonura sandrana','Chelidonura sandrana',3505259,'Chelidonura sandrana','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129648,556,'Chelidonura sandrana','Chelidonura sandrana',3505260,'Chelidonura sandrana','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129649,556,'Chelidonura varians','Chelidonura varians',3505261,'Chelidonura varians','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129650,556,'Chitinopoma serrula','Chitinopoma serrula',3505262,'Chitinopoma serrula','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129651,556,'Chlamys asperrima','Chlamys asperrima',3505263,'Chlamys asperrima','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129652,556,'Chlamys bifrons','Chlamys bifrons',3505264,'Chlamys bifrons','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129653,556,'Chone duneri','Chone duneri',3505265,'Chone duneri','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129654,556,'Chone ecaudata ','Chone ecaudata',3505266,'Chone ecaudata ','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129655,556,'Chromodoris daphne','Chromodoris daphne',3505267,'Chromodoris daphne','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129656,556,'Chromodoris eJisabethina','Chromodoris',3505268,'Chromodoris eJisabethina','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129657,556,'Chromodoris geometrica','Chromodoris geometrica',3505269,'Chromodoris geometrica','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129658,556,'Chromodoris kuniei','Chromodoris kuniei',3505270,'Chromodoris kuniei','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129659,556,'Chromodoris leopardus','Chromodoris leopardus',3505271,'Chromodoris leopardus','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129660,556,'Chromodoris roboi','Chromodoris roboi',3505272,'Chromodoris roboi','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129661,556,'Chromodoris strigata','Chromodoris strigata',3505273,'Chromodoris strigata','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129662,556,'Chrysallida decussata','Chrysallida decussata',3505274,'Chrysallida decussata','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129663,556,'Chrysopetalum bellis','Chrysopetalum bellis',3505275,'Chrysopetalum bellis','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129664,556,'Cidaris blakei','Cidaris blakei',3505276,'Cidaris blakei','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129665,556,'Cidaris cidaris','Cidaris cidaris',3505277,'Cidaris cidaris','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129666,556,'Ciona intestinalis','Ciona intestinalis',3505278,'Ciona intestinalis','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129667,556,'Ciona intestinalis','Ciona intestinalis',3505279,'Ciona intestinalis','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129668,556,'Cirratulis cirratus','Cirratulis cirratus',3505280,'Cirratulis cirratus','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129669,556,'Cirratulus cirratus','Cirratulus cirratus',3505281,'Cirratulus cirratus','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129670,556,'Cirriformia luxuriosa','Cirriformia luxuriosa',3505282,'Cirriformia luxuriosa','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129671,556,'Clarcoma canaliculata','Clarcoma canaliculata',3505283,'Clarcoma canaliculata','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129672,556,'Clarcoma pulchra','Clarcoma pulchra',3505284,'Clarcoma pulchra','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129673,556,'Clavelina lepadiformis','Clavelina lepadiformis',3505285,'Clavelina lepadiformis','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129674,556,'Clavelina oblonga','Clavelina oblonga',3505286,'Clavelina oblonga','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129675,556,'Clavelina picta','Clavelina picta',3505287,'Clavelina picta','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129676,556,'Clione limacina','Clione limacina',3505288,'Clione limacina','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129677,556,'Clymenella torquata','Clymenella torquata',3505289,'Clymenella torquata','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129678,556,'Clymenura clypeata','Clymenura clypeata',3505290,'Clymenura clypeata','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129679,556,'Corymorpha palma','Corymorpha palma',3505291,'Corymorpha palma','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129680,556,'Coscinasterias calamaria','Coscinasterias calamaria',3505292,'Coscinasterias calamaria','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129681,556,'Cossura longocirrata','Cossura longocirrata',3505293,'Cossura longocirrata','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129682,556,'Cossura longocirrata','Cossura longocirrata',3505294,'Cossura longocirrata','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129683,556,'Costasiella','Costasiella',3505295,'Costasiella','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129684,556,'Costasiella','Costasiella',3505296,'Costasiella','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129685,556,'Costasiella','Costasiella',3505297,'Costasiella','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129686,556,'Costasiella','Costasiella',3505298,'Costasiella','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129687,556,'Costasiella nonatoi','Costasiella nonatoi',3505299,'Costasiella nonatoi','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129688,556,'Costasiella ocellifera','Costasiella ocellifera',3505300,'Costasiella ocellifera','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129689,556,'Costasiella ocellifera','Costasiella ocellifera',3505301,'Costasiella ocellifera','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129690,556,'Costasiella usagi','Costasiella usagi',3505302,'Costasiella usagi','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129691,556,'Cratena pilata','Cratena pilata',3505303,'Cratena pilata','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129692,556,'Crepidula aculeata','Crepidula aculeata',3505305,'Crepidula aculeata','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129693,556,'Crepidula adunca','Crepidula adunca',3505306,'Crepidula adunca','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129694,556,'Crepidula aplysioides','Crepidula aplysioides',3505307,'Crepidula aplysioides','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129695,556,'Crepidula arenata','Crepidula arenata',3505308,'Crepidula arenata','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129696,556,'Crepidula argentina','Crepidula argentina',3505309,'Crepidula argentina','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129697,556,'Crepidula atrasolea','Crepidula atrasolea',3505310,'Crepidula atrasolea','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129698,556,'Crepidula atrasolea','Crepidula atrasolea',3505311,'Crepidula atrasolea','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129699,556,'Crepidula cerithicola','Crepidula cerithicola',3505312,'Crepidula cerithicola','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129700,556,'Crepidula complanata','Crepidula complanata',3505313,'Crepidula complanata','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129701,556,'Crepidula convexa','Crepidula convexa',3505314,'Crepidula convexa','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129702,556,'Crepidula coquimbensis','Crepidula coquimbensis',3505315,'Crepidula coquimbensis','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129703,556,'Crepidula costata','Crepidula costata',3505316,'Crepidula costata','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129704,556,'Crepidula dilatata','Crepidula dilatata',3505317,'Crepidula dilatata','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129705,556,'Crepidula fecunda','Crepidula fecunda',3505318,'Crepidula fecunda','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129706,556,'Crepidula fornicata','Crepidula fornicata',3505319,'Crepidula fornicata','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129707,556,'Crepidula fornicata','Crepidula fornicata',3505320,'Crepidula fornicata','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129708,556,'Crepidula incurva','Crepidula incurva',3505321,'Crepidula incurva','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129709,556,'Crepidula lessoni','Crepidula lessoni',3505322,'Crepidula lessoni','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129710,556,'Crepidula lingulata','Crepidula lingulata',3505323,'Crepidula lingulata','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129711,556,'Crepidula maculosa','Crepidula maculosa',3505324,'Crepidula maculosa','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129712,556,'Crepidula marginalis','Crepidula marginalis',3505325,'Crepidula marginalis','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129713,556,'Crepidula monoxyla','Crepidula monoxyla',3505326,'Crepidula monoxyla','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129714,556,'Crepidula naticarum','Crepidula naticarum',3505327,'Crepidula naticarum','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129715,556,'Crepidula navicula','Crepidula navicula',3505328,'Crepidula navicula','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129716,556,'Crepidula nivea','Crepidula nivea',3505329,'Crepidula nivea','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129717,556,'Crepidula norrisarum','Crepidula norrisarum',3505330,'Crepidula norrisarum','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129718,556,'Crepidula nummaria','Crepidula nummaria',3505331,'Crepidula nummaria','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129719,556,'Crepidula onyx','Crepidula onyx',3505332,'Crepidula onyx','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129720,556,'Crepidula perforans','Crepidula perforans',3505333,'Crepidula perforans','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129721,556,'Crepidula plana','Crepidula plana',3505334,'Crepidula plana','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129722,556,'Crepidula porcellana','Crepidula porcellana',3505335,'Crepidula porcellana','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129723,556,'Crepidula protea','Crepidula protea',3505336,'Crepidula protea','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129724,556,'Crepidula striolata','Crepidula striolata',3505337,'Crepidula striolata','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129725,556,'Crepidula ustulatulina','Crepidula ustulatulina',3505338,'Crepidula ustulatulina','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129726,556,'Crepidula williamsi','Crepidula williamsi',3505339,'Crepidula williamsi','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129727,556,'Crepidula â€˜ustulatulinaâ€™','Crepidula',3505304,'Crepidula â€˜ustulatulinaâ€™','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129728,556,'Crossaster papposus','Crossaster papposus',3505340,'Crossaster papposus','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129729,556,'Crucibulum auricula','Crucibulum auricula',3505342,'Crucibulum auricula','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129730,556,'Crucibulum quirqinae','Crucibulum quirqinae',3505343,'Crucibulum quirqinae','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129731,556,'Crucibulum radiatum','Crucibulum radiatum',3505344,'Crucibulum radiatum','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129732,556,'Crucibulum spinosum','Crucibulum spinosum',3505341,'Crucibulum spinosum','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129733,556,'Crucigera zygophora','Crucigera zygophora',3505345,'Crucigera zygophora','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129734,556,'Cryptasterina hystera','Cryptasterina hystera',3505346,'Cryptasterina hystera','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129735,556,'Cryptasterina pacifica','Cryptasterina pacifica',3505347,'Cryptasterina pacifica','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129736,556,'Cryptasterina pentagona','Cryptasterina pentagona',3505348,'Cryptasterina pentagona','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129737,556,'Ctenocidaris nutrix','Ctenocidaris nutrix',3505349,'Ctenocidaris nutrix','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129738,556,'Ctenocidaris nutrix','Ctenocidaris nutrix',3505350,'Ctenocidaris nutrix','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129739,556,'Ctenocidaris perrieri','Ctenocidaris perrieri',3505351,'Ctenocidaris perrieri','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129740,556,'Ctenodiscus crispatus','Ctenodiscus crispatus',3505352,'Ctenodiscus crispatus','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129741,556,'Ctenopleura fisheri','Ctenopleura fisheri',3505353,'Ctenopleura fisheri','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129742,556,'Cucumaria curata','Cucumaria curata',3505354,'Cucumaria curata','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129743,556,'Cucumaria fallax','Cucumaria fallax',3505355,'Cucumaria fallax','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129744,556,'Cucumaria lubrica','Cucumaria lubrica',3505356,'Cucumaria lubrica','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129745,556,'Cucumaria miniata','Cucumaria miniata',3505357,'Cucumaria miniata','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129746,556,'Cucumaria piperata','Cucumaria piperata',3505358,'Cucumaria piperata','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129747,556,'Cucumaria pseudocurata','Cucumaria pseudocurata',3505359,'Cucumaria pseudocurata','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129748,556,'Culcita novaeguineae','Culcita novaeguineae',3505360,'Culcita novaeguineae','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129749,556,'Cumanotus beaumonti','Cumanotus beaumonti',3505361,'Cumanotus beaumonti','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129750,556,'Cuthona abronia','Cuthona abronia',3505362,'Cuthona abronia','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129751,556,'Cuthona adyarensis','Cuthona adyarensis',3505363,'Cuthona adyarensis','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129752,556,'Cuthona albocrusta','Cuthona albocrusta',3505364,'Cuthona albocrusta','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129753,556,'Cuthona cocoachroma','Cuthona cocoachroma',3505365,'Cuthona cocoachroma','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129754,556,'Cuthona divae','Cuthona divae',3505366,'Cuthona divae','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129755,556,'Cuthona fulgens','Cuthona fulgens',3505367,'Cuthona fulgens','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129756,556,'Cuthona lagunae','Cuthona lagunae',3505368,'Cuthona lagunae','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129757,556,'Cycethra macquariensis','Cycethra macquariensis',3505369,'Cycethra macquariensis','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129758,556,'Cyerce','Cyerce',3505370,'Cyerce','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129759,556,'Cyerce','Cyerce',3505371,'Cyerce','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129760,556,'Cyerce antillensis','Cyerce antillensis',3505372,'Cyerce antillensis','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129761,556,'Cyerce nigra','Cyerce nigra',3505373,'Cyerce nigra','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129762,556,'Cylindrobulla','Cylindrobulla',3505374,'Cylindrobulla','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129763,556,'Cypraea caputdraconis','Cypraea caputdraconis',3505375,'Cypraea caputdraconis','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129764,556,'Cypraecassis testiculis','Cypraecassis testiculis',3505376,'Cypraecassis testiculis','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129765,556,'Dasybranchus caducus','Dasybranchus caducus',3505377,'Dasybranchus caducus','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129766,556,'Demonax microphthalamus','Demonax microphthalamus',3505378,'Demonax microphthalamus','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129767,556,'Demonax polarsteni','Demonax polarsteni',3505379,'Demonax polarsteni','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129768,556,'Dendrodoris denisoni','Dendrodoris denisoni',3505380,'Dendrodoris denisoni','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129769,556,'Dendrodoris gemmacea','Dendrodoris gemmacea',3505381,'Dendrodoris gemmacea','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129770,556,'Dendrodoris nigra ','Dendrodoris nigra',3505382,'Dendrodoris nigra ','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129771,556,'Dendrodoris nigra ','Dendrodoris nigra',3505383,'Dendrodoris nigra ','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129772,556,'Dendronotus albopunctatu','Dendronotus albopunctatu',3505384,'Dendronotus albopunctatu','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129773,556,'Dendronotus frondosus','Dendronotus frondosus',3505385,'Dendronotus frondosus','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129774,556,'Dermasterias imbricata','Dermasterias imbricata',3505386,'Dermasterias imbricata','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129775,556,'Dexiospira foraminosa','Dexiospira foraminosa',3505387,'Dexiospira foraminosa','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129776,556,'Diaphana californica','Diaphana californica',3505388,'Diaphana californica','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129777,556,'Diazona violacea','Diazona violacea',3505389,'Diazona violacea','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129778,556,'Digidentis cf arbutus','Digidentis arbutus',3505390,'Digidentis cf arbutus','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129779,556,'Diopatra cuprea','Diopatra cuprea',3505391,'Diopatra cuprea','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129780,556,'Diopatra marocensis','Diopatra marocensis',3505392,'Diopatra marocensis','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129781,556,'Diopatra neopolitana','Diopatra neopolitana',3505393,'Diopatra neopolitana','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129782,556,'Diopatra ornata','Diopatra ornata',3505394,'Diopatra ornata','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129783,556,'Diopatra variabilis','Diopatra variabilis',3505395,'Diopatra variabilis','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129784,556,'Diplasterias brucei','Diplasterias brucei',3505396,'Diplasterias brucei','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129785,556,'Diplasterias meridionali','Diplasterias meridionali',3505397,'Diplasterias meridionali','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129786,556,'Diplasterias octoradiata','Diplasterias octoradiata',3505398,'Diplasterias octoradiata','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129787,556,'Diplosoma gelatinosa','Diplosoma gelatinosa',3505399,'Diplosoma gelatinosa','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129788,556,'Diplosoma listerianum','Diplosoma listerianum',3505400,'Diplosoma listerianum','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129789,556,'Dipolydora armata','Dipolydora armata',3505401,'Dipolydora armata','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129790,556,'Dipolydora commensalis','Dipolydora commensalis',3505402,'Dipolydora commensalis','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129791,556,'Dipolydora melanopalpa','Dipolydora melanopalpa',3505403,'Dipolydora melanopalpa','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129792,556,'Discodoris heathi','Discodoris heathi',3505404,'Discodoris heathi','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129793,556,'Discodoris palma','Discodoris palma',3505405,'Discodoris palma','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129794,556,'Discodoris sandiegensis','Discodoris sandiegensis',3505406,'Discodoris sandiegensis','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129795,556,'Distaplia rosea','Distaplia rosea',3505407,'Distaplia rosea','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129796,556,'Ditrupa arietina','Ditrupa arietina',3505408,'Ditrupa arietina','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129797,556,'Dodecaceria concharum','Dodecaceria concharum',3505409,'Dodecaceria concharum','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129798,556,'Dolabella auricularia','Dolabella auricularia',3505410,'Dolabella auricularia','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129799,556,'Doridella obscura','Doridella obscura',3505411,'Doridella obscura','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129800,556,'Doridella steinbergae','Doridella steinbergae',3505412,'Doridella steinbergae','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129801,556,'Doriopsilla miniata','Doriopsilla miniata',3505413,'Doriopsilla miniata','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129802,556,'Doris verrucosa','Doris verrucosa',3505414,'Doris verrucosa','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129803,556,'Dorvillea caeca','Dorvillea caeca',3505415,'Dorvillea caeca','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129804,556,'Dorvillea rudolphi','Dorvillea rudolphi',3505416,'Dorvillea rudolphi','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129805,556,'Dorvillea rudolphi','Dorvillea rudolphi',3505417,'Dorvillea rudolphi','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129806,556,'Doto coronata','Doto coronata',3505418,'Doto coronata','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129807,556,'Drupella cornus','Drupella cornus',3505419,'Drupella cornus','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129808,556,'E. furvacauda','E. furvacauda',3505420,'E. furvacauda','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129809,556,'Echinaster echinophorus','Echinaster echinophorus',3505421,'Echinaster echinophorus','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129810,556,'Echinaster echinophorus','Echinaster echinophorus',3505422,'Echinaster echinophorus','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129811,556,'Echinaster morph 1','Echinaster morph',3505423,'Echinaster morph 1','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129812,556,'Echinaster morph 2','Echinaster morph',3505424,'Echinaster morph 2','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129813,556,'Ecteinascidia conklini','Ecteinascidia conklini',3505425,'Ecteinascidia conklini','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129814,556,'Ecteinascidia turbinata','Ecteinascidia turbinata',3505426,'Ecteinascidia turbinata','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129815,556,'Elysia','Elysia',3505427,'Elysia','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129816,556,'Elysia','Elysia',3505428,'Elysia','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129817,556,'Elysia','Elysia',3505429,'Elysia','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129818,556,'Elysia','Elysia',3505430,'Elysia','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129819,556,'Elysia','Elysia',3505431,'Elysia','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129820,556,'Elysia','Elysia',3505432,'Elysia','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129821,556,'Elysia (Boselia) marcusi','Elysia marcusi',3505433,'Elysia (Boselia) marcusi','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129822,556,'Elysia atroviridis','Elysia atroviridis',3505434,'Elysia atroviridis','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129823,556,'Elysia australis','Elysia australis',3505435,'Elysia australis','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129824,556,'Elysia chlorotica','Elysia chlorotica',3505436,'Elysia chlorotica','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129825,556,'Elysia chlorotica','Elysia chlorotica',3505437,'Elysia chlorotica','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129826,556,'Elysia cornigera','Elysia cornigera',3505438,'Elysia cornigera','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129827,556,'Elysia cornigera','Elysia cornigera',3505439,'Elysia cornigera','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129828,556,'Elysia crispata','Elysia crispata',3505440,'Elysia crispata','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129829,556,'Elysia evelinae','Elysia evelinae',3505441,'Elysia evelinae','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129830,556,'Elysia hamatanii','Elysia hamatanii',3505442,'Elysia hamatanii','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129831,556,'Elysia hedgpethi','Elysia hedgpethi',3505443,'Elysia hedgpethi','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129832,556,'Elysia japonica','Elysia japonica',3505444,'Elysia japonica','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129833,556,'Elysia maoria','Elysia maoria',3505445,'Elysia maoria','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129834,556,'Elysia marginata','Elysia marginata',3505446,'Elysia marginata','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129835,556,'Elysia ornata','Elysia ornata',3505447,'Elysia ornata','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129836,556,'Elysia papillosa','Elysia papillosa',3505448,'Elysia papillosa','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129837,556,'Elysia patina','Elysia patina',3505449,'Elysia patina','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129838,556,'Elysia pratensis','Elysia pratensis',3505450,'Elysia pratensis','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129839,556,'Elysia pusilla','Elysia pusilla',3505451,'Elysia pusilla','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129840,556,'Elysia pusilla','Elysia pusilla',3505452,'Elysia pusilla','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129841,556,'Elysia serca','Elysia serca',3505453,'Elysia serca','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129842,556,'Elysia stylifera','Elysia stylifera',3505454,'Elysia stylifera','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129843,556,'Elysia subornata','Elysia subornata',3505455,'Elysia subornata','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129844,556,'Elysia thompsoni','Elysia thompsoni',3505456,'Elysia thompsoni','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129845,556,'Elysia timida','Elysia timida',3505457,'Elysia timida','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129846,556,'Elysia trisinuata','Elysia trisinuata',3505458,'Elysia trisinuata','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129847,556,'Elysia tuca','Elysia tuca',3505459,'Elysia tuca','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129848,556,'Elysia viridis','Elysia viridis',3505460,'Elysia viridis','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129849,556,'Elysia zuleicae','Elysia zuleicae',3505461,'Elysia zuleicae','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129850,556,'Ercolania caerula','Ercolania caerula',3505462,'Ercolania caerula','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129851,556,'Ercolania emarginata','Ercolania emarginata',3505463,'Ercolania emarginata','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129852,556,'Ercolania endophytophaga','Ercolania endophytophaga',3505464,'Ercolania endophytophaga','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129853,556,'Ercolania felina','Ercolania felina',3505465,'Ercolania felina','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129854,556,'Ercolania funerea','Ercolania funerea',3505466,'Ercolania funerea','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129855,556,'Ercolania fuscata','Ercolania fuscata',3505467,'Ercolania fuscata','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129856,556,'Eteone flava','Eteone flava',3505468,'Eteone flava','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129857,556,'Eteone flava','Eteone flava',3505469,'Eteone flava','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129858,556,'Eteone longa','Eteone longa',3505470,'Eteone longa','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129859,556,'Eteone longa','Eteone longa',3505471,'Eteone longa','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129860,556,'Euasterias troscheli','Euasterias troscheli',3505472,'Euasterias troscheli','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129861,556,'Eubranchus exiguus','Eubranchus exiguus',3505473,'Eubranchus exiguus','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129862,556,'Eubranchus olivaceus','Eubranchus olivaceus',3505474,'Eubranchus olivaceus','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129863,556,'Euchone analis','Euchone analis',3505475,'Euchone analis','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129864,556,'Euchone pallida','Euchone pallida',3505476,'Euchone pallida','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129865,556,'Eucidaris metularia','Eucidaris metularia',3505477,'Eucidaris metularia','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129866,556,'Eucidaris metularia','Eucidaris metularia',3505478,'Eucidaris metularia','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129867,556,'Eucidaris thouarsi','Eucidaris thouarsi',3505479,'Eucidaris thouarsi','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129868,556,'Eucidaris thouarsii','Eucidaris thouarsii',3505480,'Eucidaris thouarsii','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129869,556,'Eucidaris tribuloides','Eucidaris tribuloides',3505481,'Eucidaris tribuloides','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129870,556,'Eucidaris tribuloides','Eucidaris tribuloides',3505482,'Eucidaris tribuloides','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129871,556,'Eudistylia vancuvieri','Eudistylia vancuvieri',3505483,'Eudistylia vancuvieri','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129872,556,'Eunice kobiensis','Eunice kobiensis',3505484,'Eunice kobiensis','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129873,556,'Eunice valens','Eunice valens',3505485,'Eunice valens','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129874,556,'Eupentacta quinquesemita','Eupentacta quinquesemita',3505486,'Eupentacta quinquesemita','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129875,556,'Euphysa japonica','Euphysa japonica',3505487,'Euphysa japonica','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129876,556,'Eupolymnia crescentis','Eupolymnia crescentis',3505488,'Eupolymnia crescentis','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129877,556,'Eupolymnia crescentis','Eupolymnia crescentis',3505489,'Eupolymnia crescentis','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129878,556,'Eutonina indicans','Eutonina indicans',3505490,'Eutonina indicans','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129879,556,'Euzonus mucronatus','Euzonus mucronatus',3505491,'Euzonus mucronatus','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129880,556,'Exegone occidentalis','Exegone occidentalis',3505492,'Exegone occidentalis','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129881,556,'Fabricia sabella','Fabricia sabella',3505493,'Fabricia sabella','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129882,556,'Fabricia sabella','Fabricia sabella',3505494,'Fabricia sabella','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129883,556,'Fabricinula trilobata','Fabricinula trilobata',3505495,'Fabricinula trilobata','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129884,556,'Favites halicora','Favites halicora',3505496,'Favites halicora','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129885,556,'Ficopomatus enigmaticus','Ficopomatus enigmaticus',3505497,'Ficopomatus enigmaticus','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129886,556,'Flabelligera pennigera','Flabelligera pennigera',3505498,'Flabelligera pennigera','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129887,556,'Flabellina trilineata','Flabellina trilineata',3505499,'Flabellina trilineata','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129888,556,'Florometra serratissima','Florometra serratissima',3505500,'Florometra serratissima','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129889,556,'Freyella spinosa','Freyella spinosa',3505501,'Freyella spinosa','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129890,556,'Fromia ghardaqana','Fromia ghardaqana',3505502,'Fromia ghardaqana','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129891,556,'Galeolaria caespitosa','Galeolaria caespitosa',3505503,'Galeolaria caespitosa','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129892,556,'Galeolaria caespitosa','Galeolaria caespitosa',3505504,'Galeolaria caespitosa','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129893,556,'Gattyana cirrhosa','Gattyana cirrhosa',3505505,'Gattyana cirrhosa','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129894,556,'Gibbula magus','Gibbula magus',3505506,'Gibbula magus','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129895,556,'Gibbula umbilicalis','Gibbula umbilicalis',3505507,'Gibbula umbilicalis','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129896,556,'Glossodoris vespa','Glossodoris vespa',3505508,'Glossodoris vespa','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129897,556,'Glycera convoluta','Glycera convoluta',3505509,'Glycera convoluta','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129898,556,'Glycera dibranchiata','Glycera dibranchiata',3505510,'Glycera dibranchiata','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129899,556,'Glycera tridactyla','Glycera tridactyla',3505511,'Glycera tridactyla','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129900,556,'Gomophia egyptiaca','Gomophia egyptiaca',3505512,'Gomophia egyptiaca','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129901,556,'Goniastrea retiformis','Goniastrea retiformis',3505513,'Goniastrea retiformis','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129902,556,'Goniocidaris tubaria','Goniocidaris tubaria',3505514,'Goniocidaris tubaria','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129903,556,'Goniocidaris umbraculum','Goniocidaris umbraculum',3505515,'Goniocidaris umbraculum','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129904,556,'Gonionemus murbachii','Gonionemus murbachii',3505516,'Gonionemus murbachii','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129905,556,'Gonionemus vertens','Gonionemus vertens',3505517,'Gonionemus vertens','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129906,556,'Grybeoyllis limbata','Grybeoyllis limbata',3505518,'Grybeoyllis limbata','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129907,556,'Gyptis brunnea','Gyptis brunnea',3505519,'Gyptis brunnea','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129908,556,'Gyptis rosea','Gyptis rosea',3505520,'Gyptis rosea','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129909,556,'Haliotis coccoradiata','Haliotis coccoradiata',3505521,'Haliotis coccoradiata','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129910,556,'Haliotis cracheroidii','Haliotis cracheroidii',3505522,'Haliotis cracheroidii','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129911,556,'Haliotis rubra','Haliotis rubra',3505523,'Haliotis rubra','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129912,556,'Halocynthia pyriformis','Halocynthia pyriformis',3505524,'Halocynthia pyriformis','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129913,556,'Halosydna brevisetosa','Halosydna brevisetosa',3505525,'Halosydna brevisetosa','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129914,556,'Haminoea callidegenita','Haminoea callidegenita',3505526,'Haminoea callidegenita','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129915,556,'Haminoea vesicula','Haminoea vesicula',3505527,'Haminoea vesicula','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129916,556,'Haploscoloplos fragilis','Haploscoloplos fragilis',3505528,'Haploscoloplos fragilis','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129917,556,'Harmothoe impar','Harmothoe impar',3505529,'Harmothoe impar','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129918,556,'Harmothoe megellanica','Harmothoe megellanica',3505530,'Harmothoe megellanica','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129919,556,'Hartmonoe imbricata','Hartmonoe imbricata',3505531,'Hartmonoe imbricata','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129920,556,'Hartmonoe impar','Hartmonoe impar',3505532,'Hartmonoe impar','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129921,556,'Hartmothoe spinosa','Hartmothoe spinosa',3505533,'Hartmothoe spinosa','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129922,556,'Hemipholis elongata','Hemipholis elongata',3505534,'Hemipholis elongata','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129923,556,'Henricia cylindrella','Henricia cylindrella',3505535,'Henricia cylindrella','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129924,556,'Henricia leviuscula','Henricia leviuscula',3505536,'Henricia leviuscula','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129925,556,'Henricia sanguinolenta','Henricia sanguinolenta',3505537,'Henricia sanguinolenta','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129926,556,'Hermaea bifida','Hermaea bifida',3505538,'Hermaea bifida','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129927,556,'Hermaea cruciata','Hermaea cruciata',3505539,'Hermaea cruciata','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129928,556,'Hermissenda crassicornis','Hermissenda crassicornis',3505540,'Hermissenda crassicornis','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129929,556,'Herrnaea dendritica','Herrnaea dendritica',3505541,'Herrnaea dendritica','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129930,556,'Hesiocaeca methanicola','Hesiocaeca methanicola',3505542,'Hesiocaeca methanicola','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129931,556,'Heteromastus filiformis','Heteromastus filiformis',3505543,'Heteromastus filiformis','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129932,556,'Heteromastus filiformis','Heteromastus filiformis',3505544,'Heteromastus filiformis','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129933,556,'Holothuria fuscogilva','Holothuria fuscogilva',3505545,'Holothuria fuscogilva','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129934,556,'Holothuria scabra','Holothuria scabra',3505546,'Holothuria scabra','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129935,556,'Homalophiura tesselata','Homalophiura tesselata',3505547,'Homalophiura tesselata','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129936,556,'Hoplodoris','Hoplodoris',3505548,'Hoplodoris','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129937,556,'Hoplodoris nodulosa','Hoplodoris nodulosa',3505549,'Hoplodoris nodulosa','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129938,556,'Hyalinoecia araucana','Hyalinoecia araucana',3505550,'Hyalinoecia araucana','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129939,556,'Hydatina physis','Hydatina physis',3505551,'Hydatina physis','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129940,556,'Hydractinia','Hydractinia',3505552,'Hydractinia','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129941,556,'Hydroides dianthus','Hydroides dianthus',3505553,'Hydroides dianthus','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129942,556,'Hydroides diramphus','Hydroides diramphus',3505554,'Hydroides diramphus','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129943,556,'Hydroides elegans','Hydroides elegans',3505555,'Hydroides elegans','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129944,556,'Hydroides ezoensis','Hydroides ezoensis',3505556,'Hydroides ezoensis','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129945,556,'Hydroides fusicola','Hydroides fusicola',3505557,'Hydroides fusicola','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129946,556,'Hymenaster gennaeus','Hymenaster gennaeus',3505558,'Hymenaster gennaeus','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129947,556,'Hymenaster membranaceus','Hymenaster membranaceus',3505559,'Hymenaster membranaceus','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129948,556,'Hypselodoris bennetti','Hypselodoris bennetti',3505560,'Hypselodoris bennetti','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129949,556,'Hypselodoris obscura','Hypselodoris obscura',3505561,'Hypselodoris obscura','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129950,556,'Hypselodoris obscura','Hypselodoris obscura',3505562,'Hypselodoris obscura','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129951,556,'Jorunna','Jorunna',3505563,'Jorunna','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129952,556,'Jorunna pantherina','Jorunna pantherina',3505564,'Jorunna pantherina','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129953,556,'Julia japonica','Julia japonica',3505565,'Julia japonica','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129954,556,'Kingberonuphis pulchra','Kingberonuphis pulchra',3505566,'Kingberonuphis pulchra','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129955,556,'Kingberonuphis simoni','Kingberonuphis simoni',3505567,'Kingberonuphis simoni','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129956,556,'Lacuna vincta','Lacuna vincta',3505568,'Lacuna vincta','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129957,556,'Laeonereis culveri','Laeonereis culveri',3505569,'Laeonereis culveri','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129958,556,'Lagisca extenuata','Lagisca extenuata',3505570,'Lagisca extenuata','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129959,556,'Lanassa nuda','Lanassa nuda',3505571,'Lanassa nuda','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129960,556,'Laonice branchiata','Laonice branchiata',3505572,'Laonice branchiata','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129961,556,'Laonice petersenae','Laonice petersenae',3505573,'Laonice petersenae','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129962,556,'Leiaster leachi','Leiaster leachi',3505574,'Leiaster leachi','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129963,556,'Leitoscoloplos kerguelen','Leitoscoloplos kerguelen',3505575,'Leitoscoloplos kerguelen','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129964,556,'Leitoscoloplos pugettens','Leitoscoloplos pugettens',3505576,'Leitoscoloplos pugettens','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129965,556,'Leptasterias epichlora','Leptasterias epichlora',3505577,'Leptasterias epichlora','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129966,556,'Leptasterias groenlandic','Leptasterias groenlandic',3505578,'Leptasterias groenlandic','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129967,556,'Leptasterias hexactis','Leptasterias hexactis',3505579,'Leptasterias hexactis','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129968,556,'Leptasterias hexactis','Leptasterias hexactis',3505580,'Leptasterias hexactis','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129969,556,'Leptasterias hexactis','Leptasterias hexactis',3505581,'Leptasterias hexactis','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129970,556,'Leptasterias ochotensis','Leptasterias ochotensis',3505582,'Leptasterias ochotensis','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129971,556,'Leptasterias tenera','Leptasterias tenera',3505583,'Leptasterias tenera','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129972,556,'Limapontia capitata','Limapontia capitata',3505584,'Limapontia capitata','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129973,556,'Limapontia depressa','Limapontia depressa',3505585,'Limapontia depressa','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129974,556,'Limapontia senestra','Limapontia senestra',3505586,'Limapontia senestra','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129975,556,'Linckia laevigata','Linckia laevigata',3505587,'Linckia laevigata','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129976,556,'Lisippe labiata','Lisippe labiata',3505588,'Lisippe labiata','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129977,556,'Littoraria articulata','Littoraria articulata',3505589,'Littoraria articulata','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129978,556,'Littorina brevicula','Littorina brevicula',3505590,'Littorina brevicula','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129979,556,'Littorina littorea','Littorina littorea',3505591,'Littorina littorea','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129980,556,'Littorina neritoides','Littorina neritoides',3505592,'Littorina neritoides','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129981,556,'Littorina planaxis','Littorina planaxis',3505593,'Littorina planaxis','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129982,556,'Lobiger souverbii','Lobiger souverbii',3505594,'Lobiger souverbii','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129983,556,'Lobiger viridis','Lobiger viridis',3505595,'Lobiger viridis','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129984,556,'Lomia medusa','Lomia medusa',3505596,'Lomia medusa','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129985,556,'Lophaster gaini','Lophaster gaini',3505597,'Lophaster gaini','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129986,556,'Luidia ciliaris','Luidia ciliaris',3505598,'Luidia ciliaris','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129987,556,'Luidia foliolata','Luidia foliolata',3505599,'Luidia foliolata','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129988,556,'Luidia maculata','Luidia maculata',3505600,'Luidia maculata','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129989,556,'Luidia quinaria','Luidia quinaria',3505601,'Luidia quinaria','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129990,556,'Luidia sarsi','Luidia sarsi',3505602,'Luidia sarsi','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129991,556,'Lumbriconereis latreolli','Lumbriconereis latreolli',3505603,'Lumbriconereis latreolli','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129992,556,'Lumbrinereis fragilis','Lumbrinereis fragilis',3505604,'Lumbrinereis fragilis','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129993,556,'Lumbrinereis impatiens','Lumbrinereis impatiens',3505605,'Lumbrinereis impatiens','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129994,556,'Lumbrinereis luti','Lumbrinereis luti',3505606,'Lumbrinereis luti','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129995,556,'Lumbrinereis tetraura','Lumbrinereis tetraura',3505607,'Lumbrinereis tetraura','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129996,556,'Lumbrineris japonica','Lumbrineris japonica',3505608,'Lumbrineris japonica','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129997,556,'Macoma mitchelli','Macoma mitchelli',3505609,'Macoma mitchelli','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129998,556,'Macrophiothrix belli','Macrophiothrix belli',3505610,'Macrophiothrix belli','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5129999,556,'Macrophiothrix caenosa','Macrophiothrix caenosa',3505611,'Macrophiothrix caenosa','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130000,556,'Macrophiothrix koehleri','Macrophiothrix koehleri',3505612,'Macrophiothrix koehleri','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130001,556,'Macrophiothrix longipeda','Macrophiothrix longipeda',3505613,'Macrophiothrix longipeda','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130002,556,'Macrophiothrix lorioli','Macrophiothrix lorioli',3505614,'Macrophiothrix lorioli','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130003,556,'Macrophiothrix nereidina','Macrophiothrix nereidina',3505615,'Macrophiothrix nereidina','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130004,556,'Macrophiothrix oliveri','Macrophiothrix oliveri',3505616,'Macrophiothrix oliveri','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130005,556,'Macrophiothrix rhabdota','Macrophiothrix rhabdota',3505617,'Macrophiothrix rhabdota','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130006,556,'Macroptychaster accresce','Macroptychaster accresce',3505618,'Macroptychaster accresce','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130007,556,'Madrella sanguinea','Madrella sanguinea',3505619,'Madrella sanguinea','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130008,556,'Magalia perarmata','Magalia perarmata',3505620,'Magalia perarmata','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130009,556,'Magellona sacculata','Magellona sacculata',3505621,'Magellona sacculata','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130010,556,'Manayunkia caspica','Manayunkia caspica',3505622,'Manayunkia caspica','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130011,556,'Marenzelleria viridis','Marenzelleria viridis',3505623,'Marenzelleria viridis','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130012,556,'Margarella','Margarella',3505624,'Margarella','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130013,556,'Margarites refulgens','Margarites refulgens',3505625,'Margarites refulgens','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130014,556,'Marphysa borradailei','Marphysa borradailei',3505626,'Marphysa borradailei','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130015,556,'Mediaster aequalis','Mediaster aequalis',3505627,'Mediaster aequalis','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130016,556,'Mediomastus californiens','Mediomastus californiens',3505628,'Mediomastus californiens','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130017,556,'Melanochlamys','Melanochlamys',3505629,'Melanochlamys','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130018,556,'Melanochlamys','Melanochlamys',3505630,'Melanochlamys','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130019,556,'Melanochlamys diomedea','Melanochlamys diomedea',3505631,'Melanochlamys diomedea','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130020,556,'Melibe leonina','Melibe leonina',3505632,'Melibe leonina','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130021,556,'Melinna palmata','Melinna palmata',3505633,'Melinna palmata','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130022,556,'Meridiastra calcar','Meridiastra calcar',3505634,'Meridiastra calcar','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130023,556,'Meridiastra gunnii','Meridiastra gunnii',3505635,'Meridiastra gunnii','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130024,556,'Meridiastra mortenseni','Meridiastra mortenseni',3505636,'Meridiastra mortenseni','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130025,556,'Meridiastra oriens','Meridiastra oriens',3505637,'Meridiastra oriens','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130026,556,'Mesochaetopterus taylori','Mesochaetopterus taylori',3505638,'Mesochaetopterus taylori','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130027,556,'Microhtalamus sczelkowi','Microhtalamus sczelkowi',3505639,'Microhtalamus sczelkowi','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130028,556,'Micronephtys minuta','Micronephtys minuta',3505640,'Micronephtys minuta','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130029,556,'Microrbinia lineata','Microrbinia lineata',3505641,'Microrbinia lineata','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130030,556,'Mitrocoma cellularia','Mitrocoma cellularia',3505642,'Mitrocoma cellularia','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130031,556,'Mitrocomella polydiadema','Mitrocomella polydiadema',3505643,'Mitrocomella polydiadema','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130032,556,'Mogula citrina','Mogula citrina',3505644,'Mogula citrina','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130033,556,'Mogula complanata','Mogula complanata',3505645,'Mogula complanata','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130034,556,'Mogula tubifera','Mogula tubifera',3505646,'Mogula tubifera','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130035,556,'Molpadia intermedia','Molpadia intermedia',3505647,'Molpadia intermedia','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130036,556,'Monodonta lineata','Monodonta lineata',3505648,'Monodonta lineata','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130037,556,'Montipora digitata','Montipora digitata',3505649,'Montipora digitata','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130038,556,'Mooreonuphis jonesi','Mooreonuphis jonesi',3505650,'Mooreonuphis jonesi','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130039,556,'Morchellium argus','Morchellium argus',3505651,'Morchellium argus','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130040,556,'Mourgona murca','Mourgona murca',3505652,'Mourgona murca','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130041,556,'Myxicola cf sulcata','Myxicola sulcata',3505653,'Myxicola cf sulcata','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130042,556,'Myxicola infundibulum','Myxicola infundibulum',3505654,'Myxicola infundibulum','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130043,556,'Naineris laevigata   ','Naineris laevigata',3505655,'Naineris laevigata   ','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130044,556,'Nassarius pauperatus','Nassarius pauperatus',3505656,'Nassarius pauperatus','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130045,556,'Natica catena','Natica catena',3505657,'Natica catena','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130046,556,'Natica poliana','Natica poliana',3505658,'Natica poliana','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130047,556,'Navanax inermis','Navanax inermis',3505659,'Navanax inermis','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130048,556,'Neanthes','Neanthes',3505660,'Neanthes','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130049,556,'Neanthes caudata','Neanthes caudata',3505661,'Neanthes caudata','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130050,556,'Neanthes japonica','Neanthes japonica',3505662,'Neanthes japonica','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130051,556,'Nembritha','Nembritha',3505663,'Nembritha','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130052,556,'Neoamphitrite robusta','Neoamphitrite robusta',3505664,'Neoamphitrite robusta','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130053,556,'Neoamphitrite robusta','Neoamphitrite robusta',3505665,'Neoamphitrite robusta','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130054,556,'Neoleprea streptochaeta','Neoleprea streptochaeta',3505666,'Neoleprea streptochaeta','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130055,556,'Nepanthia belcheri','Nepanthia belcheri',3505667,'Nepanthia belcheri','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130056,556,'Nepthys insisa','Nepthys insisa',3505668,'Nepthys insisa','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130057,556,'Nereimyra punctata','Nereimyra punctata',3505669,'Nereimyra punctata','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130058,556,'Nereis diversicolor','Nereis diversicolor',3505670,'Nereis diversicolor','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130059,556,'Nereis falcaria','Nereis falcaria',3505671,'Nereis falcaria','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130060,556,'Nereis irrorata','Nereis irrorata',3505672,'Nereis irrorata','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130061,556,'Nereis pelagica','Nereis pelagica',3505673,'Nereis pelagica','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130062,556,'Nereis pelagica','Nereis pelagica',3505674,'Nereis pelagica','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130063,556,'Nereis pelagica','Nereis pelagica',3505675,'Nereis pelagica','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130064,556,'Nereis procera','Nereis procera',3505676,'Nereis procera','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130065,556,'Nereis vexillosa','Nereis vexillosa',3505677,'Nereis vexillosa','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130066,556,'Nereis virens','Nereis virens',3505678,'Nereis virens','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130067,556,'Nerita atramentosa','Nerita atramentosa',3505679,'Nerita atramentosa','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130068,556,'Newnesia antarctica','Newnesia antarctica',3505680,'Newnesia antarctica','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130069,556,'Nicolea zostericola','Nicolea zostericola',3505681,'Nicolea zostericola','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130070,556,'Nicon aestuariensis','Nicon aestuariensis',3505682,'Nicon aestuariensis','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130071,556,'Nodilittorina trochoides','Nodilittorina trochoides',3505683,'Nodilittorina trochoides','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130072,556,'Nodilittorina unifasciat','Nodilittorina unifasciat',3505684,'Nodilittorina unifasciat','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130073,556,'Nodilittorina vidua','Nodilittorina vidua',3505685,'Nodilittorina vidua','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130074,556,'Northria elegans','Northria elegans',3505686,'Northria elegans','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130075,556,'Notasterias armata','Notasterias armata',3505687,'Notasterias armata','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130076,556,'Notoacmea scutum','Notoacmea scutum',3505688,'Notoacmea scutum','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130077,556,'Notocidaris gaussensis','Notocidaris gaussensis',3505689,'Notocidaris gaussensis','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130078,556,'Notocidaris gaussensis','Notocidaris gaussensis',3505690,'Notocidaris gaussensis','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130079,556,'Noumea norba','Noumea norba',3505691,'Noumea norba','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130080,556,'Nucella canaliculata','Nucella canaliculata',3505692,'Nucella canaliculata','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130081,556,'Nucella crassilabrum','Nucella crassilabrum',3505693,'Nucella crassilabrum','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130082,556,'Nuttallochiton mirandus','Nuttallochiton mirandus',3505694,'Nuttallochiton mirandus','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130083,556,'Obelia commissuralis','Obelia commissuralis',3505695,'Obelia commissuralis','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130084,556,'Obelia geniculata','Obelia geniculata',3505696,'Obelia geniculata','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130085,556,'Odontaster meridionalis','Odontaster meridionalis',3505697,'Odontaster meridionalis','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130086,556,'Odontaster validus','Odontaster validus',3505698,'Odontaster validus','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130087,556,'Odontosyllis prava','Odontosyllis prava',3505699,'Odontosyllis prava','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130088,556,'Odostomia columbiana','Odostomia columbiana',3505700,'Odostomia columbiana','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130089,556,'Olea hansineÃ«nsis','Olea hansineensis',3505701,'Olea hansineÃ«nsis','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130090,556,'Onchidoris muricata','Onchidoris muricata',3505702,'Onchidoris muricata','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130091,556,'Onchidoris muricata','Onchidoris muricata',3505703,'Onchidoris muricata','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130092,556,'Onuphis irridescens','Onuphis irridescens',3505704,'Onuphis irridescens','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130093,556,'Onuphis mariahirsuta','Onuphis mariahirsuta',3505705,'Onuphis mariahirsuta','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130094,556,'Onuphis taeniata','Onuphis taeniata',3505706,'Onuphis taeniata','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130095,556,'Ophelia bicornis','Ophelia bicornis',3505707,'Ophelia bicornis','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130096,556,'Ophelia limacina','Ophelia limacina',3505708,'Ophelia limacina','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130097,556,'Ophiacantha anomala','Ophiacantha anomala',3505709,'Ophiacantha anomala','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130098,556,'Ophiacantha imago','Ophiacantha imago',3505710,'Ophiacantha imago','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130099,556,'Ophiacantha normani','Ophiacantha normani',3505711,'Ophiacantha normani','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130100,556,'Ophiacantha pentactis','Ophiacantha pentactis',3505712,'Ophiacantha pentactis','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130101,556,'Ophiactis kroeyeri','Ophiactis kroeyeri',3505713,'Ophiactis kroeyeri','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130102,556,'Ophiactis quinqueradia','Ophiactis quinqueradia',3505714,'Ophiactis quinqueradia','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130103,556,'Ophiactis resiliens','Ophiactis resiliens',3505715,'Ophiactis resiliens','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130104,556,'Ophiactis savignyi','Ophiactis savignyi',3505716,'Ophiactis savignyi','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130105,556,'Ophiarachnella gorgonia','Ophiarachnella gorgonia',3505717,'Ophiarachnella gorgonia','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130106,556,'Ophiarachnella ramsayi','Ophiarachnella ramsayi',3505718,'Ophiarachnella ramsayi','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130107,556,'Ophiarthrum elegans','Ophiarthrum elegans',3505719,'Ophiarthrum elegans','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130108,556,'Ophidiaster granifer','Ophidiaster granifer',3505720,'Ophidiaster granifer','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130109,556,'Ophidiaster guildingii','Ophidiaster guildingii',3505721,'Ophidiaster guildingii','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130110,556,'Ophidiaster robillardi','Ophidiaster robillardi',3505722,'Ophidiaster robillardi','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130111,556,'Ophidiaster squameus','Ophidiaster squameus',3505723,'Ophidiaster squameus','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130112,556,'Ophiocoma dentata','Ophiocoma dentata',3505724,'Ophiocoma dentata','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130113,556,'Ophiocoma echinata','Ophiocoma echinata',3505725,'Ophiocoma echinata','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130114,556,'Ophiocoma endeani','Ophiocoma endeani',3505726,'Ophiocoma endeani','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130115,556,'Ophiocoma erinaceus','Ophiocoma erinaceus',3505727,'Ophiocoma erinaceus','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130116,556,'Ophiocoma pumila','Ophiocoma pumila',3505728,'Ophiocoma pumila','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130117,556,'Ophiocoma pusilla','Ophiocoma pusilla',3505729,'Ophiocoma pusilla','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130118,556,'Ophiocoma schoenleinii','Ophiocoma schoenleinii',3505730,'Ophiocoma schoenleinii','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130119,556,'Ophiocoma scolopendrina','Ophiocoma scolopendrina',3505731,'Ophiocoma scolopendrina','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130120,556,'Ophiocomella ophiactoide','Ophiocomella ophiactoide',3505732,'Ophiocomella ophiactoide','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130121,556,'Ophiocomina nigra','Ophiocomina nigra',3505733,'Ophiocomina nigra','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130122,556,'Ophiocten gracilis','Ophiocten gracilis',3505734,'Ophiocten gracilis','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130123,556,'Ophiocten hastatum','Ophiocten hastatum',3505735,'Ophiocten hastatum','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130124,556,'Ophiocten sericeum','Ophiocten sericeum',3505736,'Ophiocten sericeum','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130125,556,'Ophiodaphne formata','Ophiodaphne formata',3505737,'Ophiodaphne formata','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130126,556,'Ophiodromus flexuosus','Ophiodromus flexuosus',3505738,'Ophiodromus flexuosus','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130127,556,'Ophiodromus pugettensis','Ophiodromus pugettensis',3505739,'Ophiodromus pugettensis','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130128,556,'Ophiodromus pugettensis','Ophiodromus pugettensis',3505740,'Ophiodromus pugettensis','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130129,556,'Ophiolepis cincta','Ophiolepis cincta',3505741,'Ophiolepis cincta','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130130,556,'Ophiolepis elegans','Ophiolepis elegans',3505742,'Ophiolepis elegans','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130131,556,'Ophiolepis impressa','Ophiolepis impressa',3505743,'Ophiolepis impressa','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130132,556,'Ophiolepis kieri','Ophiolepis kieri',3505744,'Ophiolepis kieri','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130133,556,'Ophiolepis paucispina','Ophiolepis paucispina',3505745,'Ophiolepis paucispina','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130134,556,'Ophiolepis paucispina','Ophiolepis paucispina',3505746,'Ophiolepis paucispina','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130135,556,'Ophiomastix venosa','Ophiomastix venosa',3505747,'Ophiomastix venosa','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130136,556,'Ophiomaza cacaotica','Ophiomaza cacaotica',3505748,'Ophiomaza cacaotica','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130137,556,'Ophiomitrella clavigera','Ophiomitrella clavigera',3505749,'Ophiomitrella clavigera','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130138,556,'Ophiomusium lymani','Ophiomusium lymani',3505750,'Ophiomusium lymani','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130139,556,'Ophiomyxa australis','Ophiomyxa australis',3505751,'Ophiomyxa australis','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130140,556,'Ophiomyxa brevirima','Ophiomyxa brevirima',3505752,'Ophiomyxa brevirima','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130141,556,'Ophiomyxa flaccida','Ophiomyxa flaccida',3505753,'Ophiomyxa flaccida','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130142,556,'Ophiomyxa serpentaria','Ophiomyxa serpentaria',3505754,'Ophiomyxa serpentaria','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130143,556,'Ophiomyxa vivipara','Ophiomyxa vivipara',3505755,'Ophiomyxa vivipara','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130144,556,'Ophionereis annulata','Ophionereis annulata',3505756,'Ophionereis annulata','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130145,556,'Ophionereis fasciata','Ophionereis fasciata',3505757,'Ophionereis fasciata','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130146,556,'Ophionereis fasciata','Ophionereis fasciata',3505758,'Ophionereis fasciata','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130147,556,'Ophionereis olivacea','Ophionereis olivacea',3505759,'Ophionereis olivacea','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130148,556,'Ophionereis olivacea','Ophionereis olivacea',3505760,'Ophionereis olivacea','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130149,556,'Ophionereis reticulata','Ophionereis reticulata',3505761,'Ophionereis reticulata','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130150,556,'Ophionereis schayeri','Ophionereis schayeri',3505762,'Ophionereis schayeri','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130151,556,'Ophionereis schayeri','Ophionereis schayeri',3505763,'Ophionereis schayeri','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130152,556,'Ophionereis squamulosa','Ophionereis squamulosa',3505764,'Ophionereis squamulosa','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130153,556,'Ophionereis vivipara','Ophionereis vivipara',3505765,'Ophionereis vivipara','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130154,556,'Ophionotus hexactis','Ophionotus hexactis',3505766,'Ophionotus hexactis','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130155,556,'Ophionotus victoriae','Ophionotus victoriae',3505767,'Ophionotus victoriae','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130156,556,'Ophiophrixus spinosus','Ophiophrixus spinosus',3505768,'Ophiophrixus spinosus','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130157,556,'Ophiophycis gracilis','Ophiophycis gracilis',3505769,'Ophiophycis gracilis','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130158,556,'Ophiopleura borealis','Ophiopleura borealis',3505770,'Ophiopleura borealis','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130159,556,'Ophioplocus esmarki','Ophioplocus esmarki',3505771,'Ophioplocus esmarki','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130160,556,'Ophioplocus hancocki','Ophioplocus hancocki',3505772,'Ophioplocus hancocki','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130161,556,'Ophiopsammus maculata','Ophiopsammus maculata',3505773,'Ophiopsammus maculata','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130162,556,'Ophiopsila riisei','Ophiopsila riisei',3505774,'Ophiopsila riisei','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130163,556,'Ophioscolex glacialis','Ophioscolex glacialis',3505775,'Ophioscolex glacialis','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130164,556,'Ophioscolex marionis','Ophioscolex marionis',3505776,'Ophioscolex marionis','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130165,556,'Ophiosparta gigas','Ophiosparta gigas',3505777,'Ophiosparta gigas','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130166,556,'Ophiothamnus remotus','Ophiothamnus remotus',3505778,'Ophiothamnus remotus','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130167,556,'Ophiothrix angulata','Ophiothrix angulata',3505779,'Ophiothrix angulata','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130168,556,'Ophiothrix caespitose','Ophiothrix caespitose',3505780,'Ophiothrix caespitose','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130169,556,'Ophiothrix ciliaris','Ophiothrix ciliaris',3505781,'Ophiothrix ciliaris','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130170,556,'Ophiothrix fragilis','Ophiothrix fragilis',3505782,'Ophiothrix fragilis','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130171,556,'Ophiothrix oerstedii','Ophiothrix oerstedii',3505783,'Ophiothrix oerstedii','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130172,556,'Ophiothrix spongicola','Ophiothrix spongicola',3505784,'Ophiothrix spongicola','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130173,556,'Ophiothrix suensonii','Ophiothrix suensonii',3505785,'Ophiothrix suensonii','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130174,556,'Ophiur meridionalis','Ophiur meridionalis',3505786,'Ophiur meridionalis','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130175,556,'Ophiura albida','Ophiura albida',3505787,'Ophiura albida','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130176,556,'Ophiura flexibilis','Ophiura flexibilis',3505788,'Ophiura flexibilis','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130177,556,'Ophiura ljungmani','Ophiura ljungmani',3505789,'Ophiura ljungmani','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130178,556,'Ophiura robusta','Ophiura robusta',3505790,'Ophiura robusta','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130179,556,'Ophiura sarsi','Ophiura sarsi',3505791,'Ophiura sarsi','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130180,556,'Ophiura texturata','Ophiura texturata',3505792,'Ophiura texturata','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130181,556,'Ophiurochaeta','Ophiurochaeta',3505793,'Ophiurochaeta','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130182,556,'Ophiurolepis gelida','Ophiurolepis gelida',3505794,'Ophiurolepis gelida','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130183,556,'Ophiurolepsis partita','Ophiurolepsis partita',3505795,'Ophiurolepsis partita','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130184,556,'Ophryotrocha bacci','Ophryotrocha bacci',3505796,'Ophryotrocha bacci','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130185,556,'Ophryotrocha cosmetandra','Ophryotrocha cosmetandra',3505797,'Ophryotrocha cosmetandra','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130186,556,'Ophryotrocha diadema','Ophryotrocha diadema',3505798,'Ophryotrocha diadema','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130187,556,'Ophryotrocha hartmanni','Ophryotrocha hartmanni',3505799,'Ophryotrocha hartmanni','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130188,556,'Ophryotrocha labronica','Ophryotrocha labronica',3505800,'Ophryotrocha labronica','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130189,556,'Ophryotrocha notoglandul','Ophryotrocha notoglandul',3505801,'Ophryotrocha notoglandul','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130190,556,'Ophyotrocha maculata','Ophyotrocha maculata',3505802,'Ophyotrocha maculata','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130191,556,'Opisthotrochphus','Opisthotrochphus',3505803,'Opisthotrochphus','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130192,556,'Orthasterias koehleri','Orthasterias koehleri',3505804,'Orthasterias koehleri','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130193,556,'Orthopyxis compressa','Orthopyxis compressa',3505805,'Orthopyxis compressa','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130194,556,'Owenia fusiformis','Owenia fusiformis',3505806,'Owenia fusiformis','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130195,556,'Oxynoe','Oxynoe',3505807,'Oxynoe','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130196,556,'Oxynoe antillarum','Oxynoe antillarum',3505808,'Oxynoe antillarum','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130197,556,'Oxynoe azuropunctata','Oxynoe azuropunctata',3505809,'Oxynoe azuropunctata','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130198,556,'Oxynoe olivacea','Oxynoe olivacea',3505810,'Oxynoe olivacea','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130199,556,'Oxynoe viridis','Oxynoe viridis',3505811,'Oxynoe viridis','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130200,556,'Pachyseris speciosa','Pachyseris speciosa',3505812,'Pachyseris speciosa','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130201,556,'Pachyseris speciosa','Pachyseris speciosa',3505813,'Pachyseris speciosa','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130202,556,'Paradoneis armata','Paradoneis armata',3505814,'Paradoneis armata','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130203,556,'Paragonaster subtilis','Paragonaster subtilis',3505815,'Paragonaster subtilis','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130204,556,'Paralvinella grasslei','Paralvinella grasslei',3505816,'Paralvinella grasslei','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130205,556,'Paralvinella palmiformis','Paralvinella palmiformis',3505817,'Paralvinella palmiformis','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130206,556,'Paralvinella pandorae','Paralvinella pandorae',3505818,'Paralvinella pandorae','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130207,556,'Paraoneis fulgens','Paraoneis fulgens',3505819,'Paraoneis fulgens','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130208,556,'Parapionosyllis gestans','Parapionosyllis gestans',3505820,'Parapionosyllis gestans','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130209,556,'Paraprotis dendrova','Paraprotis dendrova',3505821,'Paraprotis dendrova','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130210,556,'Parastichopous californi','Parastichopous californi',3505822,'Parastichopous californi','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130211,556,'Parvulastra exigua','Parvulastra exigua',3505823,'Parvulastra exigua','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130212,556,'Patella vulgata','Patella vulgata',3505824,'Patella vulgata','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130213,556,'Patina pellucida','Patina pellucida',3505825,'Patina pellucida','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130214,556,'Patiria miniata','Patiria miniata',3505826,'Patiria miniata','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130215,556,'Patiriella brevispina','Patiriella brevispina',3505827,'Patiriella brevispina','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130216,556,'Patiriella calcar','Patiriella calcar',3505828,'Patiriella calcar','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130217,556,'Patiriella exigua','Patiriella exigua',3505829,'Patiriella exigua','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130218,556,'Patiriella exigua','Patiriella exigua',3505830,'Patiriella exigua','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130219,556,'Patiriella gunnii','Patiriella gunnii',3505831,'Patiriella gunnii','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130220,556,'Patiriella regularis','Patiriella regularis',3505832,'Patiriella regularis','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130221,556,'Patiriella regularis','Patiriella regularis',3505833,'Patiriella regularis','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130222,556,'Patiriella regularis','Patiriella regularis',3505834,'Patiriella regularis','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130223,556,'Peasiella roepstorffiana','Peasiella roepstorffiana',3505835,'Peasiella roepstorffiana','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130224,556,'Pecten maximus','Pecten maximus',3505836,'Pecten maximus','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130225,556,'Pecten maximus','Pecten maximus',3505837,'Pecten maximus','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130226,556,'Pectinaria granulata','Pectinaria granulata',3505838,'Pectinaria granulata','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130227,556,'Pectinaria granulata','Pectinaria granulata',3505839,'Pectinaria granulata','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130228,556,'Pectinaria hyperborea','Pectinaria hyperborea',3505840,'Pectinaria hyperborea','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130229,556,'Pectinaria koreni','Pectinaria koreni',3505841,'Pectinaria koreni','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130230,556,'Pectinaster filholi','Pectinaster filholi',3505842,'Pectinaster filholi','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130231,556,'Pectinura maculate','Pectinura maculate',3505843,'Pectinura maculate','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130232,556,'Pelseneeria stylifera','Pelseneeria stylifera',3505844,'Pelseneeria stylifera','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130233,556,'Pentaceraster mammillatu','Pentaceraster mammillatu',3505845,'Pentaceraster mammillatu','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130234,556,'Pentamera populifera','Pentamera populifera',3505846,'Pentamera populifera','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130235,556,'Perinereis nuntia','Perinereis nuntia',3505847,'Perinereis nuntia','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130236,556,'Perkinsiana antarctica','Perkinsiana antarctica',3505848,'Perkinsiana antarctica','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130237,556,'Perkinsiana riwo','Perkinsiana riwo',3505849,'Perkinsiana riwo','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130238,556,'Perknaster fuscus','Perknaster fuscus',3505850,'Perknaster fuscus','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130239,556,'Perophora listeri','Perophora listeri',3505851,'Perophora listeri','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130240,556,'Perophora viridis','Perophora viridis',3505852,'Perophora viridis','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130241,556,'Phestilla melanobranchia','Phestilla melanobranchia',3505853,'Phestilla melanobranchia','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130242,556,'Phestilla sibogae','Phestilla sibogae',3505854,'Phestilla sibogae','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130243,556,'Phialidium gregarium','Phialidium gregarium',3505855,'Phialidium gregarium','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130244,556,'Phidiana lycnaeus','Phidiana lycnaeus',3505856,'Phidiana lycnaeus','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130245,556,'Philbertia gracilis','Philbertia gracilis',3505857,'Philbertia gracilis','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130246,556,'Philine auriformis','Philine auriformis',3505858,'Philine auriformis','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130247,556,'Philinopsis cyanea','Philinopsis cyanea',3505859,'Philinopsis cyanea','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130248,556,'Philinopsis gardineri','Philinopsis gardineri',3505860,'Philinopsis gardineri','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130249,556,'Philinopsis lineolata','Philinopsis lineolata',3505861,'Philinopsis lineolata','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130250,556,'Philinopsis pilsbryi','Philinopsis pilsbryi',3505862,'Philinopsis pilsbryi','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130251,556,'Philinopsis reticulata','Philinopsis reticulata',3505863,'Philinopsis reticulata','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130252,556,'Pholoe anoculata','Pholoe anoculata',3505864,'Pholoe anoculata','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130253,556,'Pholoe anoculata','Pholoe anoculata',3505865,'Pholoe anoculata','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130254,556,'Pholoe minuta','Pholoe minuta',3505866,'Pholoe minuta','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130255,556,'Pholoe minuta','Pholoe minuta',3505867,'Pholoe minuta','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130256,556,'Pholoe synophtalmica','Pholoe synophtalmica',3505868,'Pholoe synophtalmica','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130257,556,'Phragmatopoma lapidosa','Phragmatopoma lapidosa',3505869,'Phragmatopoma lapidosa','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130258,556,'Phragmatopoma lapidosa','Phragmatopoma lapidosa',3505870,'Phragmatopoma lapidosa','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130259,556,'Phyllacanthus imperialis','Phyllacanthus imperialis',3505871,'Phyllacanthus imperialis','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130260,556,'Phyllacanthus parvispinu','Phyllacanthus parvispinu',3505872,'Phyllacanthus parvispinu','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130261,556,'Phyllaplysia taylori','Phyllaplysia taylori',3505873,'Phyllaplysia taylori','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130262,556,'Phyllodoce maculata','Phyllodoce maculata',3505874,'Phyllodoce maculata','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130263,556,'Phylo foetida','Phylo foetida',3505875,'Phylo foetida','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130264,556,'Phylodoce williamsi','Phylodoce williamsi',3505876,'Phylodoce williamsi','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130265,556,'Pisaster brevispinus','Pisaster brevispinus',3505877,'Pisaster brevispinus','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130266,556,'Pisaster ochraceus','Pisaster ochraceus',3505878,'Pisaster ochraceus','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130267,556,'Placida','Placida',3505879,'Placida','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130268,556,'Placida cremoniana','Placida cremoniana',3505880,'Placida cremoniana','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130269,556,'Placida dendritica','Placida dendritica',3505881,'Placida dendritica','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130270,556,'Placida kingstoni','Placida kingstoni',3505882,'Placida kingstoni','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130271,556,'Plakobranchus','Plakobranchus',3505883,'Plakobranchus','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130272,556,'Platynereis bicanaliculata','Platynereis bicanaliculata',3505884,'Platynereis bicanaliculata','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130273,556,'Platynereis bicanaliculata','Platynereis bicanaliculata',3505885,'Platynereis bicanaliculata','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130274,556,'Platynereis magalhaensis','Platynereis magalhaensis',3505886,'Platynereis magalhaensis','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130275,556,'Platynereis megalops','Platynereis megalops',3505887,'Platynereis megalops','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130276,556,'Plutonaster bifrons','Plutonaster bifrons',3505888,'Plutonaster bifrons','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130277,556,'Pocillopora verrucosa','Pocillopora verrucosa',3505889,'Pocillopora verrucosa','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130278,556,'Pocillopora verrucosa','Pocillopora verrucosa',3505890,'Pocillopora verrucosa','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130279,556,'Pocillopora verrucosa','Pocillopora verrucosa',3505891,'Pocillopora verrucosa','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130280,556,'Polinices ','Polinices',3505892,'Polinices ','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130281,556,'Polinices lewisii','Polinices lewisii',3505893,'Polinices lewisii','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130282,556,'Polyandrocarpa tincta','Polyandrocarpa tincta',3505894,'Polyandrocarpa tincta','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130283,556,'Polycarpa spongiabilis','Polycarpa spongiabilis',3505895,'Polycarpa spongiabilis','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130284,556,'Polycera dubia','Polycera dubia',3505896,'Polycera dubia','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130285,556,'Polycerella emertoni','Polycerella emertoni',3505897,'Polycerella emertoni','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130286,556,'Polyclinum sabulosum','Polyclinum sabulosum',3505898,'Polyclinum sabulosum','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130287,556,'Polydora aggregata','Polydora aggregata',3505899,'Polydora aggregata','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130288,556,'Polydora calcarea','Polydora calcarea',3505900,'Polydora calcarea','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130289,556,'Polydora carinhosa','Polydora carinhosa',3505901,'Polydora carinhosa','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130290,556,'Polydora caulleryi','Polydora caulleryi',3505902,'Polydora caulleryi','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130291,556,'Polydora concharum','Polydora concharum',3505903,'Polydora concharum','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130292,556,'Polydora cornuta','Polydora cornuta',3505904,'Polydora cornuta','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130293,556,'Polydora curiosa','Polydora curiosa',3505905,'Polydora curiosa','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130294,556,'Polydora curiosa','Polydora curiosa',3505906,'Polydora curiosa','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130295,556,'Polydora ecuadoriana','Polydora ecuadoriana',3505907,'Polydora ecuadoriana','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130296,556,'Polydora giardi','Polydora giardi',3505908,'Polydora giardi','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130297,556,'Polydora glycymerica','Polydora glycymerica',3505909,'Polydora glycymerica','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130298,556,'Polydora ligni','Polydora ligni',3505910,'Polydora ligni','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130299,556,'Polydora neocaeca','Polydora neocaeca',3505911,'Polydora neocaeca','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130300,556,'Polydora quarilobata','Polydora quarilobata',3505912,'Polydora quarilobata','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130301,556,'Polydora rickettsi','Polydora rickettsi',3505913,'Polydora rickettsi','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130302,556,'Polydora spongicola','Polydora spongicola',3505914,'Polydora spongicola','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130303,556,'Polydora uncinata','Polydora uncinata',3505915,'Polydora uncinata','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130304,556,'Polydora variegata','Polydora variegata',3505916,'Polydora variegata','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130305,556,'Polydora websteri','Polydora websteri',3505917,'Polydora websteri','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130306,556,'Polyorchis penicillatus','Polyorchis penicillatus',3505918,'Polyorchis penicillatus','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130307,556,'Polysyncraton amethysteu','Polysyncraton amethysteu',3505919,'Polysyncraton amethysteu','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130308,556,'Pomatoceros triqueter','Pomatoceros triqueter',3505920,'Pomatoceros triqueter','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130309,556,'Pomatoleios kraussii','Pomatoleios kraussii',3505921,'Pomatoleios kraussii','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130310,556,'Pomatoleios kraussii','Pomatoleios kraussii',3505922,'Pomatoleios kraussii','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130311,556,'Pontaster tenuispinus','Pontaster tenuispinus',3505923,'Pontaster tenuispinus','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130312,556,'Porania','Porania',3505924,'Porania','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130313,556,'Porania','Porania',3505925,'Porania','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130314,556,'Porania pulvillus','Porania pulvillus',3505926,'Porania pulvillus','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130315,556,'PoraniaÂ antarctica','Porania antarctica',3505927,'PoraniaÂ antarctica','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130316,556,'Poraniomorpha hispida','Poraniomorpha hispida',3505928,'Poraniomorpha hispida','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130317,556,'Poriocidaris purpurata','Poriocidaris purpurata',3505929,'Poriocidaris purpurata','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130318,556,'Potamilla myriopsis','Potamilla myriopsis',3505930,'Potamilla myriopsis','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130319,556,'Potamilla neglecta','Potamilla neglecta',3505931,'Potamilla neglecta','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130320,556,'Potamilla neglecta','Potamilla neglecta',3505932,'Potamilla neglecta','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130321,556,'Pothametus elongatus','Pothametus elongatus',3505933,'Pothametus elongatus','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130322,556,'Praxillella praetermissa','Praxillella praetermissa',3505934,'Praxillella praetermissa','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130323,556,'Prionocidaris baculosa','Prionocidaris baculosa',3505935,'Prionocidaris baculosa','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130324,556,'Prionospio cirrifera','Prionospio cirrifera',3505936,'Prionospio cirrifera','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130325,556,'Prionospio patagonica','Prionospio patagonica',3505937,'Prionospio patagonica','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130326,556,'Prionospio pigmea','Prionospio pigmea',3505938,'Prionospio pigmea','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130327,556,'Proboscidactyla flavicir','Proboscidactyla flavicir',3505939,'Proboscidactyla flavicir','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130328,556,'Protoreaster nodosus','Protoreaster nodosus',3505940,'Protoreaster nodosus','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130329,556,'Protula','Protula',3505941,'Protula','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130330,556,'Prunum apicinum','Prunum apicinum',3505942,'Prunum apicinum','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130331,556,'Pseudarchaster parelii','Pseudarchaster parelii',3505943,'Pseudarchaster parelii','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130332,556,'Pseudochitinopoma occide','Pseudochitinopoma occide',3505944,'Pseudochitinopoma occide','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130333,556,'Pseudopolydora kempi','Pseudopolydora kempi',3505945,'Pseudopolydora kempi','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130334,556,'Pseudopolydora paucibran','Pseudopolydora paucibran',3505946,'Pseudopolydora paucibran','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130335,556,'Pseudopolydora paucibran','Pseudopolydora paucibran',3505947,'Pseudopolydora paucibran','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130336,556,'Pseudopolydora rosebelae','Pseudopolydora rosebelae',3505948,'Pseudopolydora rosebelae','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130337,556,'Psilaster andromeda','Psilaster andromeda',3505949,'Psilaster andromeda','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130338,556,'Psilaster charcoti','Psilaster charcoti',3505950,'Psilaster charcoti','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130339,556,'Psolidium bullatum','Psolidium bullatum',3505951,'Psolidium bullatum','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130340,556,'Psolus chitinoides','Psolus chitinoides',3505952,'Psolus chitinoides','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130341,556,'Pteraster militaris','Pteraster militaris',3505953,'Pteraster militaris','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130342,556,'Pteraster tesselatus','Pteraster tesselatus',3505954,'Pteraster tesselatus','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130343,556,'Pteraster tesselatus','Pteraster tesselatus',3505955,'Pteraster tesselatus','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130344,556,'Pycnoclavella aurilucens','Pycnoclavella aurilucens',3505956,'Pycnoclavella aurilucens','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130345,556,'Pycnopodia helianthoides','Pycnopodia helianthoides',3505957,'Pycnopodia helianthoides','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130346,556,'Pygospio elegans','Pygospio elegans',3505958,'Pygospio elegans','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130347,556,'Pyura fissa','Pyura fissa',3505959,'Pyura fissa','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130348,556,'Pyura stolonifera','Pyura stolonifera',3505960,'Pyura stolonifera','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130349,556,'Pyura tessellata','Pyura tessellata',3505961,'Pyura tessellata','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130350,556,'Ramex californiensis','Ramex californiensis',3505962,'Ramex californiensis','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130351,556,'Ramex californiensis','Ramex californiensis',3505963,'Ramex californiensis','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130352,556,'Raphidrilus nemasoma','Raphidrilus nemasoma',3505964,'Raphidrilus nemasoma','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130353,556,'Rhamphobrachium','Rhamphobrachium',3505965,'Rhamphobrachium','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130354,556,'Rhodopsis pusilla','Rhodopsis pusilla',3505966,'Rhodopsis pusilla','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130355,556,'Rhopiella koehleri','Rhopiella koehleri',3505967,'Rhopiella koehleri','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130356,556,'Rhynchospio nhatrangi','Rhynchospio nhatrangi',3505968,'Rhynchospio nhatrangi','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130357,556,'Rissoa membranacea','Rissoa membranacea',3505969,'Rissoa membranacea','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130358,556,'Rissoella diaphana','Rissoella diaphana',3505970,'Rissoella diaphana','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130359,556,'Rostanga arbutus','Rostanga arbutus',3505971,'Rostanga arbutus','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130360,556,'Rostanga muscula','Rostanga muscula',3505972,'Rostanga muscula','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130361,556,'Rostanga pulchra','Rostanga pulchra',3505973,'Rostanga pulchra','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130362,556,'Rostanga pulchra','Rostanga pulchra',3505974,'Rostanga pulchra','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130363,556,'Sabella (Demonax) media','Sabella media',3505975,'Sabella (Demonax) media','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130364,556,'Sabellaria alveolata','Sabellaria alveolata',3505976,'Sabellaria alveolata','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130365,556,'Sabellaria floridensis','Sabellaria floridensis',3505977,'Sabellaria floridensis','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130366,556,'Sabellaria spinulosa','Sabellaria spinulosa',3505978,'Sabellaria spinulosa','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130367,556,'Sabellastarte spectabili','Sabellastarte spectabili',3505979,'Sabellastarte spectabili','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130368,556,'Sagaminopteron ornatum','Sagaminopteron ornatum',3505980,'Sagaminopteron ornatum','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130369,556,'Salmacina dysteri','Salmacina dysteri',3505981,'Salmacina dysteri','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130370,556,'Sarsia','Sarsia',3505982,'Sarsia','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130371,556,'Sarsia princeps','Sarsia princeps',3505983,'Sarsia princeps','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130372,556,'Sarsia tubulosa','Sarsia tubulosa',3505984,'Sarsia tubulosa','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130373,556,'Scalibregma inflatum','Scalibregma inflatum',3505985,'Scalibregma inflatum','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130374,556,'Sclerasterias mollis','Sclerasterias mollis',3505986,'Sclerasterias mollis','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130375,556,'Sclerasterias richardi','Sclerasterias richardi',3505987,'Sclerasterias richardi','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130376,556,'Sclerodoris apiculata','Sclerodoris apiculata',3505988,'Sclerodoris apiculata','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130377,556,'Scolecolepides viridis','Scolecolepides viridis',3505989,'Scolecolepides viridis','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130378,556,'Scolelepis squamata','Scolelepis squamata',3505990,'Scolelepis squamata','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130379,556,'Scoloplos acmeceps','Scoloplos acmeceps',3505991,'Scoloplos acmeceps','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130380,556,'Seepiophila jonesi','Seepiophila jonesi',3505992,'Seepiophila jonesi','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130381,556,'Serpula columbiana','Serpula columbiana',3505993,'Serpula columbiana','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130382,556,'Sigsbeia conifera','Sigsbeia conifera',3505994,'Sigsbeia conifera','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130383,556,'Simnia patula','Simnia patula',3505995,'Simnia patula','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130384,556,'Siphonaria denticulata','Siphonaria denticulata',3505996,'Siphonaria denticulata','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130385,556,'Siphonaria virgulata','Siphonaria virgulata',3505997,'Siphonaria virgulata','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130386,556,'Siphopatella walshi','Siphopatella walshi',3505998,'Siphopatella walshi','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130387,556,'Siphopatella walshi','Siphopatella walshi',3505999,'Siphopatella walshi','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130388,556,'Siphopteron','Siphopteron',3506000,'Siphopteron','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130389,556,'Siphopteron pohnpei','Siphopteron pohnpei',3506001,'Siphopteron pohnpei','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130390,556,'Siphopteron quadrispinos','Siphopteron quadrispinos',3506002,'Siphopteron quadrispinos','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130391,556,'Solaster endeca','Solaster endeca',3506003,'Solaster endeca','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130392,556,'Sphaerodoris gracilis','Sphaerodoris gracilis',3506004,'Sphaerodoris gracilis','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130393,556,'Sphaeropomatus  miamiens','Sphaeropomatus miamiens',3506005,'Sphaeropomatus  miamiens','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130394,556,'Sphaerosyllis bulbosa','Sphaerosyllis bulbosa',3506006,'Sphaerosyllis bulbosa','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130395,556,'Spio filicornis','Spio filicornis',3506007,'Spio filicornis','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130396,556,'Spio setosa','Spio setosa',3506008,'Spio setosa','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130397,556,'Spirobranchus corniculat','Spirobranchus corniculat',3506009,'Spirobranchus corniculat','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130398,556,'Spirobranchus polycerus','Spirobranchus polycerus',3506010,'Spirobranchus polycerus','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130399,556,'Spirobranchus tricornis','Spirobranchus tricornis',3506011,'Spirobranchus tricornis','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130400,556,'Spirorbis granulatus','Spirorbis granulatus',3506012,'Spirorbis granulatus','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130401,556,'Spirorbis nipponicus','Spirorbis nipponicus',3506013,'Spirorbis nipponicus','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130402,556,'Stegophiura nodosa','Stegophiura nodosa',3506014,'Stegophiura nodosa','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130403,556,'Stegophiura vivipara','Stegophiura vivipara',3506015,'Stegophiura vivipara','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130404,556,'Sternaspis fossor','Sternaspis fossor',3506016,'Sternaspis fossor','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130405,556,'Stichaster australis','Stichaster australis',3506017,'Stichaster australis','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130406,556,'Stichastrella rosea','Stichastrella rosea',3506018,'Stichastrella rosea','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130407,556,'Stiliger berghi','Stiliger berghi',3506019,'Stiliger berghi','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130408,556,'Stiliger fuscatus','Stiliger fuscatus',3506020,'Stiliger fuscatus','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130409,556,'Stiliger fuscovitatus','Stiliger fuscovitatus',3506021,'Stiliger fuscovitatus','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130410,556,'Stolonica socialis','Stolonica socialis',3506022,'Stolonica socialis','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130411,556,'Stolonica socialis','Stolonica socialis',3506023,'Stolonica socialis','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130412,556,'Stomotoca atra','Stomotoca atra',3506024,'Stomotoca atra','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130413,556,'Strombina francesae','Strombina francesae',3506025,'Strombina francesae','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130414,556,'Strombus costatus','Strombus costatus',3506026,'Strombus costatus','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130415,556,'Strombus gallus','Strombus gallus',3506027,'Strombus gallus','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130416,556,'Strombus gigas','Strombus gigas',3506028,'Strombus gigas','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130417,556,'Strombus raninus','Strombus raninus',3506029,'Strombus raninus','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130418,556,'Styela partita','Styela partita',3506030,'Styela partita','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130419,556,'Styela plicata','Styela plicata',3506031,'Styela plicata','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130420,556,'Styela rustica','Styela rustica',3506032,'Styela rustica','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130421,556,'Stylocheilus longicauda','Stylocheilus longicauda',3506033,'Stylocheilus longicauda','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130422,556,'Stylocidaris affinis','Stylocidaris affinis',3506034,'Stylocidaris affinis','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130423,556,'Syllis elongata','Syllis elongata',3506035,'Syllis elongata','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130424,556,'Syllis variegata','Syllis variegata',3506036,'Syllis variegata','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130425,556,'Symplegma viride','Symplegma viride',3506037,'Symplegma viride','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130426,556,'Tealia crassicornis','Tealia crassicornis',3506038,'Tealia crassicornis','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130427,556,'Tegula funebralis','Tegula funebralis',3506039,'Tegula funebralis','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130428,556,'Tenellia fuscata','Tenellia fuscata',3506040,'Tenellia fuscata','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130429,556,'Tenellia pallida','Tenellia pallida',3506041,'Tenellia pallida','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130430,556,'Tergipes tergipes','Tergipes tergipes',3506042,'Tergipes tergipes','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130431,556,'Tharyx marioni','Tharyx marioni',3506043,'Tharyx marioni','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130432,556,'Tharyx marioni','Tharyx marioni',3506044,'Tharyx marioni','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130433,556,'Thelepus crispus','Thelepus crispus',3506045,'Thelepus crispus','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130434,556,'Thelepus crispus','Thelepus crispus',3506046,'Thelepus crispus','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130435,556,'Thoracophelia mucronata','Thoracophelia mucronata',3506047,'Thoracophelia mucronata','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130436,556,'Thuridilla gracilis ','Thuridilla gracilis',3506048,'Thuridilla gracilis ','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130437,556,'Thuridilla hopeii','Thuridilla hopeii',3506049,'Thuridilla hopeii','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130438,556,'Thuridilla vatae','Thuridilla vatae',3506050,'Thuridilla vatae','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130439,556,'Thyone benti','Thyone benti',3506051,'Thyone benti','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130440,556,'Tomopteris helgolandica','Tomopteris helgolandica',3506052,'Tomopteris helgolandica','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130441,556,'Torellia mirabilis','Torellia mirabilis',3506053,'Torellia mirabilis','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130442,556,'Torellia smithi','Torellia smithi',3506054,'Torellia smithi','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130443,556,'Tornatina canaliculata','Tornatina canaliculata',3506055,'Tornatina canaliculata','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130444,556,'Travisia forbesi','Travisia forbesi',3506056,'Travisia forbesi','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130445,556,'Trichobranchus glacialis','Trichobranchus glacialis',3506057,'Trichobranchus glacialis','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130446,556,'Tridacna squamosa','Tridacna squamosa',3506058,'Tridacna squamosa','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130447,556,'Trididemnum cereum','Trididemnum cereum',3506059,'Trididemnum cereum','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130448,556,'Tritonia hombergi','Tritonia hombergi',3506060,'Tritonia hombergi','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130449,556,'Tritoniella belli','Tritoniella belli',3506061,'Tritoniella belli','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130450,556,'Trochita calyptraeformis','Trochita calyptraeformis',3506062,'Trochita calyptraeformis','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130451,556,'Trophon muricatus','Trophon muricatus',3506063,'Trophon muricatus','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130452,556,'Trophon scotianus','Trophon scotianus',3506064,'Trophon scotianus','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130453,556,'Trophon shackletoni','Trophon shackletoni',3506065,'Trophon shackletoni','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130454,556,'Tylobranchion speciosum','Tylobranchion speciosum',3506066,'Tylobranchion speciosum','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130455,556,'Typosyllis alternata','Typosyllis alternata',3506067,'Typosyllis alternata','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130456,556,'Typosyllis pulchra','Typosyllis pulchra',3506068,'Typosyllis pulchra','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130457,556,'Uniophora granifera','Uniophora granifera',3506069,'Uniophora granifera','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130458,556,'Vermetus','Vermetus',3506070,'Vermetus','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130459,556,'Volvatella bermudae','Volvatella bermudae',3506071,'Volvatella bermudae','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12),(5130460,556,'Zoroaster fulgens','Zoroaster fulgens',3506072,'Zoroaster fulgens','2018-12-17 05:27:06','2018-12-17 05:27:06',NULL,12);
+/*!40000 ALTER TABLE `nodes` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `occurrence_maps`
+--
+
+DROP TABLE IF EXISTS `occurrence_maps`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `occurrence_maps` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `resource_id` int(11) DEFAULT NULL,
+  `page_id` int(11) DEFAULT NULL,
+  `url` varchar(255) DEFAULT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `occurrence_maps`
+--
+
+LOCK TABLES `occurrence_maps` WRITE;
+/*!40000 ALTER TABLE `occurrence_maps` DISABLE KEYS */;
+INSERT INTO `occurrence_maps` VALUES (1,471,1,'https://www.google.com/maps/@56.702711,167.620481,3z','2018-12-02 09:36:09','2018-12-02 09:36:09');
+/*!40000 ALTER TABLE `occurrence_maps` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `occurrence_page_mappings`
 --
 
-
+DROP TABLE IF EXISTS `occurrence_page_mappings`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE IF NOT EXISTS `occurrence_page_mappings` (
+CREATE TABLE `occurrence_page_mappings` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `resource_id` int(11) DEFAULT NULL,
   `occurrence_id` varchar(255) DEFAULT NULL,
@@ -478,17 +701,27 @@ CREATE TABLE IF NOT EXISTS `occurrence_page_mappings` (
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `occurrence_page_mappings`
+--
+
+LOCK TABLES `occurrence_page_mappings` WRITE;
+/*!40000 ALTER TABLE `occurrence_page_mappings` DISABLE KEYS */;
+INSERT INTO `occurrence_page_mappings` VALUES (1,502,'Abarenicola pacifica 3',3,'2018-11-21 16:13:34','2018-11-21 16:13:34'),(2,502,'Abarenicola pacifica 3',3,'2018-11-21 16:16:29','2018-11-21 16:16:29'),(3,502,'Abarenicola pacifica 3',3,'2018-11-26 05:30:55','2018-11-26 05:30:55'),(4,471,'Abarenicola claparedii 1',1,'2018-12-02 11:02:29','2018-12-02 11:02:29'),(5,556,'Abarenicola claparedii 1',46722511,'2018-12-17 05:27:15','2018-12-17 05:27:15');
+/*!40000 ALTER TABLE `occurrence_page_mappings` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `page_contents`
 --
 
-
+DROP TABLE IF EXISTS `page_contents`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE IF NOT EXISTS `page_contents` (
+CREATE TABLE `page_contents` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `resource_id` int(11) DEFAULT NULL,
   `content_type` varchar(255) DEFAULT NULL,
@@ -502,64 +735,87 @@ CREATE TABLE IF NOT EXISTS `page_contents` (
   `is_duplicate` tinyint(1) DEFAULT NULL,
   `page_id` bigint(20) DEFAULT NULL,
   `source_page_id` int(11) NOT NULL,
-  `guid` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `unique_page_contents` (`page_id`,`content_id`,`content_type`),
   KEY `index_page_contents_on_content_type` (`content_type`),
   KEY `index_page_contents_on_page_id` (`page_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `page_contents`
+--
+
+LOCK TABLES `page_contents` WRITE;
+/*!40000 ALTER TABLE `page_contents` DISABLE KEYS */;
+INSERT INTO `page_contents` VALUES (1,502,'Medium',1,'2018-11-26 09:14:26','2018-11-26 09:14:26',NULL,NULL,NULL,NULL,NULL,3,3),(2,502,'Medium',2,'2018-11-26 09:14:30','2018-11-26 09:14:30',NULL,NULL,NULL,NULL,NULL,4,4);
+/*!40000 ALTER TABLE `page_contents` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `pages`
 --
 
-
+DROP TABLE IF EXISTS `pages`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE IF NOT EXISTS `pages` (
+CREATE TABLE `pages` (
   `id` int(11) NOT NULL,
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
-  `medium_id` bigint(20) DEFAULT NULL,
   `page_richness` int(11) DEFAULT NULL,
   `node_id` bigint(20) DEFAULT NULL,
-  `updated` tinyint(1) DEFAULT '0',
-  PRIMARY KEY (`id`),
-  KEY `index_pages_on_medium_id` (`medium_id`),
-  CONSTRAINT `fk_rails_2fb456954f` FOREIGN KEY (`medium_id`) REFERENCES `media` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `pages`
+--
+
+LOCK TABLES `pages` WRITE;
+/*!40000 ALTER TABLE `pages` DISABLE KEYS */;
+INSERT INTO `pages` VALUES (1,'2018-11-26 09:14:25','2018-11-26 09:14:25',NULL,1),(4,'2018-11-26 09:14:29','2018-11-26 09:14:29',NULL,2),(5,'2018-11-26 09:14:31','2018-11-26 09:14:31',NULL,3),(6,'2018-11-26 09:14:33','2018-11-26 09:14:33',NULL,4),(7,'2018-11-26 09:14:34','2018-11-26 09:14:34',NULL,5),(8,'2018-11-26 09:14:35','2018-11-26 09:14:35',NULL,6),(9,'2018-11-26 09:14:37','2018-11-26 09:14:37',NULL,7),(10,'2018-11-26 09:14:39','2018-11-26 09:14:39',NULL,8),(11,'2018-11-26 09:14:40','2018-11-26 09:14:40',NULL,9),(12,'2018-11-26 09:14:41','2018-11-26 09:14:41',NULL,10),(13,'2018-11-26 09:14:41','2018-11-26 09:14:41',NULL,11),(14,'2018-11-26 09:14:42','2018-11-26 09:14:42',NULL,12),(15,'2018-11-26 09:14:42','2018-11-26 09:14:42',NULL,13),(16,'2018-11-26 09:14:43','2018-11-26 09:14:43',NULL,14),(46722170,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5130358),(46722171,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5130363),(46722172,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5130367),(46722175,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5130384),(46722176,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5130385),(46722177,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5130387),(46722178,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5130386),(46722179,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5130390),(46722180,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5130393),(46722181,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5130392),(46722182,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5130397),(46722183,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5130399),(46722184,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5130401),(46722185,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5130400),(46722186,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5130408),(46722187,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5130409),(46722188,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5130414),(46722189,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5130415),(46722190,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5130418),(46722191,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5130417),(46722192,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5130416),(46722194,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5130429),(46722195,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5130426),(46722197,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5130432),(46722198,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5130431),(46722199,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5130443),(46722200,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5130438),(46722201,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5130437),(46722202,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5130448),(46722203,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5130451),(46722204,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5130450),(46722205,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5130444),(46722206,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5130456),(46722207,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5130453),(46722208,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5130452),(46722209,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5130455),(46722210,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5130165),(46722211,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5130168),(46722212,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5130172),(46722213,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5130173),(46722214,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5130174),(46722215,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5130179),(46722216,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5130183),(46722217,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5130182),(46722218,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5130180),(46722219,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5130186),(46722220,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5130184),(46722221,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5130191),(46722222,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5130190),(46722223,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5130189),(46722224,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5130226),(46722225,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5130210),(46722226,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5130213),(46722227,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5130207),(46722230,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5130219),(46722231,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5130217),(46722232,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5130215),(46722233,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5130218),(46722234,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5130216),(46722235,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5130247),(46722236,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5130244),(46722237,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5130245),(46722238,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5130242),(46722239,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5130243),(46722242,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5130233),(46722243,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5130231),(46722244,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5130228),(46722245,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5130241),(46722246,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5130237),(46722247,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5130260),(46722248,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5130264),(46722249,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5130255),(46722250,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5130254),(46722251,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5130256),(46722254,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5130258),(46722255,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5130257),(46722256,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5130300),(46722257,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5130298),(46722258,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5130296),(46722259,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5130286),(46722260,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5130284),(46722261,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5130290),(46722262,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5130291),(46722263,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5130282),(46722264,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5130281),(46722265,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5130327),(46722266,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5130326),(46722267,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5130321),(46722268,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5130318),(46722269,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5130315),(46722270,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5130317),(46722273,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5130309),(46722274,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5130307),(46722275,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5130308),(46722276,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5130310),(46722277,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5130355),(46722278,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5130340),(46722279,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5130336),(46722282,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5130335),(46722283,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5130334),(46722284,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5130332),(46722285,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5129955),(46722286,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5129954),(46722287,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5129963),(46722288,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5129965),(46722289,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5129964),(46722290,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5129959),(46722291,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5129958),(46722292,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5129966),(46722293,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5129929),(46722294,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5129922),(46722295,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5129935),(46722296,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5129942),(46722297,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5129943),(46722298,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5129946),(46722299,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5129947),(46722300,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5130009),(46722301,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5130008),(46722302,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5130016),(46722303,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5130027),(46722304,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5130028),(46722305,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5130029),(46722306,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5130031),(46722307,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5130032),(46722308,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5130033),(46722309,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5130034),(46722310,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5130036),(46722311,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5129976),(46722312,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5129981),(46722313,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5129980),(46722314,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5129984),(46722315,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5129991),(46722316,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5129990),(46722317,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5129994),(46722318,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5129995),(46722319,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5129992),(46722320,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5129993),(46722321,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5130006),(46722322,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5130007),(46722323,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5130004),(46722324,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5130074),(46722325,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5130076),(46722326,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5130071),(46722327,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5130072),(46722328,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5130073),(46722329,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5130066),(46722330,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5130087),(46722331,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5130081),(46722332,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5130083),(46722333,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5130050),(46722334,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5130051),(46722335,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5130045),(46722336,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5130041),(46722337,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5130060),(46722338,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5130058),(46722339,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5130056),(46722341,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5130129),(46722342,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5130126),(46722344,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5130128),(46722345,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5130127),(46722346,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5130099),(46722347,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5130092),(46722348,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5130093),(46722349,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5130094),(46722350,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5130120),(46722351,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5130109),(46722352,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5130112),(46722353,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5130111),(46722354,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5130110),(46722355,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5129775),(46722356,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5129772),(46722357,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5129781),(46722358,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5129778),(46722359,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5129756),(46722360,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5129769),(46722361,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5129767),(46722362,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5129766),(46722363,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5129764),(46722364,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5129763),(46722365,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5129744),(46722366,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5129742),(46722367,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5129752),(46722368,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5129753),(46722369,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5129755),(46722370,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5129750),(46722371,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5129751),(46722372,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5129730),(46722373,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5129731),(46722374,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5129812),(46722375,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5129800),(46722376,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5129803),(46722379,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5129805),(46722380,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5129804),(46722381,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5129806),(46722382,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5129808),(46722383,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5129811),(46722384,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5129785),(46722385,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5129793),(46722386,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5129792),(46722387,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5129794),(46722388,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5129799),(46722389,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5129860),(46722390,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5129854),(46722391,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5129850),(46722392,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5129851),(46722393,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5129916),(46722394,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5129914),(46722395,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5129921),(46722396,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5129920),(46722397,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5129919),(46722398,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5129918),(46722399,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5129906),(46722400,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5129910),(46722401,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5129904),(46722402,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5129893),(46722403,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5129897),(46722404,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5129889),(46722405,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5129879),(46722407,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5129880),(46722408,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5129881),(46722410,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5129883),(46722411,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5129882),(46722412,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5129873),(46722415,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5129877),(46722416,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5129876),(46722417,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5129867),(46722418,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5129871),(46722419,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5129582),(46722420,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5129579),(46722421,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5129578),(46722422,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5129577),(46722423,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5129576),(46722424,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5129574),(46722425,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5129600),(46722426,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5129592),(46722427,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5129589),(46722428,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5129615),(46722429,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5129616),(46722430,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5129611),(46722431,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5129607),(46722432,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5129606),(46722433,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5129609),(46722434,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5129608),(46722435,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5129605),(46722436,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5129604),(46722437,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5129630),(46722438,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5129631),(46722439,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5129632),(46722440,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5129626),(46722441,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5129627),(46722442,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5129628),(46722443,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5129629),(46722444,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5129624),(46722445,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5129621),(46722446,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5129523),(46722447,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5129522),(46722450,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5129526),(46722451,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5129527),(46722452,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5129517),(46722453,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5129514),(46722454,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5129521),(46722455,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5129536),(46722456,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5129537),(46722457,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5129534),(46722458,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5129535),(46722459,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5129540),(46722460,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5129539),(46722461,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5129533),(46722462,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5129530),(46722463,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5129531),(46722464,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5129550),(46722465,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5129553),(46722466,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5129552),(46722467,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5129555),(46722468,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5129554),(46722469,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5129544),(46722470,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5129565),(46722471,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5129567),(46722472,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5129568),(46722473,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5129558),(46722474,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5129559),(46722475,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5129561),(46722476,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5129692),(46722477,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5129703),(46722478,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5129704),(46722479,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5129705),(46722480,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5129713),(46722481,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5129710),(46722482,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5129709),(46722483,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5129717),(46722484,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5129636),(46722485,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5129637),(46722486,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5129634),(46722487,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5129635),(46722488,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5129639),(46722489,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5129651),(46722490,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5129652),(46722491,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5129654),(46722492,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5129655),(46722493,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5129657),(46722494,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5129658),(46722495,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5129660),(46722496,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5129662),(46722497,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5129663),(46722498,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5129668),(46722499,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5129671),(46722500,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5129670),(46722501,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5129672),(46722502,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5129678),(46722503,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5129495),(46722504,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5129494),(46722505,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5129508),(46722506,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5129510),(46722507,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5129511),(46722508,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5129512),(46722509,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5129498),(46722510,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5129503),(46722511,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5129469),(46722512,'2018-12-17 05:27:07','2018-12-17 05:27:07',NULL,5129472);
+/*!40000 ALTER TABLE `pages` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `pages_nodes`
 --
 
-
+DROP TABLE IF EXISTS `pages_nodes`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE IF NOT EXISTS `pages_nodes` (
+CREATE TABLE `pages_nodes` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `page_id` bigint(20) DEFAULT NULL,
   `node_id` bigint(20) DEFAULT NULL,
   `is_native` tinyint(1) DEFAULT NULL,
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
-  `updated` tinyint(1) DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `index_pages_nodes_on_page_id` (`page_id`),
   KEY `index_pages_nodes_on_node_id` (`node_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3871988 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `pages_nodes`
+--
+
+LOCK TABLES `pages_nodes` WRITE;
+/*!40000 ALTER TABLE `pages_nodes` DISABLE KEYS */;
+INSERT INTO `pages_nodes` VALUES (1,3,1,0,'2018-11-26 09:14:25','2018-11-26 09:14:25'),(2,4,2,0,'2018-11-26 09:14:30','2018-11-26 09:14:30'),(3,5,3,0,'2018-11-26 09:14:32','2018-11-26 09:14:32'),(4,6,4,0,'2018-11-26 09:14:33','2018-11-26 09:14:33'),(5,7,5,0,'2018-11-26 09:14:34','2018-11-26 09:14:34'),(6,8,6,0,'2018-11-26 09:14:35','2018-11-26 09:14:35'),(7,9,7,0,'2018-11-26 09:14:37','2018-11-26 09:14:37'),(8,10,8,0,'2018-11-26 09:14:39','2018-11-26 09:14:39'),(9,11,9,0,'2018-11-26 09:14:41','2018-11-26 09:14:41'),(10,12,10,0,'2018-11-26 09:14:41','2018-11-26 09:14:41'),(11,13,11,0,'2018-11-26 09:14:42','2018-11-26 09:14:42'),(12,14,12,0,'2018-11-26 09:14:42','2018-11-26 09:14:42'),(13,15,13,0,'2018-11-26 09:14:43','2018-11-26 09:14:43'),(14,16,14,0,'2018-11-26 09:14:43','2018-11-26 09:14:43'),(3871000,46722511,5129469,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871003,46722512,5129472,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871025,46722504,5129494,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871026,46722503,5129495,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871029,46722509,5129498,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871034,46722510,5129503,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871039,46722505,5129508,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871041,46722506,5129510,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871042,46722507,5129511,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871043,46722508,5129512,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871045,46722453,5129514,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871048,46722452,5129517,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871052,46722454,5129521,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871053,46722447,5129522,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871054,46722446,5129523,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871057,46722450,5129526,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871058,46722451,5129527,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871061,46722462,5129530,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871062,46722463,5129531,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871064,46722461,5129533,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871065,46722457,5129534,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871066,46722458,5129535,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871067,46722455,5129536,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871068,46722456,5129537,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871070,46722460,5129539,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871071,46722459,5129540,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871075,46722469,5129544,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871081,46722464,5129550,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871083,46722466,5129552,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871084,46722465,5129553,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871085,46722468,5129554,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871086,46722467,5129555,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871089,46722473,5129558,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871090,46722474,5129559,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871092,46722475,5129561,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871096,46722470,5129565,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871098,46722471,5129567,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871099,46722472,5129568,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871105,46722424,5129574,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871107,46722423,5129576,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871108,46722422,5129577,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871109,46722421,5129578,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871110,46722420,5129579,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871113,46722419,5129582,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871120,46722427,5129589,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871123,46722426,5129592,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871131,46722425,5129600,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871135,46722436,5129604,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871136,46722435,5129605,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871137,46722432,5129606,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871138,46722431,5129607,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871139,46722434,5129608,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871140,46722433,5129609,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871142,46722430,5129611,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871146,46722428,5129615,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871147,46722429,5129616,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871152,46722445,5129621,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871155,46722444,5129624,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871157,46722440,5129626,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871158,46722441,5129627,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871159,46722442,5129628,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871160,46722443,5129629,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871161,46722437,5129630,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871162,46722438,5129631,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871163,46722439,5129632,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871165,46722486,5129634,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871166,46722487,5129635,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871167,46722484,5129636,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871168,46722485,5129637,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871170,46722488,5129639,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871182,46722489,5129651,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871183,46722490,5129652,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871185,46722491,5129654,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871186,46722492,5129655,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871188,46722493,5129657,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871189,46722494,5129658,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871191,46722495,5129660,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871193,46722496,5129662,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871194,46722497,5129663,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871199,46722498,5129668,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871201,46722500,5129670,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871202,46722499,5129671,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871203,46722501,5129672,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871209,46722502,5129678,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871223,46722476,5129692,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871234,46722477,5129703,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871235,46722478,5129704,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871236,46722479,5129705,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871240,46722482,5129709,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871241,46722481,5129710,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871244,46722480,5129713,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871248,46722483,5129717,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871261,46722372,5129730,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871262,46722373,5129731,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871273,46722366,5129742,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871275,46722365,5129744,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871281,46722370,5129750,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871282,46722371,5129751,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871283,46722367,5129752,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871284,46722368,5129753,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871286,46722369,5129755,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871287,46722359,5129756,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871294,46722364,5129763,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871295,46722363,5129764,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871297,46722362,5129766,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871298,46722361,5129767,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871300,46722360,5129769,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871303,46722356,5129772,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871306,46722355,5129775,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871309,46722358,5129778,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871312,46722357,5129781,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871316,46722384,5129785,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871323,46722386,5129792,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871324,46722385,5129793,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871325,46722387,5129794,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871330,46722388,5129799,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871331,46722375,5129800,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871334,46722376,5129803,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871335,46722380,5129804,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871336,46722379,5129805,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871337,46722381,5129806,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871339,46722382,5129808,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871342,46722383,5129811,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871343,46722374,5129812,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871381,46722391,5129850,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871382,46722392,5129851,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871385,46722390,5129854,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871391,46722389,5129860,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871398,46722417,5129867,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871402,46722418,5129871,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871404,46722412,5129873,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871407,46722416,5129876,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871408,46722415,5129877,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871410,46722405,5129879,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871411,46722407,5129880,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871412,46722408,5129881,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871413,46722411,5129882,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871414,46722410,5129883,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871420,46722404,5129889,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871424,46722402,5129893,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871428,46722403,5129897,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871435,46722401,5129904,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871437,46722399,5129906,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871441,46722400,5129910,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871445,46722394,5129914,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871447,46722393,5129916,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871449,46722398,5129918,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871450,46722397,5129919,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871451,46722396,5129920,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871452,46722395,5129921,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871453,46722294,5129922,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871460,46722293,5129929,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871466,46722295,5129935,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871473,46722296,5129942,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871474,46722297,5129943,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871477,46722298,5129946,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871478,46722299,5129947,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871485,46722286,5129954,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871486,46722285,5129955,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871489,46722291,5129958,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871490,46722290,5129959,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871494,46722287,5129963,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871495,46722289,5129964,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871496,46722288,5129965,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871497,46722292,5129966,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871507,46722311,5129976,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871511,46722313,5129980,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871512,46722312,5129981,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871515,46722314,5129984,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871521,46722316,5129990,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871522,46722315,5129991,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871523,46722319,5129992,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871524,46722320,5129993,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871525,46722317,5129994,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871526,46722318,5129995,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871535,46722323,5130004,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871537,46722321,5130006,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871538,46722322,5130007,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871539,46722301,5130008,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871540,46722300,5130009,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871547,46722302,5130016,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871558,46722303,5130027,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871559,46722304,5130028,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871560,46722305,5130029,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871562,46722306,5130031,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871563,46722307,5130032,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871564,46722308,5130033,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871565,46722309,5130034,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871567,46722310,5130036,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871572,46722336,5130041,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871576,46722335,5130045,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871581,46722333,5130050,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871582,46722334,5130051,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871587,46722339,5130056,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871589,46722338,5130058,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871591,46722337,5130060,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871597,46722329,5130066,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871602,46722326,5130071,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871603,46722327,5130072,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871604,46722328,5130073,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871605,46722324,5130074,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871607,46722325,5130076,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871612,46722331,5130081,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871614,46722332,5130083,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871618,46722330,5130087,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871623,46722347,5130092,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871624,46722348,5130093,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871625,46722349,5130094,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871630,46722346,5130099,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871640,46722351,5130109,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871641,46722354,5130110,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871642,46722353,5130111,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871643,46722352,5130112,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871651,46722350,5130120,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871657,46722342,5130126,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871658,46722345,5130127,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871659,46722344,5130128,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871660,46722341,5130129,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871696,46722210,5130165,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871699,46722211,5130168,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871703,46722212,5130172,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871704,46722213,5130173,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871705,46722214,5130174,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871710,46722215,5130179,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871711,46722218,5130180,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871713,46722217,5130182,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871714,46722216,5130183,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871715,46722220,5130184,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871717,46722219,5130186,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871720,46722223,5130189,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871721,46722222,5130190,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871722,46722221,5130191,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871738,46722227,5130207,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871741,46722225,5130210,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871744,46722226,5130213,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871746,46722232,5130215,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871747,46722234,5130216,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871748,46722231,5130217,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871749,46722233,5130218,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871750,46722230,5130219,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871757,46722224,5130226,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871758,46722224,5130227,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871759,46722244,5130228,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871762,46722243,5130231,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871764,46722242,5130233,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871768,46722246,5130237,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871772,46722245,5130241,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871773,46722238,5130242,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871774,46722239,5130243,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871775,46722236,5130244,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871776,46722237,5130245,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871778,46722235,5130247,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871785,46722250,5130254,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871786,46722249,5130255,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871787,46722251,5130256,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871788,46722255,5130257,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871789,46722254,5130258,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871791,46722247,5130260,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871795,46722248,5130264,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871812,46722264,5130281,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871813,46722263,5130282,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871815,46722260,5130284,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871817,46722259,5130286,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871821,46722261,5130290,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871822,46722262,5130291,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871827,46722258,5130296,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871829,46722257,5130298,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871831,46722256,5130300,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871838,46722274,5130307,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871839,46722275,5130308,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871840,46722273,5130309,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871841,46722276,5130310,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871846,46722269,5130315,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871848,46722270,5130317,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871849,46722268,5130318,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871852,46722267,5130321,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871857,46722266,5130326,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871858,46722265,5130327,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871863,46722284,5130332,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871865,46722283,5130334,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871866,46722282,5130335,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871867,46722279,5130336,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871871,46722278,5130340,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871886,46722277,5130355,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871889,46722170,5130358,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871894,46722171,5130363,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871898,46722172,5130367,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871915,46722175,5130384,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871916,46722176,5130385,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871917,46722178,5130386,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871918,46722177,5130387,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871921,46722179,5130390,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871923,46722181,5130392,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871924,46722180,5130393,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871928,46722182,5130397,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871930,46722183,5130399,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871931,46722185,5130400,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871932,46722184,5130401,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871939,46722186,5130408,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871940,46722187,5130409,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871945,46722188,5130414,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871946,46722189,5130415,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871947,46722192,5130416,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871948,46722191,5130417,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871949,46722190,5130418,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871957,46722195,5130426,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871960,46722194,5130429,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871962,46722198,5130431,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871963,46722197,5130432,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871968,46722201,5130437,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871969,46722200,5130438,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871974,46722199,5130443,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871975,46722205,5130444,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871979,46722202,5130448,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871981,46722204,5130450,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871982,46722203,5130451,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871983,46722208,5130452,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871984,46722207,5130453,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871986,46722209,5130455,0,'2018-12-17 05:27:11','2018-12-17 05:27:11'),(3871987,46722206,5130456,0,'2018-12-17 05:27:11','2018-12-17 05:27:11');
+/*!40000 ALTER TABLE `pages_nodes` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `pages_referents`
 --
 
-
+DROP TABLE IF EXISTS `pages_referents`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE IF NOT EXISTS `pages_referents` (
+CREATE TABLE `pages_referents` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `page_id` int(11) DEFAULT NULL,
   `referent_id` int(11) DEFAULT NULL,
@@ -567,34 +823,52 @@ CREATE TABLE IF NOT EXISTS `pages_referents` (
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `pages_referents`
+--
+
+LOCK TABLES `pages_referents` WRITE;
+/*!40000 ALTER TABLE `pages_referents` DISABLE KEYS */;
+/*!40000 ALTER TABLE `pages_referents` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `ranks`
 --
 
-
+DROP TABLE IF EXISTS `ranks`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE IF NOT EXISTS `ranks` (
+CREATE TABLE `ranks` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) DEFAULT NULL,
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `rank_name` (`name`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `ranks`
+--
+
+LOCK TABLES `ranks` WRITE;
+/*!40000 ALTER TABLE `ranks` DISABLE KEYS */;
+INSERT INTO `ranks` VALUES (1,'species','2018-11-26 09:14:24','2018-11-26 09:14:24'),(2,'superfamily','2018-11-26 09:14:33','2018-11-26 09:14:33'),(3,'polyphyletic group','2018-11-26 09:14:37','2018-11-26 09:14:37'),(4,'family','2018-11-26 09:14:40','2018-11-26 09:14:40'),(5,'genus','2018-11-26 09:14:42','2018-11-26 09:14:42');
+/*!40000 ALTER TABLE `ranks` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `references`
 --
 
-
+DROP TABLE IF EXISTS `references`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE IF NOT EXISTS `references` (
+CREATE TABLE `references` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `parent_id` int(11) DEFAULT NULL,
   `parent_type` varchar(255) DEFAULT NULL,
@@ -602,21 +876,28 @@ CREATE TABLE IF NOT EXISTS `references` (
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
   `referent_id` int(11) DEFAULT NULL,
-  `guid` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `unique_references` (`parent_id`,`parent_type`,`referent_id`),
   KEY `index_references_on_parent_type` (`parent_type`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `references`
+--
+
+LOCK TABLES `references` WRITE;
+/*!40000 ALTER TABLE `references` DISABLE KEYS */;
+/*!40000 ALTER TABLE `references` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `referents`
 --
 
-
+DROP TABLE IF EXISTS `referents`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE IF NOT EXISTS `referents` (
+CREATE TABLE `referents` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `primary_title` varchar(255) DEFAULT NULL,
   `secondary_title` varchar(255) DEFAULT NULL,
@@ -635,19 +916,27 @@ CREATE TABLE IF NOT EXISTS `referents` (
   `resource_pk` varchar(255) DEFAULT NULL,
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `unique_referents` (`resource_id`,`body`(200))
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `referents`
+--
+
+LOCK TABLES `referents` WRITE;
+/*!40000 ALTER TABLE `referents` DISABLE KEYS */;
+/*!40000 ALTER TABLE `referents` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `refinery_image_translations`
 --
 
-
+DROP TABLE IF EXISTS `refinery_image_translations`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE IF NOT EXISTS `refinery_image_translations` (
+CREATE TABLE `refinery_image_translations` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `refinery_image_id` int(11) NOT NULL,
   `locale` varchar(255) NOT NULL,
@@ -658,17 +947,26 @@ CREATE TABLE IF NOT EXISTS `refinery_image_translations` (
   PRIMARY KEY (`id`),
   KEY `index_refinery_image_translations_on_refinery_image_id` (`refinery_image_id`),
   KEY `index_refinery_image_translations_on_locale` (`locale`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `refinery_image_translations`
+--
+
+LOCK TABLES `refinery_image_translations` WRITE;
+/*!40000 ALTER TABLE `refinery_image_translations` DISABLE KEYS */;
+/*!40000 ALTER TABLE `refinery_image_translations` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `refinery_images`
 --
 
-
+DROP TABLE IF EXISTS `refinery_images`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE IF NOT EXISTS `refinery_images` (
+CREATE TABLE `refinery_images` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `image_mime_type` varchar(255) DEFAULT NULL,
   `image_name` varchar(255) DEFAULT NULL,
@@ -679,17 +977,26 @@ CREATE TABLE IF NOT EXISTS `refinery_images` (
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `refinery_images`
+--
+
+LOCK TABLES `refinery_images` WRITE;
+/*!40000 ALTER TABLE `refinery_images` DISABLE KEYS */;
+/*!40000 ALTER TABLE `refinery_images` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `refinery_page_part_translations`
 --
 
-
+DROP TABLE IF EXISTS `refinery_page_part_translations`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE IF NOT EXISTS `refinery_page_part_translations` (
+CREATE TABLE `refinery_page_part_translations` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `refinery_page_part_id` int(11) NOT NULL,
   `locale` varchar(255) NOT NULL,
@@ -699,17 +1006,26 @@ CREATE TABLE IF NOT EXISTS `refinery_page_part_translations` (
   PRIMARY KEY (`id`),
   KEY `index_refinery_page_part_translations_on_refinery_page_part_id` (`refinery_page_part_id`),
   KEY `index_refinery_page_part_translations_on_locale` (`locale`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `refinery_page_part_translations`
+--
+
+LOCK TABLES `refinery_page_part_translations` WRITE;
+/*!40000 ALTER TABLE `refinery_page_part_translations` DISABLE KEYS */;
+/*!40000 ALTER TABLE `refinery_page_part_translations` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `refinery_page_parts`
 --
 
-
+DROP TABLE IF EXISTS `refinery_page_parts`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE IF NOT EXISTS `refinery_page_parts` (
+CREATE TABLE `refinery_page_parts` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `refinery_page_id` int(11) DEFAULT NULL,
   `slug` varchar(255) DEFAULT NULL,
@@ -720,17 +1036,26 @@ CREATE TABLE IF NOT EXISTS `refinery_page_parts` (
   PRIMARY KEY (`id`),
   KEY `index_refinery_page_parts_on_id` (`id`),
   KEY `index_refinery_page_parts_on_refinery_page_id` (`refinery_page_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `refinery_page_parts`
+--
+
+LOCK TABLES `refinery_page_parts` WRITE;
+/*!40000 ALTER TABLE `refinery_page_parts` DISABLE KEYS */;
+/*!40000 ALTER TABLE `refinery_page_parts` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `refinery_page_translations`
 --
 
-
+DROP TABLE IF EXISTS `refinery_page_translations`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE IF NOT EXISTS `refinery_page_translations` (
+CREATE TABLE `refinery_page_translations` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `refinery_page_id` int(11) NOT NULL,
   `locale` varchar(255) NOT NULL,
@@ -743,17 +1068,26 @@ CREATE TABLE IF NOT EXISTS `refinery_page_translations` (
   PRIMARY KEY (`id`),
   KEY `index_refinery_page_translations_on_refinery_page_id` (`refinery_page_id`),
   KEY `index_refinery_page_translations_on_locale` (`locale`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `refinery_page_translations`
+--
+
+LOCK TABLES `refinery_page_translations` WRITE;
+/*!40000 ALTER TABLE `refinery_page_translations` DISABLE KEYS */;
+/*!40000 ALTER TABLE `refinery_page_translations` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `refinery_pages`
 --
 
-
+DROP TABLE IF EXISTS `refinery_pages`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE IF NOT EXISTS `refinery_pages` (
+CREATE TABLE `refinery_pages` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `parent_id` int(11) DEFAULT NULL,
   `path` varchar(255) DEFAULT NULL,
@@ -778,17 +1112,26 @@ CREATE TABLE IF NOT EXISTS `refinery_pages` (
   KEY `index_refinery_pages_on_lft` (`lft`),
   KEY `index_refinery_pages_on_parent_id` (`parent_id`),
   KEY `index_refinery_pages_on_rgt` (`rgt`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `refinery_pages`
+--
+
+LOCK TABLES `refinery_pages` WRITE;
+/*!40000 ALTER TABLE `refinery_pages` DISABLE KEYS */;
+/*!40000 ALTER TABLE `refinery_pages` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `refinery_resource_translations`
 --
 
-
+DROP TABLE IF EXISTS `refinery_resource_translations`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE IF NOT EXISTS `refinery_resource_translations` (
+CREATE TABLE `refinery_resource_translations` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `refinery_resource_id` int(11) NOT NULL,
   `locale` varchar(255) NOT NULL,
@@ -798,17 +1141,26 @@ CREATE TABLE IF NOT EXISTS `refinery_resource_translations` (
   PRIMARY KEY (`id`),
   KEY `index_refinery_resource_translations_on_refinery_resource_id` (`refinery_resource_id`),
   KEY `index_refinery_resource_translations_on_locale` (`locale`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `refinery_resource_translations`
+--
+
+LOCK TABLES `refinery_resource_translations` WRITE;
+/*!40000 ALTER TABLE `refinery_resource_translations` DISABLE KEYS */;
+/*!40000 ALTER TABLE `refinery_resource_translations` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `refinery_resources`
 --
 
-
+DROP TABLE IF EXISTS `refinery_resources`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE IF NOT EXISTS `refinery_resources` (
+CREATE TABLE `refinery_resources` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `file_mime_type` varchar(255) DEFAULT NULL,
   `file_name` varchar(255) DEFAULT NULL,
@@ -818,30 +1170,49 @@ CREATE TABLE IF NOT EXISTS `refinery_resources` (
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `refinery_resources`
+--
+
+LOCK TABLES `refinery_resources` WRITE;
+/*!40000 ALTER TABLE `refinery_resources` DISABLE KEYS */;
+/*!40000 ALTER TABLE `refinery_resources` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `schema_migrations`
 --
 
-
+DROP TABLE IF EXISTS `schema_migrations`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE IF NOT EXISTS `schema_migrations` (
+CREATE TABLE `schema_migrations` (
   `version` varchar(255) NOT NULL,
   PRIMARY KEY (`version`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `schema_migrations`
+--
+
+LOCK TABLES `schema_migrations` WRITE;
+/*!40000 ALTER TABLE `schema_migrations` DISABLE KEYS */;
+INSERT INTO `schema_migrations` VALUES ('20180517082959'),('20180523115010'),('20180523115012'),('20180523115013'),('20180523115015'),('20180523115017'),('20180523115018'),('20180523115020'),('20180523115021'),('20180523115023'),('20180523115024'),('20180523115026'),('20180523115028'),('20180523115029'),('20180523115031'),('20180603074016'),('20180604102210'),('20180604102935'),('20180606102444'),('20180606120759'),('20180606120824'),('20180607084811'),('20180607085603'),('20180607090841'),('20180607101236'),('20180607113411'),('20180607120830'),('20180607124449'),('20180607125258'),('20180607125425'),('20180607125727'),('20180607125919'),('20180610090522'),('20180610090614'),('20180612115746'),('20180613073018'),('20180613075647'),('20180619071754'),('20180619072545'),('20180619083915'),('20180619083916'),('20180619083917'),('20180619083918'),('20180619083919'),('20180619083920'),('20180619083921'),('20180619083922'),('20180619083923'),('20180619083924'),('20180619083925'),('20180619083926'),('20180619083927'),('20180619083928'),('20180619083929'),('20180619083930'),('20180619083931'),('20180619092855'),('20180619101757'),('20180619102236'),('20180619102514'),('20180619102743'),('20180619112852'),('20180620092931'),('20180620131121'),('20180621135321'),('20180621142008'),('20180626131900'),('20180629110311'),('20180629114045'),('20180701102342'),('20180701103521'),('20180701111054'),('20180701111505'),('20180701111921'),('20180701112345'),('20180701112601'),('20180701112657'),('20180701112956'),('20180701113244'),('20180701113400'),('20180701115517'),('20180701123605'),('20180701124017'),('20180701124449'),('20180702084601'),('20180702092906'),('20180702115007'),('20180702115300'),('20180702125112'),('20180703081655'),('20180703083253'),('20180703085010'),('20180706080744'),('20180707111109'),('20180707111931'),('20180715133338'),('20180715135230'),('20180730092727'),('20180808075324'),('20180902095625'),('20181008151659'),('20181010051039'),('20181010051909'),('20181010081213'),('20181010112332'),('20181101094714'),('20181106090034'),('20181114121656');
+/*!40000 ALTER TABLE `schema_migrations` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `scientific_names`
 --
 
-
+DROP TABLE IF EXISTS `scientific_names`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE IF NOT EXISTS `scientific_names` (
+CREATE TABLE `scientific_names` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `resource_id` int(11) DEFAULT NULL,
   `canonical_form` varchar(255) DEFAULT NULL,
@@ -854,24 +1225,32 @@ CREATE TABLE IF NOT EXISTS `scientific_names` (
   `node_id` bigint(20) DEFAULT NULL,
   `page_id` bigint(20) DEFAULT NULL,
   `taxonomic_status_id` bigint(20) DEFAULT NULL,
-  `updated` tinyint(1) DEFAULT '0',
   PRIMARY KEY (`id`),
-  UNIQUE KEY `genrated_node_id` (`generated_node_id`),
   KEY `index_scientific_names_on_generated_node_id` (`generated_node_id`),
   KEY `index_scientific_names_on_node_id` (`node_id`),
   KEY `index_scientific_names_on_page_id` (`page_id`),
   KEY `index_scientific_names_on_taxonomic_status_id` (`taxonomic_status_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3871988 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `scientific_names`
+--
+
+LOCK TABLES `scientific_names` WRITE;
+/*!40000 ALTER TABLE `scientific_names` DISABLE KEYS */;
+INSERT INTO `scientific_names` VALUES (1,502,'Diphhelia raristella',NULL,'Diphhelia raristella',NULL,'2018-11-26 09:14:25','2018-11-26 09:14:25',NULL,1,3,1),(2,502,'Brachycoenia leptophyllia',NULL,'Brachycoenia leptophyllia',NULL,'2018-11-26 09:14:30','2018-11-26 09:14:30',NULL,2,4,1),(3,502,'Elasmofungia comoserioides',NULL,'Elasmofungia comoserioides',NULL,'2018-11-26 09:14:32','2018-11-26 09:14:32',NULL,3,5,1),(4,502,'Actinernoidea Stephenson, 1922',NULL,'Actinernoidea Stephenson, 1922',NULL,'2018-11-26 09:14:33','2018-11-26 09:14:33',NULL,4,6,1),(5,502,'Edwardsioidea Andres, 1881',NULL,'Edwardsioidea Andres, 1881',NULL,'2018-11-26 09:14:34','2018-11-26 09:14:34',NULL,5,7,1),(6,502,'Actinostoloidea Carlgren, 1932',NULL,'Actinostoloidea Carlgren, 1932',NULL,'2018-11-26 09:14:35','2018-11-26 09:14:35',NULL,6,8,1),(7,502,'unplaced extinct Diptera',NULL,'unplaced extinct Diptera',NULL,'2018-11-26 09:14:37','2018-11-26 09:14:37',NULL,7,9,1),(8,502,'Ascilla coriacea',NULL,'Ascilla coriacea',NULL,'2018-11-26 09:14:39','2018-11-26 09:14:39',NULL,8,10,1),(9,502,'Ctenopthalmidae',NULL,'Ctenopthalmidae',NULL,'2018-11-26 09:14:41','2018-11-26 09:14:41',NULL,9,11,1),(10,502,'unplaced extinct Amphiesmenoptera',NULL,'unplaced extinct Amphiesmenoptera',NULL,'2018-11-26 09:14:41','2018-11-26 09:14:41',NULL,10,12,1),(11,502,'Pseudopolycentropidae',NULL,'Pseudopolycentropidae',NULL,'2018-11-26 09:14:41','2018-11-26 09:14:41',NULL,11,13,1),(12,502,'Protomerope',NULL,'Protomerope',NULL,'2018-11-26 09:14:42','2018-11-26 09:14:42',NULL,12,14,1),(13,502,'Cretacechorista',NULL,'Cretacechorista',NULL,'2018-11-26 09:14:42','2018-11-26 09:14:42',NULL,13,15,1),(14,502,'Wightimicropsocus Azar, 2014',NULL,'Wightimicropsocus Azar, 2014',NULL,'2018-11-26 09:14:43','2018-11-26 09:14:43',NULL,14,16,1),(3871000,556,'Abarenicola claparedii','Abarenicola claparedii','Abarenicola claparedii',3505081,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5129469,46722511,1),(3871003,556,'Abarenicola vagabunda','Abarenicola vagabunda','Abarenicola vagabunda',3505084,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5129472,46722512,1),(3871025,556,'Amaena occidentalis','Amaena occidentalis','Amaena occidentalis',3505106,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5129494,46722504,1),(3871026,556,'Amathis lutzi','Amathis lutzi','Amathis lutzi',3505107,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5129495,46722503,1),(3871029,556,'Amphicteis floridus','Amphicteis floridus','Amphicteis floridus',3505110,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5129498,46722509,1),(3871034,556,'Amphiophiura bullata','Amphiophiura bullata','Amphiophiura bullata',3505115,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5129503,46722510,1),(3871039,556,'Amphiura kochii','Amphiura kochii','Amphiura kochii',3505120,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5129508,46722505,1),(3871041,556,'Amphiura vivipara','Amphiura vivipara','Amphiura vivipara',3505122,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5129510,46722506,1),(3871042,556,'Amphysamytha galapagensi','Amphysamytha galapagensi','Amphysamytha galapagensi',3505123,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5129511,46722507,1),(3871043,556,'Anaitides williamsi','Anaitides williamsi','Anaitides williamsi',3505124,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5129512,46722508,1),(3871045,556,'Anasterias minuta','Anasterias minuta','Anasterias minuta',3505126,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5129514,46722453,1),(3871048,556,'Anasterias tenera','Anasterias tenera','Anasterias tenera',3505129,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5129517,46722452,1),(3871052,556,'Antionella sarsi','Antionella sarsi','Antionella sarsi',3505133,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5129521,46722454,1),(3871053,556,'Antipathes fiordensis','Antipathes fiordensis','Antipathes fiordensis',3505134,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5129522,46722447,1),(3871054,556,'Aplydium turbinatum','Aplydium turbinatum','Aplydium turbinatum',3505135,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5129523,46722446,1),(3871057,556,'Aplysia dactlomela','Aplysia dactlomela','Aplysia dactlomela',3505138,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5129526,46722450,1),(3871058,556,'Aplysia dactlomela','Aplysia dactlomela','Aplysia dactlomela',3505139,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5129527,46722451,1),(3871061,556,'Aplysiopsis enteromorpha','Aplysiopsis enteromorpha','Aplysiopsis enteromorpha',3505142,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5129530,46722462,1),(3871062,556,'Aplysiopsis zebra','Aplysiopsis zebra','Aplysiopsis zebra',3505143,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5129531,46722463,1),(3871064,556,'Archidoris odhneri','Archidoris odhneri','Archidoris odhneri',3505145,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5129533,46722461,1),(3871065,556,'Archidoris pseudoargus','Archidoris pseudoargus','Archidoris pseudoargus',3505146,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5129534,46722457,1),(3871066,556,'Arctinoe fragilis','Arctinoe fragilis','Arctinoe fragilis',3505147,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5129535,46722458,1),(3871067,556,'Arctinoe pulchra','Arctinoe pulchra','Arctinoe pulchra',3505148,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5129536,46722455,1),(3871068,556,'Arctinoe vittata','Arctinoe vittata','Arctinoe vittata',3505149,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5129537,46722456,1),(3871070,556,'Arenicola branchialis','Arenicola branchialis','Arenicola branchialis',3505151,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5129539,46722460,1),(3871071,556,'Arenicola ecaudata','Arenicola ecaudata','Arenicola ecaudata',3505152,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5129540,46722459,1),(3871075,556,'Asabellides siberica','Asabellides siberica','Asabellides siberica',3505156,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5129544,46722469,1),(3871081,556,'Asterias lincki','Asterias lincki','Asterias lincki',3505162,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5129550,46722464,1),(3871083,556,'Asterias vulgaris','Asterias vulgaris','Asterias vulgaris',3505164,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5129552,46722466,1),(3871084,556,'Asterina batheri','Asterina batheri','Asterina batheri',3505165,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5129553,46722465,1),(3871085,556,'Asterina burtoni','Asterina burtoni','Asterina burtoni',3505166,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5129554,46722468,1),(3871086,556,'Asterina coronata','Asterina coronata','Asterina coronata',3505167,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5129555,46722467,1),(3871089,556,'Asterina minor','Asterina minor','Asterina minor',3505170,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5129558,46722473,1),(3871090,556,'Asterina pectinifera','Asterina pectinifera','Asterina pectinifera',3505171,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5129559,46722474,1),(3871092,556,'Asterina scobinata','Asterina scobinata','Asterina scobinata',3505173,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5129561,46722475,1),(3871096,556,'Astrobrachion constrictu','Astrobrachion constrictu','Astrobrachion constrictu',3505177,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5129565,46722470,1),(3871098,556,'Astropecten auranciacus','Astropecten auranciacus','Astropecten auranciacus',3505179,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5129567,46722471,1),(3871099,556,'Astropecten gisselbrecht','Astropecten gisselbrecht','Astropecten gisselbrecht',3505180,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5129568,46722472,1),(3871105,556,'Aurospiro dibranchiata','Aurospiro dibranchiata','Aurospiro dibranchiata',3505186,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5129574,46722424,1),(3871107,556,'Austrodoris','Austrodoris kergueIenens','Austrodoris',3505188,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5129576,46722423,1),(3871108,556,'Autolytus fasciatus','Autolytus fasciatus','Autolytus fasciatus',3505189,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5129577,46722422,1),(3871109,556,'Autolytus prolifer','Autolytus prolifer','Autolytus prolifer',3505190,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5129578,46722421,1),(3871110,556,'Axiothella mucosa','Axiothella mucosa','Axiothella mucosa',3505191,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5129579,46722420,1),(3871113,556,'Balcis alba','Balcis alba','Balcis alba',3505194,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5129582,46722419,1),(3871120,556,'Benthopecten armatus','Benthopecten armatus','Benthopecten armatus',3505201,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5129589,46722427,1),(3871123,556,'Berthelina limax','Berthelina limax','Berthelina limax',3505204,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5129592,46722426,1),(3871131,556,'Boltenia hirsuta','Boltenia hirsuta','Boltenia hirsuta',3505212,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5129600,46722425,1),(3871135,556,'Botryllus gigas','Botryllus gigas','Botryllus gigas',3505216,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5129604,46722436,1),(3871136,556,'Brachiomma luctuosum','Brachiomma luctuosum','Brachiomma luctuosum',3505217,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5129605,46722435,1),(3871137,556,'Branchiomma nigromaculat','Branchiomma nigromaculat','Branchiomma nigromaculat',3505218,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5129606,46722432,1),(3871138,556,'Branchiomma vesicolosum','Branchiomma vesicolosum','Branchiomma vesicolosum',3505219,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5129607,46722431,1),(3871139,556,'Branchypolynoe seepensis','Branchypolynoe seepensis','Branchypolynoe seepensis',3505220,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5129608,46722434,1),(3871140,556,'Brevibranchum maculatum','Brevibranchum maculatum','Brevibranchum maculatum',3505221,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5129609,46722433,1),(3871142,556,'Brisingella coronata','Brisingella coronata','Brisingella coronata',3505223,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5129611,46722430,1),(3871146,556,'Cadlina marginata','Cadlina marginata','Cadlina marginata',3505227,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5129615,46722428,1),(3871147,556,'Caliphylla mediteranea','Caliphylla mediteranea','Caliphylla mediteranea',3505228,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5129616,46722429,1),(3871152,556,'Calyptraea extinctorum','Calyptraea extinctorum','Calyptraea extinctorum',3505233,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5129621,46722445,1),(3871155,556,'Cantharidus callichroa','Cantharidus callichroa','Cantharidus callichroa',3505236,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5129624,46722444,1),(3871157,556,'Casella atromarginata','Casella atromarginata','Casella atromarginata',3505238,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5129626,46722440,1),(3871158,556,'Catriona aurantia','Catriona aurantia','Catriona aurantia',3505239,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5129627,46722441,1),(3871159,556,'Catriona columbiana','Catriona columbiana','Catriona columbiana',3505240,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5129628,46722442,1),(3871160,556,'Ceratonereis limnetica','Ceratonereis limnetica','Ceratonereis limnetica',3505241,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5129629,46722443,1),(3871161,556,'Cerithium auricoma','Cerithium auricoma','Cerithium auricoma',3505242,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5129630,46722437,1),(3871162,556,'Cerithium eburneum','Cerithium eburneum','Cerithium eburneum',3505243,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5129631,46722438,1),(3871163,556,'Cerithium floridanum','Cerithium floridanum','Cerithium floridanum',3505244,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5129632,46722439,1),(3871165,556,'Cerithium muscarum','Cerithium muscarum','Cerithium muscarum',3505246,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5129634,46722486,1),(3871166,556,'Cerithium nodulosum','Cerithium nodulosum','Cerithium nodulosum',3505247,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5129635,46722487,1),(3871167,556,'Cerithium variabile','Cerithium variabile','Cerithium variabile',3505248,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5129636,46722484,1),(3871168,556,'Certonardoa semiregulari','Certonardoa semiregulari','Certonardoa semiregulari',3505249,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5129637,46722485,1),(3871170,556,'Chelidonura fulvipunctat','Chelidonura fulvipunctat','Chelidonura fulvipunctat',3505251,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5129639,46722488,1),(3871182,556,'Chlamys asperrima','Chlamys asperrima','Chlamys asperrima',3505263,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5129651,46722489,1),(3871183,556,'Chlamys bifrons','Chlamys bifrons','Chlamys bifrons',3505264,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5129652,46722490,1),(3871185,556,'Chone ecaudata','Chone ecaudata ','Chone ecaudata',3505266,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5129654,46722491,1),(3871186,556,'Chromodoris daphne','Chromodoris daphne','Chromodoris daphne',3505267,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5129655,46722492,1),(3871188,556,'Chromodoris geometrica','Chromodoris geometrica','Chromodoris geometrica',3505269,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5129657,46722493,1),(3871189,556,'Chromodoris kuniei','Chromodoris kuniei','Chromodoris kuniei',3505270,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5129658,46722494,1),(3871191,556,'Chromodoris roboi','Chromodoris roboi','Chromodoris roboi',3505272,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5129660,46722495,1),(3871193,556,'Chrysallida decussata','Chrysallida decussata','Chrysallida decussata',3505274,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5129662,46722496,1),(3871194,556,'Chrysopetalum bellis','Chrysopetalum bellis','Chrysopetalum bellis',3505275,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5129663,46722497,1),(3871199,556,'Cirratulis cirratus','Cirratulis cirratus','Cirratulis cirratus',3505280,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5129668,46722498,1),(3871201,556,'Cirriformia luxuriosa','Cirriformia luxuriosa','Cirriformia luxuriosa',3505282,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5129670,46722500,1),(3871202,556,'Clarcoma canaliculata','Clarcoma canaliculata','Clarcoma canaliculata',3505283,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5129671,46722499,1),(3871203,556,'Clarcoma pulchra','Clarcoma pulchra','Clarcoma pulchra',3505284,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5129672,46722501,1),(3871209,556,'Clymenura clypeata','Clymenura clypeata','Clymenura clypeata',3505290,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5129678,46722502,1),(3871223,556,'Crepidula aculeata','Crepidula aculeata','Crepidula aculeata',3505305,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5129692,46722476,1),(3871234,556,'Crepidula costata','Crepidula costata','Crepidula costata',3505316,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5129703,46722477,1),(3871235,556,'Crepidula dilatata','Crepidula dilatata','Crepidula dilatata',3505317,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5129704,46722478,1),(3871236,556,'Crepidula fecunda','Crepidula fecunda','Crepidula fecunda',3505318,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5129705,46722479,1),(3871240,556,'Crepidula lessoni','Crepidula lessoni','Crepidula lessoni',3505322,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5129709,46722482,1),(3871241,556,'Crepidula lingulata','Crepidula lingulata','Crepidula lingulata',3505323,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5129710,46722481,1),(3871244,556,'Crepidula monoxyla','Crepidula monoxyla','Crepidula monoxyla',3505326,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5129713,46722480,1),(3871248,556,'Crepidula norrisarum','Crepidula norrisarum','Crepidula norrisarum',3505330,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5129717,46722483,1),(3871261,556,'Crucibulum quirqinae','Crucibulum quirqinae','Crucibulum quirqinae',3505343,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5129730,46722372,1),(3871262,556,'Crucibulum radiatum','Crucibulum radiatum','Crucibulum radiatum',3505344,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5129731,46722373,1),(3871273,556,'Cucumaria curata','Cucumaria curata','Cucumaria curata',3505354,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5129742,46722366,1),(3871275,556,'Cucumaria lubrica','Cucumaria lubrica','Cucumaria lubrica',3505356,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5129744,46722365,1),(3871281,556,'Cuthona abronia','Cuthona abronia','Cuthona abronia',3505362,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5129750,46722370,1),(3871282,556,'Cuthona adyarensis','Cuthona adyarensis','Cuthona adyarensis',3505363,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5129751,46722371,1),(3871283,556,'Cuthona albocrusta','Cuthona albocrusta','Cuthona albocrusta',3505364,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5129752,46722367,1),(3871284,556,'Cuthona cocoachroma','Cuthona cocoachroma','Cuthona cocoachroma',3505365,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5129753,46722368,1),(3871286,556,'Cuthona fulgens','Cuthona fulgens','Cuthona fulgens',3505367,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5129755,46722369,1),(3871287,556,'Cuthona lagunae','Cuthona lagunae','Cuthona lagunae',3505368,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5129756,46722359,1),(3871294,556,'Cypraea caputdraconis','Cypraea caputdraconis','Cypraea caputdraconis',3505375,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5129763,46722364,1),(3871295,556,'Cypraecassis testiculis','Cypraecassis testiculis','Cypraecassis testiculis',3505376,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5129764,46722363,1),(3871297,556,'Demonax microphthalamus','Demonax microphthalamus','Demonax microphthalamus',3505378,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5129766,46722362,1),(3871298,556,'Demonax polarsteni','Demonax polarsteni','Demonax polarsteni',3505379,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5129767,46722361,1),(3871300,556,'Dendrodoris gemmacea','Dendrodoris gemmacea','Dendrodoris gemmacea',3505381,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5129769,46722360,1),(3871303,556,'Dendronotus albopunctatu','Dendronotus albopunctatu','Dendronotus albopunctatu',3505384,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5129772,46722356,1),(3871306,556,'Dexiospira foraminosa','Dexiospira foraminosa','Dexiospira foraminosa',3505387,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5129775,46722355,1),(3871309,556,'Digidentis arbutus','Digidentis cf arbutus','Digidentis arbutus',3505390,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5129778,46722358,1),(3871312,556,'Diopatra neopolitana','Diopatra neopolitana','Diopatra neopolitana',3505393,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5129781,46722357,1),(3871316,556,'Diplasterias meridionali','Diplasterias meridionali','Diplasterias meridionali',3505397,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5129785,46722384,1),(3871323,556,'Discodoris heathi','Discodoris heathi','Discodoris heathi',3505404,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5129792,46722386,1),(3871324,556,'Discodoris palma','Discodoris palma','Discodoris palma',3505405,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5129793,46722385,1),(3871325,556,'Discodoris sandiegensis','Discodoris sandiegensis','Discodoris sandiegensis',3505406,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5129794,46722387,1),(3871330,556,'Doridella obscura','Doridella obscura','Doridella obscura',3505411,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5129799,46722388,1),(3871331,556,'Doridella steinbergae','Doridella steinbergae','Doridella steinbergae',3505412,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5129800,46722375,1),(3871334,556,'Dorvillea caeca','Dorvillea caeca','Dorvillea caeca',3505415,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5129803,46722376,1),(3871335,556,'Dorvillea rudolphi','Dorvillea rudolphi','Dorvillea rudolphi',3505416,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5129804,46722380,1),(3871336,556,'Dorvillea rudolphi','Dorvillea rudolphi','Dorvillea rudolphi',3505417,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5129805,46722379,1),(3871337,556,'Doto coronata','Doto coronata','Doto coronata',3505418,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5129806,46722381,1),(3871339,556,'E. furvacauda','E. furvacauda','E. furvacauda',3505420,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5129808,46722382,1),(3871342,556,'Echinaster morph','Echinaster morph 1','Echinaster morph',3505423,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5129811,46722383,1),(3871343,556,'Echinaster morph','Echinaster morph 2','Echinaster morph',3505424,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5129812,46722374,1),(3871381,556,'Ercolania caerula','Ercolania caerula','Ercolania caerula',3505462,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5129850,46722391,1),(3871382,556,'Ercolania emarginata','Ercolania emarginata','Ercolania emarginata',3505463,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5129851,46722392,1),(3871385,556,'Ercolania funerea','Ercolania funerea','Ercolania funerea',3505466,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5129854,46722390,1),(3871391,556,'Euasterias troscheli','Euasterias troscheli','Euasterias troscheli',3505472,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5129860,46722389,1),(3871398,556,'Eucidaris thouarsi','Eucidaris thouarsi','Eucidaris thouarsi',3505479,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5129867,46722417,1),(3871402,556,'Eudistylia vancuvieri','Eudistylia vancuvieri','Eudistylia vancuvieri',3505483,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5129871,46722418,1),(3871404,556,'Eunice valens','Eunice valens','Eunice valens',3505485,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5129873,46722412,1),(3871407,556,'Eupolymnia crescentis','Eupolymnia crescentis','Eupolymnia crescentis',3505488,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5129876,46722416,1),(3871408,556,'Eupolymnia crescentis','Eupolymnia crescentis','Eupolymnia crescentis',3505489,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5129877,46722415,1),(3871410,556,'Euzonus mucronatus','Euzonus mucronatus','Euzonus mucronatus',3505491,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5129879,46722405,1),(3871411,556,'Exegone occidentalis','Exegone occidentalis','Exegone occidentalis',3505492,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5129880,46722407,1),(3871412,556,'Fabricia sabella','Fabricia sabella','Fabricia sabella',3505493,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5129881,46722408,1),(3871413,556,'Fabricia sabella','Fabricia sabella','Fabricia sabella',3505494,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5129882,46722411,1),(3871414,556,'Fabricinula trilobata','Fabricinula trilobata','Fabricinula trilobata',3505495,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5129883,46722410,1),(3871420,556,'Freyella spinosa','Freyella spinosa','Freyella spinosa',3505501,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5129889,46722404,1),(3871424,556,'Gattyana cirrhosa','Gattyana cirrhosa','Gattyana cirrhosa',3505505,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5129893,46722402,1),(3871428,556,'Glycera convoluta','Glycera convoluta','Glycera convoluta',3505509,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5129897,46722403,1),(3871435,556,'Gonionemus murbachii','Gonionemus murbachii','Gonionemus murbachii',3505516,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5129904,46722401,1),(3871437,556,'Grybeoyllis limbata','Grybeoyllis limbata','Grybeoyllis limbata',3505518,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5129906,46722399,1),(3871441,556,'Haliotis cracheroidii','Haliotis cracheroidii','Haliotis cracheroidii',3505522,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5129910,46722400,1),(3871445,556,'Haminoea callidegenita','Haminoea callidegenita','Haminoea callidegenita',3505526,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5129914,46722394,1),(3871447,556,'Haploscoloplos fragilis','Haploscoloplos fragilis','Haploscoloplos fragilis',3505528,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5129916,46722393,1),(3871449,556,'Harmothoe megellanica','Harmothoe megellanica','Harmothoe megellanica',3505530,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5129918,46722398,1),(3871450,556,'Hartmonoe imbricata','Hartmonoe imbricata','Hartmonoe imbricata',3505531,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5129919,46722397,1),(3871451,556,'Hartmonoe impar','Hartmonoe impar','Hartmonoe impar',3505532,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5129920,46722396,1),(3871452,556,'Hartmothoe spinosa','Hartmothoe spinosa','Hartmothoe spinosa',3505533,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5129921,46722395,1),(3871453,556,'Hemipholis elongata','Hemipholis elongata','Hemipholis elongata',3505534,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5129922,46722294,1),(3871460,556,'Herrnaea dendritica','Herrnaea dendritica','Herrnaea dendritica',3505541,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5129929,46722293,1),(3871466,556,'Homalophiura tesselata','Homalophiura tesselata','Homalophiura tesselata',3505547,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5129935,46722295,1),(3871473,556,'Hydroides diramphus','Hydroides diramphus','Hydroides diramphus',3505554,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5129942,46722296,1),(3871474,556,'Hydroides elegans','Hydroides elegans','Hydroides elegans',3505555,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5129943,46722297,1),(3871477,556,'Hymenaster gennaeus','Hymenaster gennaeus','Hymenaster gennaeus',3505558,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5129946,46722298,1),(3871478,556,'Hymenaster membranaceus','Hymenaster membranaceus','Hymenaster membranaceus',3505559,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5129947,46722299,1),(3871485,556,'Kingberonuphis pulchra','Kingberonuphis pulchra','Kingberonuphis pulchra',3505566,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5129954,46722286,1),(3871486,556,'Kingberonuphis simoni','Kingberonuphis simoni','Kingberonuphis simoni',3505567,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5129955,46722285,1),(3871489,556,'Lagisca extenuata','Lagisca extenuata','Lagisca extenuata',3505570,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5129958,46722291,1),(3871490,556,'Lanassa nuda','Lanassa nuda','Lanassa nuda',3505571,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5129959,46722290,1),(3871494,556,'Leitoscoloplos kerguelen','Leitoscoloplos kerguelen','Leitoscoloplos kerguelen',3505575,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5129963,46722287,1),(3871495,556,'Leitoscoloplos pugettens','Leitoscoloplos pugettens','Leitoscoloplos pugettens',3505576,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5129964,46722289,1),(3871496,556,'Leptasterias epichlora','Leptasterias epichlora','Leptasterias epichlora',3505577,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5129965,46722288,1),(3871497,556,'Leptasterias groenlandic','Leptasterias groenlandic','Leptasterias groenlandic',3505578,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5129966,46722292,1),(3871507,556,'Lisippe labiata','Lisippe labiata','Lisippe labiata',3505588,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5129976,46722311,1),(3871511,556,'Littorina neritoides','Littorina neritoides','Littorina neritoides',3505592,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5129980,46722313,1),(3871512,556,'Littorina planaxis','Littorina planaxis','Littorina planaxis',3505593,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5129981,46722312,1),(3871515,556,'Lomia medusa','Lomia medusa','Lomia medusa',3505596,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5129984,46722314,1),(3871521,556,'Luidia sarsi','Luidia sarsi','Luidia sarsi',3505602,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5129990,46722316,1),(3871522,556,'Lumbriconereis latreolli','Lumbriconereis latreolli','Lumbriconereis latreolli',3505603,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5129991,46722315,1),(3871523,556,'Lumbrinereis fragilis','Lumbrinereis fragilis','Lumbrinereis fragilis',3505604,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5129992,46722319,1),(3871524,556,'Lumbrinereis impatiens','Lumbrinereis impatiens','Lumbrinereis impatiens',3505605,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5129993,46722320,1),(3871525,556,'Lumbrinereis luti','Lumbrinereis luti','Lumbrinereis luti',3505606,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5129994,46722317,1),(3871526,556,'Lumbrinereis tetraura','Lumbrinereis tetraura','Lumbrinereis tetraura',3505607,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5129995,46722318,1),(3871535,556,'Macrophiothrix oliveri','Macrophiothrix oliveri','Macrophiothrix oliveri',3505616,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5130004,46722323,1),(3871537,556,'Macroptychaster accresce','Macroptychaster accresce','Macroptychaster accresce',3505618,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5130006,46722321,1),(3871538,556,'Madrella sanguinea','Madrella sanguinea','Madrella sanguinea',3505619,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5130007,46722322,1),(3871539,556,'Magalia perarmata','Magalia perarmata','Magalia perarmata',3505620,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5130008,46722301,1),(3871540,556,'Magellona sacculata','Magellona sacculata','Magellona sacculata',3505621,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5130009,46722300,1),(3871547,556,'Mediomastus californiens','Mediomastus californiens','Mediomastus californiens',3505628,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5130016,46722302,1),(3871558,556,'Microhtalamus sczelkowi','Microhtalamus sczelkowi','Microhtalamus sczelkowi',3505639,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5130027,46722303,1),(3871559,556,'Micronephtys minuta','Micronephtys minuta','Micronephtys minuta',3505640,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5130028,46722304,1),(3871560,556,'Microrbinia lineata','Microrbinia lineata','Microrbinia lineata',3505641,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5130029,46722305,1),(3871562,556,'Mitrocomella polydiadema','Mitrocomella polydiadema','Mitrocomella polydiadema',3505643,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5130031,46722306,1),(3871563,556,'Mogula citrina','Mogula citrina','Mogula citrina',3505644,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5130032,46722307,1),(3871564,556,'Mogula complanata','Mogula complanata','Mogula complanata',3505645,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5130033,46722308,1),(3871565,556,'Mogula tubifera','Mogula tubifera','Mogula tubifera',3505646,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5130034,46722309,1),(3871567,556,'Monodonta lineata','Monodonta lineata','Monodonta lineata',3505648,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5130036,46722310,1),(3871572,556,'Myxicola sulcata','Myxicola cf sulcata','Myxicola sulcata',3505653,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5130041,46722336,1),(3871576,556,'Natica catena','Natica catena','Natica catena',3505657,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5130045,46722335,1),(3871581,556,'Neanthes japonica','Neanthes japonica','Neanthes japonica',3505662,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5130050,46722333,1),(3871582,556,'Nembritha','Nembritha','Nembritha',3505663,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5130051,46722334,1),(3871587,556,'Nepthys insisa','Nepthys insisa','Nepthys insisa',3505668,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5130056,46722339,1),(3871589,556,'Nereis diversicolor','Nereis diversicolor','Nereis diversicolor',3505670,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5130058,46722338,1),(3871591,556,'Nereis irrorata','Nereis irrorata','Nereis irrorata',3505672,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5130060,46722337,1),(3871597,556,'Nereis virens','Nereis virens','Nereis virens',3505678,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5130066,46722329,1),(3871602,556,'Nodilittorina trochoides','Nodilittorina trochoides','Nodilittorina trochoides',3505683,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5130071,46722326,1),(3871603,556,'Nodilittorina unifasciat','Nodilittorina unifasciat','Nodilittorina unifasciat',3505684,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5130072,46722327,1),(3871604,556,'Nodilittorina vidua','Nodilittorina vidua','Nodilittorina vidua',3505685,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5130073,46722328,1),(3871605,556,'Northria elegans','Northria elegans','Northria elegans',3505686,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5130074,46722324,1),(3871607,556,'Notoacmea scutum','Notoacmea scutum','Notoacmea scutum',3505688,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5130076,46722325,1),(3871612,556,'Nucella crassilabrum','Nucella crassilabrum','Nucella crassilabrum',3505693,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5130081,46722331,1),(3871614,556,'Obelia commissuralis','Obelia commissuralis','Obelia commissuralis',3505695,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5130083,46722332,1),(3871618,556,'Odontosyllis prava','Odontosyllis prava','Odontosyllis prava',3505699,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5130087,46722330,1),(3871623,556,'Onuphis irridescens','Onuphis irridescens','Onuphis irridescens',3505704,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5130092,46722347,1),(3871624,556,'Onuphis mariahirsuta','Onuphis mariahirsuta','Onuphis mariahirsuta',3505705,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5130093,46722348,1),(3871625,556,'Onuphis taeniata','Onuphis taeniata','Onuphis taeniata',3505706,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5130094,46722349,1),(3871630,556,'Ophiacantha normani','Ophiacantha normani','Ophiacantha normani',3505711,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5130099,46722346,1),(3871640,556,'Ophidiaster guildingii','Ophidiaster guildingii','Ophidiaster guildingii',3505721,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5130109,46722351,1),(3871641,556,'Ophidiaster robillardi','Ophidiaster robillardi','Ophidiaster robillardi',3505722,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5130110,46722354,1),(3871642,556,'Ophidiaster squameus','Ophidiaster squameus','Ophidiaster squameus',3505723,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5130111,46722353,1),(3871643,556,'Ophiocoma dentata','Ophiocoma dentata','Ophiocoma dentata',3505724,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5130112,46722352,1),(3871651,556,'Ophiocomella ophiactoide','Ophiocomella ophiactoide','Ophiocomella ophiactoide',3505732,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5130120,46722350,1),(3871657,556,'Ophiodromus flexuosus','Ophiodromus flexuosus','Ophiodromus flexuosus',3505738,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5130126,46722342,1),(3871658,556,'Ophiodromus pugettensis','Ophiodromus pugettensis','Ophiodromus pugettensis',3505739,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5130127,46722345,1),(3871659,556,'Ophiodromus pugettensis','Ophiodromus pugettensis','Ophiodromus pugettensis',3505740,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5130128,46722344,1),(3871660,556,'Ophiolepis cincta','Ophiolepis cincta','Ophiolepis cincta',3505741,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5130129,46722341,1),(3871696,556,'Ophiosparta gigas','Ophiosparta gigas','Ophiosparta gigas',3505777,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5130165,46722210,1),(3871699,556,'Ophiothrix caespitose','Ophiothrix caespitose','Ophiothrix caespitose',3505780,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5130168,46722211,1),(3871703,556,'Ophiothrix spongicola','Ophiothrix spongicola','Ophiothrix spongicola',3505784,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5130172,46722212,1),(3871704,556,'Ophiothrix suensonii','Ophiothrix suensonii','Ophiothrix suensonii',3505785,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5130173,46722213,1),(3871705,556,'Ophiur meridionalis','Ophiur meridionalis','Ophiur meridionalis',3505786,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5130174,46722214,1),(3871710,556,'Ophiura sarsi','Ophiura sarsi','Ophiura sarsi',3505791,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5130179,46722215,1),(3871711,556,'Ophiura texturata','Ophiura texturata','Ophiura texturata',3505792,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5130180,46722218,1),(3871713,556,'Ophiurolepis gelida','Ophiurolepis gelida','Ophiurolepis gelida',3505794,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5130182,46722217,1),(3871714,556,'Ophiurolepsis partita','Ophiurolepsis partita','Ophiurolepsis partita',3505795,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5130183,46722216,1),(3871715,556,'Ophryotrocha bacci','Ophryotrocha bacci','Ophryotrocha bacci',3505796,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5130184,46722220,1),(3871717,556,'Ophryotrocha diadema','Ophryotrocha diadema','Ophryotrocha diadema',3505798,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5130186,46722219,1),(3871720,556,'Ophryotrocha notoglandul','Ophryotrocha notoglandul','Ophryotrocha notoglandul',3505801,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5130189,46722223,1),(3871721,556,'Ophyotrocha maculata','Ophyotrocha maculata','Ophyotrocha maculata',3505802,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5130190,46722222,1),(3871722,556,'Opisthotrochphus','Opisthotrochphus','Opisthotrochphus',3505803,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5130191,46722221,1),(3871738,556,'Paraoneis fulgens','Paraoneis fulgens','Paraoneis fulgens',3505819,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5130207,46722227,1),(3871741,556,'Parastichopous californi','Parastichopous californi','Parastichopous californi',3505822,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5130210,46722225,1),(3871744,556,'Patina pellucida','Patina pellucida','Patina pellucida',3505825,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5130213,46722226,1),(3871746,556,'Patiriella brevispina','Patiriella brevispina','Patiriella brevispina',3505827,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5130215,46722232,1),(3871747,556,'Patiriella calcar','Patiriella calcar','Patiriella calcar',3505828,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5130216,46722234,1),(3871748,556,'Patiriella exigua','Patiriella exigua','Patiriella exigua',3505829,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5130217,46722231,1),(3871749,556,'Patiriella exigua','Patiriella exigua','Patiriella exigua',3505830,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5130218,46722233,1),(3871750,556,'Patiriella gunnii','Patiriella gunnii','Patiriella gunnii',3505831,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5130219,46722230,1),(3871757,556,'Pectinaria granulata','Pectinaria granulata','Pectinaria granulata',3505838,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5130226,46722224,1),(3871758,556,'Pectinaria granulata','Pectinaria granulata','Pectinaria granulata',3505839,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5130227,46722224,1),(3871759,556,'Pectinaria hyperborea','Pectinaria hyperborea','Pectinaria hyperborea',3505840,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5130228,46722244,1),(3871762,556,'Pectinura maculate','Pectinura maculate','Pectinura maculate',3505843,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5130231,46722243,1),(3871764,556,'Pentaceraster mammillatu','Pentaceraster mammillatu','Pentaceraster mammillatu',3505845,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5130233,46722242,1),(3871768,556,'Perkinsiana riwo','Perkinsiana riwo','Perkinsiana riwo',3505849,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5130237,46722246,1),(3871772,556,'Phestilla melanobranchia','Phestilla melanobranchia','Phestilla melanobranchia',3505853,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5130241,46722245,1),(3871773,556,'Phestilla sibogae','Phestilla sibogae','Phestilla sibogae',3505854,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5130242,46722238,1),(3871774,556,'Phialidium gregarium','Phialidium gregarium','Phialidium gregarium',3505855,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5130243,46722239,1),(3871775,556,'Phidiana lycnaeus','Phidiana lycnaeus','Phidiana lycnaeus',3505856,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5130244,46722236,1),(3871776,556,'Philbertia gracilis','Philbertia gracilis','Philbertia gracilis',3505857,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5130245,46722237,1),(3871778,556,'Philinopsis cyanea','Philinopsis cyanea','Philinopsis cyanea',3505859,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5130247,46722235,1),(3871785,556,'Pholoe minuta','Pholoe minuta','Pholoe minuta',3505866,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5130254,46722250,1),(3871786,556,'Pholoe minuta','Pholoe minuta','Pholoe minuta',3505867,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5130255,46722249,1),(3871787,556,'Pholoe synophtalmica','Pholoe synophtalmica','Pholoe synophtalmica',3505868,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5130256,46722251,1),(3871788,556,'Phragmatopoma lapidosa','Phragmatopoma lapidosa','Phragmatopoma lapidosa',3505869,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5130257,46722255,1),(3871789,556,'Phragmatopoma lapidosa','Phragmatopoma lapidosa','Phragmatopoma lapidosa',3505870,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5130258,46722254,1),(3871791,556,'Phyllacanthus parvispinu','Phyllacanthus parvispinu','Phyllacanthus parvispinu',3505872,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5130260,46722247,1),(3871795,556,'Phylodoce williamsi','Phylodoce williamsi','Phylodoce williamsi',3505876,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5130264,46722248,1),(3871812,556,'Polinices lewisii','Polinices lewisii','Polinices lewisii',3505893,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5130281,46722264,1),(3871813,556,'Polyandrocarpa tincta','Polyandrocarpa tincta','Polyandrocarpa tincta',3505894,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5130282,46722263,1),(3871815,556,'Polycera dubia','Polycera dubia','Polycera dubia',3505896,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5130284,46722260,1),(3871817,556,'Polyclinum sabulosum','Polyclinum sabulosum','Polyclinum sabulosum',3505898,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5130286,46722259,1),(3871821,556,'Polydora caulleryi','Polydora caulleryi','Polydora caulleryi',3505902,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5130290,46722261,1),(3871822,556,'Polydora concharum','Polydora concharum','Polydora concharum',3505903,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5130291,46722262,1),(3871827,556,'Polydora giardi','Polydora giardi','Polydora giardi',3505908,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5130296,46722258,1),(3871829,556,'Polydora ligni','Polydora ligni','Polydora ligni',3505910,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5130298,46722257,1),(3871831,556,'Polydora quarilobata','Polydora quarilobata','Polydora quarilobata',3505912,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5130300,46722256,1),(3871838,556,'Polysyncraton amethysteu','Polysyncraton amethysteu','Polysyncraton amethysteu',3505919,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5130307,46722274,1),(3871839,556,'Pomatoceros triqueter','Pomatoceros triqueter','Pomatoceros triqueter',3505920,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5130308,46722275,1),(3871840,556,'Pomatoleios kraussii','Pomatoleios kraussii','Pomatoleios kraussii',3505921,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5130309,46722273,1),(3871841,556,'Pomatoleios kraussii','Pomatoleios kraussii','Pomatoleios kraussii',3505922,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5130310,46722276,1),(3871846,556,'Porania antarctica','PoraniaÂ antarctica','Porania antarctica',3505927,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5130315,46722269,1),(3871848,556,'Poriocidaris purpurata','Poriocidaris purpurata','Poriocidaris purpurata',3505929,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5130317,46722270,1),(3871849,556,'Potamilla myriopsis','Potamilla myriopsis','Potamilla myriopsis',3505930,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5130318,46722268,1),(3871852,556,'Pothametus elongatus','Pothametus elongatus','Pothametus elongatus',3505933,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5130321,46722267,1),(3871857,556,'Prionospio pigmea','Prionospio pigmea','Prionospio pigmea',3505938,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5130326,46722266,1),(3871858,556,'Proboscidactyla flavicir','Proboscidactyla flavicir','Proboscidactyla flavicir',3505939,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5130327,46722265,1),(3871863,556,'Pseudochitinopoma occide','Pseudochitinopoma occide','Pseudochitinopoma occide',3505944,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5130332,46722284,1),(3871865,556,'Pseudopolydora paucibran','Pseudopolydora paucibran','Pseudopolydora paucibran',3505946,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5130334,46722283,1),(3871866,556,'Pseudopolydora paucibran','Pseudopolydora paucibran','Pseudopolydora paucibran',3505947,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5130335,46722282,1),(3871867,556,'Pseudopolydora rosebelae','Pseudopolydora rosebelae','Pseudopolydora rosebelae',3505948,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5130336,46722279,1),(3871871,556,'Psolus chitinoides','Psolus chitinoides','Psolus chitinoides',3505952,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5130340,46722278,1),(3871886,556,'Rhopiella koehleri','Rhopiella koehleri','Rhopiella koehleri',3505967,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5130355,46722277,1),(3871889,556,'Rissoella diaphana','Rissoella diaphana','Rissoella diaphana',3505970,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5130358,46722170,1),(3871894,556,'Sabella media','Sabella (Demonax) media','Sabella media',3505975,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5130363,46722171,1),(3871898,556,'Sabellastarte spectabili','Sabellastarte spectabili','Sabellastarte spectabili',3505979,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5130367,46722172,1),(3871915,556,'Siphonaria denticulata','Siphonaria denticulata','Siphonaria denticulata',3505996,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5130384,46722175,1),(3871916,556,'Siphonaria virgulata','Siphonaria virgulata','Siphonaria virgulata',3505997,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5130385,46722176,1),(3871917,556,'Siphopatella walshi','Siphopatella walshi','Siphopatella walshi',3505998,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5130386,46722178,1),(3871918,556,'Siphopatella walshi','Siphopatella walshi','Siphopatella walshi',3505999,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5130387,46722177,1),(3871921,556,'Siphopteron quadrispinos','Siphopteron quadrispinos','Siphopteron quadrispinos',3506002,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5130390,46722179,1),(3871923,556,'Sphaerodoris gracilis','Sphaerodoris gracilis','Sphaerodoris gracilis',3506004,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5130392,46722181,1),(3871924,556,'Sphaeropomatus miamiens','Sphaeropomatus  miamiens','Sphaeropomatus miamiens',3506005,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5130393,46722180,1),(3871928,556,'Spirobranchus corniculat','Spirobranchus corniculat','Spirobranchus corniculat',3506009,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5130397,46722182,1),(3871930,556,'Spirobranchus tricornis','Spirobranchus tricornis','Spirobranchus tricornis',3506011,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5130399,46722183,1),(3871931,556,'Spirorbis granulatus','Spirorbis granulatus','Spirorbis granulatus',3506012,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5130400,46722185,1),(3871932,556,'Spirorbis nipponicus','Spirorbis nipponicus','Spirorbis nipponicus',3506013,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5130401,46722184,1),(3871939,556,'Stiliger fuscatus','Stiliger fuscatus','Stiliger fuscatus',3506020,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5130408,46722186,1),(3871940,556,'Stiliger fuscovitatus','Stiliger fuscovitatus','Stiliger fuscovitatus',3506021,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5130409,46722187,1),(3871945,556,'Strombus costatus','Strombus costatus','Strombus costatus',3506026,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5130414,46722188,1),(3871946,556,'Strombus gallus','Strombus gallus','Strombus gallus',3506027,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5130415,46722189,1),(3871947,556,'Strombus gigas','Strombus gigas','Strombus gigas',3506028,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5130416,46722192,1),(3871948,556,'Strombus raninus','Strombus raninus','Strombus raninus',3506029,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5130417,46722191,1),(3871949,556,'Styela partita','Styela partita','Styela partita',3506030,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5130418,46722190,1),(3871957,556,'Tealia crassicornis','Tealia crassicornis','Tealia crassicornis',3506038,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5130426,46722195,1),(3871960,556,'Tenellia pallida','Tenellia pallida','Tenellia pallida',3506041,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5130429,46722194,1),(3871962,556,'Tharyx marioni','Tharyx marioni','Tharyx marioni',3506043,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5130431,46722198,1),(3871963,556,'Tharyx marioni','Tharyx marioni','Tharyx marioni',3506044,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5130432,46722197,1),(3871968,556,'Thuridilla hopeii','Thuridilla hopeii','Thuridilla hopeii',3506049,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5130437,46722201,1),(3871969,556,'Thuridilla vatae','Thuridilla vatae','Thuridilla vatae',3506050,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5130438,46722200,1),(3871974,556,'Tornatina canaliculata','Tornatina canaliculata','Tornatina canaliculata',3506055,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5130443,46722199,1),(3871975,556,'Travisia forbesi','Travisia forbesi','Travisia forbesi',3506056,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5130444,46722205,1),(3871979,556,'Tritonia hombergi','Tritonia hombergi','Tritonia hombergi',3506060,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5130448,46722202,1),(3871981,556,'Trochita calyptraeformis','Trochita calyptraeformis','Trochita calyptraeformis',3506062,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5130450,46722204,1),(3871982,556,'Trophon muricatus','Trophon muricatus','Trophon muricatus',3506063,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5130451,46722203,1),(3871983,556,'Trophon scotianus','Trophon scotianus','Trophon scotianus',3506064,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5130452,46722208,1),(3871984,556,'Trophon shackletoni','Trophon shackletoni','Trophon shackletoni',3506065,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5130453,46722207,1),(3871986,556,'Typosyllis alternata','Typosyllis alternata','Typosyllis alternata',3506067,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5130455,46722209,1),(3871987,556,'Typosyllis pulchra','Typosyllis pulchra','Typosyllis pulchra',3506068,'2018-12-17 05:27:15','2018-12-17 05:27:15',NULL,5130456,46722206,1);
+/*!40000 ALTER TABLE `scientific_names` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `sections`
 --
 
-
+DROP TABLE IF EXISTS `sections`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE IF NOT EXISTS `sections` (
+CREATE TABLE `sections` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `parent_id` int(11) DEFAULT NULL,
   `position` int(11) DEFAULT NULL,
@@ -879,17 +1258,26 @@ CREATE TABLE IF NOT EXISTS `sections` (
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `sections`
+--
+
+LOCK TABLES `sections` WRITE;
+/*!40000 ALTER TABLE `sections` DISABLE KEYS */;
+/*!40000 ALTER TABLE `sections` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `seo_meta`
 --
 
-
+DROP TABLE IF EXISTS `seo_meta`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE IF NOT EXISTS `seo_meta` (
+CREATE TABLE `seo_meta` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `seo_meta_id` int(11) DEFAULT NULL,
   `seo_meta_type` varchar(255) DEFAULT NULL,
@@ -900,17 +1288,26 @@ CREATE TABLE IF NOT EXISTS `seo_meta` (
   PRIMARY KEY (`id`),
   KEY `index_seo_meta_on_id` (`id`),
   KEY `id_type_index_on_seo_meta` (`seo_meta_id`,`seo_meta_type`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `seo_meta`
+--
+
+LOCK TABLES `seo_meta` WRITE;
+/*!40000 ALTER TABLE `seo_meta` DISABLE KEYS */;
+/*!40000 ALTER TABLE `seo_meta` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `taxonomic_statuses`
 --
 
-
+DROP TABLE IF EXISTS `taxonomic_statuses`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE IF NOT EXISTS `taxonomic_statuses` (
+CREATE TABLE `taxonomic_statuses` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) DEFAULT NULL,
   `is_preferred` tinyint(1) DEFAULT NULL,
@@ -920,35 +1317,27 @@ CREATE TABLE IF NOT EXISTS `taxonomic_statuses` (
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `traits`
+-- Dumping data for table `taxonomic_statuses`
 --
 
-
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE IF NOT EXISTS `traits` (
-  `generated_node_id` int(11) NOT NULL DEFAULT '0',
-  `occurrences` text,
-  `associations` text,
-  `measurement_or_facts` text,
-  `created_at` datetime DEFAULT NULL,
-  `updated_at` datetime DEFAULT NULL,
-  PRIMARY KEY (`generated_node_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
+LOCK TABLES `taxonomic_statuses` WRITE;
+/*!40000 ALTER TABLE `taxonomic_statuses` DISABLE KEYS */;
+INSERT INTO `taxonomic_statuses` VALUES (1,'accepted',NULL,NULL,NULL,NULL,'2018-10-29 14:01:01','2018-10-29 14:01:01');
+/*!40000 ALTER TABLE `taxonomic_statuses` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `user_providers`
 --
 
-
+DROP TABLE IF EXISTS `user_providers`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE IF NOT EXISTS `user_providers` (
+CREATE TABLE `user_providers` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `user_id` bigint(20) DEFAULT NULL,
   `provider` varchar(255) DEFAULT NULL,
@@ -957,17 +1346,27 @@ CREATE TABLE IF NOT EXISTS `user_providers` (
   `updated_at` datetime NOT NULL,
   PRIMARY KEY (`id`),
   KEY `index_user_providers_on_user_id` (`user_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `user_providers`
+--
+
+LOCK TABLES `user_providers` WRITE;
+/*!40000 ALTER TABLE `user_providers` DISABLE KEYS */;
+INSERT INTO `user_providers` VALUES (1,3,'facebook','10217610060660957','2018-10-14 07:06:50','2018-10-14 07:06:50');
+/*!40000 ALTER TABLE `user_providers` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `users`
 --
 
-
+DROP TABLE IF EXISTS `users`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE IF NOT EXISTS `users` (
+CREATE TABLE `users` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `email` varchar(255) NOT NULL DEFAULT '',
   `encrypted_password` varchar(255) NOT NULL DEFAULT '',
@@ -995,19 +1394,29 @@ CREATE TABLE IF NOT EXISTS `users` (
   UNIQUE KEY `index_users_on_reset_password_token` (`reset_password_token`),
   UNIQUE KEY `index_users_on_confirmation_token` (`confirmation_token`),
   UNIQUE KEY `index_users_on_unlock_token` (`unlock_token`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `users`
+--
+
+LOCK TABLES `users` WRITE;
+/*!40000 ALTER TABLE `users` DISABLE KEYS */;
+INSERT INTO `users` VALUES (1,'nadaeliba93@gmail.com','$2a$11$zAxLV0bBJcvQAywAE9fS.uug6i8ubwjbFzPSsbu0XWDfWJEfLRsPS',NULL,NULL,NULL,10,'2018-12-02 05:36:16','2018-11-04 12:15:15','127.0.0.1','127.0.0.1','iQAK3gbF5gJNgAxh8X9f','2018-10-23 10:37:21','2018-10-14 09:28:47','2018-10-14 09:28:47','2018-12-02 05:36:16',NULL,NULL,'NadaEliba',0,NULL,NULL);
+/*!40000 ALTER TABLE `users` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `vernaculars`
 --
 
-
+DROP TABLE IF EXISTS `vernaculars`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE IF NOT EXISTS `vernaculars` (
+CREATE TABLE `vernaculars` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `string` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
+  `string` varchar(255) DEFAULT NULL,
   `resource_id` int(11) DEFAULT NULL,
   `is_prefered_by_resource` tinyint(1) DEFAULT NULL,
   `generated_node_id` int(11) DEFAULT NULL,
@@ -1016,694 +1425,23 @@ CREATE TABLE IF NOT EXISTS `vernaculars` (
   `node_id` bigint(20) DEFAULT NULL,
   `page_id` bigint(20) DEFAULT NULL,
   `language_id` bigint(20) DEFAULT NULL,
-  `updated` tinyint(1) DEFAULT '0',
   PRIMARY KEY (`id`),
-  UNIQUE KEY `unique_vernacular` (`generated_node_id`,`string`,`language_id`),
   KEY `index_vernaculars_on_generated_node_id` (`generated_node_id`),
   KEY `index_vernaculars_on_node_id` (`node_id`),
   KEY `index_vernaculars_on_page_id` (`page_id`),
   KEY `index_vernaculars_on_language_id` (`language_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping routines for database 'ba_eol_development'
+-- Dumping data for table `vernaculars`
 --
-/*!50003 DROP PROCEDURE IF EXISTS `getAgents` */;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8 */ ;
-/*!50003 SET character_set_results = utf8 */ ;
-/*!50003 SET collation_connection  = utf8_general_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = '' */ ;
-DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `getAgents`(in start_date datetime, in end_date datetime)
-BEGIN
-	select id, content_id, content_type, role_name, value, url, resource_id, resource_pk, content_resource_fk
-    from attributions where created_at >= start_date and created_at < end_date;
-END ;;
-DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
-/*!50003 DROP PROCEDURE IF EXISTS `getArticles` */;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8 */ ;
-/*!50003 SET character_set_results = utf8 */ ;
-/*!50003 SET collation_connection  = utf8_general_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = '' */ ;
-DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `getArticles`(in start_date datetime, in end_date datetime)
-BEGIN
-	select id, owner, resource_id, guid, resource_pk, mime_type, name, rights_statement, source_url, bibliographic_citation_id, language_id, license_id, location_id, body
-    from articles where created_at >= start_date and created_at < end_date;
-END ;;
-DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
-/*!50003 DROP PROCEDURE IF EXISTS `getEndTime` */;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8 */ ;
-/*!50003 SET character_set_results = utf8 */ ;
-/*!50003 SET collation_connection  = utf8_general_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = '' */ ;
-DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `getEndTime`(out end_time datetime)
-BEGIN
-	select last_harvest_time into end_time from harvest_time limit 1;
-END ;;
-DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
-/*!50003 DROP PROCEDURE IF EXISTS `getLanguages` */;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8 */ ;
-/*!50003 SET character_set_results = utf8 */ ;
-/*!50003 SET collation_connection  = utf8_general_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = '' */ ;
-DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `getLanguages`(in start_date datetime, in end_date datetime)
-BEGIN
-	select id, code, `group` from languages where created_at >= start_date and created_at < end_date;
-END ;;
-DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
-/*!50003 DROP PROCEDURE IF EXISTS `getLicenses` */;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8 */ ;
-/*!50003 SET character_set_results = utf8 */ ;
-/*!50003 SET collation_connection  = utf8_general_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = '' */ ;
-DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `getLicenses`(in start_date datetime, in end_date datetime)
-BEGIN
-	select id, source_url, name from licenses where created_at >= start_date and created_at < end_date;
-END ;;
-DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
-/*!50003 DROP PROCEDURE IF EXISTS `getLocations` */;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8 */ ;
-/*!50003 SET character_set_results = utf8 */ ;
-/*!50003 SET collation_connection  = utf8_general_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = '' */ ;
-DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `getLocations`(in start_date datetime, in end_date datetime)
-BEGIN
-	select id, resource_id, location, longitude, latitude, altitude, spatial_location from locations
-    where created_at >= start_date and created_at < end_date;
-END ;;
-DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
-/*!50003 DROP PROCEDURE IF EXISTS `getMedia` */;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8 */ ;
-/*!50003 SET character_set_results = utf8 */ ;
-/*!50003 SET collation_connection  = utf8_general_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = '' */ ;
-DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `getMedia`(in start_date datetime, in end_date datetime)
-BEGIN
-	select id, format, description, owner, resource_id, guid, resource_pk, source_page_url, base_url, mime_type, subclass, name, rights_statement, source_url, bibliographic_citation_id, language_id, license_id, location_id
-    from media where created_at >= start_date and created_at < end_date;
-END ;;
-DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
-/*!50003 DROP PROCEDURE IF EXISTS `getNodes` */;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8 */ ;
-/*!50003 SET character_set_results = utf8 */ ;
-/*!50003 SET collation_connection  = utf8_general_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = '' */ ;
-DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `getNodes`(in start_date datetime, in end_date datetime)
-BEGIN
-	select id, resource_id, scientific_name, canonical_form, generated_node_id, resource_pk, parent_id, rank_id from nodes
-    where created_at >= start_date and created_at < end_date;
-END ;;
-DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
-/*!50003 DROP PROCEDURE IF EXISTS `getPageContents` */;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8 */ ;
-/*!50003 SET character_set_results = utf8 */ ;
-/*!50003 SET collation_connection  = utf8_general_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = '' */ ;
-DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `getPageContents`(in start_date datetime, in end_date datetime)
-BEGIN
-	select id, resource_id, content_type, content_id, trust, is_incorrect, is_misidentified, is_hidden, is_duplicate, page_id, source_page_id
-    from page_contents where created_at >= start_date and created_at < end_date;
-END ;;
-DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
-/*!50003 DROP PROCEDURE IF EXISTS `getPages` */;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8 */ ;
-/*!50003 SET character_set_results = utf8 */ ;
-/*!50003 SET collation_connection  = utf8_general_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = '' */ ;
-DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `getPages`(in start_date datetime, in end_date datetime)
-BEGIN
-	select id, page_richness, node_id from pages where created_at >= start_date and created_at < end_date;
-END ;;
-DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
-/*!50003 DROP PROCEDURE IF EXISTS `getPagesNodes` */;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8 */ ;
-/*!50003 SET character_set_results = utf8 */ ;
-/*!50003 SET collation_connection  = utf8_general_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = '' */ ;
-DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `getPagesNodes`(in start_date datetime, in end_date datetime)
-BEGIN
-	select id, page_id, node_id , is_native from pages_nodes where created_at >= start_date and created_at < end_date;
-END ;;
-DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
-/*!50003 DROP PROCEDURE IF EXISTS `getRanks` */;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8 */ ;
-/*!50003 SET character_set_results = utf8 */ ;
-/*!50003 SET collation_connection  = utf8_general_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = '' */ ;
-DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `getRanks`(in start_date datetime, in end_date datetime)
-BEGIN
-	select id, name from ranks where created_at >= start_date and created_at < end_date;
-END ;;
-DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
-/*!50003 DROP PROCEDURE IF EXISTS `getReferences` */;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8 */ ;
-/*!50003 SET character_set_results = utf8 */ ;
-/*!50003 SET collation_connection  = utf8_general_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = '' */ ;
-DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `getReferences`(in start_date datetime, in end_date datetime)
-BEGIN
-	select id, parent_id, parent_type, resource_id, referent_id
-    from `references` where created_at >= start_date and created_at < end_date;
-END ;;
-DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
-/*!50003 DROP PROCEDURE IF EXISTS `getReferents` */;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8 */ ;
-/*!50003 SET character_set_results = utf8 */ ;
-/*!50003 SET collation_connection  = utf8_general_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = '' */ ;
-DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `getReferents`(in start_date datetime, in end_date datetime)
-BEGIN
-	select id, primary_title, secondary_title, pages, page_start, page_end, volume, editor, publisher, authors_list, editors_list, date_created, doi, body, resource_id, resource_pk
-    from referents where created_at >= start_date and created_at < end_date;
-END ;;
-DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
-/*!50003 DROP PROCEDURE IF EXISTS `getScientificNames` */;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8 */ ;
-/*!50003 SET character_set_results = utf8 */ ;
-/*!50003 SET collation_connection  = utf8_general_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = '' */ ;
-DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `getScientificNames`(in start_date datetime, in end_date datetime)
-BEGIN
-	select id, resource_id, canonical_form, node_resource_pk, italicized, generated_node_id, is_preferred, node_id, page_id, taxonomic_status_id from scientific_names
-    where created_at >= start_date and created_at < end_date;
-END ;;
-DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
-/*!50003 DROP PROCEDURE IF EXISTS `getTraits` */;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8 */ ;
-/*!50003 SET character_set_results = utf8 */ ;
-/*!50003 SET collation_connection  = utf8_general_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = '' */ ;
-DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `getTraits`(in start_date datetime, in end_date datetime)
-BEGIN
-	select generated_node_id, occurrences,associations, measurement_or_facts from traits where created_at >= start_date and created_at < end_date;
-END ;;
-DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
-/*!50003 DROP PROCEDURE IF EXISTS `getVernaculars` */;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8 */ ;
-/*!50003 SET character_set_results = utf8 */ ;
-/*!50003 SET collation_connection  = utf8_general_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = '' */ ;
-DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `getVernaculars`(in start_date datetime, in end_date datetime)
-BEGIN
-	select id, string, resource_id, is_prefered_by_resource, generated_node_id, node_id, page_id, language_id from vernaculars
-    where created_at >= start_date and created_at < end_date;
-END ;;
-DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
-/*!50003 DROP PROCEDURE IF EXISTS `insertAgent` */;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8 */ ;
-/*!50003 SET character_set_results = utf8 */ ;
-/*!50003 SET collation_connection  = utf8_general_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = '' */ ;
-DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `insertAgent`(in resource_id_p int, in content_id_p int, in content_type_p varchar(255), in role_name_p varchar(255), in url_p varchar(255), in resource_pk_p varchar(255), 
-in value_p text, in content_resource_fk_p varchar(255), in created_at_p datetime, in updated_at_p datetime)
-BEGIN
-	INSERT INTO attributions (resource_id, content_id,  content_type, role_name, url, resource_pk, value, content_resource_fk, created_at, updated_at)
-	SELECT * FROM (SELECT resource_id_p, content_id_p,  content_type_p, role_name_p, url_p, resource_pk_p, value_p, content_resource_fk_p, created_at_p, updated_at_p) AS tmp
-	WHERE NOT EXISTS (
-		SELECT id FROM attributions WHERE content_id=content_id_p and content_type=content_type_p and value=value_p
-	) LIMIT 1;
-END ;;
-DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
-/*!50003 DROP PROCEDURE IF EXISTS `insertLanguage` */;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8 */ ;
-/*!50003 SET character_set_results = utf8 */ ;
-/*!50003 SET collation_connection  = utf8_general_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = '' */ ;
-DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `insertLanguage`(in code_p varchar(255), in group_p varchar(255), in created_at_p datetime, in updated_at_p datetime, out language_id int)
-BEGIN
-	INSERT INTO languages (code, `group`, created_at, updated_at)
-	SELECT * FROM (SELECT code_p, group_p, created_at_p, updated_at_p) AS tmp
-	WHERE NOT EXISTS (
-		SELECT id FROM languages WHERE code = code_p
-	) LIMIT 1;
-    select id into language_id from languages where code=code_p;
-END ;;
-DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
-/*!50003 DROP PROCEDURE IF EXISTS `insertLicense` */;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8 */ ;
-/*!50003 SET character_set_results = utf8 */ ;
-/*!50003 SET collation_connection  = utf8_general_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = '' */ ;
-DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `insertLicense`(in source_url_p varchar(255), in name_p varchar(255), in created_at_p datetime, in updated_at_p datetime, out license_id int)
-BEGIN
-	INSERT INTO licenses (source_url, name, created_at, updated_at)
-	SELECT * FROM (SELECT source_url_p, name_p, created_at_p, updated_at_p) AS tmp
-	WHERE NOT EXISTS (
-		SELECT id FROM licenses WHERE source_url = source_url_p
-	) LIMIT 1;
-    select id into license_id from licenses where source_url=source_url_p;
-END ;;
-DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
-/*!50003 DROP PROCEDURE IF EXISTS `insertLocation` */;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8 */ ;
-/*!50003 SET character_set_results = utf8 */ ;
-/*!50003 SET collation_connection  = utf8_general_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = '' */ ;
-DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `insertLocation`(in resource_id_p int, in location_p varchar(255), in longitude_p decimal, in latitude_p decimal, in altitude_p decimal, in spatial_location_p text, in created_at_p datetime, in updated_at_p datetime, out location_id int)
-BEGIN
-	INSERT INTO locations (resource_id, location, longitude, latitude, altitude, spatial_location, created_at, updated_at)
-	SELECT * FROM (SELECT resource_id_p, location_p, longitude_p, latitude_p, altitude_p, spatial_location_p created_at_p, updated_at_p) AS tmp
-	WHERE NOT EXISTS (
-		SELECT id FROM locations WHERE location=location_p and longitude=longitude_p and latitude=latitude_p and altitude=altitude_p and spatial_location=spatial_location_p
-	) LIMIT 1;
-    SELECT id into location_id FROM locations WHERE location=location_p and longitude=longitude_p and latitude=latitude_p and altitude=altitude_p and spatial_location=spatial_location_p;
-END ;;
-DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
-/*!50003 DROP PROCEDURE IF EXISTS `insertMedium` */;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8 */ ;
-/*!50003 SET character_set_results = utf8 */ ;
-/*!50003 SET collation_connection  = utf8_general_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = '' */ ;
-DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `insertMedium`(in format_p varchar(255), in description_p text, in owner_p text, in resource_id_p int, 
-in guid_p varchar(255), in resource_pk_p varchar(255), in source_page_url_p varchar(255), in language_id_p int, in license_id_p int, in location_id_p int, in base_url_p varchar(255), in created_at_p datetime, in updated_at_p datetime, out medium_id int)
-BEGIN
-	INSERT INTO media (format, description, owner, resource_id, guid, resource_pk, source_page_url, language_id, license_id, location_id, base_url, created_at, updated_at)
-	SELECT * FROM (SELECT format_p, description_p, owner_p, resource_id_p, guid_p, resource_pk_p, source_page_url_p, language_id_p, license_id_p, location_id_p, base_url_p, created_at_p, updated_at_p) AS tmp
-	WHERE NOT EXISTS (
-		SELECT id FROM media WHERE guid = guid_p
-	) LIMIT 1;
-    select id into medium_id from media where guid=guid_p;
-END ;;
-DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
-/*!50003 DROP PROCEDURE IF EXISTS `insertNode` */;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8 */ ;
-/*!50003 SET character_set_results = utf8 */ ;
-/*!50003 SET collation_connection  = utf8_general_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = '' */ ;
-DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `insertNode`(in resource_id_p int, in scientific_name_p varchar(255), in canonical_form_p varchar(255), in generated_node_id_p int, in resource_pk_p varchar(255), in rank_id_p int, in created_at_p datetime, in updated_at_p datetime, out node_id int)
-BEGIN
-	INSERT INTO nodes (resource_id, scientific_name, canonical_form, generated_node_id, resource_pk, created_at, updated_at, rank_id)
-	SELECT * FROM (SELECT resource_id_p, scientific_name_p, canonical_form_p, generated_node_id_p, resource_pk_p, created_at_p, updated_at_p, rank_id_p) AS tmp
-	WHERE NOT EXISTS (
-		SELECT id FROM nodes WHERE generated_node_id = generated_node_id_p
-	) LIMIT 1;
-    select id into node_id from nodes where generated_node_id = generated_node_id_p;
-END ;;
-DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
-/*!50003 DROP PROCEDURE IF EXISTS `insertPage` */;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8 */ ;
-/*!50003 SET character_set_results = utf8 */ ;
-/*!50003 SET collation_connection  = utf8_general_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = '' */ ;
-DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `insertPage`(in id_p int, in node_id_p int, in created_at_p datetime, in updated_at_p datetime)
-BEGIN
-	insert ignore into pages (id, node_id, created_at, updated_at) values (id_p, node_id_p, created_at_p, updated_at_p);
-END ;;
-DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
-/*!50003 DROP PROCEDURE IF EXISTS `insertPageContent` */;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8 */ ;
-/*!50003 SET character_set_results = utf8 */ ;
-/*!50003 SET collation_connection  = utf8_general_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = '' */ ;
-DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `insertPageContent`(in resource_id_p int, in page_id_p int, in source_page_id_p int, in content_id_p int, in content_type_p varchar(255), in created_at_p datetime, in updated_at_p datetime)
-BEGIN
-	INSERT INTO page_contents (resource_id, page_id, source_page_id, content_id, content_type, created_at, updated_at)
-	SELECT * FROM (SELECT resource_id_p, page_id_p, source_page_id_p, content_id_p, content_type_p, created_at_p, updated_at_p) AS tmp
-	WHERE NOT EXISTS (
-		SELECT id FROM page_contents WHERE page_id=page_id_p and content_id=content_id_p and content_type=content_type_p
-	) LIMIT 1;
-END ;;
-DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
-/*!50003 DROP PROCEDURE IF EXISTS `insertPagesNode` */;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8 */ ;
-/*!50003 SET character_set_results = utf8 */ ;
-/*!50003 SET collation_connection  = utf8_general_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = '' */ ;
-DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `insertPagesNode`(in page_id_p int, in node_id_p int, in is_native_p boolean, in created_at_p datetime, in updated_at_p datetime)
-BEGIN
-	insert into pages_nodes (page_id, node_id, is_native, created_at, updated_at) values (page_id_p, node_id_p, is_native_p, created_at_p, updated_at_p);
-END ;;
-DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
-/*!50003 DROP PROCEDURE IF EXISTS `insertRank` */;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8 */ ;
-/*!50003 SET character_set_results = utf8 */ ;
-/*!50003 SET collation_connection  = utf8_general_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = '' */ ;
-DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `insertRank`(in name_p varchar(255), in created_at_p datetime, in updated_at_p datetime, out rank_id int)
-BEGIN
-	INSERT INTO ranks (name, created_at, updated_at)
-	SELECT * FROM (SELECT name_p, created_at_p, updated_at_p) AS tmp
-	WHERE NOT EXISTS (
-		SELECT name FROM ranks WHERE name = name_p
-	) LIMIT 1;
-    select id into rank_id from ranks where name=name_p;
-END ;;
-DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
-/*!50003 DROP PROCEDURE IF EXISTS `insertReference` */;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8 */ ;
-/*!50003 SET character_set_results = utf8 */ ;
-/*!50003 SET collation_connection  = utf8_general_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = '' */ ;
-DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `insertReference`(in parent_id_p int, in referent_id_p int, in resource_id_p int, in parent_type_p varchar(255), in created_at_p datetime, in updated_at_p datetime)
-BEGIN
-	INSERT INTO `references` (parent_id, referent_id, resource_id, parent_type, created_at, updated_at)
-	SELECT * FROM (SELECT parent_id_p, referent_id_p, resource_id_p, parent_type_p, created_at_p, updated_at_p) AS tmp
-	WHERE NOT EXISTS (
-		SELECT id FROM `references` WHERE parent_id=parent_id_p and parent_type=parent_type_p and referent_id=referent_id_p
-	) LIMIT 1;
-END ;;
-DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
-/*!50003 DROP PROCEDURE IF EXISTS `insertReferent` */;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8 */ ;
-/*!50003 SET character_set_results = utf8 */ ;
-/*!50003 SET collation_connection  = utf8_general_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = '' */ ;
-DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `insertReferent`(in resource_id_p int, in body_p text, in created_at_p datetime, in updated_at_p datetime, out referent_id int)
-BEGIN
-	INSERT INTO referents (resource_id, body, created_at, updated_at)
-	SELECT * FROM (SELECT resource_id_p, body_p, created_at_p, updated_at_p) AS tmp
-	WHERE NOT EXISTS (
-		SELECT id FROM referents WHERE resource_id=resource_id_p and body=body_p
-	) LIMIT 1;
-    select id into referent_id FROM referents WHERE resource_id=resource_id_p and body=body_p;
-END ;;
-DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
-/*!50003 DROP PROCEDURE IF EXISTS `insertScientificName` */;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8 */ ;
-/*!50003 SET character_set_results = utf8 */ ;
-/*!50003 SET collation_connection  = utf8_general_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = '' */ ;
-DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `insertScientificName`(in resource_id_p int, in canonical_form_p varchar(255), in italicized_p varchar(255),in node_resource_pk_p varchar(255),in generated_node_id_p int,in page_id_p int, in node_id_p int,in taxonomic_status_id_p int, in created_at_p datetime, in updated_at_p datetime)
-BEGIN
-	INSERT INTO scientific_names (resource_id, canonical_form, italicized, node_resource_pk, generated_node_id, page_id, node_id, taxonomic_status_id, created_at, updated_at)
-	SELECT * FROM (SELECT resource_id_p, canonical_form_p, italicized_p, node_resource_pk_p, generated_node_id_p, page_id_p, node_id_p, taxonomic_status_id_p, created_at_p, updated_at_p) AS tmp
-	WHERE NOT EXISTS (
-		SELECT id FROM scientific_names WHERE generated_node_id = generated_node_id_p
-	) LIMIT 1;
-END ;;
-DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
-/*!50003 DROP PROCEDURE IF EXISTS `insertVernacular` */;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8 */ ;
-/*!50003 SET character_set_results = utf8 */ ;
-/*!50003 SET collation_connection  = utf8_general_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = '' */ ;
-DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `insertVernacular`(in string_p varchar(255), in resource_id_p int, in is_prefered_by_resource_p boolean, in generated_node_id_p int, in page_id_p int, in node_id_p int, in created_at_p datetime, in updated_at_p datetime, in language_id_p int)
-BEGIN
-	INSERT INTO vernaculars (string, resource_id, is_prefered_by_resource, generated_node_id, created_at, updated_at, node_id, page_id, language_id)
-	SELECT * FROM (SELECT string_p, resource_id_p, is_prefered_by_resource_p, generated_node_id_p, created_at_p, updated_at_p, node_id_p, page_id_p, language_id_p) AS tmp
-	WHERE NOT EXISTS (
-		SELECT id FROM vernaculars WHERE string = string_p and generated_node_id=generated_node_id_p
-	) LIMIT 1;
-END ;;
-DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
-/*!50003 DROP PROCEDURE IF EXISTS `updateHarvestTime` */;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8 */ ;
-/*!50003 SET character_set_results = utf8 */ ;
-/*!50003 SET collation_connection  = utf8_general_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = '' */ ;
-DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `updateHarvestTime`(in harvest_time datetime)
-BEGIN
-	update harvest_time set last_harvest_time=harvest_time;
-END ;;
-DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
+
+LOCK TABLES `vernaculars` WRITE;
+/*!40000 ALTER TABLE `vernaculars` DISABLE KEYS */;
+INSERT INTO `vernaculars` VALUES (1,'Northern Goshawk',502,NULL,NULL,'2018-11-26 09:14:25','2018-11-26 09:14:25',1,3,1),(2,'Sharp-shinned Hawk',502,NULL,NULL,'2018-11-26 09:14:30','2018-11-26 09:14:30',2,4,1),(3,'Spotted Sandpiper',502,NULL,NULL,'2018-11-26 09:14:32','2018-11-26 09:14:32',3,5,1),(4,'Northern Saw-whet Owl',502,NULL,NULL,'2018-11-26 09:14:33','2018-11-26 09:14:33',4,6,1),(5,'Red-winged Blackbird',502,NULL,NULL,'2018-11-26 09:14:34','2018-11-26 09:14:34',5,7,1),(6,'Wood Duck',502,NULL,NULL,'2018-11-26 09:14:35','2018-11-26 09:14:35',6,8,1),(7,'Saltmarsh Sparrow',502,NULL,NULL,'2018-11-26 09:14:37','2018-11-26 09:14:37',7,9,1),(8,'Henslow\'s Sparrow',502,NULL,NULL,'2018-11-26 09:14:39','2018-11-26 09:14:39',8,10,1);
+/*!40000 ALTER TABLE `vernaculars` ENABLE KEYS */;
+UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -1714,4 +1452,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-12-17  9:36:46
+-- Dump completed on 2018-12-17 10:56:30

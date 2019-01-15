@@ -1,6 +1,7 @@
 package org.bibalex.eol.mysqlModels;
 
 import java.io.Serializable;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class MysqlData implements Serializable{
@@ -20,6 +21,7 @@ public class MysqlData implements Serializable{
     ArrayList<MysqlReferent> referents;
     ArrayList<MysqlReference> references;
     ArrayList<MysqlTrait> traits;
+    ArrayList<MysqlTaxon> taxa;
 //    String occurrences;
 //    String associations;
 //    String measurementOrFacts;
@@ -154,9 +156,15 @@ public class MysqlData implements Serializable{
     public void setTraits(ArrayList<MysqlTrait> traits) {
         this.traits = traits;
     }
+    public void setTaxa(ArrayList<MysqlTaxon> taxa){
+        this.taxa = taxa;
+    }
 
+    public ArrayList<MysqlTaxon> getTaxa() {
+        return taxa;
+    }
 
-//    public void setOccurrences(String occurrences) {
+    //    public void setOccurrences(String occurrences) {
 //        this.occurrences = occurrences;
 //    }
 //
