@@ -499,12 +499,12 @@ public class FileHandler {
                         recordedBy = occ.getRecordedBy() == null ? null : "\"" + occ.getRecordedBy() + "\"",
                         identifiedBy = occ.getIdentifiedBy() == null ? null : "\"" + occ.getIdentifiedBy() + "\"",
                         eventDate = occ.getEventDate() == null ? null : "\"" + occ.getEventDate() + "\"",
-                        decimalLatitude = occ.getDecimalLatitude() == null ? null : occ.getDecimalLatitude(),
-                        decimalLongitude = occ.getDecimalLongitude() == null ? null : occ.getDecimalLongitude();
+                        decimalLatitude = occ.getDecimalLatitude() == null ? null : "\""+occ.getDecimalLatitude().replace("\"","\\\\\"")+"\"",
+                        decimalLongitude = occ.getDecimalLongitude() == null ? null : "\""+occ.getDecimalLongitude().replace("\"","\\\\\"")+"\"";
 
                     taxa.write("{\"catalogNumber\":" + catalogNumber +
                     ",\"recordedBy\":" + recordedBy + ",\"identifiedBy\":" + identifiedBy + ",\"eventDate\":" + eventDate +
-                     ",\"decimalLatitude\":\"" + decimalLatitude + "\",\"decimalLongitude\":\"" + decimalLongitude+"\"}");
+                     ",\"decimalLatitude\":" + decimalLatitude + ",\"decimalLongitude\":" + decimalLongitude+"}");
             if (i < tableRecord.getOccurrences().size() - 1) {
                 taxa.write(",");
             }}
