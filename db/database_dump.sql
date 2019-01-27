@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.5.60, for debian-linux-gnu (x86_64)
+-- MySQL dump 10.13  Distrib 5.5.55, for debian-linux-gnu (x86_64)
 --
 -- Host: localhost    Database: ba_eol_development
 -- ------------------------------------------------------
--- Server version	5.5.60-0+deb8u1
+-- Server version	5.5.55-0+deb8u1
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -65,7 +65,7 @@ CREATE TABLE `articles` (
   CONSTRAINT `fk_rails_5c439af3a6` FOREIGN KEY (`location_id`) REFERENCES `locations` (`id`),
   CONSTRAINT `fk_rails_890179d0ba` FOREIGN KEY (`language_id`) REFERENCES `languages` (`id`),
   CONSTRAINT `fk_rails_dce27d14a3` FOREIGN KEY (`bibliographic_citation_id`) REFERENCES `bibliographic_citations` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=989 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -106,7 +106,7 @@ CREATE TABLE `attributions` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `unique_attributions` (`value`(100),`content_id`,`content_type`),
   KEY `index_attributions_on_content_type` (`content_type`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -146,7 +146,7 @@ CREATE TABLE `collected_pages` (
   KEY `index_collected_pages_on_collection_id` (`collection_id`),
   KEY `index_collected_pages_on_page_id` (`page_id`),
   CONSTRAINT `fk_rails_46e24d72cf` FOREIGN KEY (`collection_id`) REFERENCES `collections` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -197,7 +197,7 @@ CREATE TABLE `collections` (
   `collection_type` int(11) DEFAULT '0',
   `default_sort` int(11) DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -232,7 +232,7 @@ CREATE TABLE `content_partner_users` (
   `updated_at` datetime NOT NULL,
   PRIMARY KEY (`id`),
   KEY `index_content_partner_users_on_user_id` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -306,7 +306,7 @@ CREATE TABLE `languages` (
   `group` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `code` (`code`)
-) ENGINE=InnoDB AUTO_INCREMENT=310 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -324,7 +324,7 @@ CREATE TABLE `licenses` (
   `updated_at` datetime NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `source_url` (`source_url`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -409,7 +409,7 @@ CREATE TABLE `media` (
   KEY `index_media_on_license_id` (`license_id`),
   KEY `index_media_on_location_id` (`location_id`),
   CONSTRAINT `fk_rails_15659d24cb` FOREIGN KEY (`bibliographic_citation_id`) REFERENCES `bibliographic_citations` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1041073 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -460,7 +460,7 @@ CREATE TABLE `nodes` (
   UNIQUE KEY `genrated_node_id` (`generated_node_id`),
   KEY `index_nodes_on_generated_node_id` (`generated_node_id`),
   KEY `index_nodes_on_rank_id` (`rank_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6005073 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -507,7 +507,7 @@ CREATE TABLE `page_contents` (
   UNIQUE KEY `unique_page_contents` (`page_id`,`content_id`,`content_type`),
   KEY `index_page_contents_on_content_type` (`content_type`),
   KEY `index_page_contents_on_page_id` (`page_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1042102 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -551,7 +551,7 @@ CREATE TABLE `pages_nodes` (
   KEY `index_pages_nodes_on_page_id` (`page_id`),
   KEY `index_pages_nodes_on_node_id` (`node_id`),
   KEY `update_index` (`updated`)
-) ENGINE=InnoDB AUTO_INCREMENT=4669794 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -586,7 +586,7 @@ CREATE TABLE `ranks` (
   `updated_at` datetime NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `rank_name` (`name`)
-) ENGINE=InnoDB AUTO_INCREMENT=427 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -701,7 +701,7 @@ CREATE TABLE `refinery_page_part_translations` (
   PRIMARY KEY (`id`),
   KEY `index_refinery_page_part_translations_on_refinery_page_part_id` (`refinery_page_part_id`),
   KEY `index_refinery_page_part_translations_on_locale` (`locale`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -722,7 +722,7 @@ CREATE TABLE `refinery_page_parts` (
   PRIMARY KEY (`id`),
   KEY `index_refinery_page_parts_on_id` (`id`),
   KEY `index_refinery_page_parts_on_refinery_page_id` (`refinery_page_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -745,7 +745,7 @@ CREATE TABLE `refinery_page_translations` (
   PRIMARY KEY (`id`),
   KEY `index_refinery_page_translations_on_refinery_page_id` (`refinery_page_id`),
   KEY `index_refinery_page_translations_on_locale` (`locale`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -780,7 +780,7 @@ CREATE TABLE `refinery_pages` (
   KEY `index_refinery_pages_on_lft` (`lft`),
   KEY `index_refinery_pages_on_parent_id` (`parent_id`),
   KEY `index_refinery_pages_on_rgt` (`rgt`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -864,7 +864,7 @@ CREATE TABLE `scientific_names` (
   KEY `index_scientific_names_on_page_id` (`page_id`),
   KEY `index_scientific_names_on_taxonomic_status_id` (`taxonomic_status_id`),
   KEY `update_index` (`updated`)
-) ENGINE=InnoDB AUTO_INCREMENT=4669794 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -903,7 +903,7 @@ CREATE TABLE `seo_meta` (
   PRIMARY KEY (`id`),
   KEY `index_seo_meta_on_id` (`id`),
   KEY `id_type_index_on_seo_meta` (`seo_meta_id`,`seo_meta_type`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -919,14 +919,14 @@ CREATE TABLE `taxa` (
   `page_eol_id` int(11) DEFAULT NULL,
   `dataset_id` varchar(255) DEFAULT NULL,
   `source` varchar(255) DEFAULT NULL,
-  `occurrences` text,
+  `occurrences` longtext,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   `scientific_name` varchar(255) DEFAULT NULL,
   `resource_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `index_on_generated_node_id` (`generated_node_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=479592 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1021,7 +1021,7 @@ CREATE TABLE `users` (
   UNIQUE KEY `index_users_on_reset_password_token` (`reset_password_token`),
   UNIQUE KEY `index_users_on_confirmation_token` (`confirmation_token`),
   UNIQUE KEY `index_users_on_unlock_token` (`unlock_token`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1050,7 +1050,7 @@ CREATE TABLE `vernaculars` (
   KEY `index_vernaculars_on_page_id` (`page_id`),
   KEY `index_vernaculars_on_language_id` (`language_id`),
   KEY `update_index` (`updated`)
-) ENGINE=InnoDB AUTO_INCREMENT=354283 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1760,4 +1760,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-01-16 10:00:14
+-- Dump completed on 2019-01-27 13:20:39

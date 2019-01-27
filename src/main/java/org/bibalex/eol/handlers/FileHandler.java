@@ -196,11 +196,11 @@ public class FileHandler {
                 String eventDate = occ.getEventDate() == null ? null : "\"" + occ.getEventDate() + "\"";
                 String modifiedDate = occ.getModifiedDate() == null ? null : "\"" + occ.getModifiedDate() + "\"";
                 String locality = occ.getLocality() == null ? null : "\"" + String.valueOf(occ.getLocality()) + "\"";
-                String decimalLatitude = occ.getDecimalLatitude() == null ? null : "\"" + occ.getDecimalLatitude() + "\"";
-                String decimalLongitude = occ.getDecimalLongitude() == null ? null : "\"" + occ.getDecimalLongitude() + "\"";
-                String verbatimLatitude = occ.getVerbatimLatitude() == null ? null : "\"" + occ.getVerbatimLatitude() + "\"";
-                String verbatimLongitude = occ.getVerbatimLongitude() == null ? null : "\"" + occ.getVerbatimLongitude() + "\"";
-                String verbatimElevation = occ.getVerbatimElevation() == null ? null : "\"" + occ.getVerbatimElevation() + "\"";
+//                String decimalLatitude = occ.getDecimalLatitude() == null ? null : "\""+occ.getDecimalLatitude().replace("\"","\\\\\"")+"\"";
+//                String decimalLongitude = occ.getDecimalLongitude() == null ? null : "\""+occ.getDecimalLongitude().replace("\"","\\\\\"")+"\"";
+//                String verbatimLatitude = occ.getVerbatimLatitude() == null ? null : "\""+occ.getVerbatimLatitude().replace("\"","\\\\\"")+"\"";
+//                String verbatimLongitude = occ.getVerbatimLongitude() == null ? null : "\""+occ.getVerbatimLongitude().replace("\"","\\\\\"")+"\"";
+//                String verbatimElevation = occ.getVerbatimElevation() == null ? null : "\""+occ.getVerbatimElevation().replace("\"","\\\\\"")+"\"";
                 String deltaStatus = occ.getDeltaStatus() == null ? null : "\"" + occ.getDeltaStatus() + "\"";
 
                 traits.write("\"occurrenceId\":" + occurrenceId + ",\"eventId\":" + eventId + ",\"institutionCode\":" + institutionCode +
@@ -210,8 +210,8 @@ public class FileHandler {
                         ",\"preparations\":" + preparations + ",\"fieldNotes\":" + fieldNotes + ",\"samplingProtocol\":" + samplingProtocol +
                         ",\"samplingEffort\":" + samplingEffort + ",\"recordedBy\":" + recordedBy + ",\"identifiedBy\":" + identifiedBy +
                         ",\"dateIdentified\":" + dateIdentified + ",\"eventDate\":" + eventDate + ",\"modifiedDate\":" + modifiedDate +
-                        ",\"locality\":" + locality + ",\"decimalLatitude\":" + decimalLatitude + ",\"decimalLongitude\":" + decimalLongitude +
-                        ",\"verbatimLatitude\":" + verbatimLatitude + ",\"verbatimLongitude\":" + verbatimLongitude + ",\"verbatimElevation\":" + verbatimElevation +
+                        ",\"locality\":" + locality /*+ ",\"decimalLatitude\":" + decimalLatitude + ",\"decimalLongitude\":" + decimalLongitude +
+                        ",\"verbatimLatitude\":" + verbatimLatitude + ",\"verbatimLongitude\":" + verbatimLongitude + ",\"verbatimElevation\":" + verbatimElevation*/ +
                         ",\"deltaStatus\":" + deltaStatus
                 );
                 traits.write("}");
