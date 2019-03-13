@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.5.58, for debian-linux-gnu (x86_64)
+-- MySQL dump 10.13  Distrib 5.5.55, for debian-linux-gnu (x86_64)
 --
 -- Host: localhost    Database: ba_eol_development
 -- ------------------------------------------------------
--- Server version	5.5.58-0+deb8u1
+-- Server version	5.5.55-0+deb8u1
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -19,10 +19,10 @@
 -- Table structure for table `ar_internal_metadata`
 --
 
-
+DROP TABLE IF EXISTS `ar_internal_metadata`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE IF NOT EXISTS `ar_internal_metadata` (
+CREATE TABLE `ar_internal_metadata` (
   `key` varchar(255) NOT NULL,
   `value` varchar(255) DEFAULT NULL,
   `created_at` datetime NOT NULL,
@@ -35,10 +35,10 @@ CREATE TABLE IF NOT EXISTS `ar_internal_metadata` (
 -- Table structure for table `articles`
 --
 
-
+DROP TABLE IF EXISTS `articles`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE IF NOT EXISTS `articles` (
+CREATE TABLE `articles` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `owner` text,
   `resource_id` int(11) DEFAULT NULL,
@@ -72,10 +72,10 @@ CREATE TABLE IF NOT EXISTS `articles` (
 -- Table structure for table `articles_collected_pages`
 --
 
-
+DROP TABLE IF EXISTS `articles_collected_pages`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE IF NOT EXISTS `articles_collected_pages` (
+CREATE TABLE `articles_collected_pages` (
   `collected_page_id` bigint(20) NOT NULL,
   `article_id` bigint(20) NOT NULL,
   `position` int(11) DEFAULT NULL,
@@ -87,10 +87,10 @@ CREATE TABLE IF NOT EXISTS `articles_collected_pages` (
 -- Table structure for table `attributions`
 --
 
-
+DROP TABLE IF EXISTS `attributions`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE IF NOT EXISTS `attributions` (
+CREATE TABLE `attributions` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `content_id` int(11) DEFAULT NULL,
   `content_type` varchar(255) DEFAULT NULL,
@@ -106,17 +106,17 @@ CREATE TABLE IF NOT EXISTS `attributions` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `unique_attributions` (`value`(100),`content_id`,`content_type`),
   KEY `index_attributions_on_content_type` (`content_type`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Table structure for table `bibliographic_citations`
 --
 
-
+DROP TABLE IF EXISTS `bibliographic_citations`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE IF NOT EXISTS `bibliographic_citations` (
+CREATE TABLE `bibliographic_citations` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `resource_id` int(11) DEFAULT NULL,
   `body` text,
@@ -130,10 +130,10 @@ CREATE TABLE IF NOT EXISTS `bibliographic_citations` (
 -- Table structure for table `collected_pages`
 --
 
-
+DROP TABLE IF EXISTS `collected_pages`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE IF NOT EXISTS `collected_pages` (
+CREATE TABLE `collected_pages` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `collection_id` bigint(20) NOT NULL,
   `page_id` bigint(20) NOT NULL,
@@ -146,17 +146,17 @@ CREATE TABLE IF NOT EXISTS `collected_pages` (
   KEY `index_collected_pages_on_collection_id` (`collection_id`),
   KEY `index_collected_pages_on_page_id` (`page_id`),
   CONSTRAINT `fk_rails_46e24d72cf` FOREIGN KEY (`collection_id`) REFERENCES `collections` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Table structure for table `collected_pages_links`
 --
 
-
+DROP TABLE IF EXISTS `collected_pages_links`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE IF NOT EXISTS `collected_pages_links` (
+CREATE TABLE `collected_pages_links` (
   `collected_page_id` bigint(20) NOT NULL,
   `link_id` bigint(20) NOT NULL,
   `position` int(11) DEFAULT NULL,
@@ -168,10 +168,10 @@ CREATE TABLE IF NOT EXISTS `collected_pages_links` (
 -- Table structure for table `collected_pages_media`
 --
 
-
+DROP TABLE IF EXISTS `collected_pages_media`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE IF NOT EXISTS `collected_pages_media` (
+CREATE TABLE `collected_pages_media` (
   `collected_page_id` bigint(20) NOT NULL,
   `medium_id` bigint(20) NOT NULL,
   `position` int(11) DEFAULT NULL,
@@ -183,10 +183,10 @@ CREATE TABLE IF NOT EXISTS `collected_pages_media` (
 -- Table structure for table `collections`
 --
 
-
+DROP TABLE IF EXISTS `collections`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE IF NOT EXISTS `collections` (
+CREATE TABLE `collections` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
   `description` text,
@@ -197,17 +197,17 @@ CREATE TABLE IF NOT EXISTS `collections` (
   `collection_type` int(11) DEFAULT '0',
   `default_sort` int(11) DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Table structure for table `collections_users`
 --
 
-
+DROP TABLE IF EXISTS `collections_users`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE IF NOT EXISTS `collections_users` (
+CREATE TABLE `collections_users` (
   `collection_id` bigint(20) NOT NULL,
   `user_id` int(11) NOT NULL,
   `is_manager` tinyint(1) DEFAULT '0',
@@ -221,10 +221,10 @@ CREATE TABLE IF NOT EXISTS `collections_users` (
 -- Table structure for table `content_partner_users`
 --
 
-
+DROP TABLE IF EXISTS `content_partner_users`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE IF NOT EXISTS `content_partner_users` (
+CREATE TABLE `content_partner_users` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `user_id` bigint(20) DEFAULT NULL,
   `content_partner_id` int(11) DEFAULT NULL,
@@ -232,17 +232,17 @@ CREATE TABLE IF NOT EXISTS `content_partner_users` (
   `updated_at` datetime NOT NULL,
   PRIMARY KEY (`id`),
   KEY `index_content_partner_users_on_user_id` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Table structure for table `content_sections`
 --
 
-
+DROP TABLE IF EXISTS `content_sections`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE IF NOT EXISTS `content_sections` (
+CREATE TABLE `content_sections` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `section_id` bigint(20) DEFAULT NULL,
   `content_id` int(11) DEFAULT NULL,
@@ -259,10 +259,10 @@ CREATE TABLE IF NOT EXISTS `content_sections` (
 -- Table structure for table `harvest_time`
 --
 
-
+DROP TABLE IF EXISTS `harvest_time`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE IF NOT EXISTS `harvest_time` (
+CREATE TABLE `harvest_time` (
   `last_harvest_time` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -271,10 +271,10 @@ CREATE TABLE IF NOT EXISTS `harvest_time` (
 -- Table structure for table `image_info`
 --
 
-
+DROP TABLE IF EXISTS `image_info`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE IF NOT EXISTS `image_info` (
+CREATE TABLE `image_info` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `resource_id` int(11) DEFAULT NULL,
   `original_size` varchar(255) DEFAULT NULL,
@@ -295,10 +295,10 @@ CREATE TABLE IF NOT EXISTS `image_info` (
 -- Table structure for table `languages`
 --
 
-
+DROP TABLE IF EXISTS `languages`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE IF NOT EXISTS `languages` (
+CREATE TABLE `languages` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `code` varchar(255) DEFAULT NULL,
   `created_at` datetime NOT NULL,
@@ -306,17 +306,17 @@ CREATE TABLE IF NOT EXISTS `languages` (
   `group` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `code` (`code`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Table structure for table `licenses`
 --
 
-
+DROP TABLE IF EXISTS `licenses`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE IF NOT EXISTS `licenses` (
+CREATE TABLE `licenses` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `source_url` varchar(255) DEFAULT NULL,
   `name` varchar(255) DEFAULT NULL,
@@ -324,17 +324,17 @@ CREATE TABLE IF NOT EXISTS `licenses` (
   `updated_at` datetime NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `source_url` (`source_url`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Table structure for table `links`
 --
 
-
+DROP TABLE IF EXISTS `links`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE IF NOT EXISTS `links` (
+CREATE TABLE `links` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `description` text,
   `resource_id` int(11) DEFAULT NULL,
@@ -356,10 +356,10 @@ CREATE TABLE IF NOT EXISTS `links` (
 -- Table structure for table `locations`
 --
 
-
+DROP TABLE IF EXISTS `locations`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE IF NOT EXISTS `locations` (
+CREATE TABLE `locations` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `resource_id` int(11) DEFAULT NULL,
   `location` varchar(255) DEFAULT NULL,
@@ -378,10 +378,10 @@ CREATE TABLE IF NOT EXISTS `locations` (
 -- Table structure for table `media`
 --
 
-
+DROP TABLE IF EXISTS `media`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE IF NOT EXISTS `media` (
+CREATE TABLE `media` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `format` int(11) DEFAULT NULL,
   `description` text,
@@ -409,17 +409,17 @@ CREATE TABLE IF NOT EXISTS `media` (
   KEY `index_media_on_license_id` (`license_id`),
   KEY `index_media_on_location_id` (`location_id`),
   CONSTRAINT `fk_rails_15659d24cb` FOREIGN KEY (`bibliographic_citation_id`) REFERENCES `bibliographic_citations` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Table structure for table `node_ancestors`
 --
 
-
+DROP TABLE IF EXISTS `node_ancestors`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE IF NOT EXISTS `node_ancestors` (
+CREATE TABLE `node_ancestors` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `resource_id` int(11) NOT NULL,
   `node_id` int(11) DEFAULT NULL COMMENT 'the id of the descendant node',
@@ -442,13 +442,13 @@ CREATE TABLE IF NOT EXISTS `node_ancestors` (
 -- Table structure for table `nodes`
 --
 
-
+DROP TABLE IF EXISTS `nodes`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE IF NOT EXISTS `nodes` (
+CREATE TABLE `nodes` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `resource_id` int(11) DEFAULT NULL,
-  `scientific_name` varchar(255) DEFAULT NULL,
+  `scientific_name` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
   `canonical_form` varchar(255) DEFAULT NULL,
   `generated_node_id` int(11) DEFAULT NULL,
   `resource_pk` varchar(255) DEFAULT NULL,
@@ -460,17 +460,17 @@ CREATE TABLE IF NOT EXISTS `nodes` (
   UNIQUE KEY `genrated_node_id` (`generated_node_id`),
   KEY `index_nodes_on_generated_node_id` (`generated_node_id`),
   KEY `index_nodes_on_rank_id` (`rank_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Table structure for table `occurrence_page_mappings`
 --
 
-
+DROP TABLE IF EXISTS `occurrence_page_mappings`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE IF NOT EXISTS `occurrence_page_mappings` (
+CREATE TABLE `occurrence_page_mappings` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `resource_id` int(11) DEFAULT NULL,
   `occurrence_id` varchar(255) DEFAULT NULL,
@@ -485,10 +485,10 @@ CREATE TABLE IF NOT EXISTS `occurrence_page_mappings` (
 -- Table structure for table `page_contents`
 --
 
-
+DROP TABLE IF EXISTS `page_contents`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE IF NOT EXISTS `page_contents` (
+CREATE TABLE `page_contents` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `resource_id` int(11) DEFAULT NULL,
   `content_type` varchar(255) DEFAULT NULL,
@@ -507,17 +507,17 @@ CREATE TABLE IF NOT EXISTS `page_contents` (
   UNIQUE KEY `unique_page_contents` (`page_id`,`content_id`,`content_type`),
   KEY `index_page_contents_on_content_type` (`content_type`),
   KEY `index_page_contents_on_page_id` (`page_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Table structure for table `pages`
 --
 
-
+DROP TABLE IF EXISTS `pages`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE IF NOT EXISTS `pages` (
+CREATE TABLE `pages` (
   `id` int(11) NOT NULL,
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
@@ -527,6 +527,7 @@ CREATE TABLE IF NOT EXISTS `pages` (
   `updated` tinyint(1) DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `index_pages_on_medium_id` (`medium_id`),
+  KEY `update_index` (`updated`),
   CONSTRAINT `fk_rails_2fb456954f` FOREIGN KEY (`medium_id`) REFERENCES `media` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -535,10 +536,10 @@ CREATE TABLE IF NOT EXISTS `pages` (
 -- Table structure for table `pages_nodes`
 --
 
-
+DROP TABLE IF EXISTS `pages_nodes`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE IF NOT EXISTS `pages_nodes` (
+CREATE TABLE `pages_nodes` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `page_id` bigint(20) DEFAULT NULL,
   `node_id` bigint(20) DEFAULT NULL,
@@ -548,18 +549,19 @@ CREATE TABLE IF NOT EXISTS `pages_nodes` (
   `updated` tinyint(1) DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `index_pages_nodes_on_page_id` (`page_id`),
-  KEY `index_pages_nodes_on_node_id` (`node_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+  KEY `index_pages_nodes_on_node_id` (`node_id`),
+  KEY `update_index` (`updated`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Table structure for table `pages_referents`
 --
 
-
+DROP TABLE IF EXISTS `pages_referents`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE IF NOT EXISTS `pages_referents` (
+CREATE TABLE `pages_referents` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `page_id` int(11) DEFAULT NULL,
   `referent_id` int(11) DEFAULT NULL,
@@ -574,27 +576,27 @@ CREATE TABLE IF NOT EXISTS `pages_referents` (
 -- Table structure for table `ranks`
 --
 
-
+DROP TABLE IF EXISTS `ranks`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE IF NOT EXISTS `ranks` (
+CREATE TABLE `ranks` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) DEFAULT NULL,
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `rank_name` (`name`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Table structure for table `references`
 --
 
-
+DROP TABLE IF EXISTS `references`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE IF NOT EXISTS `references` (
+CREATE TABLE `references` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `parent_id` int(11) DEFAULT NULL,
   `parent_type` varchar(255) DEFAULT NULL,
@@ -613,10 +615,10 @@ CREATE TABLE IF NOT EXISTS `references` (
 -- Table structure for table `referents`
 --
 
-
+DROP TABLE IF EXISTS `referents`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE IF NOT EXISTS `referents` (
+CREATE TABLE `referents` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `primary_title` varchar(255) DEFAULT NULL,
   `secondary_title` varchar(255) DEFAULT NULL,
@@ -644,10 +646,10 @@ CREATE TABLE IF NOT EXISTS `referents` (
 -- Table structure for table `refinery_image_translations`
 --
 
-
+DROP TABLE IF EXISTS `refinery_image_translations`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE IF NOT EXISTS `refinery_image_translations` (
+CREATE TABLE `refinery_image_translations` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `refinery_image_id` int(11) NOT NULL,
   `locale` varchar(255) NOT NULL,
@@ -665,10 +667,10 @@ CREATE TABLE IF NOT EXISTS `refinery_image_translations` (
 -- Table structure for table `refinery_images`
 --
 
-
+DROP TABLE IF EXISTS `refinery_images`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE IF NOT EXISTS `refinery_images` (
+CREATE TABLE `refinery_images` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `image_mime_type` varchar(255) DEFAULT NULL,
   `image_name` varchar(255) DEFAULT NULL,
@@ -686,10 +688,10 @@ CREATE TABLE IF NOT EXISTS `refinery_images` (
 -- Table structure for table `refinery_page_part_translations`
 --
 
-
+DROP TABLE IF EXISTS `refinery_page_part_translations`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE IF NOT EXISTS `refinery_page_part_translations` (
+CREATE TABLE `refinery_page_part_translations` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `refinery_page_part_id` int(11) NOT NULL,
   `locale` varchar(255) NOT NULL,
@@ -699,17 +701,17 @@ CREATE TABLE IF NOT EXISTS `refinery_page_part_translations` (
   PRIMARY KEY (`id`),
   KEY `index_refinery_page_part_translations_on_refinery_page_part_id` (`refinery_page_part_id`),
   KEY `index_refinery_page_part_translations_on_locale` (`locale`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Table structure for table `refinery_page_parts`
 --
 
-
+DROP TABLE IF EXISTS `refinery_page_parts`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE IF NOT EXISTS `refinery_page_parts` (
+CREATE TABLE `refinery_page_parts` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `refinery_page_id` int(11) DEFAULT NULL,
   `slug` varchar(255) DEFAULT NULL,
@@ -720,17 +722,17 @@ CREATE TABLE IF NOT EXISTS `refinery_page_parts` (
   PRIMARY KEY (`id`),
   KEY `index_refinery_page_parts_on_id` (`id`),
   KEY `index_refinery_page_parts_on_refinery_page_id` (`refinery_page_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Table structure for table `refinery_page_translations`
 --
 
-
+DROP TABLE IF EXISTS `refinery_page_translations`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE IF NOT EXISTS `refinery_page_translations` (
+CREATE TABLE `refinery_page_translations` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `refinery_page_id` int(11) NOT NULL,
   `locale` varchar(255) NOT NULL,
@@ -743,17 +745,17 @@ CREATE TABLE IF NOT EXISTS `refinery_page_translations` (
   PRIMARY KEY (`id`),
   KEY `index_refinery_page_translations_on_refinery_page_id` (`refinery_page_id`),
   KEY `index_refinery_page_translations_on_locale` (`locale`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Table structure for table `refinery_pages`
 --
 
-
+DROP TABLE IF EXISTS `refinery_pages`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE IF NOT EXISTS `refinery_pages` (
+CREATE TABLE `refinery_pages` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `parent_id` int(11) DEFAULT NULL,
   `path` varchar(255) DEFAULT NULL,
@@ -778,17 +780,17 @@ CREATE TABLE IF NOT EXISTS `refinery_pages` (
   KEY `index_refinery_pages_on_lft` (`lft`),
   KEY `index_refinery_pages_on_parent_id` (`parent_id`),
   KEY `index_refinery_pages_on_rgt` (`rgt`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Table structure for table `refinery_resource_translations`
 --
 
-
+DROP TABLE IF EXISTS `refinery_resource_translations`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE IF NOT EXISTS `refinery_resource_translations` (
+CREATE TABLE `refinery_resource_translations` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `refinery_resource_id` int(11) NOT NULL,
   `locale` varchar(255) NOT NULL,
@@ -805,10 +807,10 @@ CREATE TABLE IF NOT EXISTS `refinery_resource_translations` (
 -- Table structure for table `refinery_resources`
 --
 
-
+DROP TABLE IF EXISTS `refinery_resources`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE IF NOT EXISTS `refinery_resources` (
+CREATE TABLE `refinery_resources` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `file_mime_type` varchar(255) DEFAULT NULL,
   `file_name` varchar(255) DEFAULT NULL,
@@ -825,10 +827,10 @@ CREATE TABLE IF NOT EXISTS `refinery_resources` (
 -- Table structure for table `schema_migrations`
 --
 
-
+DROP TABLE IF EXISTS `schema_migrations`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE IF NOT EXISTS `schema_migrations` (
+CREATE TABLE `schema_migrations` (
   `version` varchar(255) NOT NULL,
   PRIMARY KEY (`version`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -838,10 +840,10 @@ CREATE TABLE IF NOT EXISTS `schema_migrations` (
 -- Table structure for table `scientific_names`
 --
 
-
+DROP TABLE IF EXISTS `scientific_names`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE IF NOT EXISTS `scientific_names` (
+CREATE TABLE `scientific_names` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `resource_id` int(11) DEFAULT NULL,
   `canonical_form` varchar(255) DEFAULT NULL,
@@ -860,18 +862,19 @@ CREATE TABLE IF NOT EXISTS `scientific_names` (
   KEY `index_scientific_names_on_generated_node_id` (`generated_node_id`),
   KEY `index_scientific_names_on_node_id` (`node_id`),
   KEY `index_scientific_names_on_page_id` (`page_id`),
-  KEY `index_scientific_names_on_taxonomic_status_id` (`taxonomic_status_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+  KEY `index_scientific_names_on_taxonomic_status_id` (`taxonomic_status_id`),
+  KEY `update_index` (`updated`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Table structure for table `sections`
 --
 
-
+DROP TABLE IF EXISTS `sections`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE IF NOT EXISTS `sections` (
+CREATE TABLE `sections` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `parent_id` int(11) DEFAULT NULL,
   `position` int(11) DEFAULT NULL,
@@ -886,10 +889,10 @@ CREATE TABLE IF NOT EXISTS `sections` (
 -- Table structure for table `seo_meta`
 --
 
-
+DROP TABLE IF EXISTS `seo_meta`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE IF NOT EXISTS `seo_meta` (
+CREATE TABLE `seo_meta` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `seo_meta_id` int(11) DEFAULT NULL,
   `seo_meta_type` varchar(255) DEFAULT NULL,
@@ -900,17 +903,40 @@ CREATE TABLE IF NOT EXISTS `seo_meta` (
   PRIMARY KEY (`id`),
   KEY `index_seo_meta_on_id` (`id`),
   KEY `id_type_index_on_seo_meta` (`seo_meta_id`,`seo_meta_type`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `taxa`
+--
+
+DROP TABLE IF EXISTS `taxa`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `taxa` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `generated_node_id` int(11) NOT NULL,
+  `page_eol_id` int(11) DEFAULT NULL,
+  `dataset_id` varchar(255) DEFAULT NULL,
+  `source` varchar(255) DEFAULT NULL,
+  `occurrences` longtext,
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  `scientific_name` varchar(255) DEFAULT NULL,
+  `resource_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `index_on_generated_node_id` (`generated_node_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Table structure for table `taxonomic_statuses`
 --
 
-
+DROP TABLE IF EXISTS `taxonomic_statuses`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE IF NOT EXISTS `taxonomic_statuses` (
+CREATE TABLE `taxonomic_statuses` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) DEFAULT NULL,
   `is_preferred` tinyint(1) DEFAULT NULL,
@@ -927,14 +953,14 @@ CREATE TABLE IF NOT EXISTS `taxonomic_statuses` (
 -- Table structure for table `traits`
 --
 
-
+DROP TABLE IF EXISTS `traits`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE IF NOT EXISTS `traits` (
+CREATE TABLE `traits` (
   `generated_node_id` int(11) NOT NULL DEFAULT '0',
-  `occurrences` text,
-  `associations` text,
-  `measurement_or_facts` text,
+  `occurrences` longtext,
+  `associations` longtext,
+  `measurement_or_facts` longtext,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`generated_node_id`)
@@ -945,10 +971,10 @@ CREATE TABLE IF NOT EXISTS `traits` (
 -- Table structure for table `user_providers`
 --
 
-
+DROP TABLE IF EXISTS `user_providers`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE IF NOT EXISTS `user_providers` (
+CREATE TABLE `user_providers` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `user_id` bigint(20) DEFAULT NULL,
   `provider` varchar(255) DEFAULT NULL,
@@ -964,10 +990,10 @@ CREATE TABLE IF NOT EXISTS `user_providers` (
 -- Table structure for table `users`
 --
 
-
+DROP TABLE IF EXISTS `users`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE IF NOT EXISTS `users` (
+CREATE TABLE `users` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `email` varchar(255) NOT NULL DEFAULT '',
   `encrypted_password` varchar(255) NOT NULL DEFAULT '',
@@ -995,19 +1021,19 @@ CREATE TABLE IF NOT EXISTS `users` (
   UNIQUE KEY `index_users_on_reset_password_token` (`reset_password_token`),
   UNIQUE KEY `index_users_on_confirmation_token` (`confirmation_token`),
   UNIQUE KEY `index_users_on_unlock_token` (`unlock_token`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Table structure for table `vernaculars`
 --
 
-
+DROP TABLE IF EXISTS `vernaculars`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE IF NOT EXISTS `vernaculars` (
+CREATE TABLE `vernaculars` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `string` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
+  `string` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
   `resource_id` int(11) DEFAULT NULL,
   `is_prefered_by_resource` tinyint(1) DEFAULT NULL,
   `generated_node_id` int(11) DEFAULT NULL,
@@ -1018,12 +1044,13 @@ CREATE TABLE IF NOT EXISTS `vernaculars` (
   `language_id` bigint(20) DEFAULT NULL,
   `updated` tinyint(1) DEFAULT '0',
   PRIMARY KEY (`id`),
-  UNIQUE KEY `unique_vernacular` (`generated_node_id`,`string`,`language_id`),
+  UNIQUE KEY `unique_vernacular` (`generated_node_id`,`string`),
   KEY `index_vernaculars_on_generated_node_id` (`generated_node_id`),
   KEY `index_vernaculars_on_node_id` (`node_id`),
   KEY `index_vernaculars_on_page_id` (`page_id`),
-  KEY `index_vernaculars_on_language_id` (`language_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  KEY `index_vernaculars_on_language_id` (`language_id`),
+  KEY `update_index` (`updated`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1323,6 +1350,25 @@ DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `getTaxa` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = '' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `getTaxa`(in start_date datetime, in end_date datetime)
+BEGIN
+	select generated_node_id, page_eol_id, scientific_name, dataset_id, source, occurrences, resource_id from taxa where created_at >= start_date and created_at < end_date;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!50003 DROP PROCEDURE IF EXISTS `getTraits` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
@@ -1372,7 +1418,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `insertAgent`(in resource_id_p int, in content_id_p int, in content_type_p varchar(255), in role_name_p varchar(255), in url_p varchar(255), in resource_pk_p varchar(255), 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `insertAgent`(in resource_id_p int, in content_id_p int, in content_type_p varchar(255), in role_name_p varchar(255), in url_p varchar(255), in resource_pk_p varchar(255),
 in value_p text, in content_resource_fk_p varchar(255), in created_at_p datetime, in updated_at_p datetime)
 BEGIN
 	INSERT INTO attributions (resource_id, content_id,  content_type, role_name, url, resource_pk, value, content_resource_fk, created_at, updated_at)
@@ -1468,7 +1514,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `insertMedium`(in format_p varchar(255), in description_p text, in owner_p text, in resource_id_p int, 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `insertMedium`(in format_p varchar(255), in description_p text, in owner_p text, in resource_id_p int,
 in guid_p varchar(255), in resource_pk_p varchar(255), in source_page_url_p varchar(255), in language_id_p int, in license_id_p int, in location_id_p int, in base_url_p varchar(255), in created_at_p datetime, in updated_at_p datetime, out medium_id int)
 BEGIN
 	INSERT INTO media (format, description, owner, resource_id, guid, resource_pk, source_page_url, language_id, license_id, location_id, base_url, created_at, updated_at)
@@ -1714,4 +1760,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-12-17  9:36:46
+-- Dump completed on 2019-01-27 13:20:39
