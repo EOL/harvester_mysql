@@ -2,6 +2,7 @@ package org.bibalex.eol.models;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Map;
 
 /*
 This class will include the needed objects and attributes
@@ -13,6 +14,7 @@ public class NodeRecord implements Serializable {
     ArrayList<Occurrence> occurrences;
     ArrayList<Association> associations;
     ArrayList<MeasurementOrFact> measurementOrFacts;
+    Map<String, String> targetOccurrences;
 //    String occurrences;
 //    String associations;
 //    String measurementOrFacts;
@@ -63,6 +65,14 @@ public class NodeRecord implements Serializable {
 
     public void setMeasurementOrFacts(ArrayList<MeasurementOrFact> measurementOrFacts) {
         this.measurementOrFacts = measurementOrFacts;
+    }
+
+    public Map<String, String> getTargetOccurrences() {
+        return this.targetOccurrences;
+    }
+
+    public void setTargetOccurrences(Map<String, String> targetOccurrences) {
+        this.targetOccurrences = targetOccurrences;
     }
 
     public String getGeneratedNodeId() {

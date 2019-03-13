@@ -7,6 +7,8 @@ import javax.persistence.EntityManager;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.Map;
 import java.util.UUID;
 
 public class FileHandler {
@@ -157,7 +159,7 @@ public class FileHandler {
     }
 
     public void writeTraitsToFile(NodeRecord tableRecord , int generated_node_id)  {
-        if(tableRecord.getOccurrences() != null || tableRecord.getAssociations()!=null || tableRecord.getMeasurementOrFacts() != null) {
+        if(tableRecord.getOccurrences() != null || tableRecord.getAssociations()!=null || tableRecord.getMeasurementOrFacts() != null || tableRecord.getTargetOccurrences() != null) {
             try {
                 String date= DateHelper.getDate();
                 System.out.println(generated_node_id);
@@ -174,6 +176,10 @@ public class FileHandler {
                 //            measurements
                 if (tableRecord.getMeasurementOrFacts() != null)
                     writeMeasurementOrFactsToFile(tableRecord);
+                traits.write("\t");
+                //         targetOccurrences
+                if (tableRecord.getTargetOccurrences() != null)
+                    writeTargetOccurrencesToFile(tableRecord);
                 traits.write("\t"+date+"\t"+date);
                 traits.write("\n");
                 traits_count++;
@@ -326,6 +332,34 @@ public class FileHandler {
                 System.err.println("IOException: " + ioe.getMessage());}
 
         }
+    }
+
+    public  void writeTargetOccurrencesToFile(NodeRecord tableRecord)
+    {
+//        ArrayList<String> keys= (ArrayList<String>) tableRecord.getTargetOccurrences().keySet();
+//        ArrayList<String> values= (ArrayList<String>) tableRecord.getTargetOccurrences().values();
+        Iterator<Map.Entry<String, String>> it = tableRecord.getTargetOccurrences().entrySet().iterator();
+        try {
+            traits.write("{");
+            while (it.hasNext()) {
+                Map.Entry<String, String> pair = (Map.Entry<String, String>) it.next();
+    //            System.out.println(pair.getKey() + " = " + pair.getValue());
+                String targetOccurrenceId =  "\"" + pair.getKey() + "\":";
+                String objectPageId = "\"" + pair.getValue() + "\"";
+
+    //                traits.write("{");
+                    traits.write( targetOccurrenceId + objectPageId);
+    //                traits.write("}");
+                    if(it.hasNext())
+                    {
+                        traits.write(",");
+                    }
+
+            }
+            traits.write("}");
+        }catch (IOException ioe) {
+            System.err.println("IOException: " + ioe.getMessage());}
+
     }
 
     public void  writeMediaToFile(NodeRecord tableRecord){

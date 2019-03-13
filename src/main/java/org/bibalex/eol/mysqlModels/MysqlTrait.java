@@ -5,11 +5,13 @@ public class MysqlTrait {
     String occurrences;
     String associations;
     String measurementOrFacts;
-    public MysqlTrait(int generated_node_id, String occurrences, String associations, String measurementOrFacts){
+    String targetOccurrences;
+    public MysqlTrait(int generated_node_id, String occurrences, String associations, String measurementOrFacts, String targetOccurrences){
         this.generated_node_id = generated_node_id;
         this.occurrences = occurrences;
         this.associations = associations;
         this.measurementOrFacts = measurementOrFacts;
+        this.targetOccurrences = targetOccurrences;
     }
 
     public int getGenerated_node_id() {
@@ -42,5 +44,13 @@ public class MysqlTrait {
 
     public void setMeasurementOrFacts(String measurementOrFacts) {
         this.measurementOrFacts = measurementOrFacts;
+    }
+
+    public void setTargetOccurrences(String targetOccurrences) {
+        this.targetOccurrences = targetOccurrences;
+    }
+
+    public String getTargetOccurrences() {
+        return targetOccurrences;
     }
 }

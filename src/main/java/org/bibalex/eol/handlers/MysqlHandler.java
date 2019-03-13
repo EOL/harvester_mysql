@@ -389,7 +389,7 @@ public class MysqlHandler {
         ArrayList<MysqlTrait> traits = new ArrayList<>();
         while (it.hasNext()) {
             Object[] line = (Object[]) it.next();
-            MysqlTrait trait = new MysqlTrait((int) line[0], (String) line[1], (String) line[2], (String) line[3]);
+            MysqlTrait trait = new MysqlTrait((int) line[0], (String) line[1], (String) line[2], (String) line[3], (String) line[4]);
             traits.add(trait);
         }
 
@@ -955,7 +955,7 @@ public class MysqlHandler {
             transaction_query.executeUpdate();
             Query query = entityManager.createNativeQuery("LOAD DATA INFILE '" + PropertiesHandler.getProperty("mysqlFiles") + "traits.txt" +
                     "' ignore into table traits FIELDS TERMINATED BY '\t' LINES TERMINATED BY '\n'" +
-                    "(generated_node_id,occurrences,associations,measurement_or_facts,created_at,updated_at);");
+                    "(generated_node_id,occurrences,associations,measurement_or_facts,target_occurrences,created_at,updated_at);");
             query.executeUpdate();
 
             Query commit_query =entityManager.createNativeQuery("commit;");
