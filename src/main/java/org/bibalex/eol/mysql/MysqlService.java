@@ -1,10 +1,11 @@
 package org.bibalex.eol.mysql;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.bibalex.eol.handlers.FileHandler;
 import org.bibalex.eol.handlers.MysqlHandler;
 import org.bibalex.eol.handlers.PropertiesHandler;
 import org.bibalex.eol.models.NodeRecord;
-import org.bibalex.eol.models.Occurrence;
 import org.bibalex.eol.mysqlModels.MysqlData;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,11 +13,12 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Date;
 
 @Service
 public class MysqlService {
+
+    private static Logger logger = LogManager.getLogger(MysqlService.class);
 
     @PersistenceContext
     private EntityManager entityManager;
@@ -26,13 +28,13 @@ public class MysqlService {
         try {
             PropertiesHandler.initializeProperties();
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.error("IOException: ", e);
         }
-        boolean done =true;
+        boolean done = true;
         FileHandler fileHandler = new FileHandler(entityManager, nodeRecords[0].getResourceId());
-        for(int i=0; i< nodeRecords.length;i++){
-            boolean addRecord =addEntry(nodeRecords[i], fileHandler);
-            done = done&&addRecord;
+        for (int i = 0; i < nodeRecords.length; i++) {
+            boolean addRecord = addEntry(nodeRecords[i], fileHandler);
+            done = done && addRecord;
         }
         fileHandler.printCounts();
         fileHandler.close();
@@ -44,10 +46,10 @@ public class MysqlService {
     }
 
     public boolean addEntry(NodeRecord nodeRecord, FileHandler fileHandler) {
-        try{
+        try {
             fileHandler.writeRankToFile(nodeRecord);
             fileHandler.writeNodeToMysql(nodeRecord);
-            if(nodeRecord.getTaxon().getPageEolId() != null && nodeRecord.getTaxon().getPageEolId()!= "0" ){
+            if (nodeRecord.getTaxon().getPageEolId() != null && nodeRecord.getTaxon().getPageEolId() != "0") {
 
                 fileHandler.writePageToFile(nodeRecord);
                 fileHandler.writePagesNodesToFile(Integer.valueOf(nodeRecord.getGeneratedNodeId()), Integer.valueOf(nodeRecord.getTaxon().getPageEolId()));
@@ -55,15 +57,15 @@ public class MysqlService {
                 fileHandler.writeTraitsToFile(nodeRecord, Integer.valueOf(nodeRecord.getGeneratedNodeId()));
                 fileHandler.writeTaxonToFile(nodeRecord);
 
-                if(nodeRecord.getVernaculars()!= null)
+                if (nodeRecord.getVernaculars() != null)
                     fileHandler.writeVernacularsToFile(nodeRecord, Integer.valueOf(nodeRecord.getGeneratedNodeId()));
-                if(nodeRecord.getMedia() != null)
+                if (nodeRecord.getMedia() != null)
                     fileHandler.writeMediaToFile(nodeRecord);
 
             }
             return true;
-        }catch(Exception e){
-            e.printStackTrace();
+        } catch (Exception e) {
+            logger.error("Exception: ", e);
             return false;
         }
     }
@@ -93,7 +95,7 @@ public class MysqlService {
         return mysqlData;
     }
 
-    public Date getEndTime(){
+    public Date getEndTime() {
         MysqlHandler mysqlHandler = new MysqlHandler(entityManager);
         Date endTime = mysqlHandler.getEndTime();
         return endTime;
@@ -102,7 +104,7 @@ public class MysqlService {
     public boolean loadFilesToMysql() {
         try {
             PropertiesHandler.initializeProperties();
-            MysqlHandler mysqlHandler=new MysqlHandler(entityManager);
+            MysqlHandler mysqlHandler = new MysqlHandler(entityManager);
             mysqlHandler.loadRanks();
             mysqlHandler.loadNodes();
             mysqlHandler.loadPages();
@@ -121,7 +123,7 @@ public class MysqlService {
             mysqlHandler.loadTraits();
             mysqlHandler.loadTaxa();
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.error("IOException: ", e);
         }
 
         return true;

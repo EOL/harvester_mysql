@@ -1,6 +1,7 @@
 package org.bibalex.eol.handlers;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.globalnames.parser.ScientificNameParser;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -16,11 +17,10 @@ import java.util.Date;
 public class GlobalNamesHandler {
 
     private JSONParser parser;
-    private static Logger logger;
+    private static Logger logger = LogManager.getLogger(GlobalNamesHandler.class);
 
     public GlobalNamesHandler(){
         parser = new JSONParser();
-        logger = Logger.getLogger(GlobalNamesHandler.class);
     }
 
     private JSONObject getParsedJson(String name){
@@ -30,7 +30,8 @@ public class GlobalNamesHandler {
         try {
             return (JSONObject)parser.parse(jsonStr);
         } catch (ParseException e) {
-            e.printStackTrace();
+//            e.printStackTrace();
+            logger.error("Parse Exception: ", e);
         }
         return null;
     }
@@ -63,14 +64,14 @@ public class GlobalNamesHandler {
             for (int i = 0; i < nameParts.size(); i++) {
                 JSONArray partArray = (JSONArray) nameParts.get(i);
                 if (partArray.get(0).toString().contains("author")) {
-                    System.out.println("has authority");
-                    logger.info("name: " + name + " has authorship");
+//                    System.out.println("has authority");
+                    logger.info("Name: " + name + " Has Authorship");
                     return true;
                 }
             }
         }
-        logger.info("name: " + name + " doesnot have authority");
-        System.out.println("will return false");
+        logger.info("Name: " + name + " Has No Authorship");
+//        System.out.println("will return false");
         return false;
     }
 

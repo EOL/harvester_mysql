@@ -1,5 +1,7 @@
 package org.bibalex.eol.handlers;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.bibalex.eol.mysqlModels.*;
 
 import javax.persistence.EntityManager;
@@ -14,6 +16,7 @@ import java.util.*;
 public class MysqlHandler {
 
     private EntityManager entityManager;
+    private static Logger logger = LogManager.getLogger(MysqlHandler.class);
 
     public MysqlHandler(EntityManager entityManager) {
         this.entityManager = entityManager;
@@ -39,7 +42,11 @@ public class MysqlHandler {
             MysqlRank rank = new MysqlRank((BigInteger) line[0], (String) line[1]);
             ranks.add(rank);
         }
-
+        logger.debug("Start Date: " + startDate);
+        logger.debug("End Date: " + endDate);
+        logger.debug("Ranks: ");
+        for(int i =0; i<ranks.size(); i++)
+            logger.debug(ranks.get(i).getName());
         return ranks;
 
     }
@@ -63,7 +70,11 @@ public class MysqlHandler {
             MysqlNode node = new MysqlNode((BigInteger) line[0], (Integer) line[1], (String) line[2], (String) line[3], (Integer) line[4], (String) line[5], (Integer) line[6], (BigInteger) line[7]);
             nodes.add(node);
         }
-
+        logger.debug("Start Date: " + startDate);
+        logger.debug("End Date: " + endDate);
+        logger.debug("Nodes: ");
+        for(int i =0; i<nodes.size(); i++)
+            logger.debug(nodes.get(i).getGenerated_node_id());
         return nodes;
     }
 
@@ -86,7 +97,11 @@ public class MysqlHandler {
             MysqlPage page = new MysqlPage((Integer) line[0], (Integer) line[1], (BigInteger) line[2]);
             pages.add(page);
         }
-
+        logger.debug("Start Date: " + startDate);
+        logger.debug("End Date: " + endDate);
+        logger.debug("Pages: ");
+        for(int i =0; i<pages.size(); i++)
+            logger.debug(pages.get(i).getId());
         return pages;
     }
 
@@ -109,7 +124,11 @@ public class MysqlHandler {
             MysqlPagesNode pages_node = new MysqlPagesNode((BigInteger) line[0], (BigInteger) line[1], (BigInteger) line[2], (Boolean) line[3]);
             pages_nodes.add(pages_node);
         }
-
+        logger.debug("Start Date: " + startDate);
+        logger.debug("End Date: " + endDate);
+        logger.debug("Pages Nodes: ");
+        for(int i =0; i<pages_nodes.size(); i++)
+            logger.debug("Page ID: " + pages_nodes.get(i).getPage_id() + ", Node ID: " + pages_nodes.get(i).getNode_id());
         return pages_nodes;
     }
 
@@ -132,7 +151,11 @@ public class MysqlHandler {
             MysqlScientificName scientific_name = new MysqlScientificName((BigInteger) line[0], (Integer) line[1], (String) line[2], (String) line[3], (String) line[4], (Integer) line[5], (Boolean) line[6], (BigInteger) line[7], (BigInteger) line[8], (BigInteger) line[9]);
             scientific_names.add(scientific_name);
         }
-
+        logger.debug("Start Date: " + startDate);
+        logger.debug("End Date: " + endDate);
+        logger.debug("Scientific Names: ");
+        for(int i =0; i<scientific_names.size(); i++)
+            logger.debug(scientific_names.get(i).getCanonical_form());
         return scientific_names;
     }
 
@@ -155,7 +178,11 @@ public class MysqlHandler {
             MysqlLanguage language = new MysqlLanguage((BigInteger) line[0], (String) line[1], (String) line[2]);
             languages.add(language);
         }
-
+        logger.debug("Start Date: " + startDate);
+        logger.debug("End Date: " + endDate);
+        logger.debug("Languages: ");
+        for(int i =0; i<languages.size(); i++)
+            logger.debug(languages.get(i).getCode());
         return languages;
     }
 
@@ -178,7 +205,11 @@ public class MysqlHandler {
             MysqlVernacular vernacular = new MysqlVernacular((BigInteger) line[0], (String) line[1], (Integer) line[2], (Boolean) line[3], (Integer) line[4], (BigInteger) line[5], (BigInteger) line[6], (BigInteger) line[7]);
             vernaculars.add(vernacular);
         }
-
+        logger.debug("Start Date: " + startDate);
+        logger.debug("End Date: " + endDate);
+        logger.debug("Vernaculars: ");
+        for(int i =0; i<vernaculars.size(); i++)
+            logger.debug(vernaculars.get(i).getString());
         return vernaculars;
     }
 
@@ -201,7 +232,11 @@ public class MysqlHandler {
             MysqlLicense license = new MysqlLicense((BigInteger) line[0], (String) line[1], (String) line[2]);
             licenses.add(license);
         }
-
+        logger.debug("Start Date: " + startDate);
+        logger.debug("End Date: " + endDate);
+        logger.debug("Licenses: ");
+        for(int i =0; i<licenses.size(); i++)
+            logger.debug(licenses.get(i).getName());
         return licenses;
     }
 
@@ -224,7 +259,11 @@ public class MysqlHandler {
             MysqlLocation location = new MysqlLocation((BigInteger) line[0], (Integer) line[1], (String) line[2], (float) line[3], (float) line[4], (float) line[5], (String) line[6]);
             locations.add(location);
         }
-
+        logger.debug("Start Date: " + startDate);
+        logger.debug("End Date: " + endDate);
+        logger.debug("Locations: ");
+        for(int i =0; i<locations.size(); i++)
+            logger.debug(locations.get(i).getId());
         return locations;
     }
 
@@ -249,7 +288,11 @@ public class MysqlHandler {
                     (BigInteger) line[15], (BigInteger) line[16], (BigInteger) line[17]);
             media.add(location);
         }
-
+        logger.debug("Start Date: " + startDate);
+        logger.debug("End Date: " + endDate);
+        logger.debug("Media: ");
+        for(int i =0; i<media.size(); i++)
+            logger.debug(media.get(i).getBase_url());
         return media;
     }
 
@@ -274,7 +317,11 @@ public class MysqlHandler {
                     (BigInteger) line[9], (BigInteger) line[10], (BigInteger) line[11], (BigInteger) line[12], (String) line[13]);
             articles.add(location);
         }
-
+        logger.debug("Start Date: " + startDate);
+        logger.debug("End Date: " + endDate);
+        logger.debug("Articles: ");
+        for(int i =0; i<articles.size(); i++)
+            logger.debug(articles.get(i).getName());
         return articles;
     }
 
@@ -298,7 +345,11 @@ public class MysqlHandler {
                     (Boolean) line[7], (Boolean) line[8], (BigInteger) line[9], (Integer) line[10]);
             page_contents.add(page_content);
         }
-
+        logger.debug("Start Date: " + startDate);
+        logger.debug("End Date: " + endDate);
+        logger.debug("Pages Contents: ");
+        for(int i =0; i<page_contents.size(); i++)
+            logger.debug("Page ID: " + page_contents.get(i).getPage_id() + ", Content ID: " + page_contents.get(i).getContent_id());
         return page_contents;
     }
 
@@ -321,7 +372,11 @@ public class MysqlHandler {
             MysqlAgent agent = new MysqlAgent((BigInteger) line[0], (Integer) line[1], (String) line[2], (String) line[3], (String) line[4], (String) line[5], (Integer) line[6], (String) line[7], (String) line[8]);
             agents.add(agent);
         }
-
+        logger.debug("Start Date: " + startDate);
+        logger.debug("End Date: " + endDate);
+        logger.debug("Agents: ");
+        for(int i =0; i<agents.size(); i++)
+            logger.debug(agents.get(i).getId());
         return agents;
     }
 
@@ -345,7 +400,11 @@ public class MysqlHandler {
                     (String) line[9], (String) line[10], (Date) line[11], (String) line[12], (String) line[13], (Integer) line[14], (String) line[15]);
             referents.add(referent);
         }
-
+        logger.debug("Start Date: " + startDate);
+        logger.debug("End Date: " + endDate);
+        logger.debug("Referents: ");
+        for(int i =0; i<referents.size(); i++)
+            logger.debug(referents.get(i).getId());
         return referents;
     }
 
@@ -368,7 +427,11 @@ public class MysqlHandler {
             MysqlReference reference = new MysqlReference((BigInteger) line[0], (Integer) line[1], (String) line[2], (Integer) line[3], (Integer) line[4]);
             references.add(reference);
         }
-
+        logger.debug("Start Date: " + startDate);
+        logger.debug("End Date: " + endDate);
+        logger.debug("References: ");
+        for(int i =0; i<references.size(); i++)
+            logger.debug(references.get(i).getId());
         return references;
     }
 
@@ -392,7 +455,11 @@ public class MysqlHandler {
             MysqlTrait trait = new MysqlTrait((int) line[0], (String) line[1], (String) line[2], (String) line[3], (String) line[4]);
             traits.add(trait);
         }
-
+        logger.debug("Start Date: " + startDate);
+        logger.debug("End Date: " + endDate);
+        logger.debug("The Following Nodes Have Traits: ");
+        for(int i =0; i<traits.size(); i++)
+            logger.debug(traits.get(i).getGenerated_node_id());
         return traits;
 
     }
@@ -416,7 +483,11 @@ public class MysqlHandler {
             MysqlTaxon taxon = new MysqlTaxon((Integer) line[0], (Integer) line[1],(String) line[2],(String) line[3], (String) line[4], (String) line[5], (Integer) line[6]);
             taxa.add(taxon);
         }
-
+        logger.debug("Start Date: " + startDate);
+        logger.debug("End Date: " + endDate);
+        logger.debug("Taxa: ");
+        for(int i =0; i<taxa.size(); i++)
+            logger.debug(taxa.get(i).getScientific_name());
         return taxa;
 
     }
@@ -440,7 +511,7 @@ public class MysqlHandler {
     }
 
     public void loadRanks() {
-        System.out.println("load ranks");
+        logger.debug("Loading Ranks");
 
         PrintWriter writer = null;
         try {
@@ -462,11 +533,11 @@ public class MysqlHandler {
         }
 
         catch (FileNotFoundException e) {
-            e.printStackTrace();
+            logger.error("FileNotFoundException:\n", e);
         }
 
         catch (Exception e) {
-            e.printStackTrace();
+            logger.error("Exception:\n", e);
         }
         finally {
             if( writer != null )
@@ -476,7 +547,7 @@ public class MysqlHandler {
     }
 
     public void loadNodes() {
-        System.out.println("load nodes");
+        logger.debug("Loading Nodes");
         PrintWriter writer = null;
 
         try {
@@ -498,11 +569,11 @@ public class MysqlHandler {
         }
 
         catch (FileNotFoundException e) {
-            e.printStackTrace();
+            logger.error("FileNotFoundException:\n", e);
         }
 
         catch (Exception e) {
-            e.printStackTrace();
+            logger.error("Exception:\n", e);
         }
         finally {
             if( writer != null )
@@ -511,7 +582,7 @@ public class MysqlHandler {
     }
 
     public void loadPages() {
-        System.out.println("load pages");
+        logger.debug("Loading Pages");
         PrintWriter writer = null;
 
         try {
@@ -533,10 +604,11 @@ public class MysqlHandler {
             writer.print("");
         }
         catch (FileNotFoundException e) {
-            e.printStackTrace();
+            logger.error("FileNotFoundException:\n", e);
         }
+
         catch (Exception e) {
-            e.printStackTrace();
+            logger.error("Exception:\n", e);
         }
         finally {
             if( writer != null )
@@ -545,7 +617,7 @@ public class MysqlHandler {
     }
 
     public void loadPagesNodes() {
-        System.out.println("load pages nodes");
+        logger.debug("Loading Pages Nodes");
         PrintWriter writer = null;
 
         try {
@@ -569,10 +641,11 @@ public class MysqlHandler {
             writer.print("");
         }
         catch (FileNotFoundException e) {
-            e.printStackTrace();
+            logger.error("FileNotFoundException:\n", e);
         }
+
         catch (Exception e) {
-            e.printStackTrace();
+            logger.error("Exception:\n", e);
         }
         finally {
             if( writer != null )
@@ -581,7 +654,7 @@ public class MysqlHandler {
     }
 
     public void loadScientificNames() {
-        System.out.println("load scientific names");
+        logger.debug("Loading Scientific Names");
         PrintWriter writer = null;
 
         try {
@@ -605,10 +678,11 @@ public class MysqlHandler {
             writer.print("");
         }
         catch (FileNotFoundException e) {
-            e.printStackTrace();
+            logger.error("FileNotFoundException:\n", e);
         }
+
         catch (Exception e) {
-            e.printStackTrace();
+            logger.error("Exception:\n", e);
         }
         finally {
             if( writer != null )
@@ -617,7 +691,7 @@ public class MysqlHandler {
     }
 
     public void loadLanguages() {
-        System.out.println("load languages");
+        logger.debug("Loading Languages");
         PrintWriter writer = null;
 
         try {
@@ -637,10 +711,11 @@ public class MysqlHandler {
             writer.print("");
         }
         catch (FileNotFoundException e) {
-            e.printStackTrace();
+            logger.error("FileNotFoundException:\n", e);
         }
+
         catch (Exception e) {
-            e.printStackTrace();
+            logger.error("Exception:\n", e);
         }
         finally {
             if( writer != null )
@@ -649,7 +724,7 @@ public class MysqlHandler {
     }
 
     public void loadVernaculars() {
-        System.out.println("load vernaculars");
+        logger.debug("Loading Vernaculars");
         PrintWriter writer = null;
 
         try {
@@ -674,10 +749,11 @@ public class MysqlHandler {
             writer.print("");
         }
         catch (FileNotFoundException e) {
-            e.printStackTrace();
+            logger.error("FileNotFoundException:\n", e);
         }
+
         catch (Exception e) {
-            e.printStackTrace();
+            logger.error("Exception:\n", e);
         }
         finally {
             if( writer != null )
@@ -686,7 +762,7 @@ public class MysqlHandler {
     }
 
     public void loadLicenses() {
-        System.out.println("load licenses");
+        logger.debug("Loading Licenses");
         PrintWriter writer = null;
 
         try {
@@ -706,10 +782,11 @@ public class MysqlHandler {
             writer.print("");
         }
         catch (FileNotFoundException e) {
-            e.printStackTrace();
+            logger.error("FileNotFoundException:\n", e);
         }
+
         catch (Exception e) {
-            e.printStackTrace();
+            logger.error("Exception:\n", e);
         }
         finally {
             if( writer != null )
@@ -718,7 +795,7 @@ public class MysqlHandler {
     }
 
     public void loadLocations() {
-        System.out.println("load locations");
+        logger.debug("Loading Locations");
         PrintWriter writer = null;
 
         try {
@@ -739,10 +816,11 @@ public class MysqlHandler {
             writer.print("");
         }
         catch (FileNotFoundException e) {
-            e.printStackTrace();
+            logger.error("FileNotFoundException:\n", e);
         }
+
         catch (Exception e) {
-            e.printStackTrace();
+            logger.error("Exception:\n", e);
         }
         finally {
             if( writer != null )
@@ -751,7 +829,7 @@ public class MysqlHandler {
     }
 
     public void loadMedia() {
-        System.out.println("load media");
+        logger.debug("Loading Media");
         PrintWriter writer = null;
 
         try {
@@ -774,10 +852,11 @@ public class MysqlHandler {
             writer.print("");
         }
         catch (FileNotFoundException e) {
-            e.printStackTrace();
+            logger.error("FileNotFoundException:\n", e);
         }
+
         catch (Exception e) {
-            e.printStackTrace();
+            logger.error("Exception:\n", e);
         }
         finally {
             if( writer != null )
@@ -786,7 +865,7 @@ public class MysqlHandler {
     }
 
     public void loadArticles() {
-        System.out.println("load articles");
+        logger.debug("Loading Articles");
         PrintWriter writer = null;
 
         try {
@@ -809,10 +888,11 @@ public class MysqlHandler {
             writer.print("");
         }
         catch (FileNotFoundException e) {
-            e.printStackTrace();
+            logger.error("FileNotFoundException:\n", e);
         }
+
         catch (Exception e) {
-            e.printStackTrace();
+            logger.error("Exception:\n", e);
         }
         finally {
             if( writer != null )
@@ -821,7 +901,7 @@ public class MysqlHandler {
     }
 
     public void loadPageContents() {
-        System.out.println("load page contents");
+        logger.debug("Loading Page Contents");
         PrintWriter writer = null;
 
         try {
@@ -848,10 +928,11 @@ public class MysqlHandler {
             writer.print("");
         }
         catch (FileNotFoundException e) {
-            e.printStackTrace();
+            logger.error("FileNotFoundException:\n", e);
         }
+
         catch (Exception e) {
-            e.printStackTrace();
+            logger.error("Exception:\n", e);
         }
         finally {
             if( writer != null )
@@ -860,7 +941,7 @@ public class MysqlHandler {
     }
 
     public void loadAgents() {
-        System.out.println("load agents");
+        logger.debug("Loading Agents");
         PrintWriter writer = null;
 
         try {
@@ -888,10 +969,11 @@ public class MysqlHandler {
            writer.print("");
         }
         catch (FileNotFoundException e) {
-            e.printStackTrace();
+            logger.error("FileNotFoundException:\n", e);
         }
+
         catch (Exception e) {
-            e.printStackTrace();
+            logger.error("Exception:\n", e);
         }
         finally {
             if( writer != null )
@@ -900,7 +982,7 @@ public class MysqlHandler {
     }
 
     public void loadReferents() {
-        System.out.println("load referents");
+        logger.debug("Loading Referents");
         PrintWriter writer = null;
 
         try {
@@ -920,10 +1002,11 @@ public class MysqlHandler {
             writer.print("");
         }
         catch (FileNotFoundException e) {
-            e.printStackTrace();
+            logger.error("FileNotFoundException:\n", e);
         }
+
         catch (Exception e) {
-            e.printStackTrace();
+            logger.error("Exception:\n", e);
         }
         finally {
             if( writer != null )
@@ -932,7 +1015,7 @@ public class MysqlHandler {
     }
 
     public void loadReferences() {
-        System.out.println("load references");
+        logger.debug("Loading References");
         PrintWriter writer = null;
 
         try {
@@ -956,10 +1039,11 @@ public class MysqlHandler {
             writer.print("");
         }
         catch (FileNotFoundException e) {
-            e.printStackTrace();
+            logger.error("FileNotFoundException:\n", e);
         }
+
         catch (Exception e) {
-            e.printStackTrace();
+            logger.error("Exception:\n", e);
         }
         finally {
             if( writer != null )
@@ -968,7 +1052,7 @@ public class MysqlHandler {
     }
 
     public void loadTraits(){
-        System.out.println("load traits");
+        logger.debug("Loading Traits");
         PrintWriter writer = null;
         try {
             entityManager.joinTransaction();
@@ -989,11 +1073,11 @@ public class MysqlHandler {
         }
 
         catch (FileNotFoundException e) {
-            e.printStackTrace();
+            logger.error("FileNotFoundException:\n", e);
         }
 
         catch (Exception e) {
-            e.printStackTrace();
+            logger.error("Exception:\n", e);
         }
         finally {
             if( writer != null )
@@ -1002,7 +1086,7 @@ public class MysqlHandler {
     }
 
     public void loadTaxa(){
-            System.out.println("load taxa");
+            logger.debug("Loading Taxa");
             PrintWriter writer = null;
 
             try {
@@ -1023,10 +1107,11 @@ public class MysqlHandler {
                 writer.print("");
             }
             catch (FileNotFoundException e) {
-                e.printStackTrace();
+                logger.error("FileNotFoundException:\n", e);
             }
+
             catch (Exception e) {
-                e.printStackTrace();
+                logger.error("Exception:\n", e);
             }
             finally {
                 if( writer != null )

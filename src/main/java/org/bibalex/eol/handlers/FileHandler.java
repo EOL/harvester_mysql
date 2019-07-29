@@ -1,5 +1,7 @@
 package org.bibalex.eol.handlers;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.bibalex.eol.helpers.DateHelper;
 import org.bibalex.eol.models.*;
 
@@ -20,6 +22,8 @@ public class FileHandler {
 
     private int ranks_count = 0, nodes_count = 0, pages_count = 0, pages_nodes_count = 0, scientific_names_count = 0, media_count = 0, page_contents_count = 0,
             vernaculars_count = 0, article_count = 0, traits_count = 0, taxa_count = 0;
+
+    private static final Logger logger = LogManager.getLogger(FileHandler.class);
 
     public FileHandler(EntityManager entityManager, int resourceID) {
         this.entityManager = entityManager;
@@ -43,7 +47,9 @@ public class FileHandler {
             traits = new FileWriter(PropertiesHandler.getProperty("mysqlFiles") + "traits.txt", true);
             taxa = new FileWriter(PropertiesHandler.getProperty("mysqlFiles") + "taxa.txt", true);
         } catch (IOException e) {
-            e.printStackTrace();
+//            e.printStackTrace();
+            logger.error("IOException: Error While Initializing File Handler");
+            logger.error("Stack Trace:\n", e);
         }
     }
 
@@ -55,8 +61,10 @@ public class FileHandler {
             String date = DateHelper.getDate();
             ranks.write(tableRecord.getTaxon().getTaxonRank() + "\t" + date + "\t" + date + "\n");//appends the string to the file
             ranks_count++;
-        } catch (IOException ioe) {
-            System.err.println("IOException: " + ioe.getMessage());
+            logger.info("Rank: " + tableRecord.getTaxon().getTaxonRank() + " Written to File");
+        } catch (IOException e) {
+//            System.err.println("IOException: " + ioe.getMessage());
+            logger.error("IOException:\n", e);
         }
 
     }
@@ -71,9 +79,11 @@ public class FileHandler {
                     "\t" + Integer.valueOf(tableRecord.getGeneratedNodeId()) + "\t" + taxon.getIdentifier() + "\t" + date + "\t" + date +
                     "\t" + tableRecord.getTaxon().getTaxonRank() + "\n");//appends the string to the file
             nodes_count++;
+            logger.info("Node: " + tableRecord.getGeneratedNodeId() + " Written to File");
 
-        } catch (IOException ioe) {
-            System.err.println("IOException: " + ioe.getMessage());
+        } catch (IOException e) {
+//            System.err.println("IOException: " + ioe.getMessage());
+            logger.error("IOException:\n", e);
         }
 
     }
@@ -87,8 +97,11 @@ public class FileHandler {
                     Integer.valueOf(tableRecord.getGeneratedNodeId()) + "\n");
             pages_count++;
 
-        } catch (IOException ioe) {
-            System.err.println("IOException: " + ioe.getMessage());
+            logger.info("Page: " + Integer.valueOf(tableRecord.getTaxon().getPageEolId()) + " Written to File");
+
+        } catch (IOException e) {
+//            System.err.println("IOException: " + ioe.getMessage());
+            logger.error("IOException:\n", e);
         }
     }
 
@@ -100,8 +113,11 @@ public class FileHandler {
             boolean is_native = resourceID == Integer.valueOf(PropertiesHandler.getProperty("DWHId")) ? true : false;
             pages_nodes.write(page_id + "\t" + is_native + "\t" + date + "\t" + date + "\t" + generated_node_id + "\n");
             pages_nodes_count++;
-        } catch (IOException ioe) {
-            System.err.println("IOException: " + ioe.getMessage());
+            logger.info("Page: " + page_id + " of Node: " + generated_node_id + " Written to File");
+
+        } catch (IOException e) {
+//            System.err.println("IOException: " + ioe.getMessage());
+            logger.error("IOException:\n", e);
         }
     }
 
@@ -115,8 +131,11 @@ public class FileHandler {
             scientific_names.write(resourceID + "\t" + globalNamesHandler.getCanonicalForm(taxon.getScientificName()) + "\t" + globalNamesHandler.getCanonicalForm(taxon.getScientificName()) + "\t" + taxon.getIdentifier()
                     + "\t" + generated_node_id + "\t" + Integer.valueOf(tableRecord.getTaxon().getPageEolId()) + "\t" + 1 + "\t" + date + "\t" + date + "\t" + generated_node_id + "\n");
             scientific_names_count++;
-        } catch (IOException ioe) {
-            System.err.println("IOException: " + ioe.getMessage());
+            logger.info("Scientific Name: " + globalNamesHandler.getCanonicalForm(taxon.getScientificName()) + " of Node: " + generated_node_id + " Written to File");
+
+        } catch (IOException e) {
+//            System.err.println("IOException: " + ioe.getMessage());
+            logger.error("IOException:\n", e);
         }
     }
 
@@ -137,8 +156,12 @@ public class FileHandler {
             boolean is_preferred = vernacular.getIsPreferred() == "1" ? true : false;
             vernaculars.write(vernacular.getName() + "\t" + resourceID + "\t" + is_preferred + "\t" + generated_node_id + "\t" + page_id + "\t" + date + "\t" + date + "\t" + vernacular.getLanguage() + "\t" + generated_node_id + "\n");
             vernaculars_count++;
-        } catch (IOException ioe) {
-            System.err.println("IOException: " + ioe.getMessage());
+
+            logger.info("Vernacular: " + vernacular.getName() + " of Node: " + generated_node_id + " Written to File");
+
+        } catch (IOException e) {
+//            System.err.println("IOException: " + ioe.getMessage());
+            logger.error("IOException:\n", e);
         }
     }
 
@@ -167,8 +190,12 @@ public class FileHandler {
                 traits.write("\t"+date+"\t"+date);
                 traits.write("\n");
                 traits_count++;
-            } catch (IOException ioe) {
-                System.err.println("IOException: " + ioe.getMessage());
+
+                logger.info("Traits of Node: " + generated_node_id + " Written to File");
+
+            } catch (IOException e) {
+//            System.err.println("IOException: " + ioe.getMessage());
+                logger.error("IOException:\n", e);
             }
         }
     }
@@ -224,8 +251,12 @@ public class FileHandler {
                 if (i < tableRecord.getOccurrences().size() - 1) {
                     traits.write(",");
                 }
-            } catch (IOException ioe) {
-                System.err.println("IOException: " + ioe.getMessage());
+
+                logger.info("Occurrences of Node: " +tableRecord.getGeneratedNodeId()+ "Written to File");
+
+            } catch (IOException e) {
+//            System.err.println("IOException: " + ioe.getMessage());
+                logger.error("IOException:\n", e);
             }
 
         }
@@ -265,8 +296,12 @@ public class FileHandler {
                 if (i < tableRecord.getAssociations().size() - 1) {
                     traits.write(",");
                 }
-            } catch (IOException ioe) {
-                System.err.println("IOException: " + ioe.getMessage());
+
+                logger.info("Associations of Node: " + tableRecord.getGeneratedNodeId()+ " Written to File");
+
+            } catch (IOException e) {
+//            System.err.println("IOException: " + ioe.getMessage());
+                logger.error("IOException:\n", e);
             }
 
         }
@@ -314,8 +349,12 @@ public class FileHandler {
                 if (i < tableRecord.getMeasurementOrFacts().size() - 1) {
                     traits.write(",");
                 }
-            } catch (IOException ioe) {
-                System.err.println("IOException: " + ioe.getMessage());
+
+                logger.info("MeasurementsOrFacts of Node: " + tableRecord.getGeneratedNodeId()+ " Written to File");
+
+            } catch (IOException e) {
+//            System.err.println("IOException: " + ioe.getMessage());
+                logger.error("IOException:\n", e);
             }
 
         }
@@ -344,8 +383,13 @@ public class FileHandler {
 
             }
             traits.write("}");
-        }catch (IOException ioe) {
-            System.err.println("IOException: " + ioe.getMessage());}
+
+            logger.info("Target Occurrences of Node: " + tableRecord.getGeneratedNodeId()+ " Written to File");
+
+        } catch (IOException e) {
+//            System.err.println("IOException: " + ioe.getMessage());
+            logger.error("IOException:\n", e);
+        }
 
     }
 
@@ -389,8 +433,11 @@ public class FileHandler {
                     PropertiesHandler.getProperty("storageLayerIp") + medium.getStorageLayerPath() + "\t" + medium.getSubTypeIndex()
                     + "\t" + medium.getTitle() + "\t" + date + "\t" + date + "\t" + medium.getLanguage() + "\t" + medium.getLicense() + "\n");
             media_count++;
-        } catch (IOException ioe) {
-            System.err.println("IOException: " + ioe.getMessage());
+            logger.info("Medium with GUID: " + guid + " Written to File");
+
+        } catch (IOException e) {
+//            System.err.println("IOException: " + ioe.getMessage());
+            logger.error("IOException:\n", e);
         }
     }
 
@@ -403,8 +450,11 @@ public class FileHandler {
                     + "\t" + medium.getMediaId() + "\t" + medium.getTitle() + "\t" +
                     date + "\t" + date + "\t" + medium.getLanguage() + "\t" + medium.getLicense() + "\t" + medium.getDescription() + "\n");
             article_count++;
-        } catch (IOException ioe) {
-            System.err.println("IOException: " + ioe.getMessage());
+            logger.info("Article with GUID: " + guid + " Written to File");
+
+        } catch (IOException e) {
+//            System.err.println("IOException: " + ioe.getMessage());
+            logger.error("IOException:\n", e);
         }
     }
 
@@ -416,22 +466,23 @@ public class FileHandler {
             String date = DateHelper.getDate();
             page_contents.write(resourceID + "\t" + page_id + "\t" + page_id + "\t" + content_type + "\t" + date + "\t" + date + "\t" + guid + "\n");
             page_contents_count++;
-        } catch (IOException ioe) {
-            System.err.println("IOException: " + ioe.getMessage());
+            logger.info("Page Content of GUID: " + guid + " of Page: " + page_id + " from Resource: " + resourceID + " Written to File");
+        } catch (IOException e) {
+            logger.error("IOException:\n", e);
         }
     }
 
     private void writeAgentsToFile(ArrayList<Agent> agentsArr, String content_resource_fk, String guid, String content_type) {
 
         for (Agent agent : agentsArr) {
-            System.out.println("insert new agent");
             String role_name = agent.getRole() == null ? "roletest" : agent.getRole();
 
             try {
                 String date = DateHelper.getDate();
                 agents.write(resourceID + "\t" + content_type + "\t" + role_name + "\t" + agent.getHomepage() + "\t" + agent.getAgentId() + "\t" + agent.getFullName() + "\t" + content_resource_fk + "\t" + date + "\t" + date + "\t" + guid + "\n");
-            } catch (IOException ioe) {
-                System.err.println("IOException: " + ioe.getMessage());
+                logger.info("Agent: " + agent.getAgentId() + " Written to File");
+            } catch (IOException e) {
+                logger.error("IOException:\n", e);
             }
         }
     }
@@ -444,8 +495,9 @@ public class FileHandler {
         try {
             String date = DateHelper.getDate();
             languages.write(code + "\t" + code + "\t" + date + "\t" + date + "\n");
-        } catch (IOException ioe) {
-            System.err.println("IOException: " + ioe.getMessage());
+            logger.info("Language: " + code + " Written to File");
+        } catch (IOException e) {
+            logger.error("IOException:\n", e);
         }
     }
 
@@ -457,21 +509,23 @@ public class FileHandler {
         try {
             String date = DateHelper.getDate();
             licenses.write(source_url + "\tlicense\t" + date + "\t" + date + "\n");
-        } catch (IOException ioe) {
-            System.err.println("IOException: " + ioe.getMessage());
+            logger.info("License: " + source_url + " Written to File");
+        } catch (IOException e) {
+            logger.error("IOException:\n", e);
         }
     }
 
     private void writeLocationToFile(Media medium) {
 
-        System.out.println("insert new location");
+//        System.out.println("insert new location");
 
         try {
             String date = DateHelper.getDate();
             locations.write(resourceID + "\t" + medium.getLocationCreated() + "\t" + medium.getLongitude() + "\t" + medium.getLatitude() + "\t" + medium.getAltitude()
                     + "\t" + medium.getGenericLocation() + "\t" + date + "\t" + date + "\n");
-        } catch (IOException ioe) {
-            System.err.println("IOException: " + ioe.getMessage());
+            logger.info("Location: (" + medium.getLatitude() + "," + medium.getLongitude() + ") Written to File");
+        } catch (IOException e) {
+            logger.error("IOException:\n", e);
         }
     }
 
@@ -496,8 +550,9 @@ public class FileHandler {
         try {
             String date = DateHelper.getDate();
             referents.write(resourceID + "\t" + body + "\t" + date + "\t" + date + "\n");
-        } catch (IOException ioe) {
-            System.err.println("IOException: " + ioe.getMessage());
+            logger.info("Referent Written to File");
+        } catch (IOException e) {
+            logger.error("IOException:\n", e);
         }
     }
 
@@ -507,8 +562,9 @@ public class FileHandler {
         try {
             String date = DateHelper.getDate();
             references.write(resourceID + "\t" + content_type + "\t" + date + "\t" + date + "\t" + guid + "\t" + body + "\t" + resourceID + "\n");
-        } catch (IOException ioe) {
-            System.err.println("IOException: " + ioe.getMessage());
+            logger.info("Reference: " + guid + " Written to File");
+        } catch (IOException e) {
+            logger.error("IOException:\n", e);
         }
     }
 
@@ -543,8 +599,9 @@ public class FileHandler {
                 taxa.write(",");
             }}
             taxa.write("\t"+date+"\t"+date+"\n");
-        } catch (IOException ioe) {
-            System.err.println("IOException: " + ioe.getMessage());
+            logger.info("Occurrence Map Data for Node: " + generatedNodeId + " Written to File" );
+        } catch (IOException e) {
+            logger.error("IOException:\n", e);
         }
 
     }
@@ -580,16 +637,25 @@ public class FileHandler {
     }
 
     public void printCounts() {
-        System.out.println("ranks: " + ranks_count);
-        System.out.println("nodes: " + nodes_count);
-        System.out.println("pages: " + pages_count);
-        System.out.println("pages_nodes: " + pages_nodes_count);
-        System.out.println("scientific_names: " + scientific_names_count);
-        System.out.println("media: " + media_count);
-        System.out.println("article: " + article_count);
-        System.out.println("page_contents: " + page_contents_count);
-        System.out.println("vernaculars: " + vernaculars_count);
-        System.out.println("traits: " + traits_count);
-
+//        System.out.println("ranks: " + ranks_count);
+//        System.out.println("nodes: " + nodes_count);
+//        System.out.println("pages: " + pages_count);
+//        System.out.println("pages_nodes: " + pages_nodes_count);
+//        System.out.println("scientific_names: " + scientific_names_count);
+//        System.out.println("media: " + media_count);
+//        System.out.println("article: " + article_count);
+//        System.out.println("page_contents: " + page_contents_count);
+//        System.out.println("vernaculars: " + vernaculars_count);
+//        System.out.println("traits: " + traits_count);
+        logger.info("Ranks Count: " + ranks_count);
+        logger.info("Nodes Count: " + nodes_count);
+        logger.info("Pages Count: " + pages_count);
+        logger.info("PagesNodes Count: " + pages_nodes_count);
+        logger.info("Scientific Names Count: " + scientific_names_count);
+        logger.info("Vernaculars Count: " + vernaculars_count);
+        logger.info("Traits Count: " + traits_count);
+        logger.info("Media Count: " + media_count);
+        logger.info("Articles Count: " + article_count);
+        logger.info("Page Contents Count: " + page_contents_count);
     }
 }

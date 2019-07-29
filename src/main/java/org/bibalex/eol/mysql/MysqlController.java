@@ -1,5 +1,7 @@
 package org.bibalex.eol.mysql;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.bibalex.eol.models.NodeRecord;
 import org.bibalex.eol.mysqlModels.MysqlData;
 import org.json.simple.JSONArray;
@@ -20,18 +22,29 @@ import java.util.List;
 @RestController
 @RequestMapping("/")
 public class MysqlController {
+    private static Logger logger = LogManager.getLogger(MysqlController.class);
 
     @Autowired
     private MysqlService mysqlService;
 
     @RequestMapping(value= "/addEntries", method = RequestMethod.POST, consumes = "application/json")
     public boolean addEntries(@RequestBody NodeRecord [] nodeRecords){
-        return mysqlService.addEntries(nodeRecords);
+        boolean response =mysqlService.addEntries(nodeRecords);
+        if(response)
+            logger.info("Successfully Added New Entries");
+        else
+            logger.info("Failed to Add New Entries");
+        return response;
     }
 
     @RequestMapping(value= "/loadFilesToMysql", method = RequestMethod.POST)
     public boolean loadFilesToMysql(){
-        return mysqlService.loadFilesToMysql();
+        boolean response = mysqlService.loadFilesToMysql();
+        if(response)
+            logger.info("Successfully Loaded Files into MySQL");
+        else
+            logger.info("Failed to Load Files into MySQL");
+        return response;
     }
 
     @RequestMapping(value ="/getLatestUpdates/{startDate}/{endDate}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -45,16 +58,16 @@ public class MysqlController {
         try {
             start = sdf.parse(sdf.format(resultStartDate));
             end = sdf.parse(sdf.format(resultEndDate));
-            System.out.println(end);
         } catch (java.text.ParseException e) {
-            e.printStackTrace();
+            logger.error("ParseException:\n", e);
         }
-
+        logger.info("Getting Latest Updates From: " + resultStartDate + " Till: " + resultEndDate);
         MysqlData mysqlData = mysqlService.getLatestUpdates(start, end);
         List<MysqlData> data = new ArrayList<>();
         data.add(mysqlData);
-
-        return new ResponseEntity<MysqlData>(mysqlData, HttpStatus.OK);
+        ResponseEntity<MysqlData> response = new ResponseEntity<MysqlData>(mysqlData, HttpStatus.OK);
+        logger.info("Response: " + response);
+        return response;
     }
 
     @RequestMapping(value ="/getEndTime", method = RequestMethod.GET)
