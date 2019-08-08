@@ -2,6 +2,7 @@ package org.bibalex.eol.handlers;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.bibalex.eol.mysql.MysqlService;
 import org.bibalex.eol.mysqlModels.*;
 
 import javax.persistence.EntityManager;
@@ -17,6 +18,7 @@ public class MysqlHandler {
 
     private EntityManager entityManager;
     private static Logger logger = LogManager.getLogger(MysqlHandler.class);
+    private MysqlService mysqlService = new MysqlService();
 
     public MysqlHandler(EntityManager entityManager) {
         this.entityManager = entityManager;
@@ -45,7 +47,7 @@ public class MysqlHandler {
         logger.debug("Start Date: " + startDate);
         logger.debug("End Date: " + endDate);
         logger.debug("Ranks: ");
-        for(int i =0; i<ranks.size(); i++)
+        for (int i = 0; i < ranks.size(); i++)
             logger.debug(ranks.get(i).getName());
         return ranks;
 
@@ -73,7 +75,7 @@ public class MysqlHandler {
         logger.debug("Start Date: " + startDate);
         logger.debug("End Date: " + endDate);
         logger.debug("Nodes: ");
-        for(int i =0; i<nodes.size(); i++)
+        for (int i = 0; i < nodes.size(); i++)
             logger.debug(nodes.get(i).getGenerated_node_id());
         return nodes;
     }
@@ -100,7 +102,7 @@ public class MysqlHandler {
         logger.debug("Start Date: " + startDate);
         logger.debug("End Date: " + endDate);
         logger.debug("Pages: ");
-        for(int i =0; i<pages.size(); i++)
+        for (int i = 0; i < pages.size(); i++)
             logger.debug(pages.get(i).getId());
         return pages;
     }
@@ -127,7 +129,7 @@ public class MysqlHandler {
         logger.debug("Start Date: " + startDate);
         logger.debug("End Date: " + endDate);
         logger.debug("Pages Nodes: ");
-        for(int i =0; i<pages_nodes.size(); i++)
+        for (int i = 0; i < pages_nodes.size(); i++)
             logger.debug("Page ID: " + pages_nodes.get(i).getPage_id() + ", Node ID: " + pages_nodes.get(i).getNode_id());
         return pages_nodes;
     }
@@ -154,7 +156,7 @@ public class MysqlHandler {
         logger.debug("Start Date: " + startDate);
         logger.debug("End Date: " + endDate);
         logger.debug("Scientific Names: ");
-        for(int i =0; i<scientific_names.size(); i++)
+        for (int i = 0; i < scientific_names.size(); i++)
             logger.debug(scientific_names.get(i).getCanonical_form());
         return scientific_names;
     }
@@ -181,7 +183,7 @@ public class MysqlHandler {
         logger.debug("Start Date: " + startDate);
         logger.debug("End Date: " + endDate);
         logger.debug("Languages: ");
-        for(int i =0; i<languages.size(); i++)
+        for (int i = 0; i < languages.size(); i++)
             logger.debug(languages.get(i).getCode());
         return languages;
     }
@@ -208,7 +210,7 @@ public class MysqlHandler {
         logger.debug("Start Date: " + startDate);
         logger.debug("End Date: " + endDate);
         logger.debug("Vernaculars: ");
-        for(int i =0; i<vernaculars.size(); i++)
+        for (int i = 0; i < vernaculars.size(); i++)
             logger.debug(vernaculars.get(i).getString());
         return vernaculars;
     }
@@ -235,7 +237,7 @@ public class MysqlHandler {
         logger.debug("Start Date: " + startDate);
         logger.debug("End Date: " + endDate);
         logger.debug("Licenses: ");
-        for(int i =0; i<licenses.size(); i++)
+        for (int i = 0; i < licenses.size(); i++)
             logger.debug(licenses.get(i).getName());
         return licenses;
     }
@@ -262,7 +264,7 @@ public class MysqlHandler {
         logger.debug("Start Date: " + startDate);
         logger.debug("End Date: " + endDate);
         logger.debug("Locations: ");
-        for(int i =0; i<locations.size(); i++)
+        for (int i = 0; i < locations.size(); i++)
             logger.debug(locations.get(i).getId());
         return locations;
     }
@@ -291,7 +293,7 @@ public class MysqlHandler {
         logger.debug("Start Date: " + startDate);
         logger.debug("End Date: " + endDate);
         logger.debug("Media: ");
-        for(int i =0; i<media.size(); i++)
+        for (int i = 0; i < media.size(); i++)
             logger.debug(media.get(i).getBase_url());
         return media;
     }
@@ -320,7 +322,7 @@ public class MysqlHandler {
         logger.debug("Start Date: " + startDate);
         logger.debug("End Date: " + endDate);
         logger.debug("Articles: ");
-        for(int i =0; i<articles.size(); i++)
+        for (int i = 0; i < articles.size(); i++)
             logger.debug(articles.get(i).getName());
         return articles;
     }
@@ -348,7 +350,7 @@ public class MysqlHandler {
         logger.debug("Start Date: " + startDate);
         logger.debug("End Date: " + endDate);
         logger.debug("Pages Contents: ");
-        for(int i =0; i<page_contents.size(); i++)
+        for (int i = 0; i < page_contents.size(); i++)
             logger.debug("Page ID: " + page_contents.get(i).getPage_id() + ", Content ID: " + page_contents.get(i).getContent_id());
         return page_contents;
     }
@@ -375,7 +377,7 @@ public class MysqlHandler {
         logger.debug("Start Date: " + startDate);
         logger.debug("End Date: " + endDate);
         logger.debug("Agents: ");
-        for(int i =0; i<agents.size(); i++)
+        for (int i = 0; i < agents.size(); i++)
             logger.debug(agents.get(i).getId());
         return agents;
     }
@@ -403,7 +405,7 @@ public class MysqlHandler {
         logger.debug("Start Date: " + startDate);
         logger.debug("End Date: " + endDate);
         logger.debug("Referents: ");
-        for(int i =0; i<referents.size(); i++)
+        for (int i = 0; i < referents.size(); i++)
             logger.debug(referents.get(i).getId());
         return referents;
     }
@@ -430,7 +432,7 @@ public class MysqlHandler {
         logger.debug("Start Date: " + startDate);
         logger.debug("End Date: " + endDate);
         logger.debug("References: ");
-        for(int i =0; i<references.size(); i++)
+        for (int i = 0; i < references.size(); i++)
             logger.debug(references.get(i).getId());
         return references;
     }
@@ -458,7 +460,7 @@ public class MysqlHandler {
         logger.debug("Start Date: " + startDate);
         logger.debug("End Date: " + endDate);
         logger.debug("The Following Nodes Have Traits: ");
-        for(int i =0; i<traits.size(); i++)
+        for (int i = 0; i < traits.size(); i++)
             logger.debug(traits.get(i).getGenerated_node_id());
         return traits;
 
@@ -480,17 +482,18 @@ public class MysqlHandler {
         ArrayList<MysqlTaxon> taxa = new ArrayList<>();
         while (it.hasNext()) {
             Object[] line = (Object[]) it.next();
-            MysqlTaxon taxon = new MysqlTaxon((Integer) line[0], (Integer) line[1],(String) line[2],(String) line[3], (String) line[4], (String) line[5], (Integer) line[6]);
+            MysqlTaxon taxon = new MysqlTaxon((Integer) line[0], (Integer) line[1], (String) line[2], (String) line[3], (String) line[4], (String) line[5], (Integer) line[6]);
             taxa.add(taxon);
         }
         logger.debug("Start Date: " + startDate);
         logger.debug("End Date: " + endDate);
         logger.debug("Taxa: ");
-        for(int i =0; i<taxa.size(); i++)
+        for (int i = 0; i < taxa.size(); i++)
             logger.debug(taxa.get(i).getScientific_name());
         return taxa;
 
     }
+
     public Date getEndTime() {
         StoredProcedureQuery getEndTime = entityManager
                 .createStoredProcedureQuery("getEndTime")
@@ -524,23 +527,18 @@ public class MysqlHandler {
                     "(name,created_at,updated_at);");
             query.executeUpdate();
 
-            Query commit_query =entityManager.createNativeQuery("commit;");
+            Query commit_query = entityManager.createNativeQuery("commit;");
             commit_query.executeUpdate();
 //makes file empty
             writer = new PrintWriter(PropertiesHandler.getProperty("mysqlFiles") + "ranks.txt");
             writer.print("");
             writer.close();
-        }
-
-        catch (FileNotFoundException e) {
+        } catch (FileNotFoundException e) {
             logger.error("FileNotFoundException:\n", e);
-        }
-
-        catch (Exception e) {
+        } catch (Exception e) {
             logger.error("Exception:\n", e);
-        }
-        finally {
-            if( writer != null )
+        } finally {
+            if (writer != null)
                 writer.close();
         }
 
@@ -561,22 +559,17 @@ public class MysqlHandler {
                     "set rank_id = (SELECT id FROM ranks WHERE name = @column10);");
             query.executeUpdate();
 
-            Query commit_query =entityManager.createNativeQuery("commit;");
+            Query commit_query = entityManager.createNativeQuery("commit;");
             commit_query.executeUpdate();
 
             writer = new PrintWriter(PropertiesHandler.getProperty("mysqlFiles") + "nodes.txt");
             writer.print("");
-        }
-
-        catch (FileNotFoundException e) {
+        } catch (FileNotFoundException e) {
             logger.error("FileNotFoundException:\n", e);
-        }
-
-        catch (Exception e) {
+        } catch (Exception e) {
             logger.error("Exception:\n", e);
-        }
-        finally {
-            if( writer != null )
+        } finally {
+            if (writer != null)
                 writer.close();
         }
     }
@@ -591,10 +584,10 @@ public class MysqlHandler {
             transaction_query.executeUpdate();
             Query query = entityManager.createNativeQuery("LOAD DATA INFILE '" + PropertiesHandler.getProperty("mysqlFiles") + "pages.txt" +
                     "'ignore into table pages FIELDS TERMINATED BY '\t' LINES TERMINATED BY '\n'" +
-                    "(id,created_at,updated_at,node_id);" );
+                    "(id,created_at,updated_at,node_id);");
             query.executeUpdate();
 
-            Query commit_query =entityManager.createNativeQuery("commit;");
+            Query commit_query = entityManager.createNativeQuery("commit;");
             commit_query.executeUpdate();
 
             Query update_query = entityManager.createNativeQuery("update pages set updated=true, node_id = (select id from nodes where generated_node_id=pages.node_id) where updated=false;");
@@ -602,16 +595,12 @@ public class MysqlHandler {
 
             writer = new PrintWriter(PropertiesHandler.getProperty("mysqlFiles") + "pages.txt");
             writer.print("");
-        }
-        catch (FileNotFoundException e) {
+        } catch (FileNotFoundException e) {
             logger.error("FileNotFoundException:\n", e);
-        }
-
-        catch (Exception e) {
+        } catch (Exception e) {
             logger.error("Exception:\n", e);
-        }
-        finally {
-            if( writer != null )
+        } finally {
+            if (writer != null)
                 writer.close();
         }
     }
@@ -628,10 +617,10 @@ public class MysqlHandler {
 
             Query query = entityManager.createNativeQuery("LOAD DATA INFILE '" + PropertiesHandler.getProperty("mysqlFiles") + "pages_nodes.txt" +
                     "'ignore into table pages_nodes FIELDS TERMINATED BY '\t' LINES TERMINATED BY '\n'" +
-                    "(page_id,is_native,created_at,updated_at,node_id);" );
+                    "(page_id,is_native,created_at,updated_at,node_id);");
             query.executeUpdate();
 
-            Query commit_query =entityManager.createNativeQuery("commit;");
+            Query commit_query = entityManager.createNativeQuery("commit;");
             commit_query.executeUpdate();
 
             Query update_query = entityManager.createNativeQuery("update pages_nodes set updated=true, node_id = (select id from nodes where generated_node_id=pages_nodes.node_id) where updated=false;");
@@ -639,16 +628,12 @@ public class MysqlHandler {
 
             writer = new PrintWriter(PropertiesHandler.getProperty("mysqlFiles") + "pages_nodes.txt");
             writer.print("");
-        }
-        catch (FileNotFoundException e) {
+        } catch (FileNotFoundException e) {
             logger.error("FileNotFoundException:\n", e);
-        }
-
-        catch (Exception e) {
+        } catch (Exception e) {
             logger.error("Exception:\n", e);
-        }
-        finally {
-            if( writer != null )
+        } finally {
+            if (writer != null)
                 writer.close();
         }
     }
@@ -668,7 +653,7 @@ public class MysqlHandler {
                     "(resource_id,canonical_form,italicized,node_resource_pk,generated_node_id,page_id,taxonomic_status_id,created_at,updated_at,node_id);");
             query.executeUpdate();
 
-            Query commit_query =entityManager.createNativeQuery("commit;");
+            Query commit_query = entityManager.createNativeQuery("commit;");
             commit_query.executeUpdate();
 
             Query update_query = entityManager.createNativeQuery("update scientific_names set updated=true, node_id = (select id from nodes where generated_node_id=scientific_names.node_id) where updated=false;");
@@ -676,16 +661,12 @@ public class MysqlHandler {
 
             writer = new PrintWriter(PropertiesHandler.getProperty("mysqlFiles") + "scientific_names.txt");
             writer.print("");
-        }
-        catch (FileNotFoundException e) {
+        } catch (FileNotFoundException e) {
             logger.error("FileNotFoundException:\n", e);
-        }
-
-        catch (Exception e) {
+        } catch (Exception e) {
             logger.error("Exception:\n", e);
-        }
-        finally {
-            if( writer != null )
+        } finally {
+            if (writer != null)
                 writer.close();
         }
     }
@@ -704,21 +685,17 @@ public class MysqlHandler {
                     "(code,`group`,created_at,updated_at);");
             query.executeUpdate();
 
-            Query commit_query =entityManager.createNativeQuery("commit;");
+            Query commit_query = entityManager.createNativeQuery("commit;");
             commit_query.executeUpdate();
 
             writer = new PrintWriter(PropertiesHandler.getProperty("mysqlFiles") + "languages.txt");
             writer.print("");
-        }
-        catch (FileNotFoundException e) {
+        } catch (FileNotFoundException e) {
             logger.error("FileNotFoundException:\n", e);
-        }
-
-        catch (Exception e) {
+        } catch (Exception e) {
             logger.error("Exception:\n", e);
-        }
-        finally {
-            if( writer != null )
+        } finally {
+            if (writer != null)
                 writer.close();
         }
     }
@@ -739,7 +716,7 @@ public class MysqlHandler {
                     "set language_id = (SELECT id FROM languages WHERE code = @column8);");
             query.executeUpdate();
 
-            Query commit_query =entityManager.createNativeQuery("commit;");
+            Query commit_query = entityManager.createNativeQuery("commit;");
             commit_query.executeUpdate();
 
             Query update_query = entityManager.createNativeQuery("update vernaculars set updated=true, node_id = (select id from nodes where generated_node_id=vernaculars.node_id) where updated=false;");
@@ -747,16 +724,12 @@ public class MysqlHandler {
 
             writer = new PrintWriter(PropertiesHandler.getProperty("mysqlFiles") + "vernaculars.txt");
             writer.print("");
-        }
-        catch (FileNotFoundException e) {
+        } catch (FileNotFoundException e) {
             logger.error("FileNotFoundException:\n", e);
-        }
-
-        catch (Exception e) {
+        } catch (Exception e) {
             logger.error("Exception:\n", e);
-        }
-        finally {
-            if( writer != null )
+        } finally {
+            if (writer != null)
                 writer.close();
         }
     }
@@ -775,21 +748,17 @@ public class MysqlHandler {
                     "(source_url,name,created_at,updated_at);");
             query.executeUpdate();
 
-            Query commit_query =entityManager.createNativeQuery("commit;");
+            Query commit_query = entityManager.createNativeQuery("commit;");
             commit_query.executeUpdate();
 
             writer = new PrintWriter(PropertiesHandler.getProperty("mysqlFiles") + "licenses.txt");
             writer.print("");
-        }
-        catch (FileNotFoundException e) {
+        } catch (FileNotFoundException e) {
             logger.error("FileNotFoundException:\n", e);
-        }
-
-        catch (Exception e) {
+        } catch (Exception e) {
             logger.error("Exception:\n", e);
-        }
-        finally {
-            if( writer != null )
+        } finally {
+            if (writer != null)
                 writer.close();
         }
     }
@@ -809,21 +778,17 @@ public class MysqlHandler {
                     "(resource_id,location,longitude,latitude,altitude,spatial_location,created_at,updated_at)");
             query.executeUpdate();
 
-            Query commit_query =entityManager.createNativeQuery("commit;");
+            Query commit_query = entityManager.createNativeQuery("commit;");
             commit_query.executeUpdate();
 
             writer = new PrintWriter(PropertiesHandler.getProperty("mysqlFiles") + "locations.txt");
             writer.print("");
-        }
-        catch (FileNotFoundException e) {
+        } catch (FileNotFoundException e) {
             logger.error("FileNotFoundException:\n", e);
-        }
-
-        catch (Exception e) {
+        } catch (Exception e) {
             logger.error("Exception:\n", e);
-        }
-        finally {
-            if( writer != null )
+        } finally {
+            if (writer != null)
                 writer.close();
         }
     }
@@ -845,21 +810,17 @@ public class MysqlHandler {
                     " language_id = (SELECT id FROM languages WHERE code = @column8);");
             query.executeUpdate();
 
-            Query commit_query =entityManager.createNativeQuery("commit;");
+            Query commit_query = entityManager.createNativeQuery("commit;");
             commit_query.executeUpdate();
 
             writer = new PrintWriter(PropertiesHandler.getProperty("mysqlFiles") + "media.txt");
             writer.print("");
-        }
-        catch (FileNotFoundException e) {
+        } catch (FileNotFoundException e) {
             logger.error("FileNotFoundException:\n", e);
-        }
-
-        catch (Exception e) {
+        } catch (Exception e) {
             logger.error("Exception:\n", e);
-        }
-        finally {
-            if( writer != null )
+        } finally {
+            if (writer != null)
                 writer.close();
         }
     }
@@ -881,21 +842,17 @@ public class MysqlHandler {
                     " language_id = (SELECT id FROM languages WHERE code = @column8);");
             query.executeUpdate();
 
-            Query commit_query =entityManager.createNativeQuery("commit;");
+            Query commit_query = entityManager.createNativeQuery("commit;");
             commit_query.executeUpdate();
 
             writer = new PrintWriter(PropertiesHandler.getProperty("mysqlFiles") + "articles.txt");
             writer.print("");
-        }
-        catch (FileNotFoundException e) {
+        } catch (FileNotFoundException e) {
             logger.error("FileNotFoundException:\n", e);
-        }
-
-        catch (Exception e) {
+        } catch (Exception e) {
             logger.error("Exception:\n", e);
-        }
-        finally {
-            if( writer != null )
+        } finally {
+            if (writer != null)
                 writer.close();
         }
     }
@@ -915,7 +872,7 @@ public class MysqlHandler {
                     "(resource_id,page_id,source_page_id,content_type,created_at,updated_at,guid);");
             query.executeUpdate();
 
-            Query commit_query =entityManager.createNativeQuery("commit;");
+            Query commit_query = entityManager.createNativeQuery("commit;");
             commit_query.executeUpdate();
 
             Query update_query = entityManager.createNativeQuery("update page_contents set content_id = (select id from media where guid=page_contents.guid) where content_id IS NULL;");
@@ -926,16 +883,12 @@ public class MysqlHandler {
 
             writer = new PrintWriter(PropertiesHandler.getProperty("mysqlFiles") + "page_contents.txt");
             writer.print("");
-        }
-        catch (FileNotFoundException e) {
+        } catch (FileNotFoundException e) {
             logger.error("FileNotFoundException:\n", e);
-        }
-
-        catch (Exception e) {
+        } catch (Exception e) {
             logger.error("Exception:\n", e);
-        }
-        finally {
-            if( writer != null )
+        } finally {
+            if (writer != null)
                 writer.close();
         }
     }
@@ -955,7 +908,7 @@ public class MysqlHandler {
                     "(resource_id,content_type,role_name,url,resource_pk,value,content_resource_fk,created_at,updated_at,guid);");
             query.executeUpdate();
 
-            Query commit_query =entityManager.createNativeQuery("commit;");
+            Query commit_query = entityManager.createNativeQuery("commit;");
             commit_query.executeUpdate();
 
 
@@ -966,17 +919,13 @@ public class MysqlHandler {
             update_query1.executeUpdate();
 
             writer = new PrintWriter(PropertiesHandler.getProperty("mysqlFiles") + "agents.txt");
-           writer.print("");
-        }
-        catch (FileNotFoundException e) {
+            writer.print("");
+        } catch (FileNotFoundException e) {
             logger.error("FileNotFoundException:\n", e);
-        }
-
-        catch (Exception e) {
+        } catch (Exception e) {
             logger.error("Exception:\n", e);
-        }
-        finally {
-            if( writer != null )
+        } finally {
+            if (writer != null)
                 writer.close();
         }
     }
@@ -995,21 +944,17 @@ public class MysqlHandler {
                     "(resource_id,body,created_at,updated_at);");
             query.executeUpdate();
 
-            Query commit_query =entityManager.createNativeQuery("commit;");
+            Query commit_query = entityManager.createNativeQuery("commit;");
             commit_query.executeUpdate();
 
             writer = new PrintWriter(PropertiesHandler.getProperty("mysqlFiles") + "referents.txt");
             writer.print("");
-        }
-        catch (FileNotFoundException e) {
+        } catch (FileNotFoundException e) {
             logger.error("FileNotFoundException:\n", e);
-        }
-
-        catch (Exception e) {
+        } catch (Exception e) {
             logger.error("Exception:\n", e);
-        }
-        finally {
-            if( writer != null )
+        } finally {
+            if (writer != null)
                 writer.close();
         }
     }
@@ -1026,7 +971,7 @@ public class MysqlHandler {
                     " set referent_id = (select id from referents where body=@column6 and resource_id=@column7);");
             query.executeUpdate();
 
-            Query commit_query =entityManager.createNativeQuery("commit;");
+            Query commit_query = entityManager.createNativeQuery("commit;");
             commit_query.executeUpdate();
 
             Query update_query = entityManager.createNativeQuery("update `references` set parent_id = (select id from media where guid=`references`.guid) where parent_id IS NULL;");
@@ -1037,21 +982,17 @@ public class MysqlHandler {
 
             writer = new PrintWriter(PropertiesHandler.getProperty("mysqlFiles") + "references.txt");
             writer.print("");
-        }
-        catch (FileNotFoundException e) {
+        } catch (FileNotFoundException e) {
             logger.error("FileNotFoundException:\n", e);
-        }
-
-        catch (Exception e) {
+        } catch (Exception e) {
             logger.error("Exception:\n", e);
-        }
-        finally {
-            if( writer != null )
+        } finally {
+            if (writer != null)
                 writer.close();
         }
     }
 
-    public void loadTraits(){
+    public void loadTraits() {
         logger.debug("Loading Traits");
         PrintWriter writer = null;
         try {
@@ -1064,59 +1005,86 @@ public class MysqlHandler {
                     "(generated_node_id,occurrences,associations,measurement_or_facts,target_occurrences,created_at,updated_at);");
             query.executeUpdate();
 
-            Query commit_query =entityManager.createNativeQuery("commit;");
+            Query commit_query = entityManager.createNativeQuery("commit;");
             commit_query.executeUpdate();
 //makes file empty
             writer = new PrintWriter(PropertiesHandler.getProperty("mysqlFiles") + "traits.txt");
             writer.print("");
             writer.close();
-        }
-
-        catch (FileNotFoundException e) {
+        } catch (FileNotFoundException e) {
             logger.error("FileNotFoundException:\n", e);
-        }
-
-        catch (Exception e) {
+        } catch (Exception e) {
             logger.error("Exception:\n", e);
-        }
-        finally {
-            if( writer != null )
+        } finally {
+            if (writer != null)
                 writer.close();
         }
     }
 
-    public void loadTaxa(){
-            logger.debug("Loading Taxa");
-            PrintWriter writer = null;
+    public void loadTaxa() {
+        logger.debug("Loading Taxa");
+        PrintWriter writer = null;
 
-            try {
-                entityManager.joinTransaction();
+        try {
+            entityManager.joinTransaction();
 
-                Query transaction_query = entityManager.createNativeQuery("START TRANSACTION;");
-                transaction_query.executeUpdate();
+            Query transaction_query = entityManager.createNativeQuery("START TRANSACTION;");
+            transaction_query.executeUpdate();
 
-                Query query = entityManager.createNativeQuery("LOAD DATA INFILE '" + PropertiesHandler.getProperty("mysqlFiles") + "taxa.txt" +
-                        "' ignore into table taxa FIELDS TERMINATED BY '\t' LINES TERMINATED BY '\n'" +
-                        "(generated_node_id,page_eol_id,scientific_name,dataset_id,source,resource_id,occurrences,created_at,updated_at);");
-                query.executeUpdate();
+            Query query = entityManager.createNativeQuery("LOAD DATA INFILE '" + PropertiesHandler.getProperty("mysqlFiles") + "taxa.txt" +
+                    "' ignore into table taxa FIELDS TERMINATED BY '\t' LINES TERMINATED BY '\n'" +
+                    "(generated_node_id,page_eol_id,scientific_name,dataset_id,source,resource_id,occurrences,created_at,updated_at);");
+            query.executeUpdate();
 
-                Query commit_query =entityManager.createNativeQuery("commit;");
-                commit_query.executeUpdate();
+            Query commit_query = entityManager.createNativeQuery("commit;");
+            commit_query.executeUpdate();
 
-                writer = new PrintWriter(PropertiesHandler.getProperty("mysqlFiles") + "taxa.txt");
-                writer.print("");
-            }
-            catch (FileNotFoundException e) {
-                logger.error("FileNotFoundException:\n", e);
-            }
-
-            catch (Exception e) {
-                logger.error("Exception:\n", e);
-            }
-            finally {
-                if( writer != null )
-                    writer.close();
-            }
+            writer = new PrintWriter(PropertiesHandler.getProperty("mysqlFiles") + "taxa.txt");
+            writer.print("");
+        } catch (FileNotFoundException e) {
+            logger.error("FileNotFoundException:\n", e);
+        } catch (Exception e) {
+            logger.error("Exception:\n", e);
+        } finally {
+            if (writer != null)
+                writer.close();
         }
-
     }
+
+    public HashMap<String, String> getCounts(Long resourceID) {
+        HashMap<String, String> resourceCounts = new HashMap<>();
+
+        Query nodesCountQuery = entityManager.createNativeQuery("select count(*) from nodes where resource_id = " + resourceID + ";");
+        resourceCounts.put("nodes", nodesCountQuery.getSingleResult().toString());
+
+        Query sciNamesCountQuery = entityManager.createNativeQuery("select count(*) from scientific_names where resource_id = " + resourceID + ";");
+        resourceCounts.put("scientificNames", sciNamesCountQuery.getSingleResult().toString());
+
+        Query vernacularsCountQuery = entityManager.createNativeQuery("select count(*) from vernaculars where resource_id = " + resourceID + ";");
+        resourceCounts.put("vernaculars", vernacularsCountQuery.getSingleResult().toString());
+
+        Query mediaCountQuery = entityManager.createNativeQuery("select count(*) from media where resource_id = " + resourceID + ";");
+        resourceCounts.put("media", mediaCountQuery.getSingleResult().toString());
+
+        Query articlesCountQuery = entityManager.createNativeQuery("select count(*) from articles where resource_id = " + resourceID + ";");
+        resourceCounts.put("articles", articlesCountQuery.getSingleResult().toString());
+
+        Query referencesCountQuery = entityManager.createNativeQuery("select count(*) from `references` where resource_id = " + resourceID + ";");
+        resourceCounts.put("references", referencesCountQuery.getSingleResult().toString());
+
+        Query occurrencesCountQuery = entityManager.createNativeQuery("select count(*) from traits where generated_node_id in (select generated_node_id from nodes" +
+                " where resource_id = " + resourceID + ") and occurrences is not null and occurrences != \' \';");
+        resourceCounts.put("occurrences", occurrencesCountQuery.getSingleResult().toString());
+
+        Query associationsCountQuery = entityManager.createNativeQuery("select count(*) from traits where generated_node_id in (select generated_node_id from nodes" +
+                " where resource_id = " + resourceID + ") and associations is not null and associations != \' \';");
+        resourceCounts.put("associations", associationsCountQuery.getSingleResult().toString());
+
+        Query measurementsCountQuery = entityManager.createNativeQuery("select count(*) from traits where generated_node_id in (select generated_node_id from nodes" +
+                " where resource_id = " + resourceID + ") and measurement_or_facts is not null and measurement_or_facts != \' \';");
+        resourceCounts.put("measurementsOrFacts", measurementsCountQuery.getSingleResult().toString());
+
+        return resourceCounts;
+    }
+
+}

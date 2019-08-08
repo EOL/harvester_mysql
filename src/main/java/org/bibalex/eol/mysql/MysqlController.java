@@ -17,6 +17,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 @RestController
@@ -73,5 +74,12 @@ public class MysqlController {
     @RequestMapping(value ="/getEndTime", method = RequestMethod.GET)
     public Date getEndTime(){
         return mysqlService.getEndTime();
+    }
+
+    @RequestMapping(value ="/getResourceStatistics/{resourceID}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<HashMap<String, String>> getResourceStatistics(@PathVariable("resourceID") Long resourceID){
+
+        HashMap<String, String> resourceStatistics = mysqlService.getResourceStatistics(resourceID);
+        return new ResponseEntity<HashMap<String, String>>(resourceStatistics, HttpStatus.OK);
     }
 }

@@ -14,6 +14,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.io.IOException;
 import java.util.Date;
+import java.util.HashMap;
 
 @Service
 public class MysqlService {
@@ -127,6 +128,13 @@ public class MysqlService {
         }
 
         return true;
+    }
+
+    public HashMap<String, String> getResourceStatistics(Long resourceID)
+    {
+        MysqlHandler mysqlHandler = new MysqlHandler(entityManager);
+
+        return mysqlHandler.getCounts(resourceID);
     }
 
 }
