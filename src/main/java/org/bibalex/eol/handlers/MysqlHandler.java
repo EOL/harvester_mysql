@@ -1054,37 +1054,45 @@ public class MysqlHandler {
     public HashMap<String, String> getCounts(Long resourceID) {
         HashMap<String, String> resourceCounts = new HashMap<>();
 
-        Query nodesCountQuery = entityManager.createNativeQuery("select count(*) from nodes where resource_id = " + resourceID + ";");
-        resourceCounts.put("nodes", nodesCountQuery.getSingleResult().toString());
+        String nodesCount = executeQuery("nodes", resourceID);
+        resourceCounts.put("nodes", nodesCount);
 
-        Query sciNamesCountQuery = entityManager.createNativeQuery("select count(*) from scientific_names where resource_id = " + resourceID + ";");
-        resourceCounts.put("scientificNames", sciNamesCountQuery.getSingleResult().toString());
+        String sciNamesCount = executeQuery("scientific_names", resourceID);
+        resourceCounts.put("scientificNames", sciNamesCount);
 
-        Query vernacularsCountQuery = entityManager.createNativeQuery("select count(*) from vernaculars where resource_id = " + resourceID + ";");
-        resourceCounts.put("vernaculars", vernacularsCountQuery.getSingleResult().toString());
+        String vernacularsCount = executeQuery("vernaculars", resourceID);
+        resourceCounts.put("vernaculars", vernacularsCount);
 
-        Query mediaCountQuery = entityManager.createNativeQuery("select count(*) from media where resource_id = " + resourceID + ";");
-        resourceCounts.put("media", mediaCountQuery.getSingleResult().toString());
+        String mediaCount = executeQuery("media", resourceID);
+        resourceCounts.put("media", mediaCount);
 
-        Query articlesCountQuery = entityManager.createNativeQuery("select count(*) from articles where resource_id = " + resourceID + ";");
-        resourceCounts.put("articles", articlesCountQuery.getSingleResult().toString());
+        String articlesCount = executeQuery("articles", resourceID);
+        resourceCounts.put("articles", articlesCount);
 
-        Query referencesCountQuery = entityManager.createNativeQuery("select count(*) from `references` where resource_id = " + resourceID + ";");
-        resourceCounts.put("references", referencesCountQuery.getSingleResult().toString());
+        String referencesCount = executeQuery("`references`", resourceID);
+        resourceCounts.put("references", referencesCount);
 
-        Query occurrencesCountQuery = entityManager.createNativeQuery("select count(*) from traits where generated_node_id in (select generated_node_id from nodes" +
-                " where resource_id = " + resourceID + ") and occurrences is not null and occurrences != \' \';");
-        resourceCounts.put("occurrences", occurrencesCountQuery.getSingleResult().toString());
+        String occurrencesCount = executeJoinQuery("occurrences", resourceID);
+        resourceCounts.put("occurrences", occurrencesCount);
 
-        Query associationsCountQuery = entityManager.createNativeQuery("select count(*) from traits where generated_node_id in (select generated_node_id from nodes" +
-                " where resource_id = " + resourceID + ") and associations is not null and associations != \' \';");
-        resourceCounts.put("associations", associationsCountQuery.getSingleResult().toString());
+        String associationsCount = executeJoinQuery("associations", resourceID);
+        resourceCounts.put("associations", associationsCount);
 
-        Query measurementsCountQuery = entityManager.createNativeQuery("select count(*) from traits where generated_node_id in (select generated_node_id from nodes" +
-                " where resource_id = " + resourceID + ") and measurement_or_facts is not null and measurement_or_facts != \' \';");
-        resourceCounts.put("measurementsOrFacts", measurementsCountQuery.getSingleResult().toString());
+        String measurementsCount = executeJoinQuery("measurement_or_facts", resourceID);
+        resourceCounts.put("measurementsOrFacts", measurementsCount);
 
         return resourceCounts;
+    }
+
+    private String executeJoinQuery(String traits, Long resourceID) {
+        Query countQuery = entityManager.createNativeQuery("select count(*) from traits t inner join nodes n on t.generated_node_id = n.generated_node_id where n.resource_id = "
+                + resourceID + "and " + traits + " is not null and " + traits + " != \' \' ;");
+        return countQuery.getSingleResult().toString();
+    }
+
+    private String executeQuery(String tableName, Long resourceID) {
+        Query countQuery = entityManager.createNativeQuery("select count(*) from " + tableName + " where resource_id = " + resourceID + ";");
+        return countQuery.getSingleResult().toString();
     }
 
 }
