@@ -1086,7 +1086,7 @@ public class MysqlHandler {
 
     private String executeJoinQuery(String traits, Long resourceID) {
         Query countQuery = entityManager.createNativeQuery("select count(*) from traits t inner join nodes n on t.generated_node_id = n.generated_node_id where n.resource_id = "
-                + resourceID + "and " + traits + " is not null and " + traits + " != \' \' ;");
+                + resourceID + " and " + traits + " is not null and " + traits + " != \' \';");
         return countQuery.getSingleResult().toString();
     }
 
