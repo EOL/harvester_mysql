@@ -99,6 +99,12 @@ public class MysqlService {
         return endTime;
     }
 
+    public ArrayList<String> getStartAndEndTimes(Date date){
+        MysqlHandler mysqlHandler = new MysqlHandler(entityManager);
+        ArrayList<String> startAndEndTimes = mysqlHandler.getStartAndEndTimes(date);
+        return startAndEndTimes;
+    }
+
     public boolean loadFilesToMysql() {
         try {
             PropertiesHandler.initializeProperties();
@@ -125,6 +131,16 @@ public class MysqlService {
         }
 
         return true;
+    }
+
+    public boolean addStartTimeOfResource(){
+        MysqlHandler mysqlHandler=new MysqlHandler(entityManager);
+        return mysqlHandler.addStartTimeOfResource();
+    }
+
+    public boolean addEndTimeOfResource(){
+        MysqlHandler mysqlHandler=new MysqlHandler(entityManager);
+        return mysqlHandler.addEndTimeOfResource();
     }
 
 }

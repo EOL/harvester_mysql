@@ -9,4 +9,18 @@ public class DateHelper {
         String date =sdf.format(new Date());
         return date;
     }
+
+    public static Date convertFromMillisecondsToDate(String milliseconds){
+        long longMilliseconds = Long.valueOf(milliseconds);
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date resultDate = new Date(longMilliseconds);
+        Date finalDate =null;
+        try {
+            finalDate = sdf.parse(sdf.format(resultDate));
+            return finalDate;
+        } catch (java.text.ParseException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 }

@@ -7,6 +7,8 @@ import javax.persistence.EntityManager;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.Map;
 import java.util.UUID;
 
 public class FileHandler {
@@ -140,8 +142,8 @@ public class FileHandler {
         }
     }
 
-    public void writeTraitsToFile(NodeRecord tableRecord, int generated_node_id) {
-        if (tableRecord.getOccurrences() != null || tableRecord.getAssociations() != null || tableRecord.getMeasurementOrFacts() != null) {
+    public void writeTraitsToFile(NodeRecord tableRecord , int generated_node_id)  {
+        if(tableRecord.getOccurrences() != null || tableRecord.getAssociations()!=null || tableRecord.getMeasurementOrFacts() != null || tableRecord.getTargetOccurrences() != null) {
             try {
                 String date = DateHelper.getDate();
                 System.out.println(generated_node_id);
@@ -158,7 +160,11 @@ public class FileHandler {
                 //            measurements
                 if (tableRecord.getMeasurementOrFacts() != null)
                     writeMeasurementOrFactsToFile(tableRecord);
-                traits.write("\t" + date + "\t" + date);
+                traits.write("\t");
+                //         targetOccurrences
+                if (tableRecord.getTargetOccurrences() != null)
+                    writeTargetOccurrencesToFile(tableRecord);
+                traits.write("\t"+date+"\t"+date);
                 traits.write("\n");
                 traits_count++;
             } catch (IOException ioe) {
@@ -196,11 +202,11 @@ public class FileHandler {
                 String eventDate = occ.getEventDate() == null ? null : "\"" + occ.getEventDate() + "\"";
                 String modifiedDate = occ.getModifiedDate() == null ? null : "\"" + occ.getModifiedDate() + "\"";
                 String locality = occ.getLocality() == null ? null : "\"" + String.valueOf(occ.getLocality()) + "\"";
-//                String decimalLatitude = occ.getDecimalLatitude() == null ? null : "\""+occ.getDecimalLatitude().replace("\"","\\\\\"")+"\"";
-//                String decimalLongitude = occ.getDecimalLongitude() == null ? null : "\""+occ.getDecimalLongitude().replace("\"","\\\\\"")+"\"";
-//                String verbatimLatitude = occ.getVerbatimLatitude() == null ? null : "\""+occ.getVerbatimLatitude().replace("\"","\\\\\"")+"\"";
-//                String verbatimLongitude = occ.getVerbatimLongitude() == null ? null : "\""+occ.getVerbatimLongitude().replace("\"","\\\\\"")+"\"";
-//                String verbatimElevation = occ.getVerbatimElevation() == null ? null : "\""+occ.getVerbatimElevation().replace("\"","\\\\\"")+"\"";
+                String decimalLatitude = occ.getDecimalLatitude() == null ? null : "\""+occ.getDecimalLatitude().replace("\"","\\\\\"")+"\"";
+                String decimalLongitude = occ.getDecimalLongitude() == null ? null : "\""+occ.getDecimalLongitude().replace("\"","\\\\\"")+"\"";
+                String verbatimLatitude = occ.getVerbatimLatitude() == null ? null : "\""+occ.getVerbatimLatitude().replace("\"","\\\\\"")+"\"";
+                String verbatimLongitude = occ.getVerbatimLongitude() == null ? null : "\""+occ.getVerbatimLongitude().replace("\"","\\\\\"")+"\"";
+                String verbatimElevation = occ.getVerbatimElevation() == null ? null : "\""+occ.getVerbatimElevation().replace("\"","\\\\\"")+"\"";
                 String deltaStatus = occ.getDeltaStatus() == null ? null : "\"" + occ.getDeltaStatus() + "\"";
 
                 traits.write("\"occurrenceId\":" + occurrenceId + ",\"eventId\":" + eventId + ",\"institutionCode\":" + institutionCode +
@@ -210,8 +216,8 @@ public class FileHandler {
                         ",\"preparations\":" + preparations + ",\"fieldNotes\":" + fieldNotes + ",\"samplingProtocol\":" + samplingProtocol +
                         ",\"samplingEffort\":" + samplingEffort + ",\"recordedBy\":" + recordedBy + ",\"identifiedBy\":" + identifiedBy +
                         ",\"dateIdentified\":" + dateIdentified + ",\"eventDate\":" + eventDate + ",\"modifiedDate\":" + modifiedDate +
-                        ",\"locality\":" + locality /*+ ",\"decimalLatitude\":" + decimalLatitude + ",\"decimalLongitude\":" + decimalLongitude +
-                        ",\"verbatimLatitude\":" + verbatimLatitude + ",\"verbatimLongitude\":" + verbatimLongitude + ",\"verbatimElevation\":" + verbatimElevation*/ +
+                        ",\"locality\":" + locality + ",\"decimalLatitude\":" + decimalLatitude + ",\"decimalLongitude\":" + decimalLongitude +
+                        ",\"verbatimLatitude\":" + verbatimLatitude + ",\"verbatimLongitude\":" + verbatimLongitude + ",\"verbatimElevation\":" + verbatimElevation +
                         ",\"deltaStatus\":" + deltaStatus
                 );
                 traits.write("}");
@@ -315,7 +321,35 @@ public class FileHandler {
         }
     }
 
-    public void writeMediaToFile(NodeRecord tableRecord) {
+    public  void writeTargetOccurrencesToFile(NodeRecord tableRecord)
+    {
+//        ArrayList<String> keys= (ArrayList<String>) tableRecord.getTargetOccurrences().keySet();
+//        ArrayList<String> values= (ArrayList<String>) tableRecord.getTargetOccurrences().values();
+        Iterator<Map.Entry<String, String>> it = tableRecord.getTargetOccurrences().entrySet().iterator();
+        try {
+            traits.write("{");
+            while (it.hasNext()) {
+                Map.Entry<String, String> pair = (Map.Entry<String, String>) it.next();
+    //            System.out.println(pair.getKey() + " = " + pair.getValue());
+                String targetOccurrenceId =  "\"" + pair.getKey() + "\":";
+                String objectPageId = "\"" + pair.getValue() + "\"";
+
+    //                traits.write("{");
+                    traits.write( targetOccurrenceId + objectPageId);
+    //                traits.write("}");
+                    if(it.hasNext())
+                    {
+                        traits.write(",");
+                    }
+
+            }
+            traits.write("}");
+        }catch (IOException ioe) {
+            System.err.println("IOException: " + ioe.getMessage());}
+
+    }
+
+    public void  writeMediaToFile(NodeRecord tableRecord){
 
         ArrayList<Media> media = tableRecord.getMedia();
         String content_type = "";

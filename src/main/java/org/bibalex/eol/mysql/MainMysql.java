@@ -23,7 +23,5 @@ public class MainMysql extends SpringBootServletInitializer{
 
         SpringApplication.run(MainMysql.class, args);
 
-
-
     }
 }

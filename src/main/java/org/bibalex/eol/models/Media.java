@@ -62,6 +62,7 @@ public class Media implements Serializable {
         image_png,
         image_tiff,
         image_svg$xm,
+        image_svg$xml,
         text_html
     }
 
