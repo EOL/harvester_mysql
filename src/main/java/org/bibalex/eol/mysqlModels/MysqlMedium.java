@@ -25,10 +25,11 @@ public class MysqlMedium implements Serializable{
     BigInteger language_id;
     BigInteger license_id;
     BigInteger location_id;
+    String sizes;
 
     public MysqlMedium(BigInteger id, Integer format, String description, String owner, Integer resource_id, String guid, String resource_pk, String source_page_url,
                        String base_url, Integer mime_type, Integer subclass, String name, String rights_statement, String source_url, BigInteger bibliographic_citation_id,
-                       BigInteger language_id, BigInteger license_id, BigInteger location_id){
+                       BigInteger language_id, BigInteger license_id, BigInteger location_id, String sizes){
         this.id=id;
         this.format=format;
         this.description=description;
@@ -47,6 +48,7 @@ public class MysqlMedium implements Serializable{
         this.language_id=language_id;
         this.license_id=license_id;
         this.location_id=location_id;
+        this.sizes = sizes;
     }
 
     public MysqlMedium(){
@@ -195,5 +197,13 @@ public class MysqlMedium implements Serializable{
 
     public void setLocation_id(BigInteger location_id) {
         this.location_id = location_id;
+    }
+
+    public String getSizes() {
+        return sizes;
+    }
+
+    public void setSizes(String sizes) {
+        this.sizes = sizes;
     }
 }

@@ -246,7 +246,7 @@ public class MysqlHandler {
             Object[] line = (Object[]) it.next();
             MysqlMedium location = new MysqlMedium((BigInteger) line[0], (Integer) line[1], (String) line[2], (String) line[3], (Integer) line[4], (String) line[5], (String) line[6], (String) line[7], (String) line[8],
                     (Integer) line[9], (Integer) line[10], (String) line[11], (String) line[12], (String) line[13], (BigInteger) line[14],
-                    (BigInteger) line[15], (BigInteger) line[16], (BigInteger) line[17]);
+                    (BigInteger) line[15], (BigInteger) line[16], (BigInteger) line[17], (String) line[18]);
             media.add(location);
         }
 
