@@ -1,12 +1,12 @@
 package org.bibalex.eol.mysql;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.bibalex.eol.models.NodeRecord;
 import org.bibalex.eol.mysqlModels.MysqlData;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import com.google.gson.JsonObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -22,7 +22,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/")
 public class MysqlController {
-    private static Logger logger = LogManager.getLogger(MysqlController.class);
+    private static Logger logger = LoggerFactory.getLogger(MysqlController.class);
 
     @Autowired
     private MysqlService mysqlService;

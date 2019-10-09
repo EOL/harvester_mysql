@@ -1,8 +1,8 @@
 package org.bibalex.eol.handlers;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.bibalex.eol.mysqlModels.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.persistence.EntityManager;
 import javax.persistence.ParameterMode;
@@ -16,7 +16,7 @@ import java.util.*;
 public class MysqlHandler {
 
     private EntityManager entityManager;
-    private static Logger logger = LogManager.getLogger(MysqlHandler.class);
+    private static Logger logger = LoggerFactory.getLogger(MysqlHandler.class);
 
     public MysqlHandler(EntityManager entityManager) {
         this.entityManager = entityManager;
@@ -74,7 +74,7 @@ public class MysqlHandler {
         logger.debug("End Date: " + endDate);
         logger.debug("Nodes: ");
         for(int i =0; i<nodes.size(); i++)
-            logger.debug(nodes.get(i).getGenerated_node_id());
+            logger.debug(String.valueOf(nodes.get(i).getGenerated_node_id()));
         return nodes;
     }
 
@@ -101,7 +101,7 @@ public class MysqlHandler {
         logger.debug("End Date: " + endDate);
         logger.debug("Pages: ");
         for(int i =0; i<pages.size(); i++)
-            logger.debug(pages.get(i).getId());
+            logger.debug(String.valueOf(pages.get(i).getId()));
         return pages;
     }
 
@@ -263,7 +263,7 @@ public class MysqlHandler {
         logger.debug("End Date: " + endDate);
         logger.debug("Locations: ");
         for(int i =0; i<locations.size(); i++)
-            logger.debug(locations.get(i).getId());
+            logger.debug(String.valueOf(locations.get(i).getId()));
         return locations;
     }
 
@@ -376,7 +376,7 @@ public class MysqlHandler {
         logger.debug("End Date: " + endDate);
         logger.debug("Agents: ");
         for(int i =0; i<agents.size(); i++)
-            logger.debug(agents.get(i).getId());
+            logger.debug(String.valueOf(agents.get(i).getId()));
         return agents;
     }
 
@@ -404,7 +404,7 @@ public class MysqlHandler {
         logger.debug("End Date: " + endDate);
         logger.debug("Referents: ");
         for(int i =0; i<referents.size(); i++)
-            logger.debug(referents.get(i).getId());
+            logger.debug(String.valueOf(referents.get(i).getId()));
         return referents;
     }
 
@@ -431,7 +431,7 @@ public class MysqlHandler {
         logger.debug("End Date: " + endDate);
         logger.debug("References: ");
         for(int i =0; i<references.size(); i++)
-            logger.debug(references.get(i).getId());
+            logger.debug(String.valueOf(references.get(i).getId()));
         return references;
     }
 
@@ -459,7 +459,7 @@ public class MysqlHandler {
         logger.debug("End Date: " + endDate);
         logger.debug("The Following Nodes Have Traits: ");
         for(int i =0; i<traits.size(); i++)
-            logger.debug(traits.get(i).getGenerated_node_id());
+            logger.debug(String.valueOf(traits.get(i).getGenerated_node_id()));
         return traits;
 
     }

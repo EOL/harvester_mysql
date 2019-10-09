@@ -1,12 +1,12 @@
 package org.bibalex.eol.mysql;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.bibalex.eol.handlers.FileHandler;
 import org.bibalex.eol.handlers.MysqlHandler;
 import org.bibalex.eol.handlers.PropertiesHandler;
 import org.bibalex.eol.models.NodeRecord;
 import org.bibalex.eol.mysqlModels.MysqlData;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,7 +18,7 @@ import java.util.Date;
 @Service
 public class MysqlService {
 
-    private static Logger logger = LogManager.getLogger(MysqlService.class);
+    private static Logger logger = LoggerFactory.getLogger(MysqlService.class);
 
     @PersistenceContext
     private EntityManager entityManager;

@@ -1,9 +1,9 @@
 package org.bibalex.eol.handlers;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.bibalex.eol.helpers.DateHelper;
 import org.bibalex.eol.models.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.persistence.EntityManager;
 import java.io.FileWriter;
@@ -23,7 +23,7 @@ public class FileHandler {
     private int ranks_count = 0, nodes_count = 0, pages_count = 0, pages_nodes_count = 0, scientific_names_count = 0, media_count = 0, page_contents_count = 0,
             vernaculars_count = 0, article_count = 0, traits_count = 0, taxa_count = 0;
 
-    private static final Logger logger = LogManager.getLogger(FileHandler.class);
+    private static final Logger logger = LoggerFactory.getLogger(FileHandler.class);
 
     public FileHandler(EntityManager entityManager, int resourceID) {
         this.entityManager = entityManager;
