@@ -253,6 +253,33 @@ public class MysqlHandler {
         return media;
     }
 
+    public ArrayList<MysqlMedium> getMediaByResourceId(int resource_id, int limit, int offset) {
+
+        StoredProcedureQuery getMedia = entityManager
+                .createStoredProcedureQuery("getMediaByResource")
+                .registerStoredProcedureParameter(
+                        "resource_id_n", Integer.class, ParameterMode.IN)
+                .registerStoredProcedureParameter(
+                        "limit_n", Integer.class, ParameterMode.IN)
+                .registerStoredProcedureParameter(
+                        "offset_n", Integer.class, ParameterMode.IN);
+        getMedia.setParameter("resource_id_n", resource_id);
+        getMedia.setParameter("limit_n", limit);
+        getMedia.setParameter("offset_n", offset);
+
+        List<Object[]> res = getMedia.getResultList();
+        Iterator it = res.iterator();
+        ArrayList<MysqlMedium> media = new ArrayList<>();
+        while (it.hasNext()) {
+            Object[] line = (Object[]) it.next();
+            MysqlMedium medium = new MysqlMedium((BigInteger) line[0], (Integer) line[1], (Integer) line[2], (String) line[3], (String) line[4],
+                    (Integer) line[5], (String) line[6], (String) line[7]);
+            media.add(medium);
+        }
+
+        return media;
+    }
+
     public ArrayList<MysqlArticle> getArticles(Date startDate, Date endDate) {
 
         StoredProcedureQuery getArticles = entityManager

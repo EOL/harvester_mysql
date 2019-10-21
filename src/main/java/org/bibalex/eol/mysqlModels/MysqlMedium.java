@@ -55,6 +55,19 @@ public class MysqlMedium implements Serializable{
 
     }
 
+    public MysqlMedium(BigInteger id, Integer format, Integer resource_id, String guid, String resource_pk, Integer subclass,
+                       String name, String sizes){
+
+        this.id = id;
+        this.format = format;
+        this.resource_id = resource_id;
+        this.guid = guid;
+        this.resource_pk = resource_pk;
+        this.subclass = subclass;
+        this.name = name;
+        this.sizes = sizes;
+    }
+
     public BigInteger getId() {
         return id;
     }

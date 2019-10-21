@@ -3,17 +3,14 @@ package org.bibalex.eol.mysql;
 import org.bibalex.eol.helpers.DateHelper;
 import org.bibalex.eol.models.NodeRecord;
 import org.bibalex.eol.mysqlModels.MysqlData;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import com.google.gson.JsonObject;
+import org.bibalex.eol.mysqlModels.MysqlMedium;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -46,6 +43,12 @@ public class MysqlController {
         data.add(mysqlData);
 
         return new ResponseEntity<MysqlData>(mysqlData, HttpStatus.OK);
+    }
+
+    @RequestMapping(value ="/getMediaOfResource/{resourceId}/{limit}/{offset}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ArrayList<MysqlMedium> getMediaOfResource(@PathVariable("resourceId") int resource_id, @PathVariable("limit") int limit, @PathVariable("offset") int offset){
+        ArrayList<MysqlMedium> media = mysqlService.getMediaOfResource(resource_id, limit, offset);
+        return media;
     }
 
     @RequestMapping(value ="/getEndTime", method = RequestMethod.GET)

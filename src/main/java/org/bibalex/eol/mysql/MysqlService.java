@@ -1,11 +1,15 @@
 package org.bibalex.eol.mysql;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.bibalex.eol.handlers.FileHandler;
 import org.bibalex.eol.handlers.MysqlHandler;
 import org.bibalex.eol.handlers.PropertiesHandler;
 import org.bibalex.eol.models.NodeRecord;
 import org.bibalex.eol.models.Occurrence;
 import org.bibalex.eol.mysqlModels.MysqlData;
+import org.bibalex.eol.mysqlModels.MysqlMedium;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,6 +24,7 @@ public class MysqlService {
 
     @PersistenceContext
     private EntityManager entityManager;
+
 
     @Transactional
     public boolean addEntries(NodeRecord[] nodeRecords) {
@@ -91,6 +96,11 @@ public class MysqlService {
         mysqlData.setTaxa(mysqlHandler.getTaxa(startDate, endDate));
 
         return mysqlData;
+    }
+
+    public ArrayList<MysqlMedium> getMediaOfResource (int resource_id , int limit, int offset){
+        MysqlHandler mysqlHandler = new MysqlHandler(entityManager);
+        return mysqlHandler.getMediaByResourceId(resource_id, limit, offset);
     }
 
     public Date getEndTime(){
