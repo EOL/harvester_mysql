@@ -253,7 +253,7 @@ public class MysqlHandler {
         return media;
     }
 
-    public ArrayList<MysqlMedium> getMediaByResourceId(int resource_id, int limit, int offset) {
+    public ArrayList<MysqlLightMedium> getMediaByResourceId(int resource_id, int limit, int offset) {
 
         StoredProcedureQuery getMedia = entityManager
                 .createStoredProcedureQuery("getMediaByResource")
@@ -269,11 +269,11 @@ public class MysqlHandler {
 
         List<Object[]> res = getMedia.getResultList();
         Iterator it = res.iterator();
-        ArrayList<MysqlMedium> media = new ArrayList<>();
+        ArrayList<MysqlLightMedium> media = new ArrayList<>();
         while (it.hasNext()) {
             Object[] line = (Object[]) it.next();
-            MysqlMedium medium = new MysqlMedium((BigInteger) line[0], (Integer) line[1], (Integer) line[2], (String) line[3], (String) line[4],
-                    (Integer) line[5], (String) line[6], (String) line[7]);
+            MysqlLightMedium medium = new MysqlLightMedium((BigInteger) line[0], (Integer) line[1], (Integer) line[2], (String) line[3], (String) line[4],
+                    (String)line[5], (Integer) line[6], (String) line[7], (String) line[8]);
             media.add(medium);
         }
 

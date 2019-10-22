@@ -7,6 +7,7 @@ import org.bibalex.eol.handlers.PropertiesHandler;
 import org.bibalex.eol.models.NodeRecord;
 import org.bibalex.eol.models.Occurrence;
 import org.bibalex.eol.mysqlModels.MysqlData;
+import org.bibalex.eol.mysqlModels.MysqlLightMedium;
 import org.bibalex.eol.mysqlModels.MysqlMedium;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -98,7 +99,7 @@ public class MysqlService {
         return mysqlData;
     }
 
-    public ArrayList<MysqlMedium> getMediaOfResource (int resource_id , int limit, int offset){
+    public ArrayList<MysqlLightMedium> getMediaOfResource (int resource_id , int limit, int offset){
         MysqlHandler mysqlHandler = new MysqlHandler(entityManager);
         return mysqlHandler.getMediaByResourceId(resource_id, limit, offset);
     }

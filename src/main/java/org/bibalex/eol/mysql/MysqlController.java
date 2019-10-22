@@ -3,6 +3,7 @@ package org.bibalex.eol.mysql;
 import org.bibalex.eol.helpers.DateHelper;
 import org.bibalex.eol.models.NodeRecord;
 import org.bibalex.eol.mysqlModels.MysqlData;
+import org.bibalex.eol.mysqlModels.MysqlLightMedium;
 import org.bibalex.eol.mysqlModels.MysqlMedium;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -46,8 +47,8 @@ public class MysqlController {
     }
 
     @RequestMapping(value ="/getMediaOfResource/{resourceId}/{limit}/{offset}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ArrayList<MysqlMedium> getMediaOfResource(@PathVariable("resourceId") int resource_id, @PathVariable("limit") int limit, @PathVariable("offset") int offset){
-        ArrayList<MysqlMedium> media = mysqlService.getMediaOfResource(resource_id, limit, offset);
+    public ArrayList<MysqlLightMedium> getMediaOfResource(@PathVariable("resourceId") int resource_id, @PathVariable("limit") int limit, @PathVariable("offset") int offset){
+        ArrayList<MysqlLightMedium> media = mysqlService.getMediaOfResource(resource_id, limit, offset);
         return media;
     }
 
