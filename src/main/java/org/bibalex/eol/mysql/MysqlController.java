@@ -49,7 +49,9 @@ public class MysqlController {
     @RequestMapping(value ="/getMediaOfResource/{resourceId}/{limit}/{offset}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ArrayList<MysqlLightMedium> getMediaOfResource(@PathVariable("resourceId") int resource_id, @PathVariable("limit") int limit, @PathVariable("offset") int offset){
         ArrayList<MysqlLightMedium> media = mysqlService.getMediaOfResource(resource_id, limit, offset);
-        return media;
+        if (media.size() > 0)
+            return media;
+        return null ;
     }
 
     @RequestMapping(value ="/getEndTime", method = RequestMethod.GET)
