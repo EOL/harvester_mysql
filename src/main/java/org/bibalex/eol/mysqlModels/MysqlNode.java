@@ -11,36 +11,39 @@ import java.util.Date;
 @Entity
 @Table(name = "nodes")
 public class MysqlNode implements Serializable {
-    @Column(name="id")
+    @Column(name = "id")
     BigInteger id;
-    @Column(name="resource_id")
+    @Column(name = "resource_id")
     Integer resource_id;
-    @Column(name="scientific_name")
+    @Column(name = "scientific_name")
     String scientific_name;
-    @Column(name="canonical_form")
+    @Column(name = "canonical_form")
     String canonical_form;
-    @Column(name="generated_node_id")
+    @Column(name = "generated_node_id")
     Integer generated_node_id;
-    @Column(name="resource_pk")
+    @Column(name = "resource_pk")
     String resource_pk;
-    @Column(name="parent_id")
+    @Column(name = "parent_id")
     Integer parent_id;
-    @Column(name="rank_id")
+    @Column(name = "rank_id")
     BigInteger rank_id;
+    @Column(name = "landmark")
+    Integer landmark;
 
-    public MysqlNode (BigInteger id, Integer resource_id, String scientific_name, String canonical_form, Integer generated_node_id, String resource_pk,
-                       Integer parent_id, BigInteger rank_id){
-        this.id=id;
-        this.resource_id =resource_id;
-        this.scientific_name =scientific_name;
+    public MysqlNode(BigInteger id, Integer resource_id, String scientific_name, String canonical_form, Integer generated_node_id, String resource_pk,
+                     Integer parent_id, BigInteger rank_id, Integer landmark) {
+        this.id = id;
+        this.resource_id = resource_id;
+        this.scientific_name = scientific_name;
         this.canonical_form = canonical_form;
         this.generated_node_id = generated_node_id;
-        this.resource_pk =resource_pk;
+        this.resource_pk = resource_pk;
         this.parent_id = parent_id;
         this.rank_id = rank_id;
+        this.landmark = landmark;
     }
 
-    public MysqlNode(){
+    public MysqlNode() {
 
     }
 
@@ -109,5 +112,13 @@ public class MysqlNode implements Serializable {
 
     public String getScientific_name() {
         return scientific_name;
+    }
+
+    public Integer getLandmark() {
+        return landmark;
+    }
+
+    public void setLandmark(Integer landmark) {
+        this.landmark = landmark;
     }
 }

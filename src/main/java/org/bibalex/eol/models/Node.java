@@ -17,6 +17,7 @@ public class Node implements Serializable {
     String acceptedNodeId;
     int acceptedNodeGeneratedId;
     int pageId;
+    int landmark;
 
     public String getNodeId() {
         return nodeId;
@@ -96,5 +97,13 @@ public class Node implements Serializable {
 
     public void setPageId(int pageId) {
         this.pageId = pageId;
+    }
+
+    public int getLandmark() {
+        return landmark;
+    }
+
+    public void setLandmark(int landmark) {
+        this.landmark = landmark;
     }
 }

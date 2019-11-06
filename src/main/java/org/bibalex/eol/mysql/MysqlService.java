@@ -30,9 +30,9 @@ public class MysqlService {
         }
         boolean done =true;
         FileHandler fileHandler = new FileHandler(entityManager, nodeRecords[0].getResourceId());
-        for(int i=0; i< nodeRecords.length;i++){
-            boolean addRecord =addEntry(nodeRecords[i], fileHandler);
-            done = done&&addRecord;
+        for(int i = 0; i< nodeRecords.length; i++){
+            boolean addRecord = addEntry(nodeRecords[i], fileHandler);
+            done = done && addRecord;
         }
         fileHandler.printCounts();
         fileHandler.close();
@@ -59,7 +59,6 @@ public class MysqlService {
                     fileHandler.writeVernacularsToFile(nodeRecord, Integer.valueOf(nodeRecord.getGeneratedNodeId()));
                 if(nodeRecord.getMedia() != null)
                     fileHandler.writeMediaToFile(nodeRecord);
-
             }
             return true;
         }catch(Exception e){

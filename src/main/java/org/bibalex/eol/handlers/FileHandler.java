@@ -69,7 +69,7 @@ public class FileHandler {
             String date = DateHelper.getDate();
             nodes.write(resourceID + "\t" + taxon.getScientificName() + "\t" + globalNamesHandler.getCanonicalForm(taxon.getScientificName()) +
                     "\t" + Integer.valueOf(tableRecord.getGeneratedNodeId()) + "\t" + taxon.getIdentifier() + "\t" + date + "\t" + date +
-                    "\t" + tableRecord.getTaxon().getTaxonRank() + "\n");//appends the string to the file
+                    "\t" + tableRecord.getTaxon().getTaxonRank() + "\t" + tableRecord.getTaxon().getLandmark() + "\n");//appends the string to the file
             nodes_count++;
 
         } catch (IOException ioe) {

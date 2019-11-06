@@ -60,7 +60,7 @@ public class MysqlHandler {
         ArrayList<MysqlNode> nodes = new ArrayList<>();
         while (it.hasNext()) {
             Object[] line = (Object[]) it.next();
-            MysqlNode node = new MysqlNode((BigInteger) line[0], (Integer) line[1], (String) line[2], (String) line[3], (Integer) line[4], (String) line[5], (Integer) line[6], (BigInteger) line[7]);
+            MysqlNode node = new MysqlNode((BigInteger) line[0], (Integer) line[1], (String) line[2], (String) line[3], (Integer) line[4], (String) line[5], (Integer) line[6], (BigInteger) line[7], (Integer) line[8]);
             nodes.add(node);
         }
 
@@ -501,7 +501,7 @@ public class MysqlHandler {
 
             Query query = entityManager.createNativeQuery("LOAD DATA INFILE '" + PropertiesHandler.getProperty("mysqlFiles") + "nodes.txt" +
                     "'ignore into table nodes FIELDS TERMINATED BY '\t' LINES TERMINATED BY '\n'" +
-                    "(resource_id,scientific_name,canonical_form,generated_node_id,resource_pk,created_at,updated_at,@column10)" +
+                    "(resource_id, scientific_name, canonical_form, generated_node_id, resource_pk, created_at, updated_at, @column10, landmark)" +
                     "set rank_id = (SELECT id FROM ranks WHERE name = @column10);");
             query.executeUpdate();
 
