@@ -1,6 +1,7 @@
 package org.bibalex.eol.mysqlModels;
 
 import java.io.Serializable;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class MysqlData implements Serializable{
@@ -14,11 +15,16 @@ public class MysqlData implements Serializable{
     ArrayList<MysqlLicense> licenses;
     ArrayList<MysqlLocation> locations;
     ArrayList<MysqlMedium> media;
+    ArrayList<MysqlArticle> articles;
     ArrayList<MysqlPageContent> page_contents;
     ArrayList<MysqlAgent> attributions;
     ArrayList<MysqlReferent> referents;
     ArrayList<MysqlReference> references;
-
+    ArrayList<MysqlTrait> traits;
+    ArrayList<MysqlTaxon> taxa;
+//    String occurrences;
+//    String associations;
+//    String measurementOrFacts;
     public MysqlData (){
 
     }
@@ -94,6 +100,14 @@ public class MysqlData implements Serializable{
         this.media = media;
     }
 
+    public ArrayList<MysqlArticle> getArticles() {
+        return articles;
+    }
+
+    public void setArticles(ArrayList<MysqlArticle> articles) {
+        this.articles = articles;
+    }
+
     public ArrayList<MysqlPageContent> getPage_contents() {
         return page_contents;
     }
@@ -134,4 +148,44 @@ public class MysqlData implements Serializable{
     public ArrayList<MysqlNode> getNodes() {
         return nodes;
     }
+
+    public ArrayList<MysqlTrait> getTraits() {
+        return traits;
+    }
+
+    public void setTraits(ArrayList<MysqlTrait> traits) {
+        this.traits = traits;
+    }
+    public void setTaxa(ArrayList<MysqlTaxon> taxa){
+        this.taxa = taxa;
+    }
+
+    public ArrayList<MysqlTaxon> getTaxa() {
+        return taxa;
+    }
+
+    //    public void setOccurrences(String occurrences) {
+//        this.occurrences = occurrences;
+//    }
+//
+//    public void setAssociations(String associations) {
+//        this.associations = associations;
+//    }
+//
+//    public void setMeasurementOrFacts(String measurementOrFacts) {
+//        this.measurementOrFacts = measurementOrFacts;
+//    }
+//
+//    public String getOccurrences() {
+//        return occurrences;
+//    }
+//
+//    public String getAssociations() {
+//        return associations;
+//    }
+//
+//    public String getMeasurementOrFacts() {
+//        return measurementOrFacts;
+//    }
+
 }

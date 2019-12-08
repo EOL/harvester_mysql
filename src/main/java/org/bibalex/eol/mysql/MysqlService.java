@@ -1,19 +1,18 @@
 package org.bibalex.eol.mysql;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonParser;
-import com.google.gson.JsonObject;
+import org.bibalex.eol.handlers.FileHandler;
 import org.bibalex.eol.handlers.MysqlHandler;
 import org.bibalex.eol.handlers.PropertiesHandler;
 import org.bibalex.eol.models.NodeRecord;
+import org.bibalex.eol.models.Occurrence;
 import org.bibalex.eol.mysqlModels.MysqlData;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
 
 @Service
@@ -22,25 +21,48 @@ public class MysqlService {
     @PersistenceContext
     private EntityManager entityManager;
 
-    public boolean addEntry(NodeRecord nodeRecord) {
-        try{
+    @Transactional
+    public boolean addEntries(NodeRecord[] nodeRecords) {
+        try {
             PropertiesHandler.initializeProperties();
-            MysqlHandler mysqlHandler = new MysqlHandler(entityManager, nodeRecord.getResourceId());
-            int rank_id = mysqlHandler.insertRankToMysql(nodeRecord);
-            int node_id = mysqlHandler.insertNodeToMysql(nodeRecord, rank_id);
-            if(nodeRecord.getTaxon().getPageEolId() != null|| nodeRecord.getTaxon().getPageEolId()!= "0"){
 
-                mysqlHandler.insertPageToMysql(nodeRecord, node_id);
-                mysqlHandler.insertPagesNodesToMysql(node_id, Integer.valueOf(nodeRecord.getTaxon().getPageEolId()));
-                mysqlHandler.insertScientificNameToMysql(nodeRecord, node_id);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        boolean done =true;
+        FileHandler fileHandler = new FileHandler(entityManager, nodeRecords[0].getResourceId());
+        for(int i=0; i< nodeRecords.length;i++){
+            boolean addRecord =addEntry(nodeRecords[i], fileHandler);
+            done = done&&addRecord;
+        }
+        fileHandler.printCounts();
+        fileHandler.close();
+        MysqlHandler mysqlHandler = new MysqlHandler(entityManager);
+        loadFilesToMysql();
+        mysqlHandler.updateHarvestTime();
+
+        return done;
+    }
+
+    public boolean addEntry(NodeRecord nodeRecord, FileHandler fileHandler) {
+        try{
+            fileHandler.writeRankToFile(nodeRecord);
+            fileHandler.writeNodeToMysql(nodeRecord);
+            if(nodeRecord.getTaxon().getPageEolId() != null && nodeRecord.getTaxon().getPageEolId()!= "0" ){
+
+
+                fileHandler.writePageToFile(nodeRecord);
+                fileHandler.writePagesNodesToFile(Integer.valueOf(nodeRecord.getGeneratedNodeId()), Integer.valueOf(nodeRecord.getTaxon().getPageEolId()));
+                fileHandler.writeScientificNameToFile(nodeRecord, Integer.valueOf(nodeRecord.getGeneratedNodeId()));
+                fileHandler.writeTraitsToFile(nodeRecord, Integer.valueOf(nodeRecord.getGeneratedNodeId()));
+                fileHandler.writeTaxonToFile(nodeRecord);
 
                 if(nodeRecord.getVernaculars()!= null)
-                    mysqlHandler.insertVernacularsToMysql(nodeRecord, node_id);
+                    fileHandler.writeVernacularsToFile(nodeRecord, Integer.valueOf(nodeRecord.getGeneratedNodeId()));
                 if(nodeRecord.getMedia() != null)
-                    mysqlHandler.insertMediaToMysql(nodeRecord);
+                    fileHandler.writeMediaToFile(nodeRecord);
 
             }
-            mysqlHandler.updateHarvestTime();
             return true;
         }catch(Exception e){
             e.printStackTrace();
@@ -62,10 +84,13 @@ public class MysqlService {
         mysqlData.setLicenses(mysqlHandler.getLicenses(startDate, endDate));
         mysqlData.setLocations(mysqlHandler.getLocations(startDate, endDate));
         mysqlData.setMedia(mysqlHandler.getMedia(startDate, endDate));
+        mysqlData.setArticles(mysqlHandler.getArticles(startDate, endDate));
         mysqlData.setPage_contents(mysqlHandler.getPageContents(startDate, endDate));
         mysqlData.setAttributions(mysqlHandler.getAgents(startDate, endDate));
         mysqlData.setReferents(mysqlHandler.getReferents(startDate, endDate));
         mysqlData.setReferences(mysqlHandler.getReferences(startDate, endDate));
+        mysqlData.setTraits(mysqlHandler.getTraits(startDate, endDate));
+        mysqlData.setTaxa(mysqlHandler.getTaxa(startDate, endDate));
 
         return mysqlData;
     }
@@ -75,4 +100,49 @@ public class MysqlService {
         Date endTime = mysqlHandler.getEndTime();
         return endTime;
     }
+
+    public ArrayList<String> getStartAndEndTimes(Date date){
+        MysqlHandler mysqlHandler = new MysqlHandler(entityManager);
+        ArrayList<String> startAndEndTimes = mysqlHandler.getStartAndEndTimes(date);
+        return startAndEndTimes;
+    }
+
+    public boolean loadFilesToMysql() {
+        try {
+            PropertiesHandler.initializeProperties();
+            MysqlHandler mysqlHandler=new MysqlHandler(entityManager);
+            mysqlHandler.loadRanks();
+            mysqlHandler.loadNodes();
+            mysqlHandler.loadPages();
+            mysqlHandler.loadPagesNodes();
+            mysqlHandler.loadScientificNames();
+            mysqlHandler.loadLanguages();
+            mysqlHandler.loadVernaculars();
+            mysqlHandler.loadLicenses();
+            mysqlHandler.loadLocations();
+            mysqlHandler.loadMedia();
+            mysqlHandler.loadArticles();
+            mysqlHandler.loadPageContents();
+            mysqlHandler.loadAgents();
+            mysqlHandler.loadReferents();
+            mysqlHandler.loadReferences();
+            mysqlHandler.loadTraits();
+            mysqlHandler.loadTaxa();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return true;
+    }
+
+    public boolean addStartTimeOfResource(){
+        MysqlHandler mysqlHandler=new MysqlHandler(entityManager);
+        return mysqlHandler.addStartTimeOfResource();
+    }
+
+    public boolean addEndTimeOfResource(){
+        MysqlHandler mysqlHandler=new MysqlHandler(entityManager);
+        return mysqlHandler.addEndTimeOfResource();
+    }
+
 }

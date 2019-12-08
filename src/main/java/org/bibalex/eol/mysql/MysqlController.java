@@ -1,5 +1,6 @@
 package org.bibalex.eol.mysql;
 
+import org.bibalex.eol.helpers.DateHelper;
 import org.bibalex.eol.models.NodeRecord;
 import org.bibalex.eol.mysqlModels.MysqlData;
 import org.json.simple.JSONArray;
@@ -24,26 +25,21 @@ public class MysqlController {
     @Autowired
     private MysqlService mysqlService;
 
-    @RequestMapping(value= "/addEntry", method = RequestMethod.POST, consumes = "application/json")
-    public boolean addEntry(@RequestBody NodeRecord nodeRecord){
-        return mysqlService.addEntry(nodeRecord);
+    @RequestMapping(value= "/addEntries", method = RequestMethod.POST, consumes = "application/json")
+    public boolean addEntries(@RequestBody NodeRecord [] nodeRecords){
+        return mysqlService.addEntries(nodeRecords);
+    }
+
+    @RequestMapping(value= "/loadFilesToMysql", method = RequestMethod.POST)
+    public boolean loadFilesToMysql(){
+        return mysqlService.loadFilesToMysql();
     }
 
     @RequestMapping(value ="/getLatestUpdates/{startDate}/{endDate}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<MysqlData> getLatestUpdates(@PathVariable("startDate") String startDate, @PathVariable("endDate") String endDate){
-        long startMilliSeconds = Long.valueOf(startDate);
-        long endMilliSeconds = Long.valueOf(endDate);
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        Date resultStartDate = new Date(startMilliSeconds);
-        Date resultEndDate = new Date(endMilliSeconds);
-        Date start =null, end=null;
-        try {
-            start = sdf.parse(sdf.format(resultStartDate));
-            end = sdf.parse(sdf.format(resultEndDate));
-            System.out.println(end);
-        } catch (java.text.ParseException e) {
-            e.printStackTrace();
-        }
+
+        Date start = DateHelper.convertFromMillisecondsToDate(startDate);
+        Date end = DateHelper.convertFromMillisecondsToDate(endDate);
 
         MysqlData mysqlData = mysqlService.getLatestUpdates(start, end);
         List<MysqlData> data = new ArrayList<>();
@@ -56,4 +52,21 @@ public class MysqlController {
     public Date getEndTime(){
         return mysqlService.getEndTime();
     }
+
+    @RequestMapping(value ="/getStartAndEndTimes/{startDate}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ArrayList<String> getStartAndEndTimes(@PathVariable("startDate") String startDate){
+        Date date = DateHelper.convertFromMillisecondsToDate(startDate);
+        return mysqlService.getStartAndEndTimes(date);
+    }
+
+    @RequestMapping(value= "/addStartTimeOfResource", method = RequestMethod.POST)
+    public boolean addStartTimeOfResource(){
+        return mysqlService.addStartTimeOfResource();
+    }
+
+    @RequestMapping(value= "/addEndTimeOfResource", method = RequestMethod.POST)
+    public boolean addEndTimeOfResource(){
+        return mysqlService.addEndTimeOfResource();
+    }
+
 }
