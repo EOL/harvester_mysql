@@ -10,7 +10,6 @@ public class AncestorNode implements Serializable {
     String rank;
     String scientificName;
 
-
     public String getRank() {
         return rank;
     }
